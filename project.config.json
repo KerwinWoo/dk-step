@@ -1,0 +1,62 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"autoAudits": false
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.0.8",
+	"appid": "wx4a1124894989c91f",
+	"projectname": "dkstep",
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 2,
+			"list": [
+				{
+					"id": 0,
+					"name": "buyou",
+					"pathName": "pages/buyou/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 1,
+					"name": "mall",
+					"pathName": "pages/mall/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "me",
+					"pathName": "pages/me/index",
+					"query": "",
+					"scene": null
+				}
+			]
+		}
+	}
+}

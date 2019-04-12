@@ -1,0 +1,10 @@
+{
+  "navigationBarBackgroundColor": "#E0EFF5",
+  "navigationBarTextStyle": "black",
+  "backgroundColor":"#333333",
+  "usingComponents": {
+    "image-loader": "/components/image-loader/image-loader",
+    "refresh-view": "/components/RefreshView/refresh-view",
+    "dk-switch": "/components/dk-switch/dk-switch"
+  }
+}

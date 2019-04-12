@@ -1,0 +1,139 @@
+<!--pages/buyou/buyou.wxml-->
+<refresh-view id='refreshView' hasTop="true" backgroundColor="#f2f2f2" bind:onRefresh="onPullDownRefresh"/>
+<scroll-view class="container" bindtouchstart='handletouchstart' bindtouchmove='handletouchmove' bindtouchend='handletouchend' bindtouchcancel='handletouchcancel'>
+  <dk-nav title="步友广场" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+  <view class="wrapper">
+    <view class="w">
+      <view class="tptitle">
+        <view class="comtitle">热门话题</view>
+        <view class="message">
+          <image src="../../resources/image/message@2x.png"></image>
+          <text class="flag">12</text>
+        </view>
+      </view>
+      <view class="subtitle">加入话题，发现跟多有趣的人和物</view>
+      <scroll-view scroll-x>
+        <view class="topiclist clearfix" style="width:{{sliderWidth}}rpx">
+          <navigator class="itm" wx:for="{{topicList}}" wx:key="id" url="/pages/topic/topic?title={{item.name}}">
+            <text>{{item.name}}</text>
+            <image-loader original-image="{{item.photo}}" />
+          </navigator>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+  <view class="gap">
+    <view class="tablist clearfix{{(tablistFixed) ? ' fixed' : ''}}" id="tablist">
+      <view class="itm{{(topicType == 'recomment') ? ' active' : ''}}" data-type="recomment" bindtap="changeType">推荐</view>
+      <view class="itm{{(topicType == 'me') ? ' active' : ''}}" data-type="me" bindtap="changeType">关注</view>
+      <view class="tag{{(topicType == 'recomment') ? '' : ' gz'}}"></view>
+    </view>
+    <skeleton selector="skeleton-tab1" bgcolor="none" wx:if="{{showTab1Skeleton}}"></skeleton>
+    <skeleton selector="skeleton-tab2" bgcolor="none" wx:if="{{showTab2Skeleton}}"></skeleton>
+    <view class="tabContent">
+      <view class="topiccontentlist skeleton-tab1" wx:if="{{(topicType == 'recomment')}}">
+        <view class="itm" wx:for="{{topicDataList}}" wx:for-item="topic" wx:for-index="topicIndex" wx:key="{{id}}">
+          <image-loader class="photo skeleton-tab1-radius" original-image="{{topic.photo}}"></image-loader>
+          <view class="subscribe skeleton-tab1-rect"><image src="../../resources/image/guanzhu@2x.png"></image>关注</view>
+          <view class="name">
+            <text class="skeleton-tab1-rect">{{topic.name}}</text>
+          </view>
+          <view class="topictype skeleton-tab1-rect"><image src="../../resources/image/huati@2x.png"></image>{{topic.topicName}}</view>
+          <view class="content skeleton-tab1-rect">{{topic.content}}</view>
+          <view class="imgcont clearfix">
+            <view class="wrp" wx:for="{{topicDataList[topicIndex].imglist}}" wx:key="{{item}}">
+              <view class="subwrp">
+                <image-loader 
+                  original-image="{{item}}" 
+                  mode="aspectFill"
+                  bindtap="previewTopicImg"
+                  data-parentIndex="{{topicIndex}}"
+                  data-current="{{item}}"></image-loader>
+                </view>
+            </view>
+          </view>
+          <view class="addrs skeleton-tab1-rect">
+            <image src="../../resources/image/dibiao@2x.png"></image>
+            <text>{{topic.addr}}</text>
+            <text class="point"></text>
+            <text>{{topic.time}}</text>
+          </view>
+          <view class="opers skeleton-tab1-rect">
+            <view class="itm" bindtap="giveEgg" data-parentindex="{{topicIndex}}">
+              <image wx:if="{{!topic.giveEgg}}" src="../../resources/image/dashang-bef@2x.png"></image>
+              <image wx:if="{{topic.giveEgg}}" src="../../resources/image/dashang-aft.png"></image>
+              <text class="num">{{topic.egg}}</text>
+            </view>
+            <view class="itm">
+              <image src="../../resources/image/pinglun@2x.png"></image>
+              <text class="num">{{topic.comment}}</text>
+            </view>
+            <view class="itm">
+              <image src="../../resources/image/fenxiang@2x.png"></image>
+              <text class="num">{{topic.share}}</text>
+            </view>
+            <view class="itm">
+              <image src="../../resources/image/shoucang-bef@2x.png"></image>
+              <text class="num">{{topic.collect}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      
+      <view class="topiccontentlist skeleton-tab2" wx:if="{{(topicType == 'me')}}">
+        <view class="itm" wx:for="{{topicDataList_ME}}" wx:for-item="topic" wx:for-index="topicIndex" wx:key="{{id}}">
+          <image-loader class="photo skeleton-tab2-radius" original-image="{{topic.photo}}"></image-loader>
+          <view class="subscribe skeleton-tab2-rect"><image src="../../resources/image/guanzhu@2x.png"></image>关注</view>
+          <view class="name">
+            <text class="skeleton-tab2-rect">{{topic.name}}</text>
+          </view>
+          <view class="topictype skeleton-tab2-rect"><image src="../../resources/image/huati@2x.png"></image>{{topic.topicName}}</view>
+          <view class="content skeleton-tab2-rect">{{topic.content}}</view>
+          <view class="imgcont clearfix">
+            <view class="wrp" wx:for="{{topicDataList_ME[topicIndex].imglist}}" wx:key="{{item}}">
+              <view class="subwrp">
+                <image-loader 
+                  original-image="{{item}}" 
+                  mode="aspectFill"
+                  bindtap="previewTopicImg"
+                  data-parentIndex="{{topicIndex}}"
+                  data-current="{{item}}"></image-loader>
+                </view>
+            </view>
+          </view>
+          <view class="addrs skeleton-tab2-rect">
+            <image src="../../resources/image/dibiao@2x.png"></image>
+            <text>{{topic.addr}}</text>
+            <text class="point"></text>
+            <text>{{topic.time}}</text>
+          </view>
+          <view class="opers skeleton-tab2-rect">
+            <view class="itm" bindtap="giveEgg" data-parentindex="{{topicIndex}}">
+              <image wx:if="{{!topic.giveEgg}}" src="../../resources/image/dashang-bef@2x.png"></image>
+              <image wx:if="{{topic.giveEgg}}" src="../../resources/image/dashang-aft.png"></image>
+              <text class="num">{{topic.egg}}</text>
+            </view>
+            <view class="itm">
+              <image src="../../resources/image/pinglun@2x.png"></image>
+              <text class="num">{{topic.comment}}</text>
+            </view>
+            <view class="itm">
+              <image src="../../resources/image/fenxiang@2x.png"></image>
+              <text class="num">{{topic.share}}</text>
+            </view>
+            <view class="itm">
+              <image src="../../resources/image/shoucang-bef@2x.png"></image>
+              <text class="num">{{topic.collect}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+  </view>
+  <view class="releaseBtn">
+    <image src="../../resources/image/fabu@2x.png"></image>
+    <text>发布</text>
+  </view>
+  <dk-toast id="toast" duration="3000"></dk-toast>
+</scroll-view>

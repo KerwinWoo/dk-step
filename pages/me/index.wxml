@@ -1,0 +1,132 @@
+<!--pages/me/index.wxml-->
+<view class="container" bindtouchstart='handletouchstart' bindtouchmove='handletouchmove' bindtouchend='handletouchend' bindtouchcancel='handletouchcancel'>
+  <dk-nav title="我的" hasBackBtn="{{true}}" isFixed="{{true}}" theme="white" bgColor="#FF8E00"></dk-nav>
+  <view class="tp">
+    <view class="content">
+      <view class="wrp">
+        <view class="photo">
+          <image mode="aspectFill" src="../../resources/image/1.jpg"></image>
+        </view>
+        <view class="info">
+          <view class="name">
+            <text>小橘子</text>
+            <text class="updateBtn">更新资料</text>
+          </view>
+          <view class="otr">
+            <text>ID : </text>
+            <text>12322323</text>
+            <text class="line"></text>
+            <text>邀请人 : </text>
+            <text>小李</text>
+          </view>
+        </view>
+      </view>
+      <view class="personalPage">个人主页</view>
+    </view>
+    <view class="summary">
+      <view class="wrp">
+        <view class="itm">
+          <view class="num">15</view>
+          <view class="name">关注</view>
+        </view>
+        <view class="itm">
+          <view class="num">15</view>
+          <view class="name">粉丝</view>
+        </view>
+        <view class="itm">
+          <view class="num">15</view>
+          <view class="name">获赏</view>
+        </view>
+        <view class="itm">
+          <view class="num">15</view>
+          <view class="name">发帖</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="ordercont">
+    <view class="comtitle">我的订单</view>
+    <view class="row">
+      <view class="itm">
+        <view class="imgCont">
+          <image src="../../resources/image/ordericn_dfk.png"></image>
+        </view>
+        <view class="title">待付款</view>
+      </view>
+      <view class="itm">
+        <view class="imgCont">
+          <image src="../../resources/image/ordericn_dfh.png"></image>
+        </view>
+        <view class="title">待发货</view>
+      </view>
+      <view class="itm">
+        <view class="imgCont">
+          <image src="../../resources/image/ordericn_dsh.png"></image>
+        </view>
+        <view class="title">待收货</view>
+      </view>
+      <view class="itm">
+        <view class="imgCont">
+          <image src="../../resources/image/ordericn_sh.png"></image>
+        </view>
+        <view class="title">退换/售后</view>
+      </view>
+    </view>
+  </view>
+  
+  <view class="ordercont servcont">
+    <view class="comtitle">更多服务</view>
+    <view class="row">
+      <view class="itm">
+        <view class="imgCont">
+          <image src="../../resources/image/sevicn_xinyuan.png"></image>
+        </view>
+        <view class="title">心愿清单</view>
+      </view>
+      <view class="itm">
+        <view class="imgCont">
+          <image src="../../resources/image/sevicn_xiaoxi.png"></image>
+        </view>
+        <view class="title">消息通知</view>
+      </view>
+      <view class="itm">
+        <view class="imgCont">
+          <image src="../../resources/image/sevicn_choujiang.png"></image>
+        </view>
+        <view class="title">抽奖记录</view>
+      </view>
+      <view class="itm">
+        <view class="imgCont">
+          <image src="../../resources/image/sevicn_dizhi.png"></image>
+        </view>
+        <view class="title">地址管理</view>
+      </view>
+    </view>
+    <view class="row">
+      <view class="itm">
+        <view class="imgCont">
+          <image src="../../resources/image/sevicn_kefu.png"></image>
+        </view>
+        <view class="title">联系客服</view>
+      </view>
+      <view class="itm">
+        <view class="imgCont">
+          <image src="../../resources/image/sevicn_yijian.png"></image>
+        </view>
+        <view class="title">意见反馈</view>
+      </view>
+      <view class="itm">
+        <view class="imgCont">
+          <image src="../../resources/image/sevicn_lianxi.png"></image>
+        </view>
+        <view class="title">联系我们</view>
+      </view>
+      <view class="itm">
+        <view class="imgCont">
+          <image src="../../resources/image/sevicn_wenti.png"></image>
+        </view>
+        <view class="title">常见问题</view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,8 @@
+<!--pages/me/friend/friend.wxml-->
+<skeleton selector="skeleton" bgcolor="#fff" wx:if="{{showSkeleton}}"></skeleton>
+<view class="container skeleton">
+  <view class="friend" wx:for="{{friendList}}" wx:key="{{id}}">
+    <view class="photo"><image src="{{item.photo}}" class="skeleton-radius"></image></view>
+    <view class="name skeleton-rect">{{item.name}}</view>
+  </view>
+</view>

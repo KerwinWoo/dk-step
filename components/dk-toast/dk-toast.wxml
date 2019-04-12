@@ -1,0 +1,4 @@
+<!--components/dk-toast/dk-toast.wxml-->
+<view class='dk-toast-box' animation="{{animationData}}">
+  <view class='dk-toast-content'>{{ content }}</view>
+</view>

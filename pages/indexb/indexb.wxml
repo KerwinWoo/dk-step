@@ -1,0 +1,184 @@
+<!--index.wxml-->
+<refresh-view id='refreshView' backgroundColor="#f2f2f2" bind:onRefresh="onPullDownRefresh"/>
+<view class="container" bindtouchstart='handletouchstart' bindtouchmove='handletouchmove' bindtouchend='handletouchend' bindtouchcancel='handletouchcancel'>
+  <view class="stepcont">
+    <view class="rule">查看规则</view>
+    <view class="w">
+    <view class="t">
+      <view>
+          <image src="../../resources/imagebk/i-egg.png"></image>
+          <text>我的蛋壳</text>
+        </view>
+        <view>
+          <image src="../../resources/imagebk/i-calorie.png"></image>
+          <text>卡路里日记</text>
+        </view>
+      </view>
+      <view class="steps">
+        <view class="mstep" id="mstep">
+          <image src="../../resources/image/ball-b@2x.png"></image>
+          <view class="textcont">
+            <view class="title">今日步数</view>
+            <view class="num">{{userStep}}</view>
+            <view class="exchange">点击兑换</view>
+          </view>
+        </view>
+        <view class="sstep" wx:for="{{ssteps}}" wx:key="{{id}}" style="left:{{item.style.left}}rpx;top:{{item.style.top}}rpx;right:{{item.style.right}}rpx;" data-id="{{item.id}}" data-step="{{item.value}}" animation="{{item.animation}}" bindtap="pickStep">
+          <image src="../../resources/image/ball-s@2x.png"></image>
+          <text>{{item.value}}</text>
+          <view>{{item.name}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="invitecont">
+      <view class="inviteBtn">邀请好友永久加成</view>
+      <view class="tip">
+        <text>每邀请一个好友，额外活得好友10%蛋壳加成</text>
+      </view>
+    </view>
+  </view>
+  
+  <view class="w bgwhite">
+    <view class="menulist">
+      <view class="itm">
+        <view><image src="../../resources/imagebk/icon01@2x.png"></image></view>
+        <view>幸运转盘</view>
+      </view>
+      <view class="itm">
+        <view><image src="../../resources/imagebk/icon02@2x.png"></image></view>
+        <view>领取任务</view>
+      </view>
+      <view class="itm">
+        <view><image src="../../resources/imagebk/icon03@2x.png"></image></view>
+        <view>好友加成</view>
+      </view>
+      <view class="itm">
+        <view><image src="../../resources/imagebk/icon04@2x.png"></image></view>
+        <view>好友列表</view>
+      </view>
+    </view>
+    <view class="activlsit clearfix">
+      <view class="itm">
+        <view class="wrp">
+          <view class="title">步友广场</view>
+          <view class="subtitle">亲朋好友一起赢</view>
+          <image src="../../resources/image/rman@2x.png"></image>
+        </view>
+      </view>
+      <view class="itm">
+        <view class="wrp">
+          <view class="title">挑战赛</view>
+          <view class="subtitle">亲朋好友一起赢</view>
+          <image src="../../resources/image/cup@2x.png"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <view class="hb">
+    <view class="w">
+      <view class="comtitle comtitle_F">
+        <text>设置红包提醒</text>
+        <view class="switch-cont">
+          <dk-switch style="display: inline-block;" status="{{settingStatus}}" bindtap="switchTap"></dk-switch>
+        </view>
+      </view>
+      <swiper>
+        <block wx:for="{{imgUrls}}" wx:key="{{id}}">
+          <swiper-item>
+            <image src="{{item.url}}" class="slide-image"/>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+  </view>
+  <view class="section">
+    <view class="w">
+      <view class="comtitle comtitle_F">
+        <text>新人专区</text>
+      </view>
+      <view class="goodlist clearfix">
+        <view class="itm" wx:for="{{itemsNew}}" wx:key="{{id}}">
+          <view class="wrp">
+            <view class="imgcont">
+              <image src="../../image/test.jpg"></image>
+            </view>
+            <view class="content">
+              <view class="name">{{item.name}}</view>
+              <view class="info">
+                <view class="l">
+                  <image src="../../resources/image/i-egg.png"></image>
+                  <text class="num">{{item.egg}}</text>
+                </view>
+                <view class="r">
+                  已兑换<text>{{item.person}}</text>人
+                </view>
+              </view>
+              <view class="exchange">免费兑换</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="section">
+    <view class="w">
+      <view class="comtitle comtitle_F">
+        <text>邀请专区</text>
+        <image class="more" src="../../resources/image/more.png"></image>
+      </view>
+      <view class="goodlist clearfix">
+        <view class="itm" wx:for="{{itemsNew}}" wx:key="{{id}}">
+          <view class="wrp">
+            <view class="imgcont">
+              <image src="../../image/test.jpg"></image>
+            </view>
+            <view class="content">
+              <view class="name">{{item.name}}</view>
+              <view class="info">
+                <view class="l">
+                  <image src="../../resources/image/i-egg.png"></image>
+                  <text class="num">{{item.egg}}</text>
+                </view>
+                <view class="r">
+                  已兑换<text>{{item.person}}</text>人
+                </view>
+              </view>
+              <view class="exchange">免费兑换</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="section" style="padding-bottom:20rpx;">
+    <view class="w">
+      <view class="comtitle comtitle_F">
+        <text>超值专区</text>
+        <image class="more" src="../../resources/image/more.png"></image>
+      </view>
+      <view class="goodlist clearfix">
+        <view class="itm" wx:for="{{itemsNew}}" wx:key="{{id}}">
+          <view class="wrp">
+            <view class="imgcont">
+              <image src="../../image/test.jpg"></image>
+            </view>
+            <view class="content">
+              <view class="name">{{item.name}}</view>
+              <view class="info">
+                <view class="l">
+                  <image src="../../resources/image/i-egg.png"></image>
+                  <text class="num">{{item.egg}}</text>
+                </view>
+                <view class="r">
+                  已兑换<text>{{item.person}}</text>人
+                </view>
+              </view>
+              <view class="exchange">免费兑换</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

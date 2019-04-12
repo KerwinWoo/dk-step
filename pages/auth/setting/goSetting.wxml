@@ -1,0 +1,2 @@
+<!--pages/auth/setting/goSetting.wxml-->
+<button open-type="openSetting" bindopensetting="callback">打开设置页</button>

@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "dk-nav": "/components/dk-navigation/dk-nav",
+    "image-loader": "/components/dk-image-loader/image-loader",
+    "refresh-view": "/components/RefreshView/refresh-view",
+    "skeleton": "/components/dk-skeleton/skeleton"
+  }
+}

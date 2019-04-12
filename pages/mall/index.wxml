@@ -1,0 +1,38 @@
+<!--pages/mall/index.wxml-->
+<refresh-view id='refreshView' hasTop="true" backgroundColor="#f2f2f2" bind:onRefresh="onPullDownRefresh"/>
+<scroll-view class="container" bindtouchstart='handletouchstart' bindtouchmove='handletouchmove' bindtouchend='handletouchend' bindtouchcancel='handletouchcancel'>
+  <dk-nav title="兑换商城" hasBackBtn="{{true}}" isFixed="{{true}}"></dk-nav>
+  <scroll-view scroll-x class="fixedNav">
+    <view class="navbar" style="width:{{navbarWidth}}rpx">
+      <view wx:for="{{goodsTypeData}}"
+            wx:key="{{item.id}}"
+            data-id="{{item.id}}"
+            class="itm{{(currentType == item.id) ? ' active' : ''}}"
+            bindtap="changeType">{{item.name}}</view>
+    </view>
+  </scroll-view>
+  <view class="goodlist clearfix">
+    <view class="itm" wx:for="{{goodListData}}"
+          wx:key="{{id}}">
+      <view class="wrp">
+        <view class="photo">
+          <image-loader 
+            original-image="{{item.photo}}" 
+            mode="aspectFill">
+          </image-loader>
+        </view>
+        <view class="content">
+          <view class="name">{{item.name}}</view>
+          <view class="info">
+            <view class="l">
+              <image src="../../resources/image/i-egg.png"></image>
+              <text>{{item.dk}}</text>
+            </view>
+            <view  class="r">已兑换<text>{{item.person}}</text>人</view>
+          </view>
+          <view class="exchangeBtn">免费兑换</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>

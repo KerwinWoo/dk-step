@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "好友列表",
+  "usingComponents": {
+    "skeleton": "/components/skeleton/skeleton"
+  }
+}

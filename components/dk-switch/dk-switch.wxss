@@ -1,0 +1,34 @@
+/* components/dk-switch/dk-switch.wxss */
+.switchcont{
+  width:60rpx;
+  height:36rpx;
+  position:relative;
+  border:1px solid #333;
+  background:#fff;
+  border-radius:18rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  padding:0 10rpx;
+  transition:all .3s;
+}
+.switchcont .switch-btn{
+  width:22rpx;
+  height:22rpx;
+  border-radius: 50%;
+  transition:all .3s;
+}
+.switchcont.on{
+  justify-content: flex-start;
+}
+.switchcont.on .switch-btn{
+  background:#FB8B88;
+}
+.switchcont.off{
+  justify-content: flex-end;
+  border:1px solid #ddd;
+}
+.switchcont.off .switch-btn{
+  background:#ddd;
+}

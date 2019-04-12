@@ -1,0 +1,493 @@
+page{
+  background:#f2f2f2;
+}
+.stepcont{
+  height:449rpx;
+  position:relative;
+  box-sizing: border-box;
+  overflow:hidden;
+  background:#fff;
+}
+.stepcont>.bg{
+  width:100%;
+  height:100%;
+  position:absolute;
+  left:0;
+  top:0;
+}
+.stepcont .t{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding:20rpx 28rpx;
+  position:absolute;
+  width:100%;
+  left:0;
+  top:0;
+  box-sizing: border-box;
+}
+.stepcont .t image{
+  width:40rpx;
+  height:40rpx;
+  margin-right:3rpx;
+}
+.stepcont .t>view{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size:24rpx;
+}
+.stepcont .steps,.stepcont>.w{
+  height:100%;
+}
+.stepcont>.w{
+  position:relative;
+}
+.stepcont .steps{
+  box-sizing: border-box;
+  padding-top:129rpx;
+}
+.stepcont .mstep{
+  width:249rpx;
+  height:249rpx;
+  margin:0 auto;
+  position: relative;
+  color:#fff;
+  z-index: 10;
+}
+.stepcont .steps{
+  position:relative;
+}
+.stepcont .sstep{
+  width:101rpx;
+  height:101rpx;
+  position: absolute;
+  color:#FF7110;
+  line-height: 101rpx;
+  text-align: center;
+  z-index:9;
+  transition: all .8s;
+}
+.stepcont .sstep.withAnimation{
+  animation: ballShake 1.5s linear infinite;
+}
+.stepcont .sstep.close{
+  top:255rpx!important;
+  left:50%!important;
+  width:0;
+  height:0;
+  font-size:0;
+}
+.stepcont .sstep.close view{
+  font-size:0!important;
+}
+.stepcont .sstep view{
+  width:100%;
+  position:absolute;
+  left:0;
+  bottom:-26rpx;
+  line-height:30rpx;
+  font-size:16rpx;
+  text-align:center;
+  transition:all .8s;
+}
+.stepcont .mstep>image,.stepcont .sstep>image{
+  width:100%;
+  height:100%;
+  position: absolute;
+  left:0;
+  top:0;
+}
+.stepcont .sstep text{
+  display:inline-block;
+  width:100%;
+  height:100%;
+  position:absolute;
+  left:0;
+  top:0;
+}
+.stepcont .mstep .textcont{
+  left:0;
+  top:0;
+  width:249rpx;
+  height:249rpx;
+  position:absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size:24rpx;
+  align-items: center;
+}
+.stepcont .mstep .num{
+  font-size:58rpx;
+  padding:10rpx 0;
+}
+.invitecont{
+  width:100%;
+  text-align:center;
+  box-sizing:border-box;
+  background:#fff;
+}
+.invitecont .circle{
+  width:100%;
+  height:63rpx;
+}
+.invitecont .inviteBtn{
+  width:320rpx;
+  height:76rpx;
+  line-height:76rpx;
+  text-align: center;
+  color:#fff;
+  font-size:30rpx;
+  font-weight: bold;
+  background:linear-gradient(0deg,rgba(244,181,68,1) 0%,rgba(242,162,65,1) 100%);
+  box-shadow:0px 1rpx 24rpx 0px rgba(255,107,14,0.42);
+  border-radius:38rpx;
+  z-index: 2;
+  margin:0 auto;
+}
+button.inviteBtn::after{
+  border:none;
+}
+.invitecont .tip{
+  width:100%;
+  background:#fff;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  margin-top:30rpx;
+}
+.invitecont .tip text{
+  display: inline-block;
+  height:46rpx;
+  line-height: 46rpx;
+  background:#FFF4E3;
+  border-radius:5rpx;
+  color:#999999;
+  padding:0 32rpx;
+}
+
+.menulist{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width:100%;
+  padding:35rpx 0;
+  background:#fff;
+}
+.menulist image{
+  width:80rpx;
+  height:80rpx;
+}
+.menulist>.itm{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.menulist>.itm>view:nth-of-type(2){
+  font-weight:bold;
+  font-size: 26rpx;
+  margin-top:10rpx;
+}
+.activlsit>.itm{
+  width:50%;
+  float:left;
+  box-sizing: border-box;
+  padding:0 15rpx;
+  position: relative;
+}
+.activlsit>.itm:first-child{
+  padding-left:0;
+}
+.activlsit>.itm:first-child .wrp{
+  background:#FCF6F6;
+}
+.activlsit>.itm:last-child .wrp{
+  background:#FCF8ED;
+}
+.activlsit>.itm:last-child{
+  padding-right:0;
+}
+.activlsit>.itm:first-child image{
+  width:101rpx;
+  height:119rpx;
+  position: absolute;
+  right:0;
+  top:10rpx;
+}
+.activlsit>.itm:last-child image{
+  width:133rpx;
+  height:104rpx;
+  position: absolute;
+  right:0;
+  top:21rpx;
+}
+.activlsit>.itm .wrp{
+  width:100%;
+  background:#FCF8ED;
+  padding:40rpx 23rpx;
+  border-radius:10rpx;
+  box-sizing: border-box;
+}
+.activlsit>.itm .title{
+  font-size:26rpx;
+  font-weight: bold;
+  padding-bottom: 6rpx;
+}
+.activlsit>.itm .subtitle{
+  font-size:20rpx;
+}
+.activlsit>.itm:first-child image{
+  right:40rpx;
+}
+.activlsit>.itm:last-child image{
+  top:25rpx;
+}
+.comtitle{
+  font-size:36rpx;
+  font-weight:bold;
+  padding:30rpx 0 30rpx 10rpx;
+  position: relative;
+}
+.comtitle_F:before{
+  content: '';
+  display: inline-block;
+  width:4rpx;
+  height:24rpx;
+  background:#FB8B88;
+  position: absolute;
+  left:0;
+  top:50%;
+  margin-top:-12rpx;
+}
+.comtitle .more{
+  display: inline-block;
+  width:30rpx;
+  height:30rpx;
+  position: absolute;
+  right:0;
+  top:30rpx;
+}
+.comtitle_F.spe:before{
+  margin-top:3rpx;
+}
+.hb .wrp{
+  position: relative;
+  height:170rpx;
+  padding-bottom: 20rpx;
+}
+.hb image.bg{
+  width:100%;
+  height:170rpx;
+  position: absolute;
+  left:0;
+  top:0;
+  z-index: 1;
+}
+.hb image.kai{
+  width:100rpx;
+  height:100rpx;
+  position: absolute;
+  z-index: 4;
+  top:50%;
+  right:40rpx;
+  margin-top:-50rpx;
+  animation: kaiAnimation .8s linear infinite;
+}
+.hb .wrp>view{
+  width:100%;
+  height:100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 3;
+  color:#fff;
+  padding-left:110rpx;
+  padding-right:230rpx;
+  text-align: center;
+  box-sizing: border-box;
+  padding-top:20rpx;
+}
+.hb .wrp>view .title{
+  font-size:28rpx;
+  padding-top:10rpx;
+}
+.hb .wrp>view .subtitle{
+  font-size:24rpx;
+  color:rgba(255,255,255,.8);
+}
+.hb .money{
+  color:#F3C742;
+  padding:0 2rpx;
+}
+.ptb-0{
+  padding-bottom: 0;
+  margin-top:3rpx;
+}
+.section{
+  background:#fff;
+  margin-top:30rpx;
+  padding:0 30rpx 30rpx 30rpx;
+}
+.npdb{
+  padding-bottom: 0;
+}
+.goodlist{
+  padding:0;
+}
+.goodlist.goodlist_n .itm{
+  width:210rpx;
+  border-radius:10rpx;
+  padding:0 5rpx;
+  box-sizing: border-box;
+}
+.goodlist.goodlist_n .itm .wrp{
+  box-shadow:1px 1px 6rpx rgba(89,89,89,0.17), -1px 0 6rpx rgba(89,89,89,0.17);
+}
+.goodlist_n{
+  padding-left:6rpx;
+  padding-top:6rpx;
+}
+.goodlist.goodlist_n .exchangeBtn{
+  width:160rpx;
+  height:44rpx;
+  border:none;
+  border-radius:22rpx;
+  background:linear-gradient(0deg,rgba(244,181,68,1) 0%,rgba(242,162,65,1) 100%);
+  color:#fff;
+  line-height: 44rpx;
+  margin:0 auto;
+}
+.comtitle .switch-cont{
+  position:absolute;
+  right:0;
+  top:30rpx;
+  font-size:22rpx;
+  font-weight: 500;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.comtitle .switch-cont text{
+  margin-right:10rpx;
+}
+.getMore{
+  width:245rpx;
+  height:70rpx;
+  border:1rpx solid rgba(51,51,51,1);
+  border-radius:35rpx;
+  line-height: 70rpx;
+  text-align: center;
+  color:#333;
+  font-size:24rpx;
+  margin:0 auto;
+}
+.hongbao{
+  width:538rpx;
+  height:736rpx;
+  position:fixed;
+  left:50%;
+  top:50%;
+  margin-left:-269rpx;
+  margin-top:-368rpx;
+  z-index: 100000;
+}
+.hongbao image{
+  width:100%;
+  height:100%;
+}
+.hongbao .txtcont{
+  text-align: center;
+  color:#fff;
+  position:absolute;
+  left:0;
+  bottom:40rpx;
+  width:100%;
+  box-sizing: border-box;
+  padding:0 20rpx;
+}
+.hongbao .txtcont .money{
+  color:#FED634;
+  padding:0 5rpx;
+}
+.hongbao .txtcont .title{
+  font-size:50rpx;
+  font-weight: 700;
+}
+.hongbao .txtcont .subtitle{
+  font-size:30rpx;
+  font-weight: bold;
+  margin:60rpx 0 40rpx 0;
+}
+.hb_inviteBtn{
+  width:458rpx;
+  height:94rpx;
+  line-height: 94rpx;
+  font-size:36rpx;
+  font-weight:bold;
+  color:rgba(229,78,25,1);
+  position: relative;
+  margin:0 auto;
+  background:none;
+  border:0;
+}
+.hb_inviteBtn::after{ border: none; }
+.hb_inviteBtn image{
+  position: absolute;
+  left:0;
+  top:0;
+}
+.hb_inviteBtn text{
+  position:relative;
+}
+
+.hongbao .closeBtn{
+  position: absolute;
+  bottom:0;
+  width:200rpx;
+  left:50%;
+  margin-left:-100rpx;
+  text-align: center;
+  color:#fff;
+  height:40rpx;
+  line-height: 40rpx;
+  font-size:30rpx;
+  bottom:-80rpx;
+}
+
+/*swtich整体大小及背景色*/
+.wx-switch-input{
+    width:60rpx !important;
+    height:36rpx !important;
+    background: #FB8B88 !important;
+    border: #FB8B88 !important; /* 2018-07-18 重置开关边框颜色 */
+}
+/*白色样式（false的样式）*/
+.wx-switch-input::before{
+    width:60rpx !important;
+    height: 36rpx !important;
+}
+/*绿色样式（true的样式）*/
+.wx-switch-input::after{
+    width: 40rpx !important;
+    height: 36rpx !important;
+}
+
+/*开红包*/
+@keyframes kaiAnimation{
+  50%{transform: scale(1.1);}
+}
+/*小球抖动*/
+@keyframes ballShake{
+  50%{transform: translateY(6rpx);}
+}
+/*小球吸入*/
+@keyframes ballIn{
+  100%{transform: translateY(6rpx);}
+}

@@ -1,0 +1,66 @@
+<!--pages/buyou/buyou.wxml-->
+<refresh-view id='refreshView' hasTop="true" backgroundColor="#f2f2f2" bind:onRefresh="onPullDownRefresh"/>
+<scroll-view class="container" bindtouchstart='handletouchstart' bindtouchmove='handletouchmove' bindtouchend='handletouchend' bindtouchcancel='handletouchcancel'>
+  <view class="statusBar">
+    <image class="backBtn" src="../../resources/image/back@2x.png" bindtap="backTo"></image>
+    <text class="pageTitle">{{title}}</text>
+  </view>
+  <view class="banner">
+    <image src="../../image/topic01.jpg"></image>
+    <view class="topicName">{{title}}</view>
+  </view>
+  <view class="gap">
+    <skeleton selector="skeleton" bgcolor="none" wx:if="{{showSkeleton}}"></skeleton>
+    <view class="topiccontentlist skeleton">
+      <view class="itm" wx:for="{{topicDataList}}" wx:for-item="topic" wx:for-index="topicIndex" wx:key="{{id}}">
+        <image class="photo skeleton-radius" src="{{topic.photo}}"></image>
+        <view class="subscribe skeleton-rect"><image src="../../resources/image/guanzhu@2x.png"></image>关注</view>
+        <view class="name">
+          <text class="skeleton-rect">{{topic.name}}</text>
+        </view>
+        <view class="topictype skeleton-rect"><image src="../../resources/image/huati@2x.png"></image>{{topic.topicName}}</view>
+        <view class="content skeleton-rect">{{topic.content}}</view>
+        <view class="imgcont">
+          <image-loader 
+            wx:for="{{topicDataList[topicIndex].imglist}}" 
+            wx:key="{{item}}" 
+            original-image="{{item}}" 
+            mode="aspectFit"
+            bindtap="previewTopicImg"
+            data-parentIndex="{{topicIndex}}"
+            data-current="{{item}}"></image-loader>
+        </view>
+        <view class="addrs skeleton-rect">
+          <image src="../../resources/image/dibiao@2x.png"></image>
+          <text>{{topic.addr}}</text>
+          <text class="point"></text>
+          <text>{{topic.time}}</text>
+        </view>
+        <view class="opers skeleton-rect">
+          <view class="itm" bindtap="giveEgg" data-parentindex="{{topicIndex}}">
+            <image wx:if="{{!topic.giveEgg}}" src="../../resources/image/dashang-bef@2x.png"></image>
+            <image wx:if="{{topic.giveEgg}}" src="../../resources/image/dashang-aft.png"></image>
+            <text class="num">{{topic.egg}}</text>
+          </view>
+          <view class="itm">
+            <image src="../../resources/image/pinglun@2x.png"></image>
+            <text class="num">{{topic.comment}}</text>
+          </view>
+          <view class="itm">
+            <image src="../../resources/image/fenxiang@2x.png"></image>
+            <text class="num">{{topic.share}}</text>
+          </view>
+          <view class="itm">
+            <image src="../../resources/image/shoucang-bef@2x.png"></image>
+            <text class="num">{{topic.collect}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="releaseBtn">
+    <image src="../../resources/image/fabu@2x.png"></image>
+    <text>发布</text>
+  </view>
+  <dk-toast id="toast" duration="3000"></dk-toast>
+</scroll-view>

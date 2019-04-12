@@ -1,0 +1,57 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/indexb/indexb",
+    "pages/me/dk/dk",
+    "pages/calorie/diary/diary",
+    "pages/calorie/history/history",
+    "pages/rule/rule",
+    "pages/me/friend/friend",
+    "pages/auth/setting/goSetting",
+    "pages/me/me/me",
+    "pages/game/luckywheel/luckywheel",
+    "pages/task/task",
+    "pages/buyou/index",
+    "pages/topic/topic",
+    "pages/mall/index",
+    "pages/me/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarTitleText": "蛋壳步数换",
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "color": "#ccc",
+    "selectedColor": "#FF8E00",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "/resources/image/navicn_home_b@2x.png",
+        "selectedIconPath": "/resources/image/navicn_home_a@2x.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/buyou/index",
+        "iconPath": "/resources/image/navicn_buyou_b@2x.png",
+        "selectedIconPath": "/resources/image/navicn_buyou_a@2x.png",
+        "text": "步友广场"
+      },
+      {
+        "pagePath": "pages/mall/index",
+        "iconPath": "/resources/image/navicn_shop_b@2x.png",
+        "selectedIconPath": "/resources/image/navicn_shop_a@2x.png",
+        "text": "兑换商城"
+      },
+      {
+        "pagePath": "pages/me/index",
+        "iconPath": "/resources/image/navicn_me_b@2x.png",
+        "selectedIconPath": "/resources/image/navicn_me_a@2x.png",
+        "text": "我的"
+      }
+    ]
+  }
+}

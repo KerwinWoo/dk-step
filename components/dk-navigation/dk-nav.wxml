@@ -1,0 +1,8 @@
+<!--components/dk-navigation/dk-nav.wxml-->
+<view class="statusBar{{(isFixed) ? ' fixed' : ''}}" style="background-color: {{bgColor}};">
+  <image class="backBtn" 
+    wx:if="{{hasBackBtn}}" 
+    src="{{(theme == 'white') ? '../../resources/image/back_w@2x.png' : '../../resources/image/back@2x.png'}}" 
+    bindtap="backTo"></image>
+  <text class="pageTitle" style="color:{{theme}}">{{title}}</text>
+</view>

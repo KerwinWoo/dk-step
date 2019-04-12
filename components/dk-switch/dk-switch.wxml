@@ -1,0 +1,4 @@
+<!--components/dk-switch/dk-switch.wxml-->
+<view class="switchcont {{status}}">
+  <view class="switch-btn" status="{{status}}"></view>
+</view>

@@ -1,0 +1,207 @@
+<!--index.wxml-->
+<refresh-view id='refreshView' hasTop="true" backgroundColor="#f2f2f2" bind:onRefresh="onPullDownRefresh"/>
+<scroll-view class="container" bindtouchstart='handletouchstart' bindtouchmove='handletouchmove' bindtouchend='handletouchend' bindtouchcancel='handletouchcancel'>
+  <view class="stepcont">
+    <dk-nav title="蛋壳步数换" hasBackBtn="{{false}}" isFixed="{{true}}"></dk-nav>
+    <view class="w">
+      <view class="t">
+        <view>
+          <image src="../../resources/image/i-egg.png"></image>
+          <text>99.73</text>
+        </view>
+        <view>
+          <image src="../../resources/image/i-calorie.png"></image>
+          <text>卡路里日记</text>
+        </view>
+      </view>
+      <view class="steps">
+        <view class="mstep" id="mstep">
+          <image src="../../resources/image/ball-b@2x.png"></image>
+          <view class="textcont">
+            <view class="title">今日步数</view>
+            <view class="num">{{userStep}}</view>
+            <view class="exchange">点击兑换</view>
+          </view>
+        </view>
+        <view wx:for="{{ssteps}}" 
+          wx:key="{{id}}" 
+          class="{{item.statusCls}}" 
+          style="color:{{(item.type == 1) ? '#FF2467' : '#FF7110'}};animation-delay:{{item.style.animationDelay}};left:{{item.style.left}}rpx;top:{{item.style.top}}rpx;" 
+          data-id="{{item.id}}" 
+          data-step="{{item.value}}" 
+          bindtap="pickStep">
+          <image src="{{(item.type == 1) ? '../../resources/image/ball-s@2x.png' : '../../resources/image/ball-s2@2x.png'}}"></image>
+          <text>{{item.value}}</text>
+          <view>{{item.name}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="invitecont">
+    <button class="inviteBtn" hover-class="btnhover" open-type="share">邀请好友永久加成</button>
+    <view class="tip">
+      <text>每邀请一个好友，额外活得好友10%蛋壳加成</text>
+    </view>
+  </view>
+  
+  <view class="w">
+    <view class="menulist">
+      <navigator class="itm" url="" hover-class="none">
+        <view><image src="../../resources/image/icon01@2x.png"></image></view>
+        <view>幸运转盘</view>
+      </navigator>
+      <navigator class="itm" url="" hover-class="none">
+        <view><image src="../../resources/image/icon02@2x.png"></image></view>
+        <view>领取任务</view>
+      </navigator>
+      <navigator class="itm" url="" hover-class="none">
+        <view><image src="../../resources/image/icon03@2x.png"></image></view>
+        <view>好友加成</view>
+      </navigator>
+      <navigator class="itm" url="" hover-class="none">
+        <view><image src="../../resources/image/icon04@2x.png"></image></view>
+        <view>好友列表</view>
+      </navigator>
+    </view>
+    <view class="activlsit clearfix">
+      <view class="itm">
+        <navigator class="wrp" url="/pages/buyou/index" open-type="switchTab">
+          <view class="title">步友广场</view>
+          <view class="subtitle">亲朋好友一起赢</view>
+          <image src="../../resources/image/buyou@2x.png"></image>
+        </navigator>
+      </view>
+      <view class="itm">
+        <navigator class="wrp" url="/pages/buyou/index">
+          <view class="title">挑战赛</view>
+          <view class="subtitle">亲朋好友一起赢</view>
+          <image src="../../resources/image/tiaozhansai@2x.png"></image>
+        </navigator>
+      </view>
+    </view>
+    <view class="hb">
+      <view class="comtitle comtitle_F spe" style="padding-bottom:0;">
+        <text>天天开红包</text>
+        <view class="switch-cont">
+          <text>设置红包提醒</text>
+          <dk-switch style="display: inline-block;" status="{{settingStatus}}" bindtap="switchTap"></dk-switch>
+        </view>
+      </view>
+      <view class="wrp">
+        <image class="bg" src="../../resources/image/hb@2x.png"></image>
+        <image bindtap="kaiHongbao" animation="{{kaiAnimation}}" class="kai" src="../../resources/image/kai@2x.png"></image>
+        <view>
+          <view class="subtitle">已有<text>30000</text>人参加</view>
+          <view class="title">每天开红包，瓜分<text class="money">30000</text>元</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <view class="section npdb">
+    <view class="comtitle comtitle_F">
+      <text>新人专区</text>
+    </view>
+    <scroll-view scroll-x>
+      <view class="goodlist goodlist_n clearfix" style="width:2000rpx;">
+        <view class="itm" wx:for="{{itemsNew}}"
+              wx:key="{{id}}">
+          <view class="wrp">
+            <view class="photo">
+              <image-loader 
+                original-image="{{item.picUrl}}" 
+                mode="aspectFill">
+              </image-loader>
+            </view>
+            <view class="content">
+              <view class="name">{{item.name}}</view>
+              <view class="info">
+                <view class="l">
+                  <image src="../../resources/image/i-egg.png"></image>
+                  <text>{{item.egg}}</text>
+                </view>
+                <view  class="r">已兑换<text>{{item.person}}</text>人</view>
+              </view>
+              <view class="exchangeBtn">免费兑换</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+  <view class="section">
+    <view class="comtitle comtitle_F">
+      <text>邀请专区</text>
+    </view>
+    <view class="goodlist clearfix">
+      <view class="itm" wx:for="{{itemsNew}}"
+            wx:key="{{id}}">
+        <view class="wrp">
+          <view class="photo">
+            <image-loader 
+              original-image="{{item.picUrl}}" 
+              mode="aspectFill">
+            </image-loader>
+          </view>
+          <view class="content">
+            <view class="name">{{item.name}}</view>
+            <view class="info">
+              <view class="l">
+                <image src="../../resources/image/i-egg.png"></image>
+                <text>{{item.egg}}</text>
+              </view>
+              <view  class="r">已兑换<text>{{item.person}}</text>人</view>
+            </view>
+            <view class="exchangeBtn">免费兑换</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="getMore">点击查看更多商品</view>
+  </view>
+  <view class="section" style="padding-bottom:20rpx;">
+    <view class="comtitle comtitle_F">
+      <text>超值专区</text>
+    </view>
+    <view class="goodlist clearfix">
+      <view class="itm" wx:for="{{itemsNew}}"
+            wx:key="{{id}}">
+        <view class="wrp">
+          <view class="photo">
+            <image-loader 
+              original-image="{{item.picUrl}}" 
+              mode="aspectFill">
+            </image-loader>
+          </view>
+          <view class="content">
+            <view class="name">{{item.name}}</view>
+            <view class="info">
+              <view class="l">
+                <image src="../../resources/image/i-egg.png"></image>
+                <text>{{item.egg}}</text>
+              </view>
+              <view  class="r">已兑换<text>{{item.person}}</text>人</view>
+            </view>
+            <view class="exchangeBtn">免费兑换</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="getMore">点击查看更多商品</view>
+  </view>
+  
+  <view class="mask" wx:if="{{showMask}}">
+    <view class="hongbao" wx:if="{{isHongbaoShow}}">
+      <image src="../../resources/image/bg_hongbao@2x.png"></image>
+      <view class="txtcont">
+        <view class="title">恭喜您获得<text class="money">88</text>元红包</view>
+        <view class="subtitle">邀请好友助力还可获得更多奖励</view>
+        <button class="hb_inviteBtn" open-type="share">
+          <image src="../../resources/image/bg_inviteBtn@2x.png"></image>
+          <text>立即邀请好友助力</text>
+        </button>
+      </view>
+      <view class="closeBtn" bindtap="closeHongbao">点击关闭</view>
+    </view>
+  </view>
+</scroll-view>
