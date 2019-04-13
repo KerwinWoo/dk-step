@@ -26,13 +26,14 @@ page{
   left:0;
   top:0;
   box-sizing: border-box;
+  z-index: 10;
 }
 .stepcont .t image{
   width:40rpx;
   height:40rpx;
   margin-right:3rpx;
 }
-.stepcont .t>view{
+.stepcont .t>navigator{
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -47,7 +48,8 @@ page{
 }
 .stepcont .steps{
   box-sizing: border-box;
-  padding-top:129rpx;
+  padding-top:128rpx;
+  position:relative;
 }
 .stepcont .mstep{
   width:249rpx;
@@ -56,9 +58,6 @@ page{
   position: relative;
   color:#fff;
   z-index: 10;
-}
-.stepcont .steps{
-  position:relative;
 }
 .stepcont .sstep{
   width:101rpx;

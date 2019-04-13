@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 7,
 			"list": [
 				{
 					"id": 0,
@@ -53,6 +53,41 @@
 					"id": -1,
 					"name": "me",
 					"pathName": "pages/me/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "dk",
+					"pathName": "pages/me/dk/dk",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "diary",
+					"pathName": "pages/calorie/diary/diary",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 5,
+					"name": "luckywhell",
+					"pathName": "pages/game/luckywheel/luckywheel",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "task",
+					"pathName": "pages/task/task",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 7,
+					"name": "friend",
+					"pathName": "pages/me/friend/friend",
 					"query": "",
 					"scene": null
 				}

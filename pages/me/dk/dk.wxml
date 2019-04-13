@@ -1,2 +1,64 @@
 <!--pages/me/dk/dk.wxml-->
-<text>我的蛋壳</text>
+<view class="container" bindtouchstart='handletouchstart' bindtouchmove='handletouchmove' bindtouchend='handletouchend' bindtouchcancel='handletouchcancel'>
+  <dk-nav title="我的蛋壳" hasBackBtn="{{true}}" 
+    isFixed="{{true}}" 
+    hasBorder="{{true}}"
+    bind:backTo="backTo"></dk-nav>
+  <view class="t">
+    <view class="title">我的蛋壳</view>
+    <view class="info">
+      <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
+      <text>188.88</text>
+    </view>
+  </view>
+  <view class="listcont">
+    <view class="title">蛋壳明细</view>
+    <view class="list">
+      <view class="itm">
+        <view class="l">
+          <view class="name">步数兑换</view>
+          <view class="time">2019.03.10 22:30</view>
+        </view>
+        <view class="r">
+          <text>10.6</text>个
+        </view>
+      </view>
+      <view class="itm">
+        <view class="l">
+          <view class="name">步数兑换</view>
+          <view class="time">2019.03.10 22:30</view>
+        </view>
+        <view class="r">
+          <text>10.6</text>个
+        </view>
+      </view>
+      <view class="itm">
+        <view class="l">
+          <view class="name">步数兑换</view>
+          <view class="time">2019.03.10 22:30</view>
+        </view>
+        <view class="r">
+          <text>10.6</text>个
+        </view>
+      </view>
+      <view class="itm">
+        <view class="l">
+          <view class="name">步数兑换</view>
+          <view class="time">2019.03.10 22:30</view>
+        </view>
+        <view class="r">
+          <text>10.6</text>个
+        </view>
+      </view>
+      <view class="itm">
+        <view class="l">
+          <view class="name">步数兑换</view>
+          <view class="time">2019.03.10 22:30</view>
+        </view>
+        <view class="r">
+          <text>10.6</text>个
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

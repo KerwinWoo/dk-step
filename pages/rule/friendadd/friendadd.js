@@ -1,11 +1,11 @@
-// pages/game/luckywheel/luckywheel.js
+// pages/rule/friendadd/friendadd.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    tipShow: true
+
   },
 
   /**
@@ -62,11 +62,6 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-  gameStart () {
-    this.setData({
-      tipShow: !this.data.tipShow
-    })
   },
   backTo (e) {
     wx.switchTab({

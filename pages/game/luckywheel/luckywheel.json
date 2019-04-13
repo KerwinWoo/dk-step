@@ -1,4 +1,7 @@
 {
-  "navigationBarTitleText": "幸运转盘",
-  "usingComponents": {}
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "dk-nav": "/components/dk-navigation/dk-nav",
+    "image-loader": "/components/dk-image-loader/image-loader"
+  }
 }

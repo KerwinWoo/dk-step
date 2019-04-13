@@ -1,8 +1,85 @@
 <!--pages/me/friend/friend.wxml-->
-<skeleton selector="skeleton" bgcolor="#fff" wx:if="{{showSkeleton}}"></skeleton>
-<view class="container skeleton">
-  <view class="friend" wx:for="{{friendList}}" wx:key="{{id}}">
-    <view class="photo"><image src="{{item.photo}}" class="skeleton-radius"></image></view>
-    <view class="name skeleton-rect">{{item.name}}</view>
+<view class="container">
+  <dk-nav title="好友列表" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+  <view class="row titlerow">
+    <view class="col">排名</view>
+    <view class="col">用户名</view>
+    <view class="col">运动步数</view>
+    <view class="col">点赞</view>
+  </view>
+  <view class="row contentrow">
+    <view class="col">
+      <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/friend_r1.png"></image>
+      <text>1</text>
+    </view>
+    <view class="col">
+      <image class="photo" mode="aspectFill" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg"></image>
+      <text>小兔子</text>
+    </view>
+    <view class="col">23000</view>
+    <view class="col">
+      <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_zan_a.png"></image>
+      <text>878</text>
+    </view>
+  </view>
+  <view class="row contentrow">
+    <view class="col">
+      <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/friend_r2.png"></image>
+      <text>2</text>
+    </view>
+    <view class="col">
+      <image class="photo" mode="aspectFill" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg"></image>
+      <text>小兔子</text>
+    </view>
+    <view class="col">23000</view>
+    <view class="col">
+      <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_zan_a.png"></image>
+      <text>878</text>
+    </view>
+  </view>
+  <view class="row contentrow">
+    <view class="col">
+      <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/friend_r3.png"></image>
+      <text>3</text>
+    </view>
+    <view class="col">
+      <image class="photo" mode="aspectFill" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg"></image>
+      <text>小兔子</text>
+    </view>
+    <view class="col">23000</view>
+    <view class="col">
+      <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_zan_a.png"></image>
+      <text>878</text>
+    </view>
+  </view>
+  <view class="row contentrow">
+    <view class="col">
+      <image></image>
+      <text>4</text>
+    </view>
+    <view class="col">
+      <image class="photo" mode="aspectFill" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg"></image>
+      <text>小兔子</text>
+    </view>
+    <view class="col">23000</view>
+    <view class="col">
+      <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_zan_b.png"></image>
+      <text>878</text>
+    </view>
+  </view>
+  <view class="row contentrow">
+    <view class="col">
+      <image></image>
+      <text>5</text>
+    </view>
+    <view class="col">
+      <image class="photo" mode="aspectFill" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg"></image>
+      <text>小兔子</text>
+    </view>
+    <view class="col">23000</view>
+    <view class="col">
+      <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_zan_b.png"></image>
+      <text>878</text>
+    </view>
   </view>
 </view>

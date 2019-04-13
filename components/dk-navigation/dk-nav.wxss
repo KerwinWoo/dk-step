@@ -22,3 +22,6 @@
   position:fixed;
   background:#fff;
 }
+.statusBar.hasBorder{
+  border-bottom:1rpx solid #eee;
+}

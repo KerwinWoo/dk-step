@@ -1,1 +1,88 @@
 /* pages/calorie/diary/diary.wxss */
+.ttitle{
+  margin-top:128rpx;
+  height:80rpx;
+  line-height: 80rpx;
+  padding:0 30rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width:100%;
+  box-sizing: border-box;
+}
+.ttitle .title{
+  font-size:30rpx;
+  font-weight:bold;
+}
+.ttitle .history{
+  font-size: 24rpx;
+}
+.ttitle .history image{
+  width:22rpx;
+  height:22rpx;
+}
+.ttitle .history text{
+  margin:0 10rpx;
+}
+.chartcont{
+  width:100%;
+  height:360rpx;
+  border-bottom: 1px solid #eee;
+}
+ff-canvas {
+  width: 100%;
+  height: 100%;
+}
+.postcont{
+  padding:30rpx 30rpx 170rpx 30rpx;
+  width:100%;
+  box-sizing: border-box;
+}
+.postcont .wrp{
+  background:#fff;
+  box-shadow:0px 0px 19rpx 0px rgba(89,89,89,0.11);
+  border-radius:2px;
+  overflow: hidden;
+}
+.postcont .photo image{
+  width:100%;
+  height:910rpx;
+}
+.postcont .info{
+  padding:30rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.postcont .info image{
+  width:90rpx;
+  height:90rpx;
+  border-radius:50%;
+  margin-right:20rpx;
+}
+.postcont .info .name{
+  font-size:28rpx;
+  font-weight:bold;
+  margin-bottom: 10rpx;
+}
+.postcont .info .step{
+  font-size:24rpx;
+}
+.savePost{
+  width:360rpx;
+  height:86rpx;
+  line-height: 86rpx;
+  background:linear-gradient(0deg,rgba(254,210,108,1) 0%,rgba(255,138,0,1) 100%);
+  border-radius:43rpx;
+  text-align: center;
+  font-size:40rpx;
+  font-weight:bold;
+  color:#fff;
+  position: fixed;
+  left:50%;
+  margin-left:-180rpx;
+  z-index: 999;
+  bottom:40rpx;
+}

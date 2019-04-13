@@ -1,2 +1,71 @@
 <!--pages/game/luckywheel/luckywheel.wxml-->
-<text>pages/game/luckywheel/luckywheel.wxml</text>
+<view class="container">
+  <dk-nav title="幸运大转盘" hasBackBtn="{{true}}" theme="white" bgColor="none" bind:backTo="backTo"></dk-nav>
+  <view class="tptitle">
+    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_xingyun.png"></image>
+  </view>
+  <view class="subtitle">
+    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_zhongjiang.png"></image>
+  </view>
+  <view class="box">
+    <image class="bg" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_pan.png"></image>
+    <view class="wrp">
+      <view class="row">
+        <view class="itm">
+          <image class="itmbg" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_grid.png"></image>
+          <image class="gift" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift01.png"></image>
+        </view>
+        <view class="itm">
+          <image class="itmbg" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_grid.png"></image>
+          <image class="gift" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift02.png"></image>
+        </view>
+        <view class="itm">
+          <image class="itmbg" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_grid.png"></image>
+          <image class="gift" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift01.png"></image>
+        </view>
+      </view>
+      <view class="row">
+        <view class="itm">
+          <image class="itmbg" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_grid.png"></image>
+          <image class="gift" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift01.png"></image>
+        </view>
+        <view class="itm btnitm" bindtap="gameStart">
+          <image class="start" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_startbg.png"></image>
+          <image class="starttxt" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_start.png"></image>
+        </view>
+        <view class="itm">
+          <image class="itmbg" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_grid.png"></image>
+          <image class="gift" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift01.png"></image>
+        </view>
+      </view>
+      <view class="row">
+        <view class="itm">
+          <image class="itmbg" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_grid.png"></image>
+          <image class="gift" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift01.png"></image>
+        </view>
+        <view class="itm">
+          <image class="itmbg" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_grid.png"></image>
+          <image class="gift" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift01.png"></image>
+        </view>
+        <view class="itm">
+          <image class="itmbg" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_grid.png"></image>
+          <image class="gift" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift01.png"></image>
+        </view>
+      </view>
+    </view>
+    <view class="tip{{(tipShow) ? '' : ' close'}}">
+      <view class="title">再抽4次可获两倍翻倍卡</view>
+      <view class="prograssbar">
+        <view class="itm"></view>
+      </view>
+      <view class="progresstxt">
+        <view class="itm">2倍</view>
+        <view class="itm">5倍</view>
+        <view class="itm">10倍</view>
+        <view class="itm">20倍</view>
+      </view>
+    </view>
+  </view>
+  <view class="egg">我的蛋壳：<text>680</text></view>
+  <view class="inviteBtn">邀请好友获得更多抽奖次数</view>
+</view>

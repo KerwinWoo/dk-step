@@ -25,7 +25,7 @@
           <view class="name">{{item.name}}</view>
           <view class="info">
             <view class="l">
-              <image src="../../resources/image/i-egg.png"></image>
+              <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
               <text>{{item.dk}}</text>
             </view>
             <view  class="r">已兑换<text>{{item.person}}</text>人</view>

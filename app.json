@@ -14,7 +14,8 @@
     "pages/buyou/index",
     "pages/topic/topic",
     "pages/mall/index",
-    "pages/me/index"
+    "pages/me/index",
+    "pages/rule/friendadd/friendadd"
   ],
   "window": {
     "backgroundTextStyle": "light",

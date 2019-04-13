@@ -5,7 +5,7 @@
     <view class="content">
       <view class="wrp">
         <view class="photo">
-          <image mode="aspectFill" src="../../resources/image/1.jpg"></image>
+          <image mode="aspectFill" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg"></image>
         </view>
         <view class="info">
           <view class="name">
@@ -49,25 +49,25 @@
     <view class="row">
       <view class="itm">
         <view class="imgCont">
-          <image src="../../resources/image/ordericn_dfk.png"></image>
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ordericn_dfk.png"></image>
         </view>
         <view class="title">待付款</view>
       </view>
       <view class="itm">
         <view class="imgCont">
-          <image src="../../resources/image/ordericn_dfh.png"></image>
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ordericn_dfh.png"></image>
         </view>
         <view class="title">待发货</view>
       </view>
       <view class="itm">
         <view class="imgCont">
-          <image src="../../resources/image/ordericn_dsh.png"></image>
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ordericn_dsh.png"></image>
         </view>
         <view class="title">待收货</view>
       </view>
       <view class="itm">
         <view class="imgCont">
-          <image src="../../resources/image/ordericn_sh.png"></image>
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ordericn_sh.png"></image>
         </view>
         <view class="title">退换/售后</view>
       </view>
@@ -79,25 +79,25 @@
     <view class="row">
       <view class="itm">
         <view class="imgCont">
-          <image src="../../resources/image/sevicn_xinyuan.png"></image>
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_xinyuan.png"></image>
         </view>
         <view class="title">心愿清单</view>
       </view>
       <view class="itm">
         <view class="imgCont">
-          <image src="../../resources/image/sevicn_xiaoxi.png"></image>
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_xiaoxi.png"></image>
         </view>
         <view class="title">消息通知</view>
       </view>
       <view class="itm">
         <view class="imgCont">
-          <image src="../../resources/image/sevicn_choujiang.png"></image>
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_choujiang.png"></image>
         </view>
         <view class="title">抽奖记录</view>
       </view>
       <view class="itm">
         <view class="imgCont">
-          <image src="../../resources/image/sevicn_dizhi.png"></image>
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_dizhi.png"></image>
         </view>
         <view class="title">地址管理</view>
       </view>
@@ -105,25 +105,25 @@
     <view class="row">
       <view class="itm">
         <view class="imgCont">
-          <image src="../../resources/image/sevicn_kefu.png"></image>
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_kefu.png"></image>
         </view>
         <view class="title">联系客服</view>
       </view>
       <view class="itm">
         <view class="imgCont">
-          <image src="../../resources/image/sevicn_yijian.png"></image>
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_yijian.png"></image>
         </view>
         <view class="title">意见反馈</view>
       </view>
       <view class="itm">
         <view class="imgCont">
-          <image src="../../resources/image/sevicn_lianxi.png"></image>
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_lianxi.png"></image>
         </view>
         <view class="title">联系我们</view>
       </view>
       <view class="itm">
         <view class="imgCont">
-          <image src="../../resources/image/sevicn_wenti.png"></image>
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_wenti.png"></image>
         </view>
         <view class="title">常见问题</view>
       </view>

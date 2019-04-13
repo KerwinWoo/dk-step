@@ -12,6 +12,10 @@ Component({
       type: Boolean,
       value: true
     },
+    hasBorder:{
+      type: Boolean,
+      value: false
+    },
     isFixed:{
       type: Boolean,
       value: false

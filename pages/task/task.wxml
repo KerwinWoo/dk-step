@@ -1,2 +1,26 @@
 <!--pages/task/task.wxml-->
-<text>pages/task/task.wxml</text>
+<view class="container">
+  <dk-nav title="领取任务" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+  <view class="banner">
+    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/task_tbg.png"></image>
+  </view>
+  <view class="taskcont">
+    <view class="title">
+      <text class="t1">每日任务</text>
+      <text class="t2">每日做任务每天加步数</text>
+    </view>
+    <view class="tasklist">
+      <view class="itm" wx:for="{{tasklistData}}" wx:key="{{id}}">
+        <view class="photo">
+          <image-loader originalImage="{{item.pic}}"></image-loader>
+        </view>
+        <view class="info">
+          <view class="name">{{item.name}}</view>
+          <view class="desc">{{item.desc}}</view>
+        </view>
+        <view class="step">+{{item.step}}步</view>
+      </view>
+    </view>
+  </view>
+</view>
+

@@ -1,0 +1,90 @@
+<!--pages/rule/friendadd/friendadd.wxml-->
+<view class="container">
+  <dk-nav title="好友加成" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+  <view class="ttitle">
+    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/friendadd_txt.png"></image>
+  </view>
+  <view class="rule-cont">
+    <view class="title">
+      <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/friendadd_tbg.png"></image>
+      <text>加成换算</text>
+    </view>
+    <view class="row">
+      <view class="el">
+        <view class="t1">30000<text class="unit">步</text></view>
+        <view class="t2">微信运动</view>
+      </view>
+      <view class="flg">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/friendadd_f3.png"></image>
+      </view>
+      <view class="el">
+        <view class="t1">100<text class="unit">%</text></view>
+        <view class="t2">加成</view>
+      </view>
+      <view class="flg">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/friendadd_f2.png"></image>
+      </view>
+      <view class="el">
+        <view class="t1">60000<text class="unit">步</text></view>
+        <view class="t2">最终步数</view>
+      </view>
+    </view>
+    <view class="row">
+      <view class="el">
+        <view class="t1">60000<text class="unit">步</text></view>
+        <view class="t2">最终步数</view>
+      </view>
+      <view class="flg">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/friendadd_f1.png"></image>
+      </view>
+      <view class="el">
+        <view class="t1">8</view>
+        <view class="t2">蛋壳</view>
+      </view>
+      <view class="flg">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/friendadd_f2.png"></image>
+      </view>
+      <view class="el">
+        <view class="t1">48<text class="unit">蛋壳</text></view>
+        <view class="t2">最终蛋壳</view>
+      </view>
+    </view>
+    <view class="row">
+      <view class="el">
+        <view class="t1">48<text class="unit">蛋壳</text></view>
+        <view class="t2">最终蛋壳</view>
+      </view>
+      <view class="flg">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/friendadd_f1.png"></image>
+      </view>
+      <view class="el">
+        <view class="t1">150<text class="unit">天</text></view>
+        <view class="t2">坚持运动</view>
+      </view>
+      <view class="flg">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/friendadd_f2.png"></image>
+      </view>
+      <view class="el">
+        <view class="t1"><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift01.png"></image></view>
+        <view class="t2">iPhone xs</view>
+      </view>
+    </view>
+  </view>
+  
+  <view class="rule-cont">
+    <view class="title">
+      <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/friendadd_tbg.png"></image>
+      <text>加成秘籍</text>
+    </view>
+    <view class="list">
+      <view class="itm">1.每成功邀请1名<text class="highlight">未注册过的好友</text>加入，可获得相应百分比的永久步数加成</view>
+      <view class="itm">2.加成时在你的每日微信运动步数的基础上，按加成比例给予你<text class="highlight">额外的步数奖励</text>( 需在首页点击气泡领取 )</view>
+      <view class="itm">3.当前加成达到上限100%后邀请好友不再提升加成</view>
+    </view>
+    <view class="tip highlight">提示：邀请越多好友越容易兑换到商品哦</view>
+  </view>
+  
+  <view class="inviteBtn">邀请好友</view>
+</view>
+
+

@@ -1,8 +1,8 @@
 <!--components/dk-navigation/dk-nav.wxml-->
-<view class="statusBar{{(isFixed) ? ' fixed' : ''}}" style="background-color: {{bgColor}};">
+<view class="statusBar{{(isFixed) ? ' fixed' : ''}}{{(hasBorder) ? ' hasBorder' : ''}}" style="background-color: {{bgColor}};">
   <image class="backBtn" 
     wx:if="{{hasBackBtn}}" 
-    src="{{(theme == 'white') ? '../../resources/image/back_w@2x.png' : '../../resources/image/back@2x.png'}}" 
+    src="{{(theme == 'white') ? 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/back_w%402x.png' : 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/back%402x.png'}}" 
     bindtap="backTo"></image>
   <text class="pageTitle" style="color:{{theme}}">{{title}}</text>
 </view>
