@@ -231,6 +231,7 @@ button.inviteBtn::after{
   padding:40rpx 23rpx;
   border-radius:10rpx;
   box-sizing: border-box;
+  position:relative;
 }
 .activlsit>.itm .title{
   font-size:26rpx;
@@ -239,9 +240,6 @@ button.inviteBtn::after{
 }
 .activlsit>.itm .subtitle{
   font-size:20rpx;
-}
-.activlsit>.itm:first-child image{
-  right:40rpx;
 }
 .activlsit>.itm:last-child image{
   top:25rpx;

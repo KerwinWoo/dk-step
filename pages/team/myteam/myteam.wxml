@@ -1,0 +1,52 @@
+<!--pages/team/myteam/myteam.wxml-->
+<!--pages/team/team.wxml-->
+<view class="container hastop">
+  <dk-nav title="我的团队" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+  <view class="banner">
+    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/banner01.jpg"></image>
+  </view>
+  <view class="teamlist">
+    <view class="itm">
+      <view class="photo">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg" mode="aspectFill"></image>
+        <view class="flagcont">
+          <image class="flag" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/flag01.png"></image>
+          <text>团长</text>
+        </view>
+      </view>
+      <view class="info">
+        <view class="name">勇胜队</view>
+        <view class="captain">
+          团长：<text>行走的蛋壳</text>
+        </view>
+        <view class="member">
+          <view>成员：<text>8</text>人</view>
+          <view>目标：<text>5000</text>步</view>
+        </view>
+      </view>
+      <view class="more">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more.png"></image>
+      </view>
+    </view>
+    <view class="itm">
+      <view class="photo">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg" mode="aspectFill"></image>
+      </view>
+      <view class="info">
+        <view class="name">勇胜队</view>
+        <view class="captain">
+          团长：<text>行走的蛋壳</text>
+        </view>
+        <view class="member">
+          <view>成员：<text>8</text>人</view>
+          <view>目标：<text>5000</text>步</view>
+        </view>
+      </view>
+      <view class="more">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more.png"></image>
+      </view>
+    </view>
+  </view>
+  <view class="createTeamBtn">创建团队</view>
+</view>
+

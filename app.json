@@ -15,7 +15,9 @@
     "pages/topic/topic",
     "pages/mall/index",
     "pages/me/index",
-    "pages/rule/friendadd/friendadd"
+    "pages/rule/friendadd/friendadd",
+    "pages/team/team",
+    "pages/team/myteam/myteam"
   ],
   "window": {
     "backgroundTextStyle": "light",
