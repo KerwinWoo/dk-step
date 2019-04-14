@@ -1,0 +1,153 @@
+/* pages/team/detail/detail.wxss */
+page{
+  background:#f2f2f2;
+  padding-bottom: 170rpx;
+}
+.teaminfo{
+  padding:20rpx 30rpx;
+  box-sizing: border-box;
+  background:#fff;
+}
+.teaminfo .wrp{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+}
+.teaminfo .wrp .photo{
+  margin-left:20rpx;
+  margin-right:30rpx;
+  position: relative;
+  width:160rpx;
+  height:160rpx;
+}
+.teaminfo .wrp .photo image{
+  border-radius: 50%;
+  width:100%;
+  height:100%;
+}
+.teaminfo .wrp .info{
+  font-size: 28rpx;
+}
+.teaminfo .wrp .info .name{
+  font-size:30rpx;
+  font-weight:bold;
+  margin-bottom: 10rpx;
+}
+.teaminfo .wrp .info .member{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.teaminfo .wrp .info .member view:first-child{
+  margin-right:30rpx;
+}
+.teaminfo .wrp .manageBtn{
+  width:150rpx;
+  height:50rpx;
+  border:1rpx solid rgba(255,142,0,1);
+  border-radius:25rpx;
+  font-size:24rpx;
+  color:#FF8E00;
+  position: absolute;
+  right:0;
+  top:0;
+  text-align: center;
+  line-height: 50rpx;
+}
+.slogan{
+  font-size:28rpx;
+  margin-top:10rpx;
+  color:#666;
+}
+.members .title{
+  height:80rpx;
+  line-height: 80rpx;
+  padding-left:30rpx;
+  box-sizing: border-box;
+  font-size:30rpx;
+  font-weight:bold;
+  color:#666;
+}
+.memberlist .itm{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width:100%;
+  box-sizing: border-box;
+  background: #fff;
+  padding:12rpx 30rpx;
+  border-bottom: 1rpx solid #eee;
+}
+.memberlist .itm .rank image{
+  width:30rpx;
+  height:37rpx;
+  margin-right:10rpx;
+}
+.memberlist .itm .photo{
+  width:340rpx;
+}
+.memberlist .itm .photo,.memberlist .itm .rank{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+}
+.memberlist .itm .photo image-loader image{
+  width:80rpx;
+  height:80rpx;
+  border-radius: 50%;
+  margin-right:20rpx;
+}
+.memberlist .itm .photo>text{
+  font-size:30rpx;
+  font-weight:bold;
+  display: inline-block;
+  max-width:220rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.memberlist .itm .step{
+  font-size:28rpx;
+}
+.memberlist .itm .status{
+  width:103rpx;
+  height:50rpx;
+  border-radius:25rpx;
+  text-align: center;
+  line-height: 50rpx;
+}
+.memberlist .itm .status.comp{
+  border:1rpx solid rgba(153,153,153,1);
+  color:#999;
+}
+.memberlist .itm .status.uncomp{
+  border:1rpx solid #FF8E00;
+  color:#FF8E00;
+}
+.memberlist .itm .flagcont image{
+  position: absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+}
+.memberlist .itm .flagcont{
+  position: relative;
+  width:50rpx;
+  height:58rpx;
+}
+.memberlist .itm .flagcont text{
+  position: relative;
+  text-align: center;
+  display: inline-block;
+  width:100%;
+  height:100%;
+  line-height: 58rpx;
+  color:#fff;
+  font-size:20rpx;
+}

@@ -1,12 +1,11 @@
 <!--pages/team/myteam/myteam.wxml-->
-<!--pages/team/team.wxml-->
 <view class="container hastop">
   <dk-nav title="我的团队" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
   <view class="banner">
     <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/banner01.jpg"></image>
   </view>
   <view class="teamlist">
-    <view class="itm">
+    <view class="itm" bindtap="toTeamDetail">
       <view class="photo">
         <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg" mode="aspectFill"></image>
         <view class="flagcont">
@@ -28,7 +27,7 @@
         <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more.png"></image>
       </view>
     </view>
-    <view class="itm">
+    <view class="itm" bindtap="toTeamDetail">
       <view class="photo">
         <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg" mode="aspectFill"></image>
       </view>
@@ -47,6 +46,6 @@
       </view>
     </view>
   </view>
-  <view class="createTeamBtn">创建团队</view>
+  <view class="createTeamBtn" bindtap="createTeam">创建团队</view>
 </view>
 

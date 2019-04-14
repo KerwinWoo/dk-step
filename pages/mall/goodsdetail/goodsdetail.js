@@ -1,4 +1,4 @@
-// pages/team/myteam/myteam.js
+// pages/mall/goodsdetail/goodsdetail.js
 Page({
 
   /**
@@ -63,14 +63,7 @@ Page({
   onShareAppMessage: function () {
 
   },
-  createTeam () {
-    wx.navigateTo({
-      url: '/pages/team/team'
-    })
-  },
-  toTeamDetail () {
-    wx.navigateTo({
-      url: '/pages/team/detail/detail'
-    })
+  backTo () {
+    wx.navigateBack()
   }
 })

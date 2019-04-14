@@ -213,5 +213,10 @@ Page({
       showMask: false,
       isHongbaoShow: false
     })
+  },
+  viewGoodsDetail () {
+    wx.navigateTo({
+      url: '/pages/mall/goodsdetail/goodsdetail'
+    })
   }
 })

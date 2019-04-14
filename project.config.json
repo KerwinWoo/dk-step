@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 9,
+			"current": 10,
 			"list": [
 				{
 					"id": 0,
@@ -102,6 +102,13 @@
 					"id": -1,
 					"name": "myteam",
 					"pathName": "pages/team/myteam/myteam",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 10,
+					"name": "goodsdetail",
+					"pathName": "pages/mall/goodsdetail/goodsdetail",
 					"query": "",
 					"scene": null
 				}

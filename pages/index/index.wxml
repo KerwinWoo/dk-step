@@ -105,7 +105,8 @@
     <scroll-view scroll-x>
       <view class="goodlist goodlist_n clearfix" style="width:2000rpx;">
         <view class="itm" wx:for="{{itemsNew}}"
-              wx:key="{{id}}">
+              wx:key="{{id}}"
+              bindtap="viewGoodsDetail">
           <view class="wrp">
             <view class="photo">
               <image-loader 
