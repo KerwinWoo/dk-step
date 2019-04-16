@@ -1,4 +1,4 @@
-/* pages/buyou/buyou.wxss */
+/* pages/buyou/index.wxss */
 .container,page{
   background:#f2f2f2;
 }
@@ -18,6 +18,13 @@
 }
 .tptitle .message{
   position:relative;
+  z-index: 10000;
+}
+.tptitle .message.fixed{
+  position:fixed;
+  top:152rpx;
+  right:50rpx;
+  z-index:100000;
 }
 .tptitle .message .flag{
   position: absolute;
@@ -273,8 +280,8 @@
   position:fixed;
   bottom:200rpx;
   right:30rpx;
-  width:90rpx;
-  height:90rpx;
+  width:120rpx;
+  height:120rpx;
   background:linear-gradient(0deg,rgba(255,142,0,1) 0%,rgba(255,211,76,1) 100%);
   border-radius:50%;
   text-align: center;
@@ -284,9 +291,13 @@
   justify-content: center;
   color:#fff;
   z-index: 999;
+  transition: right .3s;
 }
 .releaseBtn image{
-  width:30rpx;
-  height:30rpx;
+  width:67rpx;
+  height:76rpx;
+}
+.releaseBtn.hide{
+  right:-120rpx;
 }
   

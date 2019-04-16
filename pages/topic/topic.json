@@ -7,6 +7,7 @@
     "image-loader": "/components/dk-image-loader/image-loader",
     "refresh-view": "/components/RefreshView/refresh-view",
     "dk-toast": "/components/dk-toast/dk-toast",
-    "skeleton": "/components/dk-skeleton/skeleton"
+    "skeleton": "/components/dk-skeleton/skeleton",
+    "dk-nav": "/components/dk-navigation/dk-nav"
   }
 }

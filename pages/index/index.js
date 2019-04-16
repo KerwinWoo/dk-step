@@ -105,7 +105,7 @@ Page({
     setTimeout(function(){
       that.loadStepsInfo()
       that.refreshView.stopPullRefresh()
-    },1500)
+    },3000)
   },
   //获取步数信息
   loadStepsInfo () {

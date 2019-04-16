@@ -1,0 +1,14 @@
+<!--pages/buyou/comment/comment.wxml-->
+<view class="container hastop">
+  <dk-nav title="添加评论" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+  <view class="textarea">
+    <textarea
+    placeholder="回复 我是小兔子"
+    placeholder-style="color:#999;"
+    />
+  </view>
+  <view class="tr">
+    <view class="sendBtn" bindtap="sendComment">发送</view>
+  </view>
+</view>
+

@@ -1,4 +1,4 @@
-// pages/buyou/buyou.js
+// pages/buyou/index.js
 Page({
 
   /**
@@ -55,7 +55,8 @@ Page({
     sliderWidth: 864,
     tabListToTop: 0,
     tablistFixed: false,
-    timer: null
+    timer: null,
+    releaseBtnShow: true
   },
 
   /**
@@ -81,7 +82,8 @@ Page({
   },
   //触摸移动
   handletouchmove: function (event) {
-    this.refreshView.handletouchmove(event)
+    let that = this
+    that.refreshView.handletouchmove(event)
   },
   //触摸结束
   handletouchend: function (event) {
@@ -95,8 +97,36 @@ Page({
   onPageScroll: function (event) {
     let that = this
     that.refreshView.onPageScroll(event)
-
-    that.throttle(function () {
+    
+    let scrollTop = event.scrollTop
+    if (scrollTop >= that.data.tabListToTop) {
+      if(!that.data.tablistFixed){
+        that.setData({
+          tablistFixed: true
+        })
+      }
+    }
+    else {
+      if(that.data.tablistFixed){
+        that.setData({
+          tablistFixed: false
+        })
+      }
+    }
+    
+    if(that.data.releaseBtnShow){
+      console.log(9090909090)
+      that.setData({
+        releaseBtnShow: false
+      },() => {
+        setTimeout(function(){
+          that.setData({
+            releaseBtnShow: true
+          })
+        }, 1500)
+      })
+    }
+    /* that.throttle(function () {
       let scrollTop = event.scrollTop
       console.log(scrollTop)
       if (scrollTop > that.data.tabListToTop) {
@@ -109,7 +139,7 @@ Page({
           tablistFixed: false
         })
       }
-    }, 100, 100)()
+    }, 100, 100)() */
   },
   onPullDownRefresh:function(){
     let that = this
@@ -339,5 +369,10 @@ Page({
         },delay);
       }
     }
+  },
+  doComment () {
+    wx.navigateTo({
+    	url: '/pages/buyou/comment/comment'
+    })
   }
 })

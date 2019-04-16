@@ -1,0 +1,38 @@
+<!--pages/buyou/fabu/fabu.wxml-->
+<view class="container hastop">
+  <dk-nav title="发布动态" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+  <view class="textarea">
+    <textarea
+    placeholder="记录分享你的运动生活~"
+    placeholder-style="color:#999;"
+    />
+  </view>
+  <view class="uploadImg" bindtap="chooseImg">
+    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fabu_upload.png"></image>
+  </view>
+  <view class="getaddress" bindtap="getAddress">
+    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fabu_dibiao.png"></image>
+    <text wx:if="{{!addressStatus}}">点击获取你在哪里？</text>
+    <text wx:if="{{addressStatus}}">{{address}}</text>
+  </view>
+  <view class="topiclist">
+    <view class="wrp">
+      <view class="row">
+        <view class="topic choosed" wx:if="{{choosedTopic != ''}}">#{{choosedTopic}}<image class="remove" bindtap="removeTopic" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fabu_close.png"></image></view>
+        <view class="tip">参与话题可获得更多步友的关注和打赏哦</view>
+      </view>
+      <view class="title">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fabu_huati.png"></image>
+        <text>推荐话题</text>
+      </view>
+      <view class="topics">
+        <view class="topic" wx:for="{{topicData}}" wx:for-index="idx" wx:key="{{name}}"
+          wx:if="{{item.name != choosedTopic}}" bindtap="chooseTopic" data-name="{{item.name}}">{{item.name}}
+          <view class="hot" wx:if="{{item.isHot}}">热</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <view class="common_inviteBtn" bindtap="fabu">确认发布</view>
+</view>

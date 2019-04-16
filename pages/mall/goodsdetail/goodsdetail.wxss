@@ -2,9 +2,12 @@
 page{
   background:#f2f2f2;
 }
+.container{
+  padding-bottom: 162rpx;
+}
 .goodsimage{
   width:100%;
-  height:550rpx;
+  height:750rpx;
   position: relative;
   font-size:0;
 }
@@ -26,12 +29,12 @@ page{
   height:142rpx;
   border:1rpx solid rgba(238,238,238,1);
   border-radius:10rpx;
-  margin-top:-71rpx;
+  margin-top:-40rpx;
   box-sizing: border-box;
   padding:30rpx;
 }
 .goodsimage .info .name{
-  font-size:36rpx;
+  font-size:28rpx;
   font-weight:bold;
 }
 .goodsimage .info .subinfo{
@@ -41,6 +44,12 @@ page{
   justify-content: space-between;
   margin-top:10rpx;
 }
+.goodsimage .info .subinfo .dk{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height:30rpx;
+}
 .goodsimage .info .subinfo .dk image{
   width:26rpx;
   height:30rpx;
@@ -48,6 +57,10 @@ page{
 }
 .goodsimage .info .subinfo .dk text{
   color:#FF7E00;
+  font-size:24rpx;
+  display: inline-block;
+  height:30rpx;
+  line-height: 34rpx;
 }
 .goodsimage .info .subinfo .r{
   display: flex;
@@ -59,7 +72,7 @@ page{
   margin-right:30rpx;
 }
 .record{
-  margin-top:101rpx;
+  margin-top:130rpx;
   padding:0 30rpx;
   width:100%;
   box-sizing: border-box;
@@ -82,8 +95,11 @@ page{
   position: relative;
 }
 .recordlist{
-  margin-left:23rpx;
   width:450rpx;
+}
+.record .num{
+  font-size:20rpx;
+  color:#999;
 }
 .recordlist image-loader{
   width:46rpx;
@@ -110,7 +126,7 @@ page{
   justify-content: space-between;
 }
 .comtitle{
-  font-size:36rpx;
+  font-size:28rpx;
   font-weight:bold;
 }
 .more{
@@ -148,18 +164,18 @@ page{
 .comment{
   background:#fff;
   margin-top:30rpx;
-  padding:30rpx 105rpx 0 30rpx;
+  padding:30rpx 30rpx 0 30rpx;
   box-sizing: border-box;
   border-bottom: 1rpx solid #eee;
 }
 .comment .comtitle{
   text-align: center;
-  margin-bottom: 10rpx;
+  margin-bottom: 16rpx;
 }
 .comment .wrp{
   position: relative;
   box-sizing: border-box;
-  padding-left:106rpx;
+  padding:0 75rpx 0 105rpx;
 }
 .comment .wrp .photo{
   position: absolute;
@@ -172,7 +188,7 @@ page{
   border-radius: 50%;
 }
 .comment .wrp .content .name{
-  font-size:32rpx;
+  font-size:28rpx;
   font-weight:bold;
 }
 .comment .wrp .content .p{
@@ -182,27 +198,52 @@ page{
   margin:12rpx 0 20rpx;
 }
 .comment .wrp .content .pics{
-  display: flex;
   width:100%;
   box-sizing: border-box;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
   font-size: 0;
-  height:330rpx;
   position: relative;
 }
 .comment .wrp .content .pics image{
   border-radius: 10rpx;
+  width:100%;
+  height:100%;
+  position: absolute;
+  left:0;
+  top:0;
 }
-.comment .wrp .content .pics .l image{
+.comment .wrp .content .pics .l{
+  float:left;
+  width:330rpx;
+  box-sizing: border-box;
+  margin-right:20rpx;
+}
+.comment .wrp .content .pics .r{
+  float:left;
+  width:155rpx;
+  box-sizing: border-box;
+}
+.comment .wrp .content .pics .imgwrp{
+  width:100%;
+  padding-bottom: 100%;
+  position: relative;
+}
+.comment .wrp .content .pics .r .iwrp{
+  width:100%;
+  position: relative;
+  padding-bottom: 100%;
+  box-sizing: border-box;
+}
+.comment .wrp .content .pics .r .iwrp:first-child{
+  margin-bottom: 20rpx;
+}
+/* .comment .wrp .content .pics .l image{
   width:330rpx;
   height:330rpx;
 }
 .comment .wrp .content .pics .r image{
   width:155rpx;
   height:155rpx;
-}
+} */
 .comment .wrp .content .pics .r{
   display: flex;
   flex-direction: column;
@@ -212,7 +253,7 @@ page{
 .comment .wrp .content .pics .num{
   position: absolute;
   right:30rpx;
-  bottom:10rpx;
+  bottom:30rpx;
   color:#fff;
   background:rgba(0,0,0,0.29);
   border-radius:13rpx;
@@ -233,7 +274,6 @@ page{
 }
 .detailinfo{
   background:#fff;
-  margin-bottom: 162rpx;
 }
 .detailinfo .comtitle{
   text-align: center;

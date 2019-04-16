@@ -40,7 +40,7 @@
   <view class="invitecont">
     <button class="inviteBtn" hover-class="btnhover" open-type="share">邀请好友永久加成</button>
     <view class="tip">
-      <text>每邀请一个好友，额外活得好友10%蛋壳加成</text>
+      <text>每邀请一个好友，额外获得好友10%蛋壳加成</text>
     </view>
   </view>
   

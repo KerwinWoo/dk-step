@@ -113,9 +113,7 @@ Page({
 
   },
   backTo() {
-    wx.navigateTo({
-      url: '/pages/buyou/buyou'
-    })
+    wx.navigateBack()
   },
   loadTopicData() {
     let that = this
@@ -123,7 +121,7 @@ Page({
       let data = [{
         id: 1,
         name: '小兔子',
-        photo: '../../image/topic01.jpg',
+        photo: 'https://img30.360buyimg.com/babel/s350x180_jfs/t22660/197/997998956/85092/652504db/5b4c45bfNcfd19212.jpg',
         topicName: '我的国名女神',
         content: '在我的生命中，运动就像温柔地吹拂着我，带我走出自我的暖暖春风；我最难忘、最刻骨铭心的记忆都和它相关；因为我爱运动，而运动是我对待度。',
         imglist: ['https://img11.360buyimg.com/mobilecms/s140x140_jfs/t1/16081/33/1514/306673/5c131c81E0ba11d32/de25680f996e074d.jpg',
@@ -139,7 +137,7 @@ Page({
       }, {
         id: 2,
         name: '小狮子',
-        photo: '../../image/topic02.jpg',
+        photo: 'https://img30.360buyimg.com/babel/s350x180_jfs/t22660/197/997998956/85092/652504db/5b4c45bfNcfd19212.jpg',
         topicName: '我家有萌宠',
         content: '在我的生命中，运动就像温柔地吹拂着我，带我走出自我的暖暖春风；我最难忘、最刻骨铭心的记忆都和它相关；因为我爱运动，而运动是我对待度。',
         imglist: ['https://img11.360buyimg.com/mobilecms/s140x140_jfs/t1/16081/33/1514/306673/5c131c81E0ba11d32/de25680f996e074d.jpg',
@@ -155,7 +153,7 @@ Page({
       }, {
         id: 3,
         name: '小猴子',
-        photo: '../../image/topic02.jpg',
+        photo: 'https://img30.360buyimg.com/babel/s350x180_jfs/t22660/197/997998956/85092/652504db/5b4c45bfNcfd19212.jpg',
         topicName: '我家有萌宠',
         content: '在我的生命中，运动就像温柔地吹拂着我，带我走出自我的暖暖春风；我最难忘、最刻骨铭心的记忆都和它相关；因为我爱运动，而运动是我对待度。',
         imglist: ['https://img11.360buyimg.com/mobilecms/s140x140_jfs/t1/16081/33/1514/306673/5c131c81E0ba11d32/de25680f996e074d.jpg',

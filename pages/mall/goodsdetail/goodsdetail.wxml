@@ -2,7 +2,7 @@
 <view class="container hastop">
   <dk-nav title="商品详情" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
   <view class="goodsimage">
-    <image mode="aspectFill" src="https://img11.360buyimg.com/n7/jfs/t1/18407/37/15671/117006/5cb15242E1c212ce7/833e2edb2300d0eb.jpg"></image>
+    <image mode="aspectFill" src="https://img11.360buyimg.com/n1/jfs/t5767/221/3265776907/263788/b5fad17b/593a1dc0Necd552c1.jpg"></image>
     <view class="info">
       <view class="wrp">
         <view class="name">小米手环</view>
@@ -21,7 +21,6 @@
   </view>
   <view class="record">
   	<view class="wrp">
-      <view class="comtitle">兑换记录</view>
       <view class="recordlist clearfix">
         <view class="imgwrp">
           <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
@@ -42,8 +41,9 @@
           <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
         </view>
       </view>
+      <view class="num"><text>898</text>人已兑换</view>
       <view class="more">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more.png"></image>
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
       </view>
     </view>
   </view>
@@ -71,13 +71,23 @@
       <view class="content">
         <view class="name">行走的蛋壳</view>
         <view class="p">我在蛋壳步数换兑换的小米手环终于到了，太开心了，以后要坚持运动，争取兑换更多的商品。</view>
-        <view class="pics">
+        <view class="pics clearfix">
           <view class="l">
-            <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
+            <view class="imgwrp">
+              <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
+            </view>
           </view>
           <view class="r">
-            <view><image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader></view>
-            <view><image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader></view>
+            <view class="">
+              <view class="iwrp">
+                <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
+              </view>
+            </view>
+            <view class="">
+              <view class="iwrp">
+                <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
+              </view>
+            </view>
           </view>
           <view class="num">9张</view>
         </view>

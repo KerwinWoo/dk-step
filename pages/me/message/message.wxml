@@ -1,0 +1,52 @@
+<!--pages/me/message/message.wxml-->
+<view class="container hastop">
+  <dk-nav title="消息中心" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+  <view class="messagelist">
+    <navigator class="navrow" url="/pages/me/dashang/dashang" open-type="navigate">
+      <view class="wrp">
+        <view class="l">
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/message_icn01.png"></image>
+          <text>我的打赏</text>
+        </view>
+        <view class="r">
+          <view class="flag">12</view>
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
+        </view>
+      </view>
+    </navigator>
+    <navigator class="navrow" url="/pages/me/dashang/dashang" open-type="navigate">
+      <view class="wrp">
+        <view class="l">
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/message_icn02.png"></image>
+          <text>我的评论</text>
+        </view>
+        <view class="r">
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
+        </view>
+      </view>
+    </navigator>
+    <navigator class="navrow" url="/pages/me/dashang/dashang" open-type="navigate">
+      <view class="wrp">
+        <view class="l">
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/message_icn03.png"></image>
+          <text>我的粉丝</text>
+        </view>
+        <view class="r">
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
+        </view>
+      </view>
+    </navigator>
+    <navigator class="navrow" url="/pages/me/dashang/dashang" open-type="navigate">
+      <view class="wrp">
+        <view class="l">
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/message_icn04.png"></image>
+          <text>系统通知</text>
+        </view>
+        <view class="r">
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
+        </view>
+      </view>
+    </navigator>
+  </view>
+</view>
+

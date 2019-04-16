@@ -1,0 +1,47 @@
+/* pages/me/message/message.wxss */
+.messagelist{
+  border-top:1rpx solid #eee;
+}
+.navrow{
+  font-size:28rpx;
+  width:100%;
+  padding:0 30rpx;
+  box-sizing: border-box;
+}
+.navrow .wrp{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width:100%;
+  border-bottom:1rpx solid #eee;
+  padding:30rpx 0;
+  box-sizing: border-box;
+}
+.navrow .l,.navrow .r{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.navrow .l image{
+  width:77rpx;
+  height:77rpx;
+  margin-right:22rpx;
+}
+.navrow .r image{
+  width:15rpx;
+  height:28rpx;
+}
+.navrow .r .flag{
+  display: inline-block;
+  width:40rpx;
+  height:40rpx;
+  background:#FF000F;
+  border-radius:50%;
+  font-size:24rpx;
+  color:#fff;
+  text-align: center;
+  line-height: 40rpx;
+  margin-right:30rpx;
+}

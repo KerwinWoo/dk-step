@@ -4,7 +4,7 @@
   width: 100%;
   justify-content: center;
   position: fixed;
-  z-index: 10000;
+  z-index: 999;
   top:130rpx;
   opacity: 0;
 }

@@ -1,4 +1,4 @@
-<!--pages/buyou/buyou.wxml-->
+<!--pages/buyou/index.wxml-->
 <refresh-view id='refreshView' hasTop="true" backgroundColor="#f2f2f2" bind:onRefresh="onPullDownRefresh"/>
 <scroll-view class="container" bindtouchstart='handletouchstart' bindtouchmove='handletouchmove' bindtouchend='handletouchend' bindtouchcancel='handletouchcancel'>
   <dk-nav title="步友广场" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
@@ -6,10 +6,10 @@
     <view class="w">
       <view class="tptitle">
         <view class="comtitle">热门话题</view>
-        <view class="message">
+        <navigator url="/pages/me/message/message" class="message{{(tablistFixed) ? ' fixed' : ''}}" hover-class="none">
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/message%402x.png"></image>
           <text class="flag">12</text>
-        </view>
+        </navigator>
       </view>
       <view class="subtitle">加入话题，发现跟多有趣的人和物</view>
       <scroll-view scroll-x>
@@ -64,7 +64,7 @@
               <image wx:if="{{topic.giveEgg}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dashang-aft.png"></image>
               <text class="num">{{topic.egg}}</text>
             </view>
-            <view class="itm">
+            <view class="itm" bindtap="doComment">
               <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/pinglun%402x.png"></image>
               <text class="num">{{topic.comment}}</text>
             </view>
@@ -131,9 +131,8 @@
     </view>
     
   </view>
-  <view class="releaseBtn">
+  <navigator class="releaseBtn{{(releaseBtnShow) ? '' : ' hide'}}" hover-class="none" url="/pages/buyou/fabu/fabu">
     <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fabu%402x.png"></image>
-    <text>发布</text>
-  </view>
-  <dk-toast id="toast" duration="3000"></dk-toast>
+  </navigator>
+  <dk-toast id="toast" duration="3000" wx:if="toastShow"></dk-toast>
 </scroll-view>

@@ -1,0 +1,38 @@
+/* pages/me/dashang/dashang.wxss */
+.dashanglist{
+  border-top:1rpx solid #eee;
+}
+.inforow{
+  font-size:28rpx;
+  width:100%;
+  padding:0 30rpx;
+  box-sizing: border-box;
+}
+.inforow .wrp{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width:100%;
+  border-bottom:1rpx solid #eee;
+  padding:30rpx 0;
+  box-sizing: border-box;
+}
+.inforow .pic image{
+  width:90rpx;
+  height:90rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+}
+.inforow .info .name{
+  font-size:28rpx;
+  font-weight:bold;
+}
+.inforow .info .desc{
+  font-size:24rpx;
+  font-weight:400;
+  color:#999;
+}
+.inforow .info .desc .time{
+  margin-right:10rpx;
+}
