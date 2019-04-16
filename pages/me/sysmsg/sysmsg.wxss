@@ -1,0 +1,40 @@
+/* pages/me/sysmsg/sysmsg.wxss */
+.messagelist{
+  border-top:1rpx solid #eee;
+}
+.inforow{
+  font-size:28rpx;
+  width:100%;
+  padding:0 30rpx;
+  box-sizing: border-box;
+}
+.inforow .wrp{
+  width:100%;
+  border-bottom:1rpx solid #eee;
+  padding:30rpx 0;
+  box-sizing: border-box;
+  position: relative;
+  padding-left:80rpx;
+}
+.inforow .icn{
+  width:40rpx;
+  height:37rpx;
+  position: absolute;
+  left:0;
+  top:30rpx;
+}
+.inforow .wrp .title{
+  width:100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  color:#999;
+  margin-bottom: 6rpx;
+}
+.inforow .wrp .title .name{
+  font-size:28rpx;
+}
+.inforow .wrp .title .time{
+  font-size:20rpx;
+}

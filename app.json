@@ -23,7 +23,8 @@
     "pages/buyou/fabu/fabu",
     "pages/me/message/message",
     "pages/me/dashang/dashang",
-    "pages/buyou/comment/comment"
+    "pages/buyou/comment/comment",
+    "pages/me/sysmsg/sysmsg"
   ],
   "window": {
     "backgroundTextStyle": "light",

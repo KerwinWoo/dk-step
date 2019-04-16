@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 7,
+			"current": 12,
 			"list": [
 				{
 					"id": 0,
@@ -86,8 +86,8 @@
 				},
 				{
 					"id": 7,
-					"name": "dashang",
-					"pathName": "pages/me/dashang/dashang",
+					"name": "sysmsg",
+					"pathName": "pages/me/sysmsg/sysmsg",
 					"query": "",
 					"scene": null
 				},
@@ -116,6 +116,13 @@
 					"id": 11,
 					"name": "fabu",
 					"pathName": "pages/buyou/fabu/fabu",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "sysmsg",
+					"pathName": "pages/me/sysmsg/sysmsg",
 					"query": "",
 					"scene": null
 				}

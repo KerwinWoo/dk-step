@@ -109,8 +109,8 @@ page::after{
   font-size:24rpx;
 }
 .goodlist .wrp .info image{
-  width:26rpx;
-  height:30rpx;
+  width:32rpx;
+  height:32rpx;
   margin-right:6rpx;
 }
 .goodlist .wrp .info .l{
@@ -120,6 +120,12 @@ page::after{
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  height:32rpx;
+  line-height: 32rpx;
+  font-size:20rpx;
+}
+.goodlist .wrp .info .l text{
+  padding-top:6rpx;
 }
 .goodlist .wrp .info .r{
   color:#999999;

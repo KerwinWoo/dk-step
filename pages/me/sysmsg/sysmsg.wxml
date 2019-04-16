@@ -1,0 +1,44 @@
+<!--pages/me/sysmsg/sysmsg.wxml-->
+<view class="container hastop">
+  <dk-nav title="系统消息" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+  <view class="messagelist">
+    <view class="inforow">
+      <view class="wrp">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_laba.png" class="icn"></image>
+        <view class="title">
+          <text class="name">系统通知</text>
+          <text class="time">2019-09-09 11:23:45</text>
+        </view>
+        <view class="content">
+          您的团队已创建成功，赶紧和亲友一起组团走路赚取蛋壳吧！
+        </view>
+      </view>
+    </view>
+    <view class="inforow">
+      <view class="wrp">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_laba.png" class="icn"></image>
+        <view class="title">
+          <text class="name">系统通知</text>
+          <text class="time">2019-09-09 11:23:45</text>
+        </view>
+        <view class="content">
+          您的团队已创建成功，爱迪生所所所所所所少时诵诗书所所所！
+        </view>
+      </view>
+    </view>
+    <view class="inforow">
+      <view class="wrp">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_laba.png" class="icn"></image>
+        <view class="title">
+          <text class="name">系统通知</text>
+          <text class="time">2019-09-09 11:23:45</text>
+        </view>
+        <view class="content">
+          您的团队已创建成功，赶紧和亲友一起组团走路赚取蛋壳吧！
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+
