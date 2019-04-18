@@ -102,29 +102,27 @@
     <view class="comtitle comtitle_F">
       <text>新人专区</text>
     </view>
-    <scroll-view scroll-x>
-      <view class="goodlist goodlist_n clearfix" style="width:2000rpx;">
-        <view class="itm" wx:for="{{itemsNew}}"
-              wx:key="{{id}}"
-              bindtap="viewGoodsDetail">
-          <view class="wrp">
-            <view class="photo">
-              <image-loader 
-                original-image="{{item.picUrl}}" 
-                mode="aspectFill">
-              </image-loader>
-            </view>
-            <view class="content">
-              <view class="name">{{item.name}}</view>
-              <view class="info">
-                <view class="l">
-                  <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
-                  <text>{{item.egg}}</text>
-                </view>
-                <view  class="r">已兑换<text>{{item.person}}</text>人</view>
+    <scroll-view scroll-x  class="goodlist goodlist_n clearfix">
+      <view class="itm" wx:for="{{itemsNew}}"
+            wx:key="{{id}}"
+            bindtap="viewGoodsDetail">
+        <view class="wrp">
+          <view class="photo">
+            <image-loader 
+              original-image="{{item.picUrl}}" 
+              mode="aspectFill">
+            </image-loader>
+          </view>
+          <view class="content">
+            <view class="name">{{item.name}}</view>
+            <view class="info">
+              <view class="l">
+                <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
+                <text>{{item.egg}}</text>
               </view>
-              <view class="exchangeBtn">免费兑换</view>
+              <view  class="r">已兑换<text>{{item.person}}</text>人</view>
             </view>
+            <view class="exchangeBtn btn-default">免费兑换</view>
           </view>
         </view>
       </view>
@@ -158,7 +156,7 @@
         </view>
       </view>
     </view>
-    <view class="getMore">点击查看更多商品</view>
+    <navigator class="getMore" url="/pages/mall/index">点击查看更多商品</navigator>
   </view>
   <view class="section" style="padding-bottom:20rpx;">
     <view class="comtitle comtitle_F">
@@ -188,7 +186,7 @@
         </view>
       </view>
     </view>
-    <view class="getMore">点击查看更多商品</view>
+    <navigator class="getMore" url="/pages/mall/index">点击查看更多商品</navigator>
   </view>
   
   <view class="mask" wx:if="{{showMask}}">

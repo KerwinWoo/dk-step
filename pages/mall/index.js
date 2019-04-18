@@ -27,7 +27,8 @@ Page({
       id: 7,
       name: '母婴用品'
     }],
-    currentType: 1,
+    currentType: 0,
+    navbarLeft: 0,
     goodListData: [{
       id: 1,
       name: '小狗摆件',
@@ -134,8 +135,21 @@ Page({
     },1500)
   },
   changeType (e) {
-    this.setData({
-      currentType : e.currentTarget.dataset.id
-    })
+    /*获取可视窗口宽度*/
+  　let w = wx.getSystemInfoSync().windowWidth;
+  　var leng= this.data.goodsTypeData.length;
+  　var idx = e.target.dataset.index;
+  　var disX = (idx - 2) * w / leng;
+  　if(idx != this.data.currentType){
+  　　this.setData({
+  　　　currentType : idx
+  　　})
+  　}
+  　this.setData({
+  　　navbarLeft : disX
+  　})
+  },
+  backTo () {
+    wx.navigateBack()
   }
 })

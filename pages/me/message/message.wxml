@@ -17,7 +17,7 @@
     <navigator class="navrow" url="/pages/me/dashang/dashang" open-type="navigate">
       <view class="wrp">
         <view class="l">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/message_icn02.png"></image>
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/message_icn03.png"></image>
           <text>我的评论</text>
         </view>
         <view class="r">
@@ -25,10 +25,10 @@
         </view>
       </view>
     </navigator>
-    <navigator class="navrow" url="/pages/me/dashang/dashang" open-type="navigate">
+    <navigator class="navrow" url="/pages/me/fans/fans" open-type="navigate">
       <view class="wrp">
         <view class="l">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/message_icn03.png"></image>
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/message_icn02.png"></image>
           <text>我的粉丝</text>
         </view>
         <view class="r">

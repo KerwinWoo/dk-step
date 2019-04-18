@@ -338,11 +338,19 @@ button.inviteBtn::after{
 .goodlist{
   padding:0;
 }
+.goodlist.goodlist_n{
+  width:100%;
+  overflow-y:hidden;
+  overflow-x: scroll;
+  white-space: nowrap;
+}
 .goodlist.goodlist_n .itm{
   width:210rpx;
   border-radius:10rpx;
   padding:0 5rpx;
   box-sizing: border-box;
+  display: inline-block;
+  float:none;
 }
 .goodlist.goodlist_n .itm .wrp{
   box-shadow:1px 1px 6rpx rgba(89,89,89,0.17), -1px 0 6rpx rgba(89,89,89,0.17);
@@ -351,12 +359,11 @@ button.inviteBtn::after{
   padding-left:6rpx;
   padding-top:6rpx;
 }
-.goodlist.goodlist_n .exchangeBtn{
+.goodlist.goodlist_n .wrp .exchangeBtn{
   width:160rpx;
   height:44rpx;
   border:none;
   border-radius:22rpx;
-  background:linear-gradient(0deg,rgba(244,181,68,1) 0%,rgba(242,162,65,1) 100%);
   color:#fff;
   line-height: 44rpx;
   margin:0 auto;

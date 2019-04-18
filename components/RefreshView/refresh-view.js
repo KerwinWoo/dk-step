@@ -25,6 +25,10 @@ Component({
     hasTop: {
       type: Boolean,
       value: false
+    },
+    gapHeight: {
+      type: Number,
+      value: 0
     }
   },
 

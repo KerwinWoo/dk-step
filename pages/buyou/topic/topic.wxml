@@ -1,0 +1,64 @@
+<!--pages/buyou/topic/topic.wxml-->
+<refresh-view id='refreshView' hasTop="true" backgroundColor="#f2f2f2" bind:onRefresh="onPullDownRefresh"/>
+<scroll-view class="container hasTop" bindtouchstart='handletouchstart' bindtouchmove='handletouchmove' bindtouchend='handletouchend' bindtouchcancel='handletouchcancel'>
+  <dk-nav title="{{title}}" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+  <view class="banner">
+    <image src="https://img30.360buyimg.com/babel/s350x180_jfs/t22660/197/997998956/85092/652504db/5b4c45bfNcfd19212.jpg"></image>
+    <view class="topicName">{{title}}</view>
+  </view>
+  <view class="gap">
+    <skeleton selector="skeleton" bgcolor="none" wx:if="{{showSkeleton}}"></skeleton>
+    <view class="topiccontentlist skeleton">
+      <view class="itm" wx:for="{{topicDataList}}" wx:for-item="topic" wx:for-index="topicIndex" wx:key="{{id}}">
+        <image-loader class="photo skeleton-tab1-radius" original-image="{{topic.photo}}"></image-loader>
+        <view class="subscribe skeleton-tab1-rect"><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/guanzhu%402x.png"></image>关注</view>
+        <view class="name">
+          <text class="skeleton-tab1-rect">{{topic.name}}</text>
+        </view>
+        <view class="topictype skeleton-tab1-rect"><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/huati%402x.png"></image>{{topic.topicName}}</view>
+        <view class="content skeleton-tab1-rect">{{topic.content}}</view>
+        <view class="imgcont clearfix">
+          <view class="wrp" wx:for="{{topicDataList[topicIndex].imglist}}" wx:key="{{item}}">
+            <view class="subwrp">
+              <image-loader 
+                original-image="{{item}}" 
+                mode="aspectFill"
+                bindtap="previewTopicImg"
+                data-parentIndex="{{topicIndex}}"
+                data-current="{{item}}"></image-loader>
+              </view>
+          </view>
+        </view>
+        <view class="addrs skeleton-tab1-rect">
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dibiao%402x.png"></image>
+          <text>{{topic.addr}}</text>
+          <text class="point"></text>
+          <text>{{topic.time}}</text>
+        </view>
+        <view class="opers skeleton-tab1-rect">
+          <view class="itm" bindtap="giveEgg" data-parentindex="{{topicIndex}}">
+            <image wx:if="{{!topic.giveEgg}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dashang-bef.png"></image>
+            <image wx:if="{{topic.giveEgg}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dashang-aft.png"></image>
+            <text class="num">{{topic.egg}}</text>
+          </view>
+          <view class="itm" bindtap="doComment">
+            <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/pinglun%402x.png"></image>
+            <text class="num">{{topic.comment}}</text>
+          </view>
+          <view class="itm">
+            <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fenxiang%402x.png"></image>
+            <text class="num">{{topic.share}}</text>
+          </view>
+          <view class="itm">
+            <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/shoucang-bef%402x.png"></image>
+            <text class="num">{{topic.collect}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <navigator class="releaseBtn{{(releaseBtnShow) ? '' : ' hide'}}" hover-class="none" url="/pages/buyou/fabu/fabu">
+    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fabu%402x.png"></image>
+  </navigator>
+  <dk-toast id="toast" duration="3000"></dk-toast>
+</scroll-view>

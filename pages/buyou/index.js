@@ -312,7 +312,7 @@ Page({
         }]
         that.setData({
           topicDataMELoaded: true,
-          topicDataList_ME: data,
+          topicDataList_ME: [],
           showTab2Skeleton: false
         })
       }, 1000)
@@ -372,7 +372,7 @@ Page({
   },
   doComment () {
     wx.navigateTo({
-    	url: '/pages/buyou/comment/comment'
+    	url: '/pages/buyou/commentdetail/commentdetail'
     })
   }
 })

@@ -136,9 +136,9 @@ page::after{
   height:50rpx;
   line-height: 50rpx;
   text-align: center;
-  color:#FFA110;
-  font-size:2r4px;
-  border:1px solid rgba(255,161,16,1);
+  color:#FB793B;
+  font-size:24rpx;
+  border:1px solid #FB793B;
   border-radius:10rpx;
   margin:0 auto;
 }
@@ -157,4 +157,12 @@ page::after{
   font-size:40rpx;
   font-weight:bold;
   color:#fff;
+}
+::-webkit-scrollbar{
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+.btn-default{
+  background:linear-gradient(90deg,rgba(254,99,54,1) 0%,rgba(243,164,71,1) 100%);
 }

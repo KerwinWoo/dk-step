@@ -1,7 +1,7 @@
 <!--pages/buyou/index.wxml-->
 <refresh-view id='refreshView' hasTop="true" backgroundColor="#f2f2f2" bind:onRefresh="onPullDownRefresh"/>
 <scroll-view class="container" bindtouchstart='handletouchstart' bindtouchmove='handletouchmove' bindtouchend='handletouchend' bindtouchcancel='handletouchcancel'>
-  <dk-nav title="步友广场" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+  <dk-nav title="步友广场" hasBackBtn="{{false}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
   <view class="wrapper">
     <view class="w">
       <view class="tptitle">
@@ -14,7 +14,7 @@
       <view class="subtitle">加入话题，发现跟多有趣的人和物</view>
       <scroll-view scroll-x>
         <view class="topiclist clearfix" style="width:{{sliderWidth}}rpx">
-          <navigator class="itm" wx:for="{{topicList}}" wx:key="id" url="/pages/topic/topic?title={{item.name}}">
+          <navigator class="itm" wx:for="{{topicList}}" wx:key="id" url="/pages/buyou/topic/topic?title={{item.name}}">
             <text>{{item.name}}</text>
             <image-loader original-image="{{item.photo}}" />
           </navigator>
@@ -81,7 +81,11 @@
       </view>
       
       <view class="topiccontentlist skeleton-tab2" wx:if="{{(topicType == 'me')}}">
-        <view class="itm" wx:for="{{topicDataList_ME}}" wx:for-item="topic" wx:for-index="topicIndex" wx:key="{{id}}">
+        <view class="nodata" wx:if="{{topicDataList_ME.length == 0}}">
+          <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/nodata.png"></image></view>
+          <view class="title">暂无关注的人</view>
+        </view>
+        <view class="itm" wx:if="{{topicDataList_ME.length > 0}}" wx:for="{{topicDataList_ME}}" wx:for-item="topic" wx:for-index="topicIndex" wx:key="{{id}}">
           <image-loader class="photo skeleton-tab2-radius" original-image="{{topic.photo}}"></image-loader>
           <view class="subscribe skeleton-tab2-rect"><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/guanzhu%402x.png"></image>关注</view>
           <view class="name">

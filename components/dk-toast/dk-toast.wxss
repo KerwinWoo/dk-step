@@ -4,17 +4,18 @@
   width: 100%;
   justify-content: center;
   position: fixed;
-  z-index: 999;
-  top:130rpx;
+  z-index: 99999;
+  top:150rpx;
   opacity: 0;
 }
 .dk-toast-content{
   max-width: 80%;
   border-radius:35rpx;
-  background: #FF8E00;
+  background:linear-gradient(90deg,rgba(254,99,54,1) 0%,rgba(243,164,71,1) 100%);
   color:#fff;
   margin:0 auto;
   height:70rpx;
   line-height: 70rpx;
   padding:0 30rpx;
+  font-size:24rpx;
 }

@@ -1,15 +1,14 @@
 <!--pages/mall/index.wxml-->
 <refresh-view id='refreshView' hasTop="true" backgroundColor="#f2f2f2" bind:onRefresh="onPullDownRefresh"/>
 <scroll-view class="container" bindtouchstart='handletouchstart' bindtouchmove='handletouchmove' bindtouchend='handletouchend' bindtouchcancel='handletouchcancel'>
-  <dk-nav title="兑换商城" hasBackBtn="{{true}}" isFixed="{{true}}"></dk-nav>
-  <scroll-view scroll-x class="fixedNav">
-    <view class="navbar" style="width:{{navbarWidth}}rpx">
-      <view wx:for="{{goodsTypeData}}"
-            wx:key="{{item.id}}"
-            data-id="{{item.id}}"
-            class="itm{{(currentType == item.id) ? ' active' : ''}}"
-            bindtap="changeType">{{item.name}}</view>
-    </view>
+  <dk-nav title="步友专享" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+  <scroll-view scroll-x class="fixedNav navbar" scroll-left="{{navbarLeft}}" scroll-with-animation="true">
+    <view wx:for="{{goodsTypeData}}"
+          wx:key="{{item.id}}"
+          data-id="{{item.id}}"
+          data-index="{{index}}"
+          class="itm{{(currentType == index) ? ' active' : ''}}"
+          bindtap="changeType">{{item.name}}</view>
   </scroll-view>
   <view class="goodlist clearfix">
     <view class="itm" wx:for="{{goodListData}}"

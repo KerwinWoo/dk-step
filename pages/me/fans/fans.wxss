@@ -1,0 +1,48 @@
+/* pages/me/fans/fans.wxss */
+page{
+  background:#fff;
+}
+.bt{
+  border-top:1rpx solid #eee;
+}
+.commonrow{
+  width:100%;
+  box-sizing: border-box;
+  padding:20rpx 30rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background:#fff;
+  position: relative;
+  padding-right:80rpx;
+}
+.commonrow .photo{
+  margin-right:30rpx;
+}
+.commonrow .photo image-loader image{
+  width:120rpx;
+  height:120rpx;
+  border-radius: 50%;
+}
+.commonrow .content .title{
+  font-size:30rpx;
+  color:#333;
+  margin-bottom: 10rpx;
+}
+.commonrow .content .subtitle{
+  font-size:24rpx;
+  width:460rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.commonrow .sideicn{
+  position:absolute;
+  top:50%;
+  right:30rpx;
+  margin-top:-19rpx;
+}
+.commonrow .sideicn image{
+  width:38rpx;
+  height:38rpx;
+}

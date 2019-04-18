@@ -18,7 +18,7 @@
 }
 .tptitle .message{
   position:relative;
-  z-index: 10000;
+  z-index: 100000;
 }
 .tptitle .message.fixed{
   position:fixed;
@@ -28,17 +28,17 @@
 }
 .tptitle .message .flag{
   position: absolute;
-  width:26rpx;
-  height:26rpx;
+  width:32rpx;
+  height:32rpx;
   background:#FF000F;
   border-radius:50%;
   right:-8rpx;
   top:-8rpx;
   display: inline-block;
   text-align: center;
-  line-height: 26rpx;
+  line-height: 32rpx;
   color:#fff;
-  font-size:16rpx;
+  font-size:22rpx;
 }
 .comtitle{
   font-size:44rpx;
@@ -282,7 +282,7 @@
   right:30rpx;
   width:120rpx;
   height:120rpx;
-  background:linear-gradient(0deg,rgba(255,142,0,1) 0%,rgba(255,211,76,1) 100%);
+  background:linear-gradient(90deg,rgba(254,99,54,1) 0%,rgba(243,164,71,1) 100%);
   border-radius:50%;
   text-align: center;
   display: flex;
@@ -300,4 +300,21 @@
 .releaseBtn.hide{
   right:-120rpx;
 }
-  
+.nodata{
+  width:100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height:630rpx;
+  background:#fff;
+}
+.nodata image{
+  width:451rpx;
+  height:237rpx;
+}
+.nodata .title{
+  margin-top:20rpx;
+  font-size:28rpx;
+}

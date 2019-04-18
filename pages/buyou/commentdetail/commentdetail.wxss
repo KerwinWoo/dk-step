@@ -1,0 +1,80 @@
+/* pages/buyou/commentdetail/commentdetail.wxss */
+@import "/pages/buyou/index.wxss";
+page{
+  background:#fff;
+}
+.topiccontentlist{
+  border-top:1px solid #eee;
+}
+.topiccontentlist>.itm{
+  margin-bottom: 0;
+}
+.commenttip{
+  font-size: 28rpx;
+  background:#f2f2f2;
+  height:66rpx;
+  line-height: 66rpx;
+  text-align: center;
+  color:#999;
+}
+.commentlist{
+  background:#fff;
+  box-sizing: border-box;
+  padding:0 30rpx;
+  padding-bottom: 120rpx;
+}
+.commentlist>.itm{
+  box-sizing: border-box;
+  padding:22rpx 0 30rpx 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1rpx solid #eee;
+}
+.commentlist>.itm:last-child{
+  border-bottom: 0;
+}
+.commentlist>.itm .photo{
+  margin-right:20rpx;
+}
+.commentlist>.itm .photo image{
+  width:90rpx;
+  height:90rpx;
+  border-radius: 50%;
+}
+.commentlist>.itm .name{
+  font-size:28rpx;
+  font-weight:bold;
+}
+.commentlist>.itm .time{
+  font-size:24rpx;
+  color:#999;
+  margin-bottom: 10rpx;
+}
+.commentlist>.itm .txt{
+  font-size:24rpx;
+  color:#666;
+}
+.reply{
+  margin:0 16rpx;
+  font-weight: 300;
+  color:#666;
+}
+.doComment{
+  position: fixed;
+  width:100%;
+  left:0;
+  bottom:34rpx;
+  text-align: center;
+  box-sizing: border-box;
+  padding:0 30rpx;
+}
+.doComment input{
+  height:70rpx;
+  line-height: 70rpx;
+  background:#EEEEEE;
+  border-radius:35px;
+  text-align: left;
+  padding-left:30rpx;
+  box-sizing: border-box;
+}

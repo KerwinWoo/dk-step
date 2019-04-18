@@ -24,7 +24,10 @@
     "pages/me/message/message",
     "pages/me/dashang/dashang",
     "pages/buyou/comment/comment",
-    "pages/me/sysmsg/sysmsg"
+    "pages/me/sysmsg/sysmsg",
+    "pages/buyou/topic/topic",
+    "pages/buyou/commentdetail/commentdetail",
+    "pages/me/fans/fans"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -51,7 +54,7 @@
         "text": "步友广场"
       },
       {
-        "pagePath": "pages/mall/index",
+        "pagePath": "pages/team/team",
         "iconPath": "/resources/image/navicn_team_b.png",
         "selectedIconPath": "/resources/image/navicn_team_a.png",
         "text": "组团PK"

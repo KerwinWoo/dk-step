@@ -8,18 +8,39 @@ page{
   box-sizing: border-box;
   font-size: 0;
   background:#fff;
+  height:58rpx;
+  width:100%;
+  white-space: nowrap; 
+  overflow-y: hidden;
+  overflow-x: scroll;
 }
 .navbar .itm{
   display: inline-block;
-  font-size: 34rpx;
-  margin-right:30rpx;
-  height:60rpx;
+  font-size: 24rpx;
+  margin-right:20rpx;
+  height:50rpx;
+  line-height: 50rpx;
+  background:#eee;
+  text-align: center;
+  padding:0 24rpx;
+  border-radius:25rpx;
+  position: relative;
 }
 .navbar .itm.active{
-  font-weight: bold;
-  color:#FFB200;
-  font-size: 36rpx;
-  border-bottom: 4rpx solid #FFB200;
+  color:#fff;
+  background:#FF8E00;
+}
+.navbar .itm.active::after{
+  content:'';
+  display: inline-block;
+  position: absolute;
+  left:50%;
+  margin-left:-4rpx;
+  bottom:-16rpx;
+  border-left:8rpx solid transparent;
+  border-right:8rpx solid transparent;
+  border-top:8rpx solid #FF8E00;
+  border-bottom:8rpx solid transparent;
 }
 .fixedNav{
   position:fixed;
@@ -32,5 +53,5 @@ page{
   background:#fff;
   padding:30rpx 30rpx 0 30rpx;
   box-sizing: border-box;
-  margin-top:90rpx;
+  margin-top:58rpx;
 }
