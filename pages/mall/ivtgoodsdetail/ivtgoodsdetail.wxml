@@ -1,0 +1,154 @@
+<!--pages/mall/ivtgoodsdetail/ivtgoodsdetail.wxml-->
+<view class="container hastop">
+  <dk-nav title="商品详情" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+  <view class="goodsimage">
+    <image mode="aspectFill" src="https://img11.360buyimg.com/n1/jfs/t5767/221/3265776907/263788/b5fad17b/593a1dc0Necd552c1.jpg"></image>
+    <view class="info">
+      <view class="wrp">
+        <view class="name">小米手环</view>
+        <view class="subinfo">
+          <view class="dk">
+            <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
+            <text>9999</text>
+            <text class="price"><text>原价: </text><text>9999</text></text>
+          </view>
+          <view class="r">
+            <view class="baoyou">包邮</view>
+            <view class="sy">剩余<text>99</text>件</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="record">
+  	<view class="wrp">
+      <view class="recordlist clearfix">
+        <view class="imgwrp">
+          <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
+        </view>
+        <view class="imgwrp">
+          <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
+        </view>
+        <view class="imgwrp">
+          <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
+        </view>
+        <view class="imgwrp">
+          <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
+        </view>
+        <view class="imgwrp">
+          <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
+        </view>
+        <view class="imgwrp">
+          <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
+        </view>
+      </view>
+      <view class="num"><text>898</text>人已兑换</view>
+      <view class="more">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
+      </view>
+    </view>
+  </view>
+  <view class="record ivtrecord">
+  	<view class="wrp">
+      <view class="recordlist clearfix">
+        <view class="imgwrp">
+          <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
+        </view>
+        <view class="imgwrp">
+          <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
+        </view>
+        <view class="imgwrp">
+          <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
+        </view>
+        <view class="imgwrp">
+          <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
+        </view>
+        <view class="imgwrp">
+          <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
+        </view>
+        <view class="imgwrp">
+          <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
+        </view>
+      </view>
+      <view class="num">已邀请<text>8</text>人</view>
+      <view class="more">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
+      </view>
+    </view>
+  </view>
+  <view class="notice">
+    <view class="wrp">
+    	<view class="comtitle">兑换说明</view>
+      <view class="content">
+        <view class="itm">
+          1、商品库存每天6：00-24：00每个专区每小时至少补货一次
+        </view>
+        <view class="itm">2、虚拟商品兑换成功即可使用，无需平台发货，请仔细阅读商品详情兑换规则后，再进行兑换</view>
+        <view class="itm">3、兑换成功的实物商品将再2个工作日内发货</view>
+        <view class="itm">4、邮寄区域暂不支持新疆、西藏、海南、港澳台及海外地区</view>
+        <view class="itm">5、免费兑换的商品均暂不支持退换货</view>
+        <view class="itm">温馨提示：兑换商品前去“我的”“地址管理”内填写详细邮寄地址并确认（要不商品怎么找到您）</view>
+      </view>
+    </view>
+  </view>
+  <view class="comment">
+    <view class="comtitle">步友晒单</view>
+    <view class="wrp">
+      <view class="photo">
+        <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
+      </view>
+      <view class="content">
+        <view class="name">行走的蛋壳</view>
+        <view class="p">我在蛋壳步数换兑换的小米手环终于到了，太开心了，以后要坚持运动，争取兑换更多的商品。</view>
+        <view class="pics clearfix">
+          <view class="l">
+            <view class="imgwrp">
+              <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
+            </view>
+          </view>
+          <view class="r">
+            <view class="">
+              <view class="iwrp">
+                <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
+              </view>
+            </view>
+            <view class="">
+              <view class="iwrp">
+                <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
+              </view>
+            </view>
+          </view>
+          <view class="num">9张</view>
+        </view>
+        <view class="viewMore">查看更多晒单</view>
+      </view>
+    </view>
+  </view>
+  <view class="detailinfo">
+    <view class="comtitle">商品详情</view>
+    <view class="goodsintro">
+      <image-loader mode="widthFix" original-image="https://img30.360buyimg.com/popWaterMark/jfs/t20170/111/665035951/269464/1a507c0f/5b134109N8c76048a.jpg"></image-loader>
+      <image-loader mode="widthFix" original-image="https://img30.360buyimg.com/popWaterMark/jfs/t21235/13/616204005/98056/75436c3/5b134108N4fa81059.jpg"></image-loader>
+      <image-loader mode="widthFix" original-image="https://img30.360buyimg.com/popWaterMark/jfs/t19822/252/1068399166/125202/c8b2d5e0/5b134109Nc413c41b.jpg"></image-loader>
+      <image-loader mode="widthFix" original-image="https://img30.360buyimg.com/popWaterMark/jfs/t21724/291/637411747/181858/91483b1d/5b134109N0e3c11ce.jpg"></image-loader>
+      <image-loader mode="widthFix" original-image="https://img30.360buyimg.com/popWaterMark/jfs/t19810/247/1039581514/175536/6c81e3ae/5b134109Nfe9dfaa9.jpg"></image-loader>
+      <image-loader mode="widthFix" original-image="https://img30.360buyimg.com/popWaterMark/jfs/t21637/255/602533631/154678/babe4faf/5b13410aNa0af8b8d.jpg"></image-loader>
+      <image-loader mode="widthFix" original-image="https://img30.360buyimg.com/popWaterMark/jfs/t21247/2/665016973/231089/474174b6/5b13410aN33b7879b.jpg"></image-loader>
+      <image-loader mode="widthFix" original-image="https://img30.360buyimg.com/popWaterMark/jfs/t21061/113/629805580/307868/bcbe9bda/5b13410aN5b9a12d9.jpg"></image-loader>
+    </view>
+  </view>
+  <view class="btm">
+    <view class="heart">
+      <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/goodsdetail_heart1.png"></image></view>
+      <view>心愿</view>
+    </view>
+    <view class="kefu">
+      <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/goodsdetail_kefu.png"></image></view>
+      <view>客服</view>
+    </view>
+    <view class="btn">
+      差6人，去邀请好友
+    </view>
+  </view>
+</view>
+

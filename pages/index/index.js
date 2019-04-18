@@ -218,5 +218,10 @@ Page({
     wx.navigateTo({
       url: '/pages/mall/goodsdetail/goodsdetail'
     })
+  },
+  viewIvtGoodsDetail () {
+    wx.navigateTo({
+      url: '/pages/mall/ivtgoodsdetail/ivtgoodsdetail'
+    })
   }
 })

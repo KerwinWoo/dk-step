@@ -1,13 +1,13 @@
 /* pages/team/team.wxss */
 page{
-  background:#f2f2f2;
+  background:#fff;
 }
 image{
   width:100%;
   height:100%;
 }
 .stepcont{
-  padding:30rpx 70rpx;
+  /* padding:30rpx 70rpx;
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
@@ -15,28 +15,32 @@ image{
   justify-content: space-between;
   font-size:28rpx;
   text-align: center;
-  background:#fff;
+  background:#fff; */
+  width:100%;
+  height:216rpx;
 }
-.stepcont .itm .pic{
+.stepcont image{
+  width:100%;
+  height:100%;
+}
+/* .stepcont .itm .pic{
   width:138rpx;
   height:138rpx;
 }
 .stepcont .itm .arrow{
   width:70rpx;
   height:24rpx;
-}
+} */
 .formTab{
   width:100%;
   box-sizing: border-box;
-  padding:30rpx 30rpx 0 30rpx;
 }
 .formTab>.wrp{
-  background:#fff;
-  padding:30rpx 60rpx;
+  padding:30rpx;
 }
 .formTab input,.formTab textarea{
   background:#eee;
-  padding:10rpx 22rpx;
+  padding:10rpx 36rpx;
   font-size:28rpx;
   box-sizing: border-box;
   border-radius: 10rpx;
@@ -48,7 +52,7 @@ image{
 .formTab textarea{
   width:100%;
   height:170rpx;
-  padding-left:14rpx;
+  padding-left:30rpx;
 }
 .formTab .row{
   margin-bottom: 30rpx;
@@ -97,8 +101,7 @@ image{
 }
 .inviteBtn .wrp{
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
   background:#eee;
   border-radius: 50%;
@@ -118,14 +121,12 @@ image{
   text-align: center;
   line-height: 86rpx;
   margin:0 auto;
-  background:linear-gradient(0deg,rgba(254,210,108,1) 0%,rgba(255,138,0,1) 100%);
 }
 .createBtn.disable{
   background:#eee;
 }
 .tip{
   font-size:24rpx;
-  color:#FFA21E;
   text-align: center;
   margin-top:10rpx;
 }

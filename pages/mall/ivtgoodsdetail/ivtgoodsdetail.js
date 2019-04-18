@@ -1,4 +1,4 @@
-// pages/team/myteam/myteam.js
+// pages/mall/ivtgoodsdetail/ivtgoodsdetail.js
 Page({
 
   /**
@@ -63,19 +63,7 @@ Page({
   onShareAppMessage: function () {
 
   },
-  createTeam () {
-    wx.switchTab({
-      url: '/pages/team/team'
-    })
-  },
-  toTeamDetail () {
-    wx.navigateTo({
-      url: '/pages/team/detail/detail'
-    })
-  },
   backTo () {
-    wx.switchTab({
-      url: '/pages/team/team'
-    })
+    wx.navigateBack()
   }
 })

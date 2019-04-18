@@ -134,7 +134,7 @@
     </view>
     <view class="goodlist clearfix">
       <view class="itm" wx:for="{{itemsNew}}"
-            wx:key="{{id}}">
+            wx:key="{{id}}" bindtap="viewIvtGoodsDetail">
         <view class="wrp">
           <view class="photo">
             <image-loader 
@@ -164,7 +164,7 @@
     </view>
     <view class="goodlist clearfix">
       <view class="itm" wx:for="{{itemsNew}}"
-            wx:key="{{id}}">
+            wx:key="{{id}}" bindtap="viewIvtGoodsDetail">
         <view class="wrp">
           <view class="photo">
             <image-loader 

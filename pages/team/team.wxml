@@ -2,7 +2,8 @@
 <view class="container hastop">
   <dk-nav title="创建团队" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
   <view class="stepcont">
-    <view class="itm">
+    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/banner_pk.png"></image>
+    <!-- <view class="itm">
       <view class="pic">
         <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/team_step1.png"></image>
       </view>
@@ -31,7 +32,7 @@
       <view class="name">
         享专属福利
       </view>
-    </view>
+    </view> -->
   </view>
   
   <view class="formTab">
@@ -91,14 +92,17 @@
             <view class="name">行走的蛋壳</view>
           </view>
         </view>
-        <view class="itm inviteBtn">
+        <!-- <view class="itm inviteBtn">
           <view class="wrp">
-            <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/team_add.png"></image>
+            <view class="photo">
+              <image-loader originalImage="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/team_add.png" mode="aspectFill"></image-loader>
+            </view>
+            <view class="name">点击邀请</view>
           </view>
-        </view>
+        </view> -->
       </view>
       
-      <view class="createBtn disable" bindtap="createTeam">创建团队</view>
+      <view class="createBtn btn-default" bindtap="createTeam">创建团队</view>
       <view class="tip">创建团队邀请好友加入PK步数，至少5人以上</view>
     </view>
   </view>

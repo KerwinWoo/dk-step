@@ -62,6 +62,13 @@ page{
   height:30rpx;
   line-height: 34rpx;
 }
+.goodsimage .info .subinfo .dk .price{
+  margin-left:20rpx;
+}
+.goodsimage .info .subinfo .dk .price text{
+  color:#666;
+  font-size:24rpx;
+}
 .goodsimage .info .subinfo .r{
   display: flex;
   flex-direction: row;

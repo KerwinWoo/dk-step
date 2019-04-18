@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 16,
+			"current": 17,
 			"list": [
 				{
 					"id": 0,
@@ -151,6 +151,13 @@
 					"id": -1,
 					"name": "calroi",
 					"pathName": "pages/calorie/diary/diary",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "ivtgoodsdetail",
+					"pathName": "pages/mall/ivtgoodsdetail/ivtgoodsdetail",
 					"query": "",
 					"scene": null
 				}

@@ -1,6 +1,6 @@
 /* pages/me/dk/dk.wxss */
 page{
-  background:#f2f2f2;
+  background:#fff;
 }
 .t{
   height:216rpx;
@@ -43,7 +43,7 @@ page{
 }
 .listcont .title{
   font-size:24rpx;
-  font-weight:400;
+  font-weight:bold;
   color:#999999;
   padding:30rpx 0 20rpx 0;
 }
@@ -53,6 +53,7 @@ page{
   align-items: center;
   justify-content: space-between;
   border-top:1px solid #eee;
+  border-bottom:1px solid #eee;
   height:150rpx;
   padding-left:23rpx;
 }

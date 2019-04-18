@@ -27,7 +27,8 @@
     "pages/me/sysmsg/sysmsg",
     "pages/buyou/topic/topic",
     "pages/buyou/commentdetail/commentdetail",
-    "pages/me/fans/fans"
+    "pages/me/fans/fans",
+    "pages/mall/ivtgoodsdetail/ivtgoodsdetail"
   ],
   "window": {
     "backgroundTextStyle": "light",

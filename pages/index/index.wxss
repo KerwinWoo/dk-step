@@ -347,13 +347,13 @@ button.inviteBtn::after{
 .goodlist.goodlist_n .itm{
   width:210rpx;
   border-radius:10rpx;
-  padding:0 5rpx;
+  padding:6rpx;
   box-sizing: border-box;
   display: inline-block;
   float:none;
 }
 .goodlist.goodlist_n .itm .wrp{
-  box-shadow:1px 1px 6rpx rgba(89,89,89,0.17), -1px 0 6rpx rgba(89,89,89,0.17);
+  box-shadow:1px 1px 6rpx #f2f2f2, -1px 0 6rpx #f2f2f2;
 }
 .goodlist_n{
   padding-left:6rpx;
