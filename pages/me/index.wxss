@@ -8,7 +8,7 @@ page{
 }
 .tp{
   height:367rpx;
-  background:#FF8E00;
+  background:linear-gradient(90deg,rgba(254,99,54,1) 0%,rgba(243,164,71,1) 100%);
   color:#fff;
   box-sizing: border-box;
   padding-top:128rpx;
@@ -61,6 +61,7 @@ page{
   font-size:20rpx;
   color:#999;
   margin-left:10rpx;
+  font-weight: 400;
 }
 .tp .content .line{
   display: inline-block;

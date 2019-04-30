@@ -1,6 +1,6 @@
 <!--pages/me/index.wxml-->
 <view class="container" bindtouchstart='handletouchstart' bindtouchmove='handletouchmove' bindtouchend='handletouchend' bindtouchcancel='handletouchcancel'>
-  <dk-nav title="我的" hasBackBtn="{{true}}" isFixed="{{true}}" theme="white" bgColor="#FF8E00"></dk-nav>
+  <dk-nav title="我的" hasBackBtn="{{false}}" isFixed="{{true}}" theme="white" bgColor="transparent"></dk-nav>
   <view class="tp">
     <view class="content">
       <view class="wrp">
@@ -126,6 +126,14 @@
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_wenti.png"></image>
         </view>
         <view class="title">常见问题</view>
+      </view>
+    </view>
+    <view class="row">
+      <view class="itm">
+        <view class="imgCont">
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_rule.png"></image>
+        </view>
+        <view class="title">步友规范</view>
       </view>
     </view>
   </view>

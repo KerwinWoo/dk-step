@@ -40,7 +40,7 @@ image{
 }
 .formTab input,.formTab textarea{
   background:#eee;
-  padding:10rpx 36rpx;
+  padding:0 36rpx;
   font-size:28rpx;
   box-sizing: border-box;
   border-radius: 10rpx;
@@ -53,6 +53,7 @@ image{
   width:100%;
   height:170rpx;
   padding-left:30rpx;
+  padding-top:16rpx;
 }
 .formTab .row{
   margin-bottom: 30rpx;
@@ -63,13 +64,16 @@ image{
   align-items: center;
   justify-content: space-between;
 }
+.picker_num{
+  font-size:28rpx;
+}
 .pickerrow .title{
   font-size:30rpx;
   font-weight:bold;
 }
 .pickerrow .more{
-  width:20rpx;
-  height:13rpx;
+  width:24rpx;
+  height:14rpx;
   margin-left:4rpx;
 }
 .friendlist .itm{
@@ -89,6 +93,7 @@ image{
 .friendlist .itm .wrp{
   width:120rpx;
   height:120rpx;
+  margin:0 auto;
 }
 .friendlist .itm .name{
   font-size: 24rpx;
@@ -100,15 +105,22 @@ image{
   white-space: nowrap;
 }
 .inviteBtn .wrp{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   background:#eee;
   border-radius: 50%;
+}
+.inviteBtn .wrp .photo{
+  text-align: center;
+  width:120rpx;
+  height:120rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .inviteBtn image{
   width:51rpx;
   height:51rpx;
+  display: inline-block;
 }
 .createBtn{
   width:580rpx;
