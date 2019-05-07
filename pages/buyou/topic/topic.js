@@ -35,7 +35,7 @@ Page({
     let that = this
     
     that.setData({
-      title: options.title
+      title: options.title ? options.title : '#蛋壳步数换'
     })
     // 刷新组件
     that.refreshView = that.selectComponent("#refreshView")

@@ -8,7 +8,7 @@
     />
   </view>
   <view class="tr">
-    <view class="sendBtn" bindtap="sendComment">发送</view>
+    <view class="sendBtn btn-default" bindtap="sendComment">发送</view>
   </view>
 </view>
 

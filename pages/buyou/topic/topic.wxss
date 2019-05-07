@@ -17,3 +17,11 @@
   left:50rpx;
   bottom:45rpx;
 }
+.bannerdesc{
+	width:100%;
+	background:#fff;
+	font-size: 28rpx;
+	line-height: 40rpx;
+	padding:20rpx 50rpx;
+	box-sizing: border-box;
+}

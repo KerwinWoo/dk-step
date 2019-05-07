@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 17,
+			"current": 19,
 			"list": [
 				{
 					"id": 0,
@@ -159,6 +159,19 @@
 					"name": "ivtgoodsdetail",
 					"pathName": "pages/mall/ivtgoodsdetail/ivtgoodsdetail",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "dashang",
+					"pathName": "pages/me/dashang/dashang",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "detail",
+					"pathName": "pages/order/detail/detail",
 					"scene": null
 				}
 			]

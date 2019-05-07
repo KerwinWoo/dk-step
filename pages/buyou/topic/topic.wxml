@@ -6,6 +6,7 @@
     <image src="https://img30.360buyimg.com/babel/s350x180_jfs/t22660/197/997998956/85092/652504db/5b4c45bfNcfd19212.jpg"></image>
     <view class="topicName">{{title}}</view>
   </view>
+	<view class="bannerdesc">你来蛋壳步数换多久了？用蛋壳兑了多少好东西？赶紧来晒晒吧！</view>
   <view class="gap">
     <skeleton selector="skeleton" bgcolor="none" wx:if="{{showSkeleton}}"></skeleton>
     <view class="topiccontentlist skeleton">

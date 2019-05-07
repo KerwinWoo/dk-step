@@ -1,0 +1,230 @@
+/* pages/order/detail/detail.wxss */
+page{
+  background:#f2f2f2;
+}
+.banner{
+  width:100%;
+  height:200rpx;
+  background:#F99305;
+  padding:47rpx 70rpx 60rpx 35rpx;
+  box-sizing: border-box;
+  color:#fff;
+  position: relative;
+}
+.banner .bgicn{
+  width:131rpx;
+  height:109rpx;
+  position: absolute;
+  top:40rpx;
+  right:74rpx;
+}
+.banner .title{
+  font-size:36rpx;
+  font-weight:bold;
+}
+.banner .subtitle{
+  font-size:24rpx;
+  margin-top:20rpx;
+}
+.recevierinfo{
+  padding:46rpx 75rpx 30rpx 40rpx;
+  box-sizing: border-box;
+  width:100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  font-size:28rpx;
+  line-height:40rpx;
+  background:#fff;
+  margin-bottom: 30rpx;
+}
+.recevierinfo image{
+  width:24rpx;
+  height:32rpx;
+  margin-right:16rpx;
+}
+.recevierinfo .t{
+  font-size:30rpx;
+  font-weight:bold;
+  margin-bottom: 12rpx;
+}
+.recevierinfo .phone{
+  margin-left:36rpx;
+}
+.card{
+  width:100%;
+  box-sizing: border-box;
+  padding:26rpx 30rpx 35rpx 30rpx;
+  background:#fff;
+  margin-bottom:30rpx;
+}
+.card .title{
+  font-size:30rpx;
+  font-weight:bold;
+  margin-bottom: 30rpx;
+}
+.card .content{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  box-sizing: border-box;
+  padding-left:180rpx;
+}
+.card .pic{
+  width:180rpx;
+  position: absolute;
+  left:0;
+  top:0;
+}
+.card .pic .imgwrp{
+  width:100%;
+  padding-bottom: 100%;
+  position: relative;
+}
+.card .pic .imgwrp image{
+  width:100%;
+  height:100%;
+  position: absolute;
+  left:0;
+  top:0;
+}
+.card .dk{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.card .dk image,.payinfo image{
+  width:26rpx;
+  height:30rpx;
+  margin-right:6rpx;
+}
+.card .dk text{
+  color:#FB793B;
+  font-weight: bold;
+  font-size:24rpx;
+  display: inline-block;
+  height:30rpx;
+  line-height: 30rpx;
+}
+.card .info{
+  padding:0 0 0 38rpx;
+  box-sizing: border-box;
+  width:100%;
+  min-height: 180rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.card .info .l,.card .info .r{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+  height:180rpx;
+}
+.card .info .r{
+  align-items: flex-end;
+}
+.card .info .name{
+  font-size:28rpx;
+  font-weight:bold;
+  width:300rpx;
+}
+.card .info .num{
+  font-size:32rpx;
+  font-weight:bold;
+}
+.card .info .btn{
+  width:140rpx;
+  height:60rpx;
+  border:1px solid #FE6134;
+  border-radius:30rpx;
+  text-align: center;
+  color:#FB793B;
+  font-size: 28rpx;
+  line-height: 60rpx;
+}
+.payinfo{
+  background:#fff;
+  box-sizing: border-box;
+  padding:26rpx 30rpx;
+}
+.payinfo .title{
+  font-size:30rpx;
+  font-weight:bold;
+}
+.payinfo .row{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-size:28rpx;
+  margin-top:10rpx;
+}
+.payinfo .summary{
+  text-align: right;
+  padding-top:16rpx;
+  margin-top:20rpx;
+  border-top:1rpx solid #eee;
+}
+.payinfo .summary .label{
+  font-size:28rpx;
+  font-weight: bold;
+}
+.payinfo .summary .label text{
+  font-weight: 400;
+}
+.orderinfo{
+  font-size:28rpx;
+  color:#999;
+  background:#fff;
+  margin-top:30rpx;
+  margin-bottom: 30rpx;
+  box-sizing: border-box;
+  padding:26rpx 30rpx;
+}
+.orderinfo .copybtn{
+  display: inline-block;
+  width:84rpx;
+  height:36rpx;
+  border:1rpx solid rgba(153,153,153,1);
+  border-radius:18rpx;
+  text-align: center;
+  line-height:36rpx;
+  font-size: 16rpx;
+  margin-left:30rpx;
+}
+.orderinfo view{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  line-height: 50rpx;
+}
+.contact{
+  background:#fff;
+  box-sizing: border-box;
+  padding:20rpx 30rpx;
+  margin-bottom: 30rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 28rpx;
+  position: relative;
+}
+.contact image{
+  width:28rpx;
+  height:28rpx;
+  margin-right:20rpx;
+}
+.contact .icn{
+  position: absolute;
+  top:50%;
+  right:30rpx;
+  width:16rpx;
+  height:30rpx;
+  margin-top:-15rpx;
+}

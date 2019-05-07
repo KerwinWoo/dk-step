@@ -90,17 +90,18 @@
   padding-top:10rpx;
 }
 .tablist .tag{
-  width:50rpx;
-  height:6rpx;
-  background:rgba(255,142,0,1);
+  width:32rpx;
+  height:8rpx;
   position: absolute;
-  left:50rpx;
+  left:59rpx;
   bottom: 0;
   transition: all .3s;
   border-radius: 3rpx;
+	background:linear-gradient(0deg,rgba(254,99,54,1) 0%,rgba(243,164,71,1) 100%);
+	border-radius:3rpx;
 }
 .tablist .tag.gz{
-  left:180rpx;
+  left:189rpx;
 }
 .tablist.fixed{
   padding-bottom:10rpx;
@@ -272,9 +273,9 @@
   color:#666;
 }
 .topiccontentlist>.itm .opers image{
-  width:50rpx;
-  height:50rpx;
-  margin-right:2rpx;
+  margin-right:10rpx;
+	width:32rpx;
+	height:32rpx;
 }
 .releaseBtn{
   position:fixed;

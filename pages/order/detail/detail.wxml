@@ -1,0 +1,69 @@
+<!--pages/order/detail/detail.wxml-->
+<scroll-view class="container hastop">
+  <dk-nav title="订单详情" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+  <view class="banner">
+	  <view class="title">已完成</view>
+    <view class="subtitle">您的订单已完成，赶紧晒单获得更多奖励吧！</view>
+    <image class="bgicn" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/order_complete.png"></image>
+  </view>
+  <view class="recevierinfo">
+    <view class="l">
+      <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dibiao%402x.png"></image>
+    </view>
+    <view class="r">
+      <view class="t">收货人：<text>行走的蛋壳</text> <text class="phone">13817878787</text></view>
+      <view class="b">湖北省武汉市洪山区珞喻路光谷国际商会大厦20楼2013室</view>
+    </view>
+  </view>
+  
+  <view class="card">
+    <view class="title">商品信息</view>
+    <view class="content">
+      <view class="pic">
+        <view class="imgwrp">
+          <image src="https://img30.360buyimg.com/da/s340x200_jfs/t1/18385/15/2196/195088/5c1b04acEd5941fd5/2e814fc3defeb4f2.jpg!q90!cc_340x200"></image>
+        </view>
+      </view>
+      <view class="info">
+        <view class="l">
+          <view class="name">小米手环3青春时尚靓丽测心率胎心</view>
+          <view class="dk">
+            <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
+            <text>9999</text>
+          </view>
+        </view>
+        <view class="r">
+          <view class="num">×1</view>
+          <view class="btn">立即晒单</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="payinfo">
+    <view class="title">支付详情</view>
+    <view class="row">
+      <view class="label">蛋壳</view>
+      <view class="num">9999</view>
+    </view>
+    <view class="row">
+      <view class="label">现金</view>
+      <view class="num">￥0.00</view>
+    </view>
+    <view class="row">
+      <view class="label">运费</view>
+      <view class="num">￥0.00</view>
+    </view>
+    <view class="summary">
+      <view class="label">实付：<image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image><text>9999</text></view>
+    </view>
+  </view>
+  <view class="orderinfo">
+    <view>订单编号：<text>1232323234234234234</text><view class="copybtn">复制编号</view></view>
+    <view>下单时间：2019-02-12 12:23:32</view>
+  </view>
+  <view class="contact">
+    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/message_icn03.png"></image>
+    <text>联系客服</text>
+    <image class="icn" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
+  </view>
+</scroll-view>

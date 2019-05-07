@@ -28,7 +28,9 @@
     "pages/buyou/topic/topic",
     "pages/buyou/commentdetail/commentdetail",
     "pages/me/fans/fans",
-    "pages/mall/ivtgoodsdetail/ivtgoodsdetail"
+    "pages/mall/ivtgoodsdetail/ivtgoodsdetail",
+    "pages/order/detail/detail",
+    "pages/order/me/me"
   ],
   "window": {
     "backgroundTextStyle": "light",

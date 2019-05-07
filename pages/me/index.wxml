@@ -47,12 +47,12 @@
   <view class="ordercont">
     <view class="comtitle">我的订单</view>
     <view class="row">
-      <view class="itm">
+      <navigator class="itm" url="/pages/order/me/me" hover-class="none">
         <view class="imgCont">
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ordericn_dfk.png"></image>
         </view>
         <view class="title">待付款</view>
-      </view>
+      </navigator>
       <view class="itm">
         <view class="imgCont">
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ordericn_dfh.png"></image>

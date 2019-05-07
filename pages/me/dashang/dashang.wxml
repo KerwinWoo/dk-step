@@ -14,6 +14,7 @@
             <text class="act">打赏了您<text>2</text>个蛋壳</text>
           </view>
         </view>
+				<view class="btn">已回赏</view>
       </view>
     </view>
     <view class="inforow">
@@ -28,6 +29,7 @@
             <text class="act">打赏了您<text>2</text>个蛋壳</text>
           </view>
         </view>
+				<view class="btn">回赏Ta</view>
       </view>
     </view>
     <view class="inforow">
@@ -42,6 +44,7 @@
             <text class="act">打赏了您<text>2</text>个蛋壳</text>
           </view>
         </view>
+				<view class="btn">回赏Ta</view>
       </view>
     </view>
   </view>

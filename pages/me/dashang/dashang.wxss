@@ -17,6 +17,7 @@
   border-bottom:1rpx solid #eee;
   padding:30rpx 0;
   box-sizing: border-box;
+	position: relative;
 }
 .inforow .pic image{
   width:90rpx;
@@ -35,4 +36,18 @@
 }
 .inforow .info .desc .time{
   margin-right:10rpx;
+}
+.inforow .wrp .btn{
+	width:103rpx;
+	height:50rpx;
+	text-align: center;
+	line-height: 50rpx;
+	font-size:24rpx;
+	color:#FB793B;
+	border-radius:25rpx;
+	border:1rpx solid #FE6134;
+	position: absolute;
+	right:0;
+	top:50%;
+	margin-top:-25rpx;
 }
