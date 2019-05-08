@@ -1,0 +1,43 @@
+/* pages/order/success/success.wxss */
+.title{
+  font-size:44rpx;
+  color:#FB793B;
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top:120rpx;
+  margin-bottom: 60rpx;
+}
+.title image{
+  width:50rpx;
+  height:50rpx;
+  margin-right:35rpx;
+}
+.bg{
+  text-align: center;
+  margin-bottom: 100rpx;
+}
+.bg image{
+  width:356rpx;
+  height:233rpx;
+}
+.tip{
+  text-align: center;
+  font-size:30rpx;
+  line-height: 50rpx;
+}
+.sharebtn{
+  width:580rpx;
+  height:86rpx;
+  border-radius:43rpx;
+  margin:0 auto;
+  text-align: center;
+  line-height: 86rpx;
+  font-size:40rpx;
+  font-weight: bold;
+  box-sizing: border-box;
+  color:#fff;
+  margin-top:50rpx;
+}

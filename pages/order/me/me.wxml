@@ -1,6 +1,43 @@
 <!--pages/order/me/me.wxml-->
 <refresh-view id='refreshView' hasTop="true" backgroundColor="#f2f2f2" bind:onRefresh="onPullDownRefresh"/>
-<scroll-view class="container" bindtouchstart='handletouchstart' bindtouchmove='handletouchmove' bindtouchend='handletouchend' bindtouchcancel='handletouchcancel'>
+<scroll-view class="container hastop" bindtouchstart='handletouchstart' bindtouchmove='handletouchmove' bindtouchend='handletouchend' bindtouchcancel='handletouchcancel'>
   <dk-nav title="我的订单" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+  <view class="typelist">
+    <view data-type="all" class="itm{{orderType == 'all' ? ' active' : ''}}" bindtap="changeType">全部</view>
+    <view data-type="dfk" class="itm{{orderType == 'dfk' ? ' active' : ''}}" bindtap="changeType">待付款</view>
+    <view data-type="dfh" class="itm{{orderType == 'dfh' ? ' active' : ''}}" bindtap="changeType">待发货</view>
+    <view data-type="dsh" class="itm{{orderType == 'dsh' ? ' active' : ''}}" bindtap="changeType">待收货</view>
+    <view data-type="ywc" class="itm{{orderType == 'ywc' ? ' active' : ''}}" bindtap="changeType">已完成</view>
+  </view>
+  <view class="orderlist">
+    <view class="itm" wx:for="{{orderList}}" wx:key="{{item.id}}">
+      <navigator class="wrp" url="/pages/order/detail/detail">
+        <view class="pic">
+          <view class="imgwrp">
+            <image mode="aspectFit" src="{{item.pic}}"></image>
+          </view>
+        </view>
+        <view class="content">
+          <view class="name">{{item.name}}</view>
+          <view class="btm">
+            <view class="dknum"><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image><text>{{item.dk}}</text></view>
+            <view class="num">×{{item.num}}</view>
+          </view>
+        </view>
+        <view class="status">{{item.status}}</view>
+      </navigator>
+      <view class="btn">
+        <view class="time" wx:if="{{item.status  == '待付款'}}">
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-time.png"></image>
+          <text>剩余时间：29:25</text>
+        </view>
+        <view class="btn-default" wx:if="{{item.status  == '已完成'}}">去晒单</view>
+        <view class="btn-default" wx:if="{{item.status  == '待付款'}}" bindtap="gotoPay">去支付</view>
+        <view class="btn-simple" wx:if="{{item.status  == '待发货'}}">催发货</view>
+        <view class="btn-simple" wx:if="{{item.status  == '待收货'}}" bindtap="toWuliu">查看物流</view>
+        <view class="btn-simple" wx:if="{{item.status  == '待收货'}}">确认收货</view>
+      </view>
+    </view>
+  </view>
 </scroll-view>
 

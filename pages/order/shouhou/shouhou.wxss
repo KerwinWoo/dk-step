@@ -1,0 +1,2 @@
+/* pages/order/shouhou/shouhou.wxss */
+@import "/pages/order/me/me.wxss";

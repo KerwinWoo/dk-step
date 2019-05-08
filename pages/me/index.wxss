@@ -145,3 +145,28 @@ page{
 .servcont .row{
   margin-bottom: 60rpx;
 }
+.ordercont .itm{
+  position: relative;
+}
+.ordercont .itm .message{
+  position: absolute;
+  width:40rpx;
+  height:40rpx;
+  background:#FF000F;
+  border-radius:50%;
+  font-size:24rpx;
+  text-align: center;
+  line-height: 40rpx;
+  color:#fff;
+  top:-20rpx;
+  right:-10rpx;
+}
+.message-s{
+  width:16rpx;
+  height:16rpx;
+  background:#FF000F;
+  border-radius:50%;
+  position: absolute;
+  right:20rpx;
+  top:0rpx;
+}

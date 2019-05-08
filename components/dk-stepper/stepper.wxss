@@ -1,0 +1,42 @@
+/* components/dk-stepper/stepper.wxss */
+/*全局样式*/  
+.stepper {  
+  height: 36rpx;  
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  color:#666;
+  width:190rpx;
+}
+  
+/*加号和减号*/  
+.stepper text {  
+  display: inline-block;
+  width:36rpx;
+  height:36rpx;
+  line-height: 36rpx;
+  border-radius: 5rpx;
+  background:#eee;
+  text-align: center;
+  font-size: 28rpx;
+}
+  
+/*数值*/  
+.stepper input {  
+  width: 80rpx;
+  text-align: center;  
+  font-size: 28rpx;
+  display: inline-block;
+  height:36rpx;
+}  
+  
+/*普通样式*/  
+.stepper .normal{  
+    color: black;  
+}  
+  
+/*禁用样式*/  
+.stepper .disabled{  
+    color: #ccc;  
+} 

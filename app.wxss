@@ -166,9 +166,32 @@ page::after{
 .btn-default{
   background:linear-gradient(90deg,rgba(254,99,54,1) 0%,rgba(243,164,71,1) 100%)!important;
 }
+.btn-simple{
+  border:1px solid #FE6134;
+  color:#FB793B!important;
+}
 .ctr{
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+}
+.dknum image{
+  width:32rpx;
+  height:32rpx;
+  margin-right:8rpx;
+}
+.dknum{
+  height:32rpx;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.dknum text{
+  display: inline-block;
+  height:30rpx;
+  line-height:30rpx;
+  color:#FB793B;
+  font-size: 24rpx;
 }

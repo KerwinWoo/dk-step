@@ -18,7 +18,7 @@
           <view class="name">{{item.name}}</view>
           <view class="desc">{{item.desc}}</view>
         </view>
-        <view class="step">+{{item.step}}步</view>
+        <view class="step btn-default">+{{item.step}}步</view>
       </view>
     </view>
   </view>

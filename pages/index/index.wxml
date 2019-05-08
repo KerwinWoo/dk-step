@@ -72,7 +72,7 @@
         </navigator>
       </view>
       <view class="itm">
-        <navigator class="wrp" url="/pages/team/team">
+        <navigator class="wrp" url="/pages/team/team" open-type="switchTab">
           <view class="title">健步团</view>
           <view class="subtitle">亲朋好友一起玩</view>
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/tiaozhansai%402x.png"></image>

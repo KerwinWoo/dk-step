@@ -2,6 +2,9 @@
 page{
   background:#f2f2f2;
 }
+.hasBottom{
+  padding-bottom: 140rpx;
+}
 .banner{
   width:100%;
   height:200rpx;
@@ -25,6 +28,7 @@ page{
 .banner .subtitle{
   font-size:24rpx;
   margin-top:20rpx;
+  width:480rpx;
 }
 .recevierinfo{
   padding:46rpx 75rpx 30rpx 40rpx;
@@ -227,4 +231,28 @@ page{
   width:16rpx;
   height:30rpx;
   margin-top:-15rpx;
+}
+.pay{
+  box-sizing: border-box;
+  background:#fff;
+  position: fixed;
+  left:0;
+  bottom: 0;
+  width:100%;
+  padding:30rpx;
+  text-align: right;
+}
+.pay>view{
+  border-radius:35rpx;
+  display: inline-block;
+  padding:20rpx 45rpx;
+  font-size:28rpx;
+}
+.pay>view.cancel{
+  border:1rpx solid #999;
+  color:#999;
+  margin-right:26rpx;
+}
+.pay>view.payBtn{
+  color:#fff;
 }

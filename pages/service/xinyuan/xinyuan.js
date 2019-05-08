@@ -1,18 +1,11 @@
-// pages/order/detail/detail.js
+// pages/service/xinyuan/xinyuan.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    orderData: {
-      orderStatus: '待支付',
-      pic: 'https://img30.360buyimg.com/da/s340x200_jfs/t1/18385/15/2196/195088/5c1b04acEd5941fd5/2e814fc3defeb4f2.jpg',
-      name: '小米手环3青春时尚靓丽测心率胎心',
-      num: 2,
-      dk: 989
-    },
-    isPay: true
+
   },
 
   /**
@@ -69,13 +62,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-  backTo () {
-    wx.navigateBack()
-  },
-  gotoPay () {
-    wx.navigateTo({
-      url: '/pages/order/paydetail/paydetail'
-    })
   }
 })

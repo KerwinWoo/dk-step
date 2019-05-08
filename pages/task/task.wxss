@@ -66,11 +66,10 @@ image{
   display: inline-block;
   width:128rpx;
   height:50rpx;
-  border:1px solid #FFB304;
   border-radius:25rpx;
   text-align: center;
   line-height: 50rpx;
-  color:#FFB304;
+  color:#fff;
   font-size:24rpx;
   position: absolute;
   right:15rpx;

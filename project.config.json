@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 19,
+			"current": 25,
 			"list": [
 				{
 					"id": 0,
@@ -172,6 +172,48 @@
 					"id": -1,
 					"name": "detail",
 					"pathName": "pages/order/detail/detail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "myorder",
+					"pathName": "pages/order/me/me",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "shouhou",
+					"pathName": "pages/order/shouhou/shouhou",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "wuliu",
+					"pathName": "pages/order/wuliu/wuliu",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "paydetail",
+					"pathName": "pages/order/paydetail/paydetail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "success",
+					"pathName": "pages/order/success/success",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "xinyuan",
+					"pathName": "pages/service/xinyuan/xinyuan",
 					"scene": null
 				}
 			]

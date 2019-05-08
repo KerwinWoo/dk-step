@@ -1,0 +1,29 @@
+<!--pages/service/xinyuan/xinyuan.wxml-->
+<scroll-view class="container hastop{{(isPay? ' hasBottom' : '')}}">
+  <dk-nav title="心愿清单" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+  <view class="currentDk">
+    <text class="title">当前蛋壳</text>
+    <view class="dknum"><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image><text>2300</text></view>
+  </view>
+  <view class="orderlist">
+    <view class="itm">
+      <view class="wrp">
+        <view class="pic">
+          <view class="imgwrp">
+            <image mode="aspectFit" src="https://img11.360buyimg.com/mobilecms/s140x140_jfs/t1/36087/25/9399/196762/5ccfdda2E4bdd9a0b/21781e4e4832c962.jpg"></image>
+          </view>
+        </view>
+        <view class="content">
+          <view class="name">小米手环</view>
+          <view class="btm">
+            <view class="dknum">
+              <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
+              <text>23</text>
+            </view>
+            <view class="btn">移除清单</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>

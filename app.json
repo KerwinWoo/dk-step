@@ -30,7 +30,12 @@
     "pages/me/fans/fans",
     "pages/mall/ivtgoodsdetail/ivtgoodsdetail",
     "pages/order/detail/detail",
-    "pages/order/me/me"
+    "pages/order/me/me",
+    "pages/order/shouhou/shouhou",
+    "pages/order/wuliu/wuliu",
+    "pages/order/paydetail/paydetail",
+    "pages/order/success/success",
+    "pages/service/xinyuan/xinyuan"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,10 +1,16 @@
 <!--pages/order/detail/detail.wxml-->
-<scroll-view class="container hastop">
+<scroll-view class="container hastop{{(isPay? ' hasBottom' : '')}}">
   <dk-nav title="订单详情" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
   <view class="banner">
-	  <view class="title">已完成</view>
-    <view class="subtitle">您的订单已完成，赶紧晒单获得更多奖励吧！</view>
-    <image class="bgicn" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/order_complete.png"></image>
+	  <view class="title">{{orderData.orderStatus}}</view>
+    <view class="subtitle" wx:if="{{orderData.orderStatus == '已完成'}}">您的订单已完成，赶紧晒单获得更多奖励吧！</view>
+    <view class="subtitle" wx:if="{{orderData.orderStatus == '待发货'}}">订单正在准备出库，即将赶往你的目的地，请您耐心等待</view>
+    <view class="subtitle" wx:if="{{orderData.orderStatus == '待支付'}}">订单已经提交，请在01时20分钟内完成支付，超时订单将自动取消</view>
+    <view class="subtitle" wx:if="{{orderData.orderStatus == '已发货'}}">订单已经发货，正在飞速赶往你的目的地，请您耐心等待</view>
+    <image class="bgicn" wx:if="{{orderData.orderStatus == '已完成'}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/order_complete.png"></image>
+    <image class="bgicn" wx:if="{{orderData.orderStatus == '待发货'}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/order_fahuo.png"></image>
+    <image class="bgicn" wx:if="{{orderData.orderStatus == '待支付'}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/order_zhifu.png"></image>
+    <image class="bgicn" wx:if="{{orderData.orderStatus == '已发货'}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/order_yifahuo.png"></image>
   </view>
   <view class="recevierinfo">
     <view class="l">
@@ -21,20 +27,22 @@
     <view class="content">
       <view class="pic">
         <view class="imgwrp">
-          <image src="https://img30.360buyimg.com/da/s340x200_jfs/t1/18385/15/2196/195088/5c1b04acEd5941fd5/2e814fc3defeb4f2.jpg!q90!cc_340x200"></image>
+          <image src="{{orderData.pic}}"></image>
         </view>
       </view>
       <view class="info">
         <view class="l">
-          <view class="name">小米手环3青春时尚靓丽测心率胎心</view>
+          <view class="name">{{orderData.name}}</view>
           <view class="dk">
             <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
-            <text>9999</text>
+            <text>{{orderData.dk}}</text>
           </view>
         </view>
         <view class="r">
-          <view class="num">×1</view>
-          <view class="btn">立即晒单</view>
+          <view class="num">×{{orderData.num}}</view>
+          <view class="btn" wx:if="{{orderData.orderStatus == '已完成'}}">立即晒单</view>
+          <view class="btn btn-simple" wx:if="{{orderData.orderStatus == '待发货'}}">催发货</view>
+          <view class="btn btn-simple" wx:if="{{orderData.orderStatus == '已发货'}}">查看物流</view>
         </view>
       </view>
     </view>
@@ -61,9 +69,13 @@
     <view>订单编号：<text>1232323234234234234</text><view class="copybtn">复制编号</view></view>
     <view>下单时间：2019-02-12 12:23:32</view>
   </view>
-  <view class="contact">
+  <view class="contact" wx:if="{{orderData.orderStatus != '待支付'}}">
     <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/message_icn03.png"></image>
     <text>联系客服</text>
     <image class="icn" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
+  </view>
+  <view class="pay" wx:if="{{orderData.orderStatus == '待支付'}}">
+    <view class="cancel">取消订单</view>
+    <view class="payBtn btn-default" bindtap="gotoPay">去支付</view>
   </view>
 </scroll-view>
