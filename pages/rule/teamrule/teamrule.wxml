@@ -1,0 +1,16 @@
+<!--pages/rule/teamrule/teamrule.wxml-->
+<view class="container hastop">
+  <dk-nav title="规则" hasBackBtn="{{true}}" bind:backTo="backTo"></dk-nav>
+  <view class="wrp">
+    <view class="ttitle">加入/创建团队规则说明</view>
+    <view class="list">
+      <view class="itm"><text>1</text>团长邀请4位好友满5人即可成团，首次创建团队成功的团长可获得步数奖励，奖励以小气泡形式在首页发放，团长需在团队创建成功当日24：00前点击首页小气泡领取；</view>
+      <view class="itm"><text>2</text>创建团队需填写“团队名称”“团队宣言”“团队目标”等信息，否则不允许创建，也可选择加入好友的团队；</view>
+      <view class="itm"><text>3</text>每个人最多可以创建5个团队，加入5个好友团队，每个团队包括团长1人，成员若干；</view>
+      <view class="itm"><text>4</text>每天24：00前需进入本小程序进行步数结算，数据为当天最后一次进入小程序时的数据；</view>
+      <view class="itm"><text>5</text>团员及团长有责任提醒团员及时登录打卡，团员之间也可进行蛋壳打赏来互动，进而营造良好的竞争氛围；</view>
+      <view class="itm"><text>6</text>团长有责任为团队邀请新的成员，提高团队氛围及竞争。</view>
+    </view>
+  </view>
+  <view class="more">更多组团玩法会陆续更新，敬请期待~</view>
+</view>

@@ -77,6 +77,7 @@ function login() {
   return new Promise(function (resolve, reject) {
     wx.login({
       success: function (res) {
+        debugger
         if (res.code) {
           resolve(res);
         } else {
@@ -84,6 +85,7 @@ function login() {
         }
       },
       fail: function (err) {
+        debugger
         reject(err);
       }
     });
@@ -130,7 +132,33 @@ function randomNum(minNum,maxNum){
       return 0; 
       break; 
   } 
-} 
+}
+
+//校验用户是否授权登录，如果没有，引导至授权页面
+function checkUserPermisson(){
+  return new Promise(function(resolve, reject){
+    wx.getSetting({
+      success(res) {
+        //用户拒绝授权或者用户在设置页面中取消了授权
+        if(res.authSetting['scope.userInfo'] != undefined && res.authSetting['scope.userInfo'] == false){
+          wx.redirectTo({
+            url: '/pages/auth/setting/goSetting'
+          })
+        }
+        //用户从未授权
+        else if (res.authSetting['scope.userInfo'] == undefined){
+          wx.redirectTo({
+            url: '/pages/auth/btnAuth/btnAuth'
+          })
+        }
+        //用户已授权
+        else{
+          resolve()
+        }
+      }
+    })
+  })
+}
 
 module.exports = {
   formatTime,
@@ -140,5 +168,6 @@ module.exports = {
   showSuccessToast,
   checkSession,
   login,
-  randomNum
+  randomNum,
+  checkUserPermisson
 }

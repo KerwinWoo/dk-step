@@ -1,2 +1,4 @@
 <!--pages/rule/rule.wxml-->
-<text>pages/rule/rule.wxml</text>
+<view class="container hastop">
+  <dk-nav title="规则" hasBackBtn="{{true}}" bind:backTo="backTo"></dk-nav>
+</view>

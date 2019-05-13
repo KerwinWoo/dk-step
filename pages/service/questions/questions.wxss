@@ -1,0 +1,58 @@
+/* pages/service/questions/questions.wxss */
+page{
+  background:#f2f2f2;
+}
+.banner image{
+  width:100%;
+  height:300rpx;
+  margin-bottom: 30rpx;
+}
+.questions .tag{
+  width:42rpx;
+  height:42rpx;
+  margin-right:20rpx;
+}
+.questions .itm{
+  margin-bottom: 20rpx;
+}
+.questions .itm .q{
+  height:98rpx;
+  background:#fff;
+  box-sizing: border-box;
+  padding:0 30rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-size:28rpx;
+  font-weight:bold;
+}
+.questions .itm .a{
+  position: relative;
+  background:#fff;
+  box-sizing: border-box;
+  padding:0 30rpx 30rpx 92rpx;
+  font-size:28rpx;
+  color:#666666;
+  line-height:40rpx;
+}
+.questions .itm .a .tag{
+  position: absolute;
+  left:30rpx;
+  top:0;
+}
+.questions .itm .q .l{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  flex-grow: 1;
+}
+.questions .itm .btn.open{
+  transform: rotate(90deg);
+  transition:all .3s;
+}
+.questions .itm .btn{
+  width:14rpx;
+  height:28rpx;
+}

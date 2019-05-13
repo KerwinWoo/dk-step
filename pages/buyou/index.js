@@ -1,4 +1,7 @@
 // pages/buyou/index.js
+const app = getApp()
+const utils = require('../../utils/util.js')
+const api = require('../../api/api.js')
 Page({
 
   /**
@@ -126,20 +129,6 @@ Page({
         }, 1500)
       })
     }
-    /* that.throttle(function () {
-      let scrollTop = event.scrollTop
-      console.log(scrollTop)
-      if (scrollTop > that.data.tabListToTop) {
-        that.setData({
-          tablistFixed: true
-        })
-      }
-      else {
-        that.setData({
-          tablistFixed: false
-        })
-      }
-    }, 100, 100)() */
   },
   onPullDownRefresh:function(){
     let that = this
@@ -198,29 +187,17 @@ Page({
   },
   loadTopicNameData () {
     let that = this
-    setTimeout(function(){
-      let data = [{
-        id:1,
-        name: '#我家有萌宠',
-        photo: 'https://img30.360buyimg.com/babel/s350x180_jfs/t22660/197/997998956/85092/652504db/5b4c45bfNcfd19212.jpg',
-      },{
-        id:2,
-        name: '#我的国民女神',
-        photo: 'https://img30.360buyimg.com/da/s340x200_jfs/t1/20266/13/2231/195088/5c1b04a7Ed4e9b3f1/44664507b33b98f1.jpg',
-      },{
-        id:3,
-        name: '#我的国民女神',
-        photo: 'https://img30.360buyimg.com/babel/s340x420_jfs/t1/15030/18/14294/108760/5ca5de8dE297ecf2f/f2da012252f8acf3.jpg',
-      },{
-        id:4,
-        name: '#我的国民女神',
-        photo: 'https://img13.360buyimg.com/babel/s350x180_jfs/t1/31340/12/1465/188726/5c4ec1dfE3fe8f3a8/23cccc3c9a731a66.png',
-      }]
+    utils.request(api.BUYOU_QUERY_COMMUNITYLIST,{
+      page: 1,
+      size:10,
+      sort: '',
+      order: ''
+    }).then(function (res) {
       that.setData({
-        sliderWidth: data.length * 288,
-        topicList: data
+        sliderWidth: res.data.data.length * 288,
+        topicList: res.data.data
       })
-    }, 1000)
+    })
   },
   loadTopicData () {
     let that = this

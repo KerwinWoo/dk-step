@@ -15,8 +15,8 @@
       <scroll-view scroll-x>
         <view class="topiclist clearfix" style="width:{{sliderWidth}}rpx">
           <navigator class="itm" wx:for="{{topicList}}" wx:key="id" url="/pages/buyou/topic/topic?title={{item.name}}">
-            <text>{{item.name}}</text>
-            <image-loader original-image="{{item.photo}}" />
+            <text>#{{item.title}}</text>
+            <image-loader original-image="{{item.imgSrc}}" />
           </navigator>
         </view>
       </scroll-view>

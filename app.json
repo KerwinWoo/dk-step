@@ -35,7 +35,19 @@
     "pages/order/wuliu/wuliu",
     "pages/order/paydetail/paydetail",
     "pages/order/success/success",
-    "pages/service/xinyuan/xinyuan"
+    "pages/service/xinyuan/xinyuan",
+    "pages/game/record/record",
+    "pages/me/yijian/yijian",
+    "pages/service/contactus/contactus",
+    "pages/service/questions/questions",
+    "pages/rule/teamrule/teamrule",
+    "pages/team/manage/manage",
+    "pages/team/manage/member/member",
+    "pages/team/manage/name/name",
+    "pages/team/manage/slogan/slogan",
+    "pages/me/homepage/homepage",
+    "pages/me/guanzhu/guanzhu",
+    "pages/auth/btnAuth/btnAuth"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -74,5 +86,6 @@
         "text": "我的"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

@@ -1,0 +1,32 @@
+/* pages/team/manage/member/member.wxss */
+@import '/pages/team/manage/manage.wxss'
+.row .pic{
+  width:180rpx;
+}
+.row .pic image{
+  width:90rpx;
+  height:90rpx;
+  border-radius: 50%;
+}
+.row .wrp{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding:26rpx 0;
+  height:auto;
+}
+.row .wrp .name{
+  font-size:28rpx;
+  font-weight:bold;
+  flex-grow: 1;
+}
+.row .wrp .btn{
+  height:50rpx;
+  border-radius:25rpx;
+  font-size: 24rpx;
+  line-height: 50rpx;
+  padding:0 28rpx;
+  text-align: center;
+}

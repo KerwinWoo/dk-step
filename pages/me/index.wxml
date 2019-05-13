@@ -5,11 +5,11 @@
     <view class="content">
       <view class="wrp">
         <view class="photo">
-          <image mode="aspectFill" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg"></image>
+          <image mode="aspectFill" src="{{userInfo.avatarUrl}}"></image>
         </view>
         <view class="info">
           <view class="name">
-            <text>小橘子</text>
+            <text>{{userInfo.nickName}}</text>
             <text class="updateBtn">更新资料</text>
           </view>
           <view class="otr">
@@ -25,22 +25,22 @@
     </view>
     <view class="summary">
       <view class="wrp">
-        <view class="itm">
+        <navigator class="itm" url="/pages/me/guanzhu/guanzhu" hover-class="none">
           <view class="num">15</view>
           <view class="name">关注</view>
-        </view>
-        <view class="itm">
+        </navigator>
+        <navigator class="itm" url="/pages/me/fans/fans" hover-class="none">
           <view class="num">15</view>
           <view class="name">粉丝</view>
-        </view>
-        <view class="itm">
+        </navigator>
+        <navigator class="itm" url="/pages/me/dashang/dashang" hover-class="none">
           <view class="num">15</view>
           <view class="name">获赏</view>
-        </view>
-        <view class="itm">
+        </navigator>
+        <navigator class="itm" url="/pages/me/dashang/dashang" hover-class="none">
           <view class="num">15</view>
           <view class="name">发帖</view>
-        </view>
+        </navigator>
       </view>
     </view>
   </view>
@@ -84,20 +84,20 @@
         </view>
         <view class="title">心愿清单</view>
       </navigator>
-      <view class="itm">
+      <navigator class="itm" url="/pages/me/message/message" hover-class="none">
         <view class="imgCont">
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_xiaoxi.png"></image>
         </view>
         <view class="title">消息通知</view>
         <view class="message-s"></view>
-      </view>
-      <view class="itm">
+      </navigator>
+      <navigator class="itm" url="/pages/game/record/record" hover-class="none">
         <view class="imgCont">
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_choujiang.png"></image>
         </view>
         <view class="title">抽奖记录</view>
-      </view>
-      <view class="itm">
+      </navigator>
+      <view class="itm" bindtap="manageAddress">
         <view class="imgCont">
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_dizhi.png"></image>
         </view>
@@ -105,38 +105,38 @@
       </view>
     </view>
     <view class="row">
-      <view class="itm">
+      <button class="itm" open-type="contact">
         <view class="imgCont">
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_kefu.png"></image>
         </view>
         <view class="title">联系客服</view>
-      </view>
-      <view class="itm">
+      </button>
+      <button class="itm" open-type="contact">
         <view class="imgCont">
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_yijian.png"></image>
         </view>
         <view class="title">意见反馈</view>
-      </view>
-      <view class="itm">
+      </button>
+      <navigator class="itm" url="/pages/service/contactus/contactus" hover-class="none">
         <view class="imgCont">
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_lianxi.png"></image>
         </view>
         <view class="title">联系我们</view>
-      </view>
-      <view class="itm">
+      </navigator>
+      <navigator class="itm" url="/pages/service/questions/questions" hover-class="none">
         <view class="imgCont">
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_wenti.png"></image>
         </view>
         <view class="title">常见问题</view>
-      </view>
+      </navigator>
     </view>
     <view class="row">
-      <view class="itm">
+      <navigator class="itm" url="" hover-class="none">
         <view class="imgCont">
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_rule.png"></image>
         </view>
         <view class="title">步友规范</view>
-      </view>
+      </navigator>
     </view>
   </view>
 </view>

@@ -1,0 +1,13 @@
+/* pages/team/manage/name/name.wxss */
+@import '/pages/team/manage/slogan/slogan.wxss'
+input{
+  box-sizing: border-box;
+  width:100%;
+  background:#eee;
+  height:100rpx;
+  border-radius:10rpx;
+  font-size: 28rpx;
+  padding:22rpx;
+  line-height: 40rpx;
+  margin-bottom: 30rpx;
+}

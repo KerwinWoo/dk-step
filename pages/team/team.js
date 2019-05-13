@@ -6,7 +6,9 @@ Page({
    */
   data: {
     array: [5000, 10000, 15000, 20000],
-    index: 0
+    index: 0,
+    teamName: '',
+    teamSlogan: ''
   },
 
   /**
@@ -62,7 +64,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return false
   },
   backTo (e) {
     wx.switchTab({
@@ -75,8 +77,17 @@ Page({
     })
   },
   createTeam () {
+    console.error('点击邀请之前需要校验团队名称和宣言是否为空，但是这个分享动作如何阻止？？？')
     wx.navigateTo({
       url: '/pages/team/myteam/myteam'
     })
+    /* if(this.data.teamName != '' && this.data.teamSlogan != ''){
+      wx.navigateTo({
+        url: '/pages/team/myteam/myteam'
+      })
+    }
+    else{
+      console.log('bull shit')
+    } */
   }
 })

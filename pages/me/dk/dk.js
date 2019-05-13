@@ -1,4 +1,7 @@
 // pages/me/dk/dk.js
+const app = getApp()
+const utils = require('../../../utils/util.js')
+const api = require('../../../api/api.js')
 Page({
 
   /**
@@ -12,7 +15,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    utils.request(api.DK_HISTORY).then(function(res){
+      debugger;
+    })
   },
 
   /**

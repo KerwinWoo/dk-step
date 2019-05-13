@@ -13,8 +13,10 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.0.8",
-	"appid": "wx4a1124894989c91f",
+	"appid": "wxd5a5b16e11f39576",
 	"projectname": "dkstep",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,
@@ -33,7 +35,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 25,
+			"current": 36,
 			"list": [
 				{
 					"id": 0,
@@ -214,6 +216,83 @@
 					"id": -1,
 					"name": "xinyuan",
 					"pathName": "pages/service/xinyuan/xinyuan",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "record",
+					"pathName": "pages/game/record/record",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "yijian",
+					"pathName": "pages/me/yijian/yijian",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "contactus",
+					"pathName": "pages/service/contactus/contactus",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "questions",
+					"pathName": "pages/service/questions/questions",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "teamrule",
+					"pathName": "pages/rule/teamrule/teamrule",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "teamdetail",
+					"pathName": "pages/team/detail/detail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "manageteam",
+					"pathName": "pages/team/manage/manage",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "managemember",
+					"pathName": "pages/team/manage/member/member",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "manageslogan",
+					"pathName": "pages/team/manage/slogan/slogan",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "managename",
+					"pathName": "pages/team/manage/name/name",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "dashang",
+					"pathName": "pages/me/dashang/dashang",
 					"scene": null
 				}
 			]

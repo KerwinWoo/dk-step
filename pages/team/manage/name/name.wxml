@@ -1,0 +1,10 @@
+<!--pages/team/manage/name/name.wxml-->
+<view class="container hastop">
+  <dk-nav title="团队名称" hasBackBtn isFixed bind:backTo="backTo"></dk-nav>
+   <view class="wrp">
+    <input placeholder="团队名称" placeholder-style="color:#999"/>
+    <view class="submitbtn">
+      <text class="btn-default">确定</text>
+    </view>
+  </view>
+</view>

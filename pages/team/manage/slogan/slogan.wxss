@@ -1,0 +1,29 @@
+/* pages/team/manage/slogan/slogan.wxss */
+.wrp{
+  padding:0 30rpx;
+  box-sizing: border-box;
+}
+.submitbtn{
+  text-align: right;
+}
+.submitbtn text{
+  display: inline-block;
+  color:#fff;
+  font-size:28rpx;
+  text-align: center;
+  height:70rpx;
+  line-height: 70rpx;
+  padding:0 50rpx;
+  border-radius:35rpx;
+}
+textarea{
+  box-sizing: border-box;
+  width:100%;
+  background:#eee;
+  height:230rpx;
+  border-radius:10rpx;
+  font-size: 28rpx;
+  padding:22rpx;
+  line-height: 40rpx;
+  margin-bottom: 30rpx;
+}

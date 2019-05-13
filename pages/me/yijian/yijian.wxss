@@ -1,0 +1,70 @@
+/* pages/me/yijian/yijian.wxss */
+page{
+  background:#f2f2f2;
+}
+.cont{
+  box-sizing: border-box;
+  padding:26rpx 30rpx;
+  background:#fff;
+}
+.cmtitle{
+  font-size:32rpx;
+  font-weight:bold;
+  padding-left:22rpx;
+}
+.trow .cmtitle{
+  padding-bottom: 26rpx;
+}
+.trow{border-bottom: 1rpx solid #eee;}
+textarea{
+  padding:22rpx;
+  box-sizing: border-box;
+  width:100%;
+  font-size:28rpx;
+  border-bottom: 1rpx solid #eee;
+}
+.photos{
+  box-sizing: border-box;
+  padding-left:22rpx;
+}
+.photos .cmtitle{
+  padding:26rpx 0;
+}
+.photos .uploadImg{
+  width:160rpx;
+  height:160rpx;
+  background:#eee;
+  border-radius:10rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.photos .uploadImg image{
+  width:72rpx;
+  height:56rpx;
+}
+.tip{
+  height:72rpx;
+  width:100%;
+  box-sizing: border-box;
+  padding-left:52rpx;
+  font-size:24rpx;
+  color:#999;
+  line-height: 72rpx;
+}
+.contact{
+  background:#fff;
+  height:86rpx;
+  line-height: 86rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left:30rpx;
+  box-sizing: border-box;
+}
+.contact input{
+  font-size: 28rpx;
+  margin-left:60rpx;
+}

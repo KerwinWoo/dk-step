@@ -1,32 +1,14 @@
 // pages/mall/index.js
+const app = getApp()
+const utils = require('../../utils/util.js')
+const api = require('../../api/api.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    goodsTypeData: [{
-      id: 1,
-      name: '热门推荐'
-    },{
-      id: 2,
-      name: '抖音同款'
-    },{
-      id: 3,
-      name: '生活日用'
-    },{
-      id: 4,
-      name: '美妆护肤'
-    },{
-      id: 5,
-      name: '电子数码'
-    },{
-      id: 6,
-      name: '家用电器'
-    },{
-      id: 7,
-      name: '母婴用品'
-    }],
+    goodsTypeData: [],
     currentType: 0,
     navbarLeft: 0,
     goodListData: [{
@@ -58,6 +40,8 @@ Page({
     let that = this
     // 刷新组件
     that.refreshView = that.selectComponent("#refreshView")
+    
+    that.loadGoodsTypes()
   },
 
   /**
@@ -133,6 +117,21 @@ Page({
     setTimeout(function(){
       that.refreshView.stopPullRefresh()
     },1500)
+  },
+  loadGoodsTypes () {
+    let that = this
+    utils.request(api.MALL_QUERY_DKGOODS_LIST,{
+      dkPartion: 'dkMoneyChange',
+      page: 1,
+      size:10,
+      isHot:1
+    }, 'Get').then(function (res) {
+      let data = res.data
+      that.setData({
+        goodsTypeData: data.categoryList,
+        goodListData: data.goodsList
+      })
+    })
   },
   changeType (e) {
     /*获取可视窗口宽度*/

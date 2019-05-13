@@ -16,9 +16,9 @@
           <view>目标：<text>5000</text>步</view>
         </view>
       </view>
-      <view class="manageBtn">管理团队</view>
+      <navigator class="manageBtn btn-simple" hover-class="none" open-type="navigate" url="/pages/team/manage/manage">管理团队</navigator>
     </view>
-    <view class="slogan">团队宣言：每天运动多一点，健康多一点。</view>
+    <view class="slogan">团队宣言：每天运动多一点，健康多一点。每天运动多一点，健康多一点。每天运动多一点，健康多一点。每天运动多一点，健康多一点。</view>
   </view>
   <view class="members">
     <view class="title">今日运动详情</view>
@@ -37,7 +37,7 @@
           </view>
         </view>
         <view class="step">23000</view>
-        <view class="status comp">已达标</view>
+        <view class="status uncomp">已打赏</view>
       </view>
       <view class="itm">
         <view class="rank">
@@ -49,7 +49,7 @@
           <text>小狗子</text>
         </view>
         <view class="step">23000</view>
-        <view class="status comp">已达标</view>
+        <view class="status uncomp">打赏ta</view>
       </view>
       <view class="itm">
         <view class="rank">
@@ -130,4 +130,4 @@
     </view>
   </view>
 </view>
-<view class="common_inviteBtn">邀请更多好友</view>
+<button class="common_inviteBtn" open-type="share">邀请更多好友</button>

@@ -7,7 +7,7 @@
       <view class="t">
         <navigator open-type="navigate" url="/pages/me/dk/dk" hover-class="none">
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
-          <text>99.73</text>
+          <text>{{myDk}}</text>
         </navigator>
         <navigator open-type="navigate" url="/pages/calorie/diary/diary" hover-class="none">
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-calorie.png"></image>
@@ -16,11 +16,12 @@
       </view>
       <view class="steps">
         <view class="mstep" id="mstep">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ball-b%402x.png"></image>
-          <view class="textcont">
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ball-b.png"></image>
+          <view class="textcont" bindtap="doExchange">
             <view class="title">今日步数</view>
             <view class="num">{{userStep}}</view>
             <view class="exchange">点击兑换</view>
+            <view class="tip">每日24点前清零</view>
           </view>
         </view>
         <view wx:for="{{ssteps}}" 
@@ -30,7 +31,7 @@
           data-id="{{item.id}}" 
           data-step="{{item.value}}" 
           bindtap="pickStep">
-          <image src="{{(item.type == 1) ? 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ball-s%402x.png' : 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ball-s2%402x.png'}}"></image>
+          <image src="{{(item.type == 1) ? 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ball-s.png' : 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ball-s2.png'}}"></image>
           <text>{{item.value}}</text>
           <view>{{item.name}}</view>
         </view>
@@ -38,28 +39,35 @@
     </view>
   </view>
   <view class="invitecont">
-    <button class="inviteBtn" hover-class="btnhover" open-type="share">邀请好友永久加成</button>
+    <button class="inviteBtn btn-default" hover-class="btnhover" open-type="share">邀请好友永久加成</button>
     <view class="tip">
-      <text>每邀请一个好友，额外获得好友10%蛋壳加成</text>
+      <view>
+        <text>每邀请一个好友，额外获得好友10%蛋壳加成</text>
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/hand.png"></image>
+      </view>
     </view>
   </view>
   
   <view class="w">
     <view class="menulist">
       <navigator class="itm" url="/pages/game/luckywheel/luckywheel" hover-class="none">
-        <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icon01%402x.png"></image></view>
+        <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icon01.png"></image></view>
         <view>幸运转盘</view>
       </navigator>
       <navigator class="itm" url="/pages/task/task" hover-class="none">
-        <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icon02%402x.png"></image></view>
+        <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icon02.png"></image></view>
         <view>领取任务</view>
       </navigator>
       <navigator class="itm" url="/pages/rule/friendadd/friendadd" hover-class="none">
-        <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icon03%402x.png"></image></view>
+        <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icon05.png"></image></view>
+        <view>保存海报</view>
+      </navigator>
+      <navigator class="itm" url="/pages/me/friend/friend" hover-class="none">
+        <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icon03.png"></image></view>
         <view>好友加成</view>
       </navigator>
       <navigator class="itm" url="/pages/me/friend/friend" hover-class="none">
-        <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icon04%402x.png"></image></view>
+        <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icon04.png"></image></view>
         <view>好友列表</view>
       </navigator>
     </view>
@@ -80,27 +88,28 @@
       </view>
     </view>
     <view class="hb">
-      <view class="comtitle comtitle_F spe" style="padding-bottom:0;">
-        <text>天天开红包</text>
+      <view class="comtitle spe" style="padding-bottom:0;">
+        <text>天天签到</text>
         <view class="switch-cont">
-          <text>设置红包提醒</text>
+          <text>设置签到提醒</text>
           <dk-switch style="display: inline-block;" status="{{settingStatus}}" bindtap="switchTap"></dk-switch>
         </view>
       </view>
       <view class="wrp">
-        <image class="bg" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/hb%402x.png"></image>
-        <image bindtap="kaiHongbao" animation="{{kaiAnimation}}" class="kai" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/kai%402x.png"></image>
+        <image class="bg" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/hb.png"></image>
+        <image bindtap="kaiHongbao" animation="{{kaiAnimation}}" class="kai" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/kai.png"></image>
         <view>
-          <view class="subtitle">已有<text>30000</text>人参加</view>
-          <view class="title">每天开红包，瓜分<text class="money">30000</text>元</view>
+          <view class="subtitle">今日已签到<text>30000</text>人</view>
+          <view class="title">每天签到领取步数奖励</view>
         </view>
       </view>
     </view>
   </view>
   
   <view class="section npdb">
-    <view class="comtitle comtitle_F">
+    <view class="comtitle">
       <text>新人专区</text>
+      <text class="comment">新人享有1次免费兑换福利</text>
     </view>
     <scroll-view scroll-x  class="goodlist goodlist_n clearfix">
       <view class="itm" wx:for="{{itemsNew}}"
@@ -109,7 +118,7 @@
         <view class="wrp">
           <view class="photo">
             <image-loader 
-              original-image="{{item.picUrl}}" 
+              original-image="{{item.list_pic_url}}" 
               mode="aspectFill">
             </image-loader>
           </view>
@@ -118,9 +127,9 @@
             <view class="info">
               <view class="l">
                 <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
-                <text>{{item.egg}}</text>
+                <text>{{item.dkEshellNum}}</text>
               </view>
-              <view  class="r">已兑换<text>{{item.person}}</text>人</view>
+              <view  class="r">已兑换<text>{{item.changeNumber}}</text>人</view>
             </view>
             <view class="exchangeBtn btn-default">免费兑换</view>
           </view>
@@ -128,17 +137,19 @@
       </view>
     </scroll-view>
   </view>
-  <view class="section">
-    <view class="comtitle comtitle_F">
+  <view class="section invitesection">
+    <view class="comtitle">
       <text>邀请专区</text>
+      <text class="comment">好友越多可兑换的商品越好</text>
     </view>
     <view class="goodlist clearfix">
-      <view class="itm" wx:for="{{itemsNew}}"
+      <view class="itm" wx:for="{{itemsInvite}}"
             wx:key="{{id}}" bindtap="viewIvtGoodsDetail">
         <view class="wrp">
+          <view class="invitenum">当日邀请{{item.dkInvitationNum}}人可兑换</view>
           <view class="photo">
             <image-loader 
-              original-image="{{item.picUrl}}" 
+              original-image="{{item.list_pic_url}}" 
               mode="aspectFill">
             </image-loader>
           </view>
@@ -147,9 +158,40 @@
             <view class="info">
               <view class="l">
                 <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
-                <text>{{item.egg}}</text>
+                <text>{{item.dkEshellNum}}</text>
               </view>
-              <view  class="r">已兑换<text>{{item.person}}</text>人</view>
+              <view  class="r">已兑换<text>{{item.changeNumber}}</text>人</view>
+            </view>
+            <view class="exchangeBtn">免费兑换</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <navigator class="getMore" url="/pages/mall/index">点击查看更多商品</navigator>
+  </view>
+  <view class="section">
+    <view class="comtitle">
+      <text>步友专享</text>
+      <text class="comment">在乎你的每一步，步数当钱花</text>
+    </view>
+    <view class="goodlist clearfix">
+      <view class="itm" wx:for="{{itemsValue}}"
+            wx:key="{{id}}" bindtap="viewIvtGoodsDetail">
+        <view class="wrp">
+          <view class="photo">
+            <image-loader 
+              original-image="{{item.list_pic_url}}" 
+              mode="aspectFill">
+            </image-loader>
+          </view>
+          <view class="content">
+            <view class="name">{{item.name}}</view>
+            <view class="info">
+              <view class="l">
+                <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
+                <text>{{item.dkEshellNum}}</text>
+              </view>
+              <view  class="r">已兑换<text>{{item.changeNumber}}</text>人</view>
             </view>
             <view class="exchangeBtn">免费兑换</view>
           </view>
@@ -159,8 +201,9 @@
     <navigator class="getMore" url="/pages/mall/index">点击查看更多商品</navigator>
   </view>
   <view class="section" style="padding-bottom:20rpx;">
-    <view class="comtitle comtitle_F">
+    <view class="comtitle">
       <text>超值专区</text>
+      <text class="comment">超值商品限时换</text>
     </view>
     <view class="goodlist clearfix">
       <view class="itm" wx:for="{{itemsNew}}"
@@ -186,7 +229,11 @@
         </view>
       </view>
     </view>
-    <navigator class="getMore" url="/pages/mall/index">点击查看更多商品</navigator>
+    <!-- <navigator class="getMore" url="/pages/mall/index">点击查看更多商品</navigator> -->
+  </view>
+  
+  <view class="moretip">
+    更多商品每天上新，敬请期待~
   </view>
   
   <view class="mask" wx:if="{{showMask}}">

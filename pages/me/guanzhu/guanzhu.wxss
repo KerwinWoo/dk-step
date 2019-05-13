@@ -1,0 +1,2 @@
+/* pages/me/guanzhu/guanzhu.wxss */
+@import '/pages/me/fans/fans.wxss'

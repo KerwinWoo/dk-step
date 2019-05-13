@@ -107,6 +107,9 @@ page::after{
 }
 .goodlist .wrp .name{
   font-size:24rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .goodlist .wrp .info image{
   width:32rpx;
@@ -194,4 +197,22 @@ page::after{
   line-height:30rpx;
   color:#FB793B;
   font-size: 24rpx;
+}
+.resetBtn{
+  position:relative;
+  display:inline-block;
+  margin:0;
+  padding:0;
+  font-size:inherit;
+  text-align:center;
+  text-decoration:none;
+  line-height:inherit;
+  border-radius:0;
+  -webkit-tap-highlight-color:transparent;
+  overflow:inherit;
+  color:none;
+  background-color:transparent;
+}
+.resetBtn::after,.common_inviteBtn::after{
+  border: none;
 }

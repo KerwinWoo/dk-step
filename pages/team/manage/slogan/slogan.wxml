@@ -1,0 +1,10 @@
+<!--pages/team/manage/slogan/slogan.wxml-->
+<view class="container hastop">
+  <dk-nav title="团队宣言" hasBackBtn isFixed bind:backTo="backTo"></dk-nav>
+  <view class="wrp">
+    <textarea placeholder="团队宣言" placeholder-style="color:#999"></textarea>
+    <view class="submitbtn">
+      <text class="btn-default">确定</text>
+    </view>
+  </view>
+</view>

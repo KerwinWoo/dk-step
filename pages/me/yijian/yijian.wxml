@@ -1,0 +1,26 @@
+<!--pages/me/yijian/yijian.wxml-->
+<view class="container hastop">
+  <dk-nav title="意见反馈" hasBorder="{{true}}" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+  <view class="cont">
+    <view class="trow">
+      <view class="cmtitle">意见与建议</view>
+    </view>
+    <view class="textarea-cont">
+      <textarea
+      placeholder="请填写10个字以上的问题描述以便我们为您提供更好的帮助"
+      placeholder-style="color:#999;"
+      />
+    </view>
+    <view class="photos">
+      <view class="cmtitle">相关截图（选填）</view>
+      <view class="uploadImg" bindtap="chooseImg">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fabu_upload.png"></image>
+      </view>
+    </view>
+  </view>
+  <view class="tip">请输入有效联系方式以便开发者联系您（选填）</view>
+  <view class="contact">
+    <view class="cmtitle">联系方式</view>
+    <input type="text" placeholder="手机号/邮箱" placeholder-style="color:#999;"/>
+  </view>
+</view>

@@ -1,2 +1,5 @@
 <!--pages/auth/setting/goSetting.wxml-->
-<button open-type="openSetting" bindopensetting="callback">打开设置页</button>
+<view class="container hastop">
+  <dk-nav title="设置" hasBackBtn="{{false}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+  <button open-type="openSetting" bindopensetting="callback">打开设置页</button>
+</view>

@@ -1,0 +1,24 @@
+<!--pages/service/questions/questions.wxml-->
+<view class="container hastop">
+  <dk-nav title="常见问题" hasBackBtn="{{true}}" bind:backTo="backTo"></dk-nav>
+  <view class="banner">
+    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/bg_questions.png" lazy-load="true"></image>
+  </view>
+  <view class="questions">
+    <view class="itm" wx:for="{{questions}}" wx:key="{{item.q}}">
+      <view class="q" bindtap="toggle" data-status="{{item.status}}" data-index="{{index}}">
+        <view class="l">
+          <image class="tag" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_q.png"></image>
+          <text>{{item.q}}</text>
+        </view>
+        <image class="btn{{(item.status == 'open')?' open':''}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
+      </view>
+      <view class="a" wx:if="{{item.status == 'open'}}">
+        <view class="l">
+          <image class="tag" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_a.png"></image>
+          <text>{{item.a}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

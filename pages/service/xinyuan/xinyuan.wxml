@@ -10,7 +10,26 @@
       <view class="wrp">
         <view class="pic">
           <view class="imgwrp">
-            <image mode="aspectFit" src="https://img11.360buyimg.com/mobilecms/s140x140_jfs/t1/36087/25/9399/196762/5ccfdda2E4bdd9a0b/21781e4e4832c962.jpg"></image>
+            <image mode="aspectFill" src="https://img11.360buyimg.com/mobilecms/s140x140_jfs/t1/36087/25/9399/196762/5ccfdda2E4bdd9a0b/21781e4e4832c962.jpg"></image>
+          </view>
+        </view>
+        <view class="content">
+          <view class="name">小米手环</view>
+          <view class="btm">
+            <view class="dknum">
+              <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
+              <text>23</text>
+            </view>
+            <view class="btn">移除清单</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="itm">
+      <view class="wrp">
+        <view class="pic">
+          <view class="imgwrp">
+            <image mode="aspectFill" src="https://img12.360buyimg.com/babel/s340x420_jfs/t1/20725/14/14952/116691/5cab0d06E4e74b361/c943b762b7abca4f.jpg"></image>
           </view>
         </view>
         <view class="content">

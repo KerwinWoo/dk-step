@@ -65,5 +65,8 @@ Page({
   },
   callback: function () {
     console.log(999999)
+  },
+  backTo () {
+    wx.navigateBack()
   }
 })

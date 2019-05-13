@@ -1,0 +1,18 @@
+<!--pages/game/record/record.wxml-->
+<view class="container hastop">
+  <dk-nav title="抽奖记录" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+  <view class="taskcont">
+    <view class="tasklist">
+      <view class="itm" wx:for="{{tasklistData}}" wx:key="{{id}}">
+        <view class="photo">
+          <image-loader originalImage="{{item.pic}}" mode="aspectFill"></image-loader>
+        </view>
+        <view class="info">
+          <view class="name">奖品名称: {{item.name}}</view>
+          <view class="desc">抽奖时间: {{item.time}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="toGame btn-default" bindtap="toGame">继续抽奖</view>
+</view>

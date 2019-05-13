@@ -50,6 +50,7 @@ page{
 .orderlist .itm .pic image{
   width:180rpx;
   height:180rpx;
+  border-radius: 10rpx;
 }
 .orderlist .itm .name{
   width:295rpx;

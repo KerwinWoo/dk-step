@@ -1,15 +1,15 @@
 <!--pages/team/team.wxml-->
 <view class="container hastop">
   <dk-nav title="创建团队" hasBackBtn="{{false}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
-  <view class="stepcont">
+  <navigator class="stepcont" open-type="navigate" url="/pages/rule/teamrule/teamrule">
     <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/banner_pk.png"></image>
-  </view>
+  </navigator>
   
   <view class="formTab">
     <view class="wrp">
-      <view class="row"><input placeholder="团队名称:勇胜队" /></view>
+      <view class="row"><input value="{{teamName}}" placeholder="团队名称:勇胜队" placeholder-style="color:#999"/></view>
       <view class="row">
-        <textarea maxlength="50" bindblur="bindTextAreaBlur" placeholder="团队宣言:(最多50个字)" />
+        <textarea value="{{teamSlogan}}" bindblur="bindTextAreaBlur" placeholder="团队宣言" placeholder-style="color:#999"/>
       </view>
       <view class="row pickerrow">
         <view class="title">选择每日目标步数</view>
@@ -62,17 +62,17 @@
             <view class="name">行走的蛋壳</view>
           </view>
         </view>
-        <view class="itm inviteBtn">
+        <button class="itm inviteBtn resetBtn" open-type="share">
           <view class="wrp">
             <view class="photo">
               <image lazy-load="true" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/team_add.png"></image>
             </view>
             <view class="name">点击邀请</view>
           </view>
-        </view>
+        </button>
       </view>
       
-      <view class="createBtn btn-default" bindtap="createTeam">创建团队</view>
+      <button class="createBtn btn-default resetBtn" bindtap="createTeam" open-type="share">点击邀请</button>
       <view class="tip">创建团队邀请好友加入PK步数，至少5人以上</view>
     </view>
   </view>

@@ -4,7 +4,7 @@ page{
   padding-bottom: 170rpx;
 }
 .teaminfo{
-  padding:20rpx 30rpx;
+  padding:20rpx 30rpx 30rpx 30rpx;
   box-sizing: border-box;
   background:#fff;
 }
@@ -46,7 +46,6 @@ page{
 .teaminfo .wrp .manageBtn{
   width:150rpx;
   height:50rpx;
-  border:1rpx solid rgba(255,142,0,1);
   border-radius:25rpx;
   font-size:24rpx;
   color:#FF8E00;
@@ -58,8 +57,12 @@ page{
 }
 .slogan{
   font-size:28rpx;
-  margin-top:10rpx;
+  margin-top:20rpx;
   color:#666;
+  background:rgba(255,255,255,1);
+  box-shadow:0px 0px 19rpx 0px rgba(89,89,89,0.17);
+  border-radius:10rpx;
+  padding:20rpx;
 }
 .members .title{
   height:80rpx;
@@ -110,6 +113,7 @@ page{
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  margin-right:4rpx;
 }
 .memberlist .itm .step{
   font-size:28rpx;

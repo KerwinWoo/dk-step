@@ -1,0 +1,57 @@
+/* pages/team/manage/manage.wxss */
+.row{
+  box-sizing: border-box;
+  padding:0 30rpx;
+}
+.row .more image{
+  width:15rpx;
+  height:28rpx;
+}
+.row .wrp{
+  border-bottom:1rpx solid #eee;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 100rpx;
+}
+.row .wrp .title{
+  font-size:30rpx;
+}
+.row .more{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  flex-grow: 1;
+}
+
+.row .more text{
+  display: inline-block;
+  width:330rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color:#999;
+  font-size:28rpx;
+  text-align: right;
+  padding-right:30rpx;
+}
+.dismiss{
+  width:360rpx;
+  height:70rpx;
+  line-height: 70rpx;
+  text-align: center;
+  position: fixed;
+  bottom:34rpx;
+  left:50%;
+  margin-left:-180rpx;
+  border:1px solid #FE6134;
+  border-radius:35rpx;
+  font-size:30rpx;
+}
+.picker_num{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

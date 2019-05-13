@@ -1,0 +1,36 @@
+/* pages/game/record/record.wxss */
+@import "/pages/task/task.wxss";
+page{
+  background:#fff;
+}
+.tasklist .itm .desc{
+  font-size:24rpx;
+}
+.tasklist .itm{
+  height: auto;
+}
+.tasklist .itm .name{
+  font-weight: bold;
+}
+.tasklist .itm .photo,.tasklist .itm .photo image-loader image{
+  width:60rpx;
+  height:60rpx;
+}
+.tasklist .itm .info{
+  flex-grow: 1;
+  padding-left:40rpx;
+}
+.toGame{
+  position:fixed;
+  left:50%;
+  margin-left:-290rpx;
+  width:580rpx;
+  height:86rpx;
+  border-radius:43rpx;
+  text-align: center;
+  font-size:40rpx;
+  font-weight:bold;
+  color:#fff;
+  line-height: 86rpx;
+  bottom:48rpx;
+}

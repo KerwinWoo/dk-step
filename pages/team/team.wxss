@@ -74,7 +74,7 @@ image{
 .pickerrow .more{
   width:24rpx;
   height:14rpx;
-  margin-left:4rpx;
+  margin-left:8rpx;
 }
 .friendlist .itm{
   float:left;
@@ -103,6 +103,7 @@ image{
   width:100%;
   overflow: hidden;
   white-space: nowrap;
+  color:#333;
 }
 .inviteBtn .wrp{
   background:#eee;
@@ -132,7 +133,7 @@ image{
   margin:0 auto;
   text-align: center;
   line-height: 86rpx;
-  margin:0 auto;
+  display: block;
 }
 .createBtn.disable{
   background:#eee;

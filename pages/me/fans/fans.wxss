@@ -12,9 +12,9 @@ page{
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   background:#fff;
   position: relative;
-  padding-right:80rpx;
 }
 .commonrow .photo{
   margin-right:30rpx;
@@ -31,18 +31,25 @@ page{
 }
 .commonrow .content .subtitle{
   font-size:24rpx;
-  width:460rpx;
+  width:376rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  color:#999;
 }
 .commonrow .sideicn{
-  position:absolute;
-  top:50%;
-  right:30rpx;
-  margin-top:-19rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  font-size:20rpx;
+  color:#999;
 }
 .commonrow .sideicn image{
   width:38rpx;
   height:38rpx;
+  margin-bottom: 6rpx;
+}
+.commonrow .content{
+  flex-grow: 1;
 }

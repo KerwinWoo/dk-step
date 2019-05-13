@@ -170,3 +170,21 @@ page{
   right:20rpx;
   top:0rpx;
 }
+.ordercont button.itm{
+  position:relative;
+  display:inline-block;
+  padding:0;
+  margin:0;
+  box-sizing:border-box;
+  text-align:center;
+  text-decoration:none;
+  line-height:inherit;
+  border-radius:0;
+  overflow:hidden;
+  color:#000000;
+  background-color:inherit;
+  font-size: 26rpx;
+}
+.ordercont button.itm::after {
+  border: none;
+}

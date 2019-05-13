@@ -16,7 +16,7 @@
       <view class="wrp">
         <view class="photo">
           <image-loader 
-            original-image="{{item.photo}}" 
+            original-image="{{item.list_pic_url}}" 
             mode="aspectFill">
           </image-loader>
         </view>
@@ -25,9 +25,9 @@
           <view class="info">
             <view class="l">
               <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
-              <text>{{item.dk}}</text>
+              <text>{{item.dkEshellNum}}</text>
             </view>
-            <view  class="r">已兑换<text>{{item.person}}</text>人</view>
+            <view  class="r">已兑换<text>{{item.changeNumber}}</text>人</view>
           </view>
           <view class="exchangeBtn">免费兑换</view>
         </view>

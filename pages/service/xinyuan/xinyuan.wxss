@@ -6,7 +6,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding:30rpx 30rpx 0 30rpx;
+  padding:30rpx;
   background:#fff;
 }
 .currentDk .title{
@@ -19,12 +19,14 @@
 }
 .orderlist .itm{
   background:#fff;
-  padding:30rpx;
+  padding:0 30rpx;
   box-sizing: border-box;
+  margin-bottom:0;
 }
 .orderlist .itm .wrp{
   border-top:1rpx solid #eee;
-  padding:0;
+  border-bottom: 0;
+  padding:30rpx 0;
 }
 .orderlist{
   padding:0;
@@ -35,4 +37,11 @@
   font-size:24rpx;
   color:#999;
   text-align: center;
+  padding: 0 25rpx;
+  height:52rpx;
+  line-height: 52rpx;
+}
+.orderlist .dknum text{
+  color:#FB793B;
+  font-weight: bold;
 }

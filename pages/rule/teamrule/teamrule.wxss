@@ -1,0 +1,36 @@
+/* pages/rule/teamrule/teamrule.wxss */
+.wrp{
+  padding:30rpx;
+}
+.ttitle{
+  font-size:30rpx;
+  font-weight:bold;
+}
+.list .itm{
+  position: relative;
+  box-sizing: border-box;
+  margin-top:40rpx;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  padding-left:50rpx;
+}
+.list .itm text{
+  display: inline-block;
+  width:32rpx;
+  height:32rpx;
+  background:linear-gradient(90deg,rgba(254,99,54,1) 0%,rgba(243,164,71,1) 100%);
+  border-radius:50%;
+  text-align: center;
+  line-height: 32rpx;
+  color:#fff;
+  font-size:24rpx;
+  position: absolute;
+  left:0;
+  top:6rpx;
+}
+.more{
+  font-size:24rpx;
+  color:rgba(153,153,153,1);
+  text-align: center;
+  padding:40rpx 0 50rpx 0;
+}
