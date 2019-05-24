@@ -41,3 +41,13 @@
   color:#fff;
   margin-top:50rpx;
 }
+.viewOrder {
+  text-align: center;
+  font-size: 28rpx;
+  margin-top:40rpx;
+}
+.viewOrder image{
+  width:11rpx;
+  height:20rpx;
+  margin-left:12rpx;
+}

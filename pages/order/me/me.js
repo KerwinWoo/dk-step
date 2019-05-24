@@ -8,44 +8,34 @@ Page({
    * 页面的初始数据
    */
   data: {
-    orderType: 'all',
-    orderList: [{
-      id: 1,
-      pic: 'https://img10.360buyimg.com/babel/s200x200_jfs/t17929/50/1576018978/46197/67899f96/5ad4707dNf0eb8ca2.jpg',
-      name: '小米手环3青春时尚靓丽测心率胎心',
-      dk: 999,
-      num: 1,
-      status: '已完成'
-    },
-    {
-      id: 2,
-      pic: 'https://img10.360buyimg.com/babel/s200x200_jfs/t17929/50/1576018978/46197/67899f96/5ad4707dNf0eb8ca2.jpg',
-      name: '小米手环3青春时尚靓丽测心率胎心',
-      dk: 999,
-      num: 1,
-      status: '已完成'
-    }]
+    order_status: '',
+    orderList: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    console.log('options', options)
+    let that = this
+    if(options.orderStatus){
+      that.setData({
+        order_status : options.orderStatus
+      })
+    }
+    that.loadOrderlist()
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    this.toast = this.selectComponent("#toast");
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
   },
 
   /**
@@ -87,75 +77,10 @@ Page({
   },
   changeType (e) {
     let that = this
-    //utils.request(api.HOME_QUERY_GOODS,{},'GET').then(function (res) {
-      //if (res.errno === 0) {
-        let orderList = []
-        switch(e.currentTarget.dataset.type){
-          case 'all':
-            orderList = [{
-              id: 1,
-              pic: 'https://img10.360buyimg.com/babel/s200x200_jfs/t17929/50/1576018978/46197/67899f96/5ad4707dNf0eb8ca2.jpg',
-              name: '小米手环3青春时尚靓丽测心率胎心',
-              dk: 999,
-              num: 1,
-              status: '已完成'
-            },
-            {
-              id: 2,
-              pic: 'https://img10.360buyimg.com/babel/s200x200_jfs/t17929/50/1576018978/46197/67899f96/5ad4707dNf0eb8ca2.jpg',
-              name: '小米手环3青春时尚靓丽测心率胎心',
-              dk: 999,
-              num: 1,
-              status: '待付款'
-            }]
-            break;
-          case 'dfk':
-            orderList = [{
-              id: 1,
-              pic: 'https://img10.360buyimg.com/babel/s200x200_jfs/t17929/50/1576018978/46197/67899f96/5ad4707dNf0eb8ca2.jpg',
-              name: '小米手环3青春时尚靓丽测心率胎心',
-              dk: 999,
-              num: 1,
-              status: '待付款'
-            }]
-            break;
-          case 'dfh':
-            orderList = [{
-              id: 1,
-              pic: 'https://img10.360buyimg.com/babel/s200x200_jfs/t17929/50/1576018978/46197/67899f96/5ad4707dNf0eb8ca2.jpg',
-              name: '小米手环3青春时尚靓丽测心率胎心',
-              dk: 999,
-              num: 1,
-              status: '待发货'
-            }]
-            break;
-          case 'dsh':
-            orderList = [{
-              id: 1,
-              pic: 'https://img10.360buyimg.com/babel/s200x200_jfs/t17929/50/1576018978/46197/67899f96/5ad4707dNf0eb8ca2.jpg',
-              name: '小米手环3青春时尚靓丽测心率胎心',
-              dk: 999,
-              num: 1,
-              status: '待收货'
-            }]
-            break;
-          case 'ywc':
-            orderList = [{
-              id: 1,
-              pic: 'https://img10.360buyimg.com/babel/s200x200_jfs/t17929/50/1576018978/46197/67899f96/5ad4707dNf0eb8ca2.jpg',
-              name: '小米手环3青春时尚靓丽测心率胎心',
-              dk: 999,
-              num: 1,
-              status: '已完成'
-            }]
-            break;
-        }
-        that.setData({
-          orderType: e.currentTarget.dataset.type,
-          orderList: orderList
-        })
-      //}
-    //})
+    that.setData({
+      order_status: e.currentTarget.dataset.type
+    })
+    that.loadOrderlist()
   },
   toWuliu () {
     wx.navigateTo({
@@ -166,5 +91,23 @@ Page({
     wx.navigateTo({
       url: '/pages/order/paydetail/paydetail'
     })
+  },
+  loadOrderlist () {
+    let that = this
+    utils.request(api.DKORDER_LIST,{
+      page:1,
+      size:10,
+      order_status: (that.data.order_status) ? that.data.order_status*1 : ''
+    },'POST').then(function(res){
+      if(res.errno === 0){
+        that.setData({
+          orderList: res.data.data
+        })
+      }
+    })
+  },
+  bindTzFahuo () {
+    let that = this
+    that.toast.showToast('已通知商家尽快发货，请耐心等待')
   }
 })

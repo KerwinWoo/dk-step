@@ -42,11 +42,11 @@ Page({
           wx.setStorageSync('token', res.data.token);
           wx.setStorageSync('userId', res.data.userId);
           wx.setStorageSync('sessionkey', res.data.sessionkey);
-          
-          util.request(api.SYNC_STEPS,{
+          /* util.request(api.SYNC_STEPS,{
           }).then(function (res) {
             debugger
-          })
+          }) */
+          wx.navigateBack()
 
         } else {
           // util.showErrorToast(res.errmsg)
@@ -57,15 +57,6 @@ Page({
           });
         }
       });
-    }
-    if (that.data.navUrl && that.data.navUrl == '/pages/index/index') {
-      wx.switchTab({
-        url: that.data.navUrl,
-      })
-    } else if (that.data.navUrl) {
-      wx.redirectTo({
-        url: that.data.navUrl,
-      })
     }
   },
   onReady: function() {

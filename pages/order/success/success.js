@@ -64,8 +64,6 @@ Page({
 
   },
   backTo () {
-    wx.navigateTo({
-      url: '/pages/order/me/me'
-    })
+    wx.navigateBack()
   }
 })

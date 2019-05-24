@@ -8,39 +8,46 @@ Page({
    * 页面的初始数据
    */
   data: {
-    topicList: [{
-      id:1,
-      name: '',
-      photo: '',
-    },{
-      id:2,
-      name: '',
-      photo: '',
-    },{
-      id:3,
-      name: '',
-      photo: '',
-    }],
+    topicList: [],
     topicDataList: [{
-      id:1,
-      name: '蛋壳',
-      photo: '',
-      topicName: '蛋壳步数换',
-      content: '在我的生命中，运动就像温柔地吹拂着我，带我走出自我的暖暖春风；我最难忘、最刻骨铭心的记忆都和它相关；因为我爱运动，而运动是我对待度。',
-      imglist: [],
-      addr:'',
-      time: ''
+      attention_status:0,
+      avatar:"https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJEQ6FkGMjPpibNCOyFEPhia8SF7QOzEjVibJotaHiaRszgtklNCFF3dhw64WKeq4KyvviaokcJTNSiafOw/132",
+      collection_num:0,
+      collection_status:0,
+      comment_num:0,
+      content:"就睡觉睡觉睡觉睡觉睡觉睡觉开始",
+      create_time:"2019-05-16 10:45:11",
+      create_user_id:38,
+      eshell_num:0,
+      forward_num:0,
+      id:22,
+      img_src:[],
+      location:"",
+      nickname:"Mr.Dreamer",
+      reward_status:1,
+      topic_tag:"话题002",
+      update_time:1557974711000
     },{
-      id:2,
-      name: '蛋壳',
-      photo: '',
-      topicName: '蛋壳步数换',
-      content: '在我的生命中，运动就像温柔地吹拂着我，带我走出自我的暖暖春风；我最难忘、最刻骨铭心的记忆都和它相关；因为我爱运动，而运动是我对待度。',
-      imglist: [],
-      addr:'',
-      time: ''
+      attention_status:0,
+      avatar:"https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJEQ6FkGMjPpibNCOyFEPhia8SF7QOzEjVibJotaHiaRszgtklNCFF3dhw64WKeq4KyvviaokcJTNSiafOw/132",
+      collection_num:0,
+      collection_status:0,
+      comment_num:0,
+      content:"就睡觉睡觉睡觉睡觉睡觉睡觉开始",
+      create_time:"2019-05-16 10:45:11",
+      create_user_id:38,
+      eshell_num:0,
+      forward_num:0,
+      id:22,
+      img_src:[],
+      nickname:"Mr.Dreamer",
+      reward_status:1,
+      topic_tag:"话题002",
+      update_time:1557974711000
     }],
     topicDataLoaded: false,
+    topicDataFirstLoad:true,
+    showTab1Skeleton: true,
     topicDataList_ME: [{
       id:1,
       name: '蛋壳',
@@ -53,13 +60,15 @@ Page({
     }],
     topicDataMELoaded: false,
     topicType : 'recomment',
-    showTab1Skeleton: true,
     showTab2Skeleton: false,
     sliderWidth: 864,
     tabListToTop: 0,
     tablistFixed: false,
     timer: null,
-    releaseBtnShow: true
+    releaseBtnShow: true,
+    currentTopic: '',
+    tuijianCurpage: 1,
+    toastShow: false
   },
 
   /**
@@ -70,13 +79,16 @@ Page({
     // 刷新组件
     that.refreshView = that.selectComponent("#refreshView")
     that.loadTopicNameData()
-    that.loadTopicData()
 
     wx.createSelectorQuery().select('#tablist').boundingClientRect(function (rect) {
       that.setData({
         tabListToTop: rect.top - 64
       })
     }).exec()
+  },
+  onShow () {
+    let that = this
+    that.loadTopicData()
   },
   
   //触摸开始
@@ -118,7 +130,6 @@ Page({
     }
     
     if(that.data.releaseBtnShow){
-      console.log(9090909090)
       that.setData({
         releaseBtnShow: false
       },() => {
@@ -147,13 +158,6 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
@@ -171,7 +175,16 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    console.log('到底了')
+    let type = this.data.topicType
+    if(type == 'recomment'){
+      this.data.topicDataLoaded = false
+      this.data.tuijianCurpage++
+      this.loadTopicData()
+    }
+    else if(type == 'me'){
+      this.loadMyTopicData()
+    }
   },
 
   /**
@@ -188,122 +201,112 @@ Page({
   loadTopicNameData () {
     let that = this
     utils.request(api.BUYOU_QUERY_COMMUNITYLIST,{
-      page: 1,
-      size:10,
-      sort: '',
-      order: ''
     }).then(function (res) {
+      res.data.map(function(value, index){
+        let obj = JSON.parse(value.remark)
+        value.comment = obj.TagInfo
+        value.imgsrc = obj.backdropPic
+      })
+      console.log('topicname data', res.data)
       that.setData({
-        sliderWidth: res.data.data.length * 288,
-        topicList: res.data.data
+        sliderWidth: res.data.length * 288,
+        topicList: res.data
       })
     })
   },
   loadTopicData () {
     let that = this
     if(!that.data.topicDataLoaded){
-      setTimeout(function(){
-        let data = [{
-          id:1,
-          name: '小兔子',
-          photo: 'https://img11.360buyimg.com/mobilecms/s350x250_jfs/t1/29706/37/12103/49766/5c959c6aEa3db99f9/6be14b8a384d545c.jpg',
-          topicName: '我的国名女神',
-          content: '在我的生命中，运动就像温柔地吹拂着我，带我走出自我的暖暖春风；我最难忘、最刻骨铭心的记忆都和它相关；因为我爱运动，而运动是我对待度。',
-          imglist: ['https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg',
-          'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg',
-          'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/3.jpg',
-          'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/4.jpg',
-          'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/4.jpg',
-          'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/4.jpg',
-          'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/4.jpg',
-          'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/4.jpg',
-          'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/4.jpg'],
-          addr:'武汉市江夏区',
-          time: '20分钟前',
-          egg: 22,
-          comment: 290,
-          share: 88,
-          collect: 99,
-          giveEgg: false
-        },{
-          id:2,
-          name: '小狮子',
-          photo: 'https://img11.360buyimg.com/mobilecms/s350x250_jfs/t1/20792/4/11775/95970/5c92f600Ea87790ec/6c9bf6b3150c0e4b.jpg',
-          topicName: '我家有萌宠',
-          content: '在我的生命中，运动就像温柔地吹拂着我，带我走出自我的暖暖春风；我最难忘、最刻骨铭心的记忆都和它相关；因为我爱运动，而运动是我对待度。',
-          imglist: ['https://img11.360buyimg.com/mobilecms/s140x140_jfs/t1/16081/33/1514/306673/5c131c81E0ba11d32/de25680f996e074d.jpg',
-          'https://img11.360buyimg.com/mobilecms/s140x140_jfs/t1/32519/38/9157/134003/5ca451a9E6f621a18/f822bccbe17a9950.jpg',
-          'https://img14.360buyimg.com/n0/jfs/t1/14170/12/431/175747/5c09dac1E48482df7/8c80520525c5daa9.jpg'],
-          addr:'武汉市江夏区',
-          time: '20分钟前',
-          egg: 22,
-          comment: 290,
-          share: 88,
-          collect: 99,
-          giveEgg: false
-        },{
-          id:3,
-          name: '小猴子',
-          photo: 'https://img11.360buyimg.com/mobilecms/s350x250_jfs/t1/30170/32/6694/46668/5c9077e6E52f81e28/4bc2f738ed6b4a7e.jpg',
-          topicName: '我家有萌宠',
-          content: '在我的生命中，运动就像温柔地吹拂着我，带我走出自我的暖暖春风；我最难忘、最刻骨铭心的记忆都和它相关；因为我爱运动，而运动是我对待度。',
-          imglist: ['https://img11.360buyimg.com/mobilecms/s140x140_jfs/t1/16081/33/1514/306673/5c131c81E0ba11d32/de25680f996e074d.jpg',
-          'https://img11.360buyimg.com/mobilecms/s140x140_jfs/t1/32519/38/9157/134003/5ca451a9E6f621a18/f822bccbe17a9950.jpg',
-          'https://img14.360buyimg.com/n0/jfs/t1/14170/12/431/175747/5c09dac1E48482df7/8c80520525c5daa9.jpg'],
-          addr:'武汉市江夏区',
-          time: '20分钟前',
-          egg: 22,
-          comment: 290,
-          share: 88,
-          collect: 99,
-          giveEgg: true
-        }]
+      utils.request(api.BUYOU_RECOMMENT_TOPICLIST,{
+        topicTag: that.data.currentTopic,
+        page: that.data.tuijianCurpage,
+        size: 10
+      }).then(function(res){
+        let tmpTopicData = res.data.data.map(function(value,index){
+          if(value.img_src){
+            value.img_src = value.img_src.split(',')
+          }
+          if(value.img_src.length == 1){
+            value.imgmode = 'aspectFill'
+          }
+          else if(value.img_src.length == 4){
+            value.type3 = ' type3'
+          }
+          else{
+            value.imgmode = 'aspectFill'
+          }
+          if(value.create_time){
+            value.create_time = utils.formatTime(new Date(value.create_time))
+          }
+          return value
+        })
+        if(that.data.topicDataFirstLoad){
+          that.data.topicDataList = tmpTopicData
+          that.data.topicDataFirstLoad = false
+        }
+        else{
+          that.data.topicDataList = that.data.topicDataList.concat(tmpTopicData)
+        }
         that.setData({
           topicDataLoaded: true,
-          topicDataList: data,
+          topicDataList: that.data.topicDataList,
           showTab1Skeleton: false
         })
-      }, 1000)
+        console.log('topicdata', tmpTopicData)
+      })
     }
   },
   loadMyTopicData () {
     let that = this
     if(!that.data.topicDataMELoaded){
-      setTimeout(function(){
-        let data = [{
-          id:1,
-          name: '小狗子',
-          photo: '../../image/topic01.jpg',
-          topicName: '我的国名女神',
-          content: '在我的生命中，运动就像温柔地吹拂着我，带我走出自我的暖暖春风；我最难忘、最刻骨铭心的记忆都和它相关；因为我爱运动，而运动是我对待度。',
-          imglist: ['https://img11.360buyimg.com/mobilecms/s140x140_jfs/t1/16081/33/1514/306673/5c131c81E0ba11d32/de25680f996e074d.jpg',
-          'https://img11.360buyimg.com/mobilecms/s140x140_jfs/t1/32519/38/9157/134003/5ca451a9E6f621a18/f822bccbe17a9950.jpg',
-          'https://img14.360buyimg.com/n0/jfs/t1/14170/12/431/175747/5c09dac1E48482df7/8c80520525c5daa9.jpg'],
-          addr:'武汉市江夏区',
-          time: '20分钟前',
-          egg: 22,
-          comment: 290,
-          share: 88,
-          collect: 99,
-          giveEgg: false
-        }]
-        that.setData({
-          topicDataMELoaded: true,
-          topicDataList_ME: [],
-          showTab2Skeleton: false
+      utils.request(api.BUYOU_ATTENTIONUSER_LIST,{
+      }).then(function(res){
+        let topicData = res.data.data.map(function(value,index){
+          if(value.img_src){
+            value.img_src = value.img_src.split(',')
+          }
+          if(value.create_time){
+            value.create_time = utils.formatTime(new Date(value.create_time))
+          }
+          return value
         })
-      }, 1000)
+        that.setData({
+         topicDataMELoaded: true,
+         topicDataList_ME: topicData,
+         showTab2Skeleton: false
+       })
+        console.log('mytopicdata', topicData)
+      })
     }
   },
   giveEgg (e) {
+   /* if(true){
+      this.toast.showToast('收藏成功')
+      return
+    } */
     const data = e.currentTarget.dataset
     let that = this
     let itemData = that.data.topicDataList[data.parentindex]
-    if(!itemData.giveEgg){
-      that.toast.showToast('打赏成功，已将您的1枚蛋壳打赏给TA')
-      that.data.topicDataList[data.parentindex].giveEgg = true
-      that.setData({
-        topicDataList: that.data.topicDataList
+    if(itemData.reward_status == 0){
+      utils.request(api.BUYOU_DASHANG,{
+        communityId: data.id,
+        targetUserId: data.uid
+      }).then(function(res){
+        if(res.errno == 0){
+          that.toast.showToast('打赏成功，已将您的2枚蛋壳打赏给TA')
+          that.data.topicDataList[data.parentindex].reward_status = 1
+          that.data.topicDataList[data.parentindex].eshell_num = that.data.topicDataList[data.parentindex].eshell_num + 2
+          that.setData({
+            topicDataList: that.data.topicDataList
+          })
+        }
+        else{
+          wx.showToast({
+            title: res.errmsg,
+            icon: 'none',
+            duration: 2000
+          })
+        }
       })
     }
   },
@@ -326,30 +329,51 @@ Page({
     let that = this
     wx.previewImage({
       current: data.current,
-      urls: that.data.topicDataList[data.parentindex].imglist
+      urls: that.data.topicDataList[data.parentindex].img_src
     })
   },
-  throttle(method,delay,duration){
+  shouCang (e) {
     let that = this
-    let begin = new Date()
-    return function(){                
-      const context = this
-      const args=arguments
-      const current = new Date()        
-      clearTimeout(that.timer);
-      if(current - begin >= duration){
-        method.apply(context,args);
-        begin = current;
-      }else{
-        that.timer = setTimeout(function(){
-          method.apply(context,args);
-        },delay);
+    const data = e.currentTarget.dataset
+    utils.request(api.BUYOU_SHOUCANGTOPIC,{
+      communityId: data.id
+    }).then(function(res){
+      if(res.errno == 0){
+        that.toast.showToast('收藏成功')
+        that.data.topicDataList[data.parentindex].shoucang = true
+        that.setData({
+          topicDataList: that.data.topicDataList
+        })
       }
-    }
+      else{
+        wx.showToast({
+          title: res.errmsg,
+          icon: 'none',
+          duration: 2000
+        })
+      }
+    })
   },
-  doComment () {
-    wx.navigateTo({
-    	url: '/pages/buyou/commentdetail/commentdetail'
+  guanzhu (e) {
+    let that = this
+    const data = e.currentTarget.dataset
+    utils.request(api.USER_ATTENTION, {
+      attentionUserId: data.uid
+    }).then(function(res){
+      if(res.errno == 0){
+        that.toast.showToast('关注成功')
+        that.data.topicDataList[data.parentindex].attention_status = 1
+        that.setData({
+          topicDataList: that.data.topicDataList
+        })
+      }
+      else{
+        wx.showToast({
+          title: res.errmsg,
+          icon: 'none',
+          duration: 2000
+        })
+      }
     })
   }
 })

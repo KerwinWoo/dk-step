@@ -1,0 +1,14 @@
+<!--pages/mall/duihuan/duihuan.wxml-->
+<view class="container hastop">
+  <dk-nav title="兑换记录" hasBackBtn isFixed hasBorder bind:backTo="backTo"></dk-nav>
+  <view class="list">
+    <view class="itm" wx:for="{{changeHistory}}" wx:key="{{id}}">
+      <view>
+        <image lazy-load mode="aspectFill" src="{{item.avatar}}"></image>
+      </view>
+      <view>{{item.nickname}}</view>
+      <view>{{item.add_time}}</view>
+    </view>
+  </view>
+  <view class="exchangenum">{{changeHistory.length}}人已兑换</view>
+</view>

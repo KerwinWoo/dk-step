@@ -1,62 +1,74 @@
 <!--pages/order/paydetail/paydetail.wxml-->
 <scroll-view class="container hastop">
   <dk-nav title="支付详情" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
-  <view class="recevierinfo" bindtap="chooseAddress">
-    <view class="l">
-      <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dibiao%402x.png"></image>
+  <form name="payForm" report-submit="true" bindsubmit="getFormId">
+    <view class="recevierinfo" bindtap="chooseAddress"  wx:if="{{addressInfo.id}}">
+      <view class="l">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dibiao%402x.png"></image>
+      </view>
+      <view class="r">
+        <view class="t" wx:if="{{addressInfo.userName != ''}}">收货人：<text>{{addressInfo.userName}}</text> <text class="phone">{{addressInfo.telNumber}}</text></view>
+        <view class="b">{{addressInfo.full_region}}{{addressInfo.detailInfo}}</view>
+        <view class="defaultInfo" wx:if="{{addressInfo.userName == ''}}">请选择收货地址</view>
+      </view>
+      <view class="more">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
+      </view>
     </view>
-    <view class="r">
-      <view class="t" wx:if="{{addressInfo.userName != ''}}">收货人：<text>{{addressInfo.userName}}</text> <text class="phone">{{addressInfo.telNumber}}</text></view>
-      <view class="b">{{addressInfo.detailInfo}}</view>
-      <view class="defaultInfo" wx:if="{{addressInfo.userName == ''}}">请选择收货地址</view>
+    <view class="recevierinfo" wx:if="{{!addressInfo.id}}">
+      <view class="addAddressBtn btn-simple" bindtap="openAddress">请添加收货地址</view>
     </view>
-    <view class="more">
-      <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
+    <view class="btmborder" wx:if="{{addressInfo.id}}">
+      <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/pay_border.png"></image>
     </view>
-  </view>
-  <view class="btmborder">
-    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/pay_border.png"></image>
-  </view>
-  <view class="card">
-    <view class="title">商品信息</view>
-    <view class="content">
-      <view class="pic">
-        <view class="imgwrp">
-          <image src="https://img11.360buyimg.com/mobilecms/s350x250_jfs/t1/40357/2/4424/167946/5cc90ab5Ed720da43/d139a4b5ed0f54b0.jpg"></image>
+    <view class="card{{(addressInfo.id)?'':' hasMgt'}}">
+      <view class="title">商品信息</view>
+      <view class="content">
+        <view class="pic">
+          <view class="imgwrp">
+            <image-loader mode="aspectFill" original-image="{{goodsInfo.primary_pic_url}}"></image-loader>
+          </view>
+        </view>
+        <view class="info">
+          <view class="l">
+            <view class="name">{{goodsInfo.name}}</view>
+            <view class="dknum">
+              <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
+              <text>{{goodsInfo.dkEshellNum}}</text>
+            </view>
+          </view>
         </view>
       </view>
-      <view class="info">
-        <view class="l">
-          <view class="name">小米手环</view>
-          <view class="dk">
-            <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
-            <text>877</text>
+      <view class="buynum">
+        <view class="title">购买数量</view>
+        <dk-stepper id="stepper" class="numstepper" inputStatus="{{(isNew == 1) ? 'disabled' : ''}}" plusStatus="{{(isNew == 1) ? ' disabled' : ''}}"></dk-stepper>
+      </view>
+      <view class="buyercomment">
+        <input type="text" bindchange="postscriptChange" value="{{postscript}}" placeholder="买家备注：（最多50个字）" placeholder-style="color:#666" maxlength="50" />
+      </view>
+    </view>
+    <view class="payinfo">
+      <view class="title">支付信息</view>
+      <view class="row">
+        <view class="label">蛋壳</view>
+        <view class="num">{{goodsInfo.dkEshellNum}}</view>
+      </view>
+      <view class="row">
+        <view class="label">现金</view>
+        <view class="num">￥0.00</view>
+      </view>
+      <view class="row">
+        <view class="label">运费</view>
+        <view class="num">￥0.00</view>
+      </view>
+      <view class="summary">
+        <view class="label">实付：
+          <view class="dknum">
+            <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image><text>9999</text>
           </view>
         </view>
       </view>
     </view>
-    <view class="buynum">
-      <view class="title">购买数量</view>
-      <dk-stepper class="numstepper"></dk-stepper>
-    </view>
-  </view>
-  <view class="payinfo">
-    <view class="title">支付信息</view>
-    <view class="row">
-      <view class="label">蛋壳</view>
-      <view class="num">9999</view>
-    </view>
-    <view class="row">
-      <view class="label">现金</view>
-      <view class="num">￥0.00</view>
-    </view>
-    <view class="row">
-      <view class="label">运费</view>
-      <view class="num">￥0.00</view>
-    </view>
-    <view class="summary">
-      <view class="label">实付：<image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image><text>9999</text></view>
-    </view>
-  </view>
-  <view class="exchangeBtn btn-default" bindtap="doExchange">立即兑换</view>
+    <button class="exchangeBtn btn-default resetBtn" form-type="submit">立即兑换</button>
+  </form>
 </scroll-view>

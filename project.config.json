@@ -35,7 +35,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 36,
+			"current": 10,
 			"list": [
 				{
 					"id": 0,
@@ -111,7 +111,7 @@
 					"id": 10,
 					"name": "goodsdetail",
 					"pathName": "pages/mall/goodsdetail/goodsdetail",
-					"query": "",
+					"query": "id=1181051&isInvite=true",
 					"scene": null
 				},
 				{
@@ -199,10 +199,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 23,
 					"name": "paydetail",
 					"pathName": "pages/order/paydetail/paydetail",
-					"query": "",
+					"query": "goodsId=1181024&isNew=1",
 					"scene": null
 				},
 				{
@@ -293,6 +293,35 @@
 					"id": -1,
 					"name": "dashang",
 					"pathName": "pages/me/dashang/dashang",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "btnAuth",
+					"pathName": "pages/auth/btnAuth/btnAuth",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "fabu",
+					"pathName": "pages/buyou/fabu/fabu",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "qiandao",
+					"pathName": "pages/game/qiandao/qiandao",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "address",
+					"pathName": "pages/address/addresslist",
+					"query": "",
 					"scene": null
 				}
 			]

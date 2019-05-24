@@ -1,0 +1,35 @@
+/* pages/mall/duihuan/duihuan.wxss */
+.list{
+  box-sizing: border-box;
+  padding:0 30rpx;
+}
+.list .itm{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1rpx solid #eee;
+  box-sizing: border-box;
+  padding:22rpx 0;
+}
+.list .itm image{
+  width:90rpx;
+  height:90rpx;
+  border-radius:50%;
+  margin-right:90rpx;
+}
+.list .itm>view:nth-of-type(2){
+  flex-grow: 1;
+  font-size:28rpx;
+  font-weight: bold;
+}
+.list .itm>view:nth-of-type(3){
+  font-size:24rpx;
+  color:#999999;
+}
+.exchangenum{
+  padding: 60rpx 0;
+  text-align: center;
+  color:#999;
+  font-size:24rpx;
+}

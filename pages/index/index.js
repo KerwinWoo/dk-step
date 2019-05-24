@@ -1,7 +1,5 @@
 //index.js
 //获取应用实例
-import NumberAnimate from "../../utils/NumberAnimate";
-
 const app = getApp()
 const utils = require('../../utils/util.js')
 const api = require('../../api/api.js')
@@ -12,24 +10,40 @@ Page({
     itemsNew: [],
     itemsInvite: [],
     itemsValue: [],
-    myDk:0,
+    itemsBuyou: [],
+    myDk:{
+      it:0,
+      ft:0
+    },
     ssteps: [],
-    userStep: 2000,
+    userStep: 0,
     settingStatus: 'off',
     statusBarHeight: 128,
     pageTitle: '蛋壳步数换',
     isHongbaoShow: false,
     showMask: false,
-    innerAudioContext: null
+    innerAudioContext: null,
+    tipShow: false,
+    inviteGoodsPage: 2,
+    buyouGoodsPage: 2,
+    inviteMoreShow: true,
+    buyouMoreShow: true
   },
   onShow () {
     let that = this
-    //检查用户是否授权个人信息
-    utils.checkUserPermisson().then(function(){
-      that.loadUserDkInfo()
-      that.loadStepsInfo()
-      that.loadUserWXStepInfo()
-    })
+    let token = wx.getStorageSync('token')
+    if(!token){
+      wx.navigateTo({
+      	url: '/pages/auth/btnAuth/btnAuth'
+      })
+    }
+    else{
+      utils.checkSession().then(function(){
+        that.initData().then(function(){
+          that.initPageData()
+        })
+      })
+    }
   },
   onLoad (option) {
     let that = this
@@ -46,8 +60,6 @@ Page({
       console.log(res.errMsg)
       console.log(res.errCode)
     })
-    
-    that.loadGoodsInfo()
   },
   onShareAppMessage (option) {
     //分享回调
@@ -79,37 +91,37 @@ Page({
       that.refreshView.stopPullRefresh()
     },3000)
   },
+  initPageData () {
+    this.loadUserDkInfo()
+    this.loadStepsInfo()
+    this.loadUserWXStepInfo()
+    this.loadGoodsInfo()
+  },
   loadUserDkInfo () {
+    let that = this
     utils.request(api.HOME_QUERY_USERDK,{
-      token: wx.getStorageSync('token')
     }).then(function (res) {
-      debugger
+      let myDk = (res.data.eggshellNum+'').split('.')
+      that.setData({
+        myDk: {
+          it: myDk[0],
+          ft: myDk[1] ? myDk[1] : '0'  
+        }
+      })
     })
   },
   //获取用户微信步数信息
   loadUserWXStepInfo () {
-     wx.getSetting({
+    let that = this
+    wx.getSetting({
       success(res) {
         //用户拒绝授权或者用户在设置页面中取消了授权
         if(res.authSetting['scope.werun'] != undefined && res.authSetting['scope.werun'] == false){
           
         }
         //用户从未授权
-        else if (res.authSetting['scope.werun'] == undefined){
-          //用户点击了允许授权微信步数
-          wx.getWeRunData({
-            success(res) {
-              const encryptedData = res.encryptedData
-              debugger
-              utils.request(api.HOME_QUERY_DKSTEP,{
-                session_key: wx.getStorageSync('sessionkey'),
-                encryptedData: encryptedData,
-                iv: res.iv
-              })
-            },
-            fail(res) {
-            }
-          })
+        else{
+          that.getWXStepInfo()
         }
       }
     }) 
@@ -121,68 +133,72 @@ Page({
           [80,320,20,110,480,600,0,300]
     utils.request(api.HOME_QUERY_STEPTASK,{
     }).then(function (res) {
-     // debugger
-    })
-    let ssteps = [{
-      id:0,
-      name: '奖励红包',
-      value: 1000,
-      type:0,
-      style: {
-        left: utils.randomNum(defaultLeftMin, defaultLeftMax),
-        top: utils.randomNum(defaultTopMin, defaultTopMax),
-        animationDelay: utils.randomNum(defaultDelayMin, defaultDelayMax) + 'ms'
-      },
-      statusCls: 'sstep withAnimation'
-    }, {
-      id: 1,
-      name: '奖励红包',
-      value: 2567,
-      type:1,
-      style: {
-        left: utils.randomNum(defaultLeftMin, defaultLeftMax),
-        top: utils.randomNum(defaultTopMin, defaultTopMax),
-        animationDelay: utils.randomNum(defaultDelayMin, defaultDelayMax) + 'ms'
-      },
-      statusCls: 'sstep withAnimation'
-    }, {
-      id:2,
-      name: '奖励红包',
-      value: 2200,
-      type:1,
-      style: {
-        left: defaultLeftMin2,
-        top: utils.randomNum(defaultTopMin, defaultTopMax),
-        animationDelay: utils.randomNum(defaultDelayMin, defaultDelayMax) + 'ms'
-      },
-      statusCls: 'sstep withAnimation'
-    }, {
-      id:3,
-      name: '奖励红包',
-      value: 2200,
-      type:0,
-      style: {
-        left: utils.randomNum(defaultLeftMin2, defaultLeftMax2),
-        top: utils.randomNum(defaultTopMin, defaultTopMax),
-        animationDelay: utils.randomNum(defaultDelayMin, defaultDelayMax) + 'ms'
-      },
-      statusCls: 'sstep withAnimation'
-    }]
-    that.setData({
-      ssteps: ssteps
+        let data = res.data
+        data.map(function(value,index){
+          let leftmin = (index % 2 == 0) ? defaultLeftMin : defaultLeftMin2
+          let leftmax = (index % 2 == 0) ? defaultLeftMax : defaultLeftMax2
+          let color = ''
+          value.type = utils.randomNum(0, 3)
+          switch(value.type){
+            case 0: 
+              color = '#FF7110'
+              value.imgSrc = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ball-s.png'
+              break
+            case 1:
+              color = '#DA881D'
+              value.imgSrc = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ball-s2.png'
+              break
+            case 2:
+              color = '#2462B9'
+              value.imgSrc = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ball-s3.png'
+              break
+            case 3:
+              color = '#20A19E'
+              value.imgSrc = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ball-s4.png'
+              break
+          }
+          value.style = {
+            left: utils.randomNum(leftmin, leftmax),
+            top: utils.randomNum(defaultTopMin, defaultTopMax),
+            animationDelay: utils.randomNum(defaultDelayMin, defaultDelayMax) + 'ms',
+            color: color
+          }
+          value.statusCls = 'sstep withAnimation'
+        })
+        that.setData({
+          ssteps: data
+        })
     })
   },
   loadGoodsInfo () {
     let that = this
     utils.request(api.HOME_QUERY_DKINDEX_CATEGORY,{
-      token: wx.getStorageSync('token')
     }, 'Get').then(function (res) {
       let data = res.data
       that.setData({
-        itemsNew: data.newPersonList.goodsList,
+        itemsNew: (data.newPersonList) ? data.newPersonList.goodsList : [],
         itemsInvite: data.invitationList.goodsList,
-        itemsValue: data.dkMoneyChange.goodsList 
+        itemsBuyou: data.dkMoneyChange.goodsList,
+        itemsValue:data.dkchangeList.goodsList
       })
+    })
+  },
+  getWXStepInfo () {
+    let that = this
+    wx.getWeRunData({
+      success(res) {
+        utils.request(api.HOME_QUERY_DKSTEP,{
+          sessionkey: wx.getStorageSync('sessionkey'),
+          encryptedData: res.encryptedData,
+          iv: res.iv
+        }, 'POST', 'application/json').then(resData => {
+          that.setData({
+            userStep: resData.data.step
+          })
+        })
+      },
+      fail(res) {
+      }
     })
   },
   /**
@@ -190,19 +206,53 @@ Page({
    */
   pickStep (e) {
     let that = this
+    const index = e.currentTarget.dataset.index
+    const step = e.currentTarget.dataset.step * 1
+    const name = e.currentTarget.dataset.name
+    const id = e.currentTarget.dataset.id
     
-    utils.request(api.HOME_PICKSTEP).then(function(res){
-      const index = e.currentTarget.dataset.id*1
-      const step = e.currentTarget.dataset.step * 1
-      
-      // 增加气泡收取动效样式
-      that.data.ssteps[index].statusCls = 'sstep close'
-      that.setData({
-        userStep: that.data.userStep + step,
-        ssteps: that.data.ssteps
-      })
-      
-      that.playVoice()
+    utils.request(api.HOME_PICKSTEP,{
+      taskId: id,
+      stepNum: step,
+      name: name
+    }).then(function(res){
+      if(res.data == 'success'){
+        // 增加气泡收取动效样式
+        that.data.ssteps[index].statusCls = 'sstep close'
+        that.setData({
+          userStep: that.data.userStep + step,
+          ssteps: that.data.ssteps
+        })
+        //播放收取音效
+        that.playVoice()
+      }
+      else{
+        switch(name) {
+          case '邀请好友':
+            break
+          case '签到':
+            wx.navigateTo({
+              url: '/pages/game/qiandao/qiandao'
+            })
+            break
+          case '浏览商品':
+            wx.navigateTo({
+              url: '/pages/mall/index'
+            })
+            break
+          case '每日分享':
+            break
+          case '幸运抽奖':
+            wx.navigateTo({
+              url: '/pages/game/luckywheel/luckywheel'
+            })
+            break
+          case '关注公众号':
+            break
+          default:
+            break
+        }
+      }
     })
   },
   /**
@@ -218,9 +268,19 @@ Page({
   },
   //开红包
   kaiHongbao () {
-    this.setData({
+    /* this.setData({
       showMask: true,
       isHongbaoShow: true
+    }) */
+    wx.navigateTo({
+      url: '/pages/game/qiandao/qiandao'
+    })
+  },
+  initData () {
+    return new Promise(function(resolve, reject){
+      utils.request(api.INIT_DKDATA).then(function(){
+        resolve()
+      })
     })
   },
   closeHongbao () {
@@ -229,25 +289,104 @@ Page({
       isHongbaoShow: false
     })
   },
-  viewGoodsDetail () {
-    wx.navigateTo({
-      url: '/pages/mall/goodsdetail/goodsdetail'
-    })
-  },
   viewIvtGoodsDetail () {
     wx.navigateTo({
       url: '/pages/mall/ivtgoodsdetail/ivtgoodsdetail'
     })
   },
   doExchange () {
-    utils.checkUserPermisson().then(function(){
-      utils.request(api.HOME_CHANGEDK).then(function(res){
-        debugger
+    let that = this
+    const R = 12500
+    if(that.data.userStep > 0){
+      that.setData({
+        tipShow: true,
+        exchangeDk: (that.data.userStep/R).toFixed(2)
       })
-    })
+    }
   },
   playVoice () {
     this.innerAudioContext.stop()
     this.innerAudioContext.play()
+  },
+  closeLayer () {
+    this.setData({
+      tipShow: false
+    })
+  },
+  closeLayer2 () {
+    this.setData({
+      awardLayer: false
+    })
+  },
+  exchangeSubmit () {
+    let that = this
+    utils.request(api.HOME_CHANGEDK).then(function(res){
+      if(res.errno == '0'){
+        that.setData({
+          awardLayer: true,
+          tipShow: false,
+          userStep: 0
+        })
+        that.loadUserDkInfo()
+      }
+    })
+  },
+  getMoreGoodsInvite () {
+    let that = this
+    utils.request(api.MALL_QUERY_DKGOODS_LIST,{
+      dkPartion: 'invitation',
+      page: that.data.inviteGoodsPage,
+      size: 10
+    },'Get').then(function(res){
+      if(res.errno == 0){
+        if(res.data.goodsList.length == 0){
+          that.setData({
+            inviteMoreShow: false
+          })
+        }
+        else{
+          if(res.data.goodsList.length < 10){
+            that.setData({
+              inviteMoreShow: false
+            })
+          }
+          else{
+            that.data.inviteGoodsPage++
+          }
+          that.setData({
+            itemsInvite: that.data.itemsInvite.concat(res.data.goodsList)
+          })
+        }
+      }
+    })
+  },
+  getMoreGoodsBuyou () {
+    let that = this
+    utils.request(api.MALL_QUERY_DKGOODS_LIST,{
+      dkPartion: 'dkchange',
+      page: that.data.buyouGoodsPage,
+      size: 10
+    },'Get').then(function(res){
+      if(res.errno == 0){
+        if(res.data.goodsList.length == 0){
+          that.setData({
+            buyouMoreShow: false
+          })
+        }
+        else{
+          if(res.data.goodsList.length < 10){
+            that.setData({
+              buyouMoreShow: false
+            })
+          }
+          else{
+            that.data.buyouGoodsPage++
+          }
+          that.setData({
+            itemsBuyou: that.data.itemsBuyou.concat(res.data.goodsList)
+          })
+        }
+      }
+    })
   }
 })

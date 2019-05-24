@@ -14,9 +14,10 @@
       <view class="subtitle">加入话题，发现跟多有趣的人和物</view>
       <scroll-view scroll-x>
         <view class="topiclist clearfix" style="width:{{sliderWidth}}rpx">
-          <navigator class="itm" wx:for="{{topicList}}" wx:key="id" url="/pages/buyou/topic/topic?title={{item.name}}">
-            <text>#{{item.title}}</text>
-            <image-loader original-image="{{item.imgSrc}}" />
+          <navigator class="itm" wx:for="{{topicList}}" 
+            wx:key="id" url="/pages/buyou/topic/topic?title={{item.name}}&comment={{item.comment}}&value={{item.value}}&pic={{item.imgsrc}}">
+            <text>#{{item.name}}</text>
+            <image-loader original-image="{{item.imgsrc}}" mode="aspectFill" />
           </navigator>
         </view>
       </scroll-view>
@@ -33,48 +34,66 @@
     <view class="tabContent">
       <view class="topiccontentlist skeleton-tab1" wx:if="{{(topicType == 'recomment')}}">
         <view class="itm" wx:for="{{topicDataList}}" wx:for-item="topic" wx:for-index="topicIndex" wx:key="{{id}}">
-          <image-loader class="photo skeleton-tab1-radius" original-image="{{topic.photo}}"></image-loader>
-          <view class="subscribe skeleton-tab1-rect"><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/guanzhu%402x.png"></image>关注</view>
-          <view class="name">
-            <text class="skeleton-tab1-rect">{{topic.name}}</text>
+          <image-loader class="photo skeleton-tab1-radius" original-image="{{topic.avatar}}"></image-loader>
+          <view class="subscribe skeleton-tab1-rect" bindtap="guanzhu" data-parentindex="{{topicIndex}}" data-uid="{{topic.create_user_id}}">
+            <image wx:if="{{topic.attention_status == 0}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/guanzhu%402x.png"></image>
+            <text wx:if="{{topic.attention_status == 0}}">关注</text>
+            <text wx:if="{{topic.attention_status == 1}}">已关注</text>
           </view>
-          <view class="topictype skeleton-tab1-rect"><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/huati%402x.png"></image>{{topic.topicName}}</view>
+          <view class="name">
+            <text class="skeleton-tab1-rect">{{topic.nickname}}</text>
+          </view>
+          <view class="topictype skeleton-tab1-rect">
+            <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/huati%402x.png"></image>
+            {{topic.tag_name}}</view>
           <view class="content skeleton-tab1-rect">{{topic.content}}</view>
-          <view class="imgcont clearfix">
-            <view class="wrp" wx:for="{{topicDataList[topicIndex].imglist}}" wx:key="{{item}}">
+          <view class="commonimgcont {{(topicDataList[topicIndex].img_src.length == 1) ? 'type2' : 'type1'}}{{topic.type3}}">
+            <view class="imgwrp"  wx:for="{{topicDataList[topicIndex].img_src}}" wx:key="{{item}}">
               <view class="subwrp">
                 <image-loader 
                   original-image="{{item}}" 
-                  mode="aspectFill"
+                  mode="{{topic.imgmode}}"
                   bindtap="previewTopicImg"
                   data-parentIndex="{{topicIndex}}"
-                  data-current="{{item}}"></image-loader>
+                  data-current="{{item}}"
+                  isSingle="{{(topicDataList[topicIndex].img_src.length == 1) ? true : false}}"></image-loader>
                 </view>
+                <!-- <view class="imgwrp" wx:for="{{topicDataList[topicIndex].img_src}}" wx:key="{{item}}">
+                  <view class="subwrp">
+                    <image-loader 
+                      original-image="{{item}}" 
+                      mode="{{shaidan.imgmode}}"
+                      bindtap="previewTopicImg"
+                      data-parentIndex="{{index}}"
+                      data-current="{{item}}"></image-loader>
+                    </view>
+                </view> -->
             </view>
           </view>
           <view class="addrs skeleton-tab1-rect">
-            <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dibiao%402x.png"></image>
-            <text>{{topic.addr}}</text>
-            <text class="point"></text>
-            <text>{{topic.time}}</text>
+            <image wx:if="{{topic.location}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dibiao%402x.png"></image>
+            <text class="txtov" wx:if="{{topic.location}}">{{topic.location}}</text>
+            <text wx:if="{{topic.location}}" class="point"></text>
+            <text>{{topic.create_time}}</text>
           </view>
           <view class="opers skeleton-tab1-rect">
-            <view class="itm" bindtap="giveEgg" data-parentindex="{{topicIndex}}">
-              <image wx:if="{{!topic.giveEgg}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dashang-bef.png"></image>
-              <image wx:if="{{topic.giveEgg}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dashang-aft.png"></image>
-              <text class="num">{{topic.egg}}</text>
+            <view class="itm" bindtap="giveEgg" data-id="{{topic.id}}" data-uid="{{topic.create_user_id}}" data-parentindex="{{topicIndex}}">
+              <image wx:if="{{topic.reward_status == 0}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dashang-bef.png"></image>
+              <image wx:if="{{topic.reward_status == 1}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
+              <text class="num">{{topic.eshell_num}}</text>
             </view>
-            <view class="itm" bindtap="doComment">
+            <navigator class="itm" url="/pages/buyou/commentdetail/commentdetail?id={{topic.id}}" hover-class="none">
               <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/pinglun%402x.png"></image>
-              <text class="num">{{topic.comment}}</text>
-            </view>
-            <view class="itm">
+              <text class="num">{{topic.comment_num}}</text>
+            </navigator>
+            <button class="itm resetBtn" open-type="share">
               <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fenxiang%402x.png"></image>
-              <text class="num">{{topic.share}}</text>
-            </view>
-            <view class="itm">
-              <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/shoucang-bef%402x.png"></image>
-              <text class="num">{{topic.collect}}</text>
+              <text class="num">{{topic.forward_num}}</text>
+            </button>
+            <view class="itm" bindtap="shouCang" data-id="{{topic.id}}">
+              <image wx:if="{{!topic.shoucang}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/shoucang-bef.png"></image>
+              <image wx:if="{{topic.shoucang}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/shoucang-aft.png"></image>
+              <text class="num">{{topic.collection_num}}</text>
             </view>
           </view>
         </view>
@@ -86,12 +105,15 @@
           <view class="title">暂无关注的人</view>
         </view>
         <view class="itm" wx:if="{{topicDataList_ME.length > 0}}" wx:for="{{topicDataList_ME}}" wx:for-item="topic" wx:for-index="topicIndex" wx:key="{{id}}">
-          <image-loader class="photo skeleton-tab2-radius" original-image="{{topic.photo}}"></image-loader>
+          <image-loader class="photo skeleton-tab2-radius" original-image="{{topic.avatar}}"></image-loader>
           <view class="subscribe skeleton-tab2-rect"><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/guanzhu%402x.png"></image>关注</view>
           <view class="name">
-            <text class="skeleton-tab2-rect">{{topic.name}}</text>
+            <text class="skeleton-tab2-rect">{{topic.nickname}}</text>
           </view>
-          <view class="topictype skeleton-tab2-rect"><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/huati%402x.png"></image>{{topic.topicName}}</view>
+          <view class="topictype skeleton-tab2-rect">
+            <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/huati%402x.png"></image>
+            {{topic.topic_tag}}
+          </view>
           <view class="content skeleton-tab2-rect">{{topic.content}}</view>
           <view class="imgcont clearfix">
             <view class="wrp" wx:for="{{topicDataList_ME[topicIndex].imglist}}" wx:key="{{item}}">
@@ -106,28 +128,28 @@
             </view>
           </view>
           <view class="addrs skeleton-tab2-rect">
-            <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dibiao%402x.png"></image>
-            <text>{{topic.addr}}</text>
-            <text class="point"></text>
-            <text>{{topic.time}}</text>
+            <image wx:if="{{topic.location}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dibiao%402x.png"></image>
+            <text class="txtov" wx:if="{{topic.location}}">{{topic.location}}</text>
+            <text wx:if="{{topic.location}}" class="point"></text>
+            <text>{{topic.create_time}}</text>
           </view>
           <view class="opers skeleton-tab2-rect">
             <view class="itm" bindtap="giveEgg" data-parentindex="{{topicIndex}}">
-              <image wx:if="{{!topic.giveEgg}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dashang-bef.png"></image>
-              <image wx:if="{{topic.giveEgg}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dashang-aft.png"></image>
-              <text class="num">{{topic.egg}}</text>
+              <image wx:if="{{topic.reward_status == 0}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dashang-bef.png"></image>
+              <image wx:if="{{topic.reward_status == 1}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dashang-aft.png"></image>
+              <text class="num">{{topic.eshell_num}}</text>
             </view>
             <view class="itm">
               <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/pinglun%402x.png"></image>
-              <text class="num">{{topic.comment}}</text>
+              <text class="num">{{topic.comment_num}}</text>
             </view>
             <view class="itm">
               <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fenxiang%402x.png"></image>
-              <text class="num">{{topic.share}}</text>
+              <text class="num">{{topic.forward_num}}</text>
             </view>
             <view class="itm">
               <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/shoucang-bef%402x.png"></image>
-              <text class="num">{{topic.collect}}</text>
+              <text class="num">{{topic.collection_num}}</text>
             </view>
           </view>
         </view>
@@ -138,5 +160,5 @@
   <navigator class="releaseBtn{{(releaseBtnShow) ? '' : ' hide'}}" hover-class="none" url="/pages/buyou/fabu/fabu">
     <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fabu%402x.png"></image>
   </navigator>
-  <dk-toast id="toast" duration="3000" wx:if="toastShow"></dk-toast>
+  <dk-toast id="toast" duration="3000" isShow="{{false}}"></dk-toast>
 </scroll-view>

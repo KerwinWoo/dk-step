@@ -8,13 +8,23 @@ Component({
     width: String,
     height: String,
     //图片剪裁mode，同Image组件的mode
-    mode: String
+    mode: String,
+    isSingle: Boolean
   },
   data: {
-    finishLoadFlag: false
+    finishLoadFlag: false,
+    isSingle: false
   },
   methods: {
     finishLoad: function (e) {
+      if(this.data.isSingle){
+        if(e.detail.width <= 750){
+          this.setData({
+            width: e.detail.width + 'rpx',
+            height: e.detail.height + 'rpx'
+          })
+        }
+      }
       this.setData({
         finishLoadFlag: true
       })

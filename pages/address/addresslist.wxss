@@ -1,0 +1,208 @@
+/* pages/address/addresslist.wxss */
+page{
+  background:#f2f2f2;
+  padding-bottom: 150rpx;
+}
+.radio{
+  width:36rpx;
+  height:36rpx;
+}
+.addresslist .btns .btn{
+  margin-right:30rpx;
+}
+.addresslist .btns .btn image{
+  width:38rpx;
+  height:38rpx;
+  margin-right:6rpx;
+}
+.addresslist .itm{
+  background:#fff;
+  margin-bottom: 30rpx;
+  box-sizing: border-box;
+  padding:16rpx 30rpx;
+}
+.addresslist .itm .title{
+  font-size:32rpx;
+}
+.addresslist .itm .title text:first-child{
+  margin-right:20rpx;
+}
+.addresslist .itm .content{
+  font-size:28rpx;
+  color:#999;
+  padding:6rpx 0 16rpx 0;
+  border-bottom: 1rpx solid #eee;
+}
+.addresslist .itm .btm{
+  padding:20rpx 0 10rpx 0;
+  color:#999999;
+}
+.addresslist .itm .default image{
+  margin-right:8rpx;
+}
+.addAddressBtn{
+  position: fixed;
+  width:360rpx;
+  height:70rpx;
+  line-height: 70rpx;
+  text-align: center;
+  margin-left:-180rpx;
+  left:50%;
+  bottom:50rpx;
+  border-radius:35rpx;
+  font-size:30rpx;
+  background:#fff;
+}
+.nodata{
+  padding-top:300rpx;
+}
+.nodata image{
+  width:451rpx;
+  height:237rpx;
+}
+.addressLayer .wrp{
+  box-sizing: border-box;
+  background:#fff;
+  width:100%;
+  border-radius:10rpx;
+  font-size:30rpx;
+  font-weight:bold;
+  padding:20rpx 30rpx 0 60rpx;
+}
+.addressLayer .wrp .row{
+  border-bottom: 1rpx solid #eee;
+  height:90rpx;
+  line-height: 90rpx;
+}
+.addressLayer .wrp .row{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.addressLayer .wrp .row .input{
+  margin-left:30rpx;
+  flex-grow: 1;
+  font-weight: 400;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.addressLayer .wrp .row input{
+  height:90rpx;
+  width:100%;
+  box-sizing: border-box;
+}
+.addressLayer .wrp .row picker{
+  width:100%;
+}
+.addressLayer .wrp .row .input image{
+  width:34rpx;
+  height:42rpx;
+}
+.addressLayer .btns{
+  width:100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.addressLayer .btns>view{
+  padding:40rpx 0;
+}
+.addressLayer .btns>view{
+  text-align: center;
+  width:50%;
+  box-sizing: border-box;
+}
+.addressLayer .btns>view:first-child{
+  border-right:1rpx solid #eee;
+}
+.region-select view{
+  box-sizing: border-box;
+}
+.region-select{
+  width: 100%;
+  height: 600rpx;
+  background: #fff;
+  position: fixed;
+  z-index: 100000;
+  left:0;
+  bottom: 0;
+}
+
+.region-select .hd{
+  height: 108rpx;
+  width: 100%;
+  border-bottom: 1px solid #f4f4f4;
+  padding: 46rpx 30rpx 0 30rpx;
+}
+
+.region-select .region-selected{
+  float: left;
+  height: 60rpx;
+  display: flex;
+}
+
+.region-select .region-selected .item{
+  max-width: 140rpx;
+  margin-right: 30rpx;
+  text-align: left;
+  line-height: 60rpx;
+  height: 100%;
+  color: #333;
+  font-size: 28rpx;
+  overflow: hidden;
+      text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.region-select .region-selected .item.disabled{
+  color: #999;
+}
+
+.region-select .region-selected .item.selected{
+  color: #b4282d;
+}
+
+.region-select .done{
+  float: right;
+  height: 60rpx;
+  width: 60rpx;
+  border: none;
+  background: #fff;
+  line-height: 60rpx;
+  text-align: center;
+  color: #333;
+  font-size: 28rpx;
+}
+
+.region-select .done.disabled{
+  color: #999;
+}
+
+.region-select .bd{
+  height: 492rpx;
+  width: 100%;
+  padding: 0 30rpx;
+}
+
+.region-select .region-list{
+  height: auto;
+  overflow: scroll;
+
+}
+
+.region-select .region-list .item{
+  width: 100%;
+  height: 104rpx;
+  line-height: 104rpx;
+  text-align: left;
+  color: #333;
+  font-size: 28rpx;
+}
+
+.region-select .region-list .item.selected{
+  color: #b4282d;
+}

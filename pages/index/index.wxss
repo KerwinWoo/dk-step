@@ -29,8 +29,8 @@ page{
   z-index: 10;
 }
 .stepcont .t image{
-  width:40rpx;
-  height:40rpx;
+  width:42rpx;
+  height:42rpx;
   margin-right:3rpx;
 }
 .stepcont .t>navigator{
@@ -108,10 +108,12 @@ page{
   top:0;
 }
 .stepcont .mstep .textcont{
-  left:0;
-  top:0;
-  width:360rpx;
-  height:360rpx;
+  left:50%;
+  top:50%;
+  margin-left:-140rpx;
+  margin-top:-140rpx;
+  width:280rpx;
+  height:280rpx;
   position:absolute;
   display: flex;
   flex-direction: column;
@@ -523,6 +525,102 @@ button.inviteBtn::after{
   padding: 40rpx 0 80rpx 0;
   font-size: 24rpx;
   color:#999;
+}
+.mydk .it{
+  font-size:28rpx;
+  font-weight: bold;
+}
+.mydk .ft{
+  font-size:20rpx;
+}
+.awardLayer{
+  width:100%;
+  height:100%;
+  position: fixed;
+  z-index: 999;
+  background:rgba(0,0,0,.6);
+  left:0;
+  top: 0;
+}
+.awardLayer .bg{
+  width:690rpx;
+  height:705rpx;
+}
+.awardLayer .bg image{
+  width:100%;
+  height:100%;
+}
+.awardLayer .award{
+  position: absolute;
+  top:50%;
+  left:50%;
+  width:690rpx;
+  height:705rpx;
+  margin-left:-345rpx;
+  margin-top:-324rpx;
+}
+.awardLayer .btns{
+  position: absolute;
+  width:393rpx;
+  height:90rpx;
+  left:50%;
+  bottom:50rpx;
+  margin-left:-186rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.awardLayer .btns image:nth-of-type(1){
+  width:393rpx;
+  height:90rpx;
+  position: absolute;
+  left:0;
+  top:0;
+}
+.awardLayer .btns image:nth-of-type(2){
+  width:260rpx;
+  height:40rpx;
+  display: inline-block;
+  position: relative;
+}
+.awardLayer .item{
+  width:100%;
+  text-align: center;
+  position: absolute;
+  left:0;
+  top:150rpx;
+  font-size:24rpx;
+}
+.awardLayer .item image{
+  width:112rpx;
+  height:85rpx;
+}
+.awardLayer .txt{
+  width:100%;
+  text-align: center;
+  position: absolute;
+  left:0;
+  top:350rpx;
+  font-size:44rpx;
+  font-weight: bold;
+  color:#fff;
+}
+.awardLayer .txt text{
+  font-size:30rpx;
+}
+.awardLayer .close{
+  margin-top:60rpx;
+  text-align: center;
+}
+.awdtip{
+  text-align: center;
+  position: absolute;
+  left:0;
+  width:100%;
+  color:#FFF3CD;
+  font-size:28rpx;
+  top:520rpx;
 }
 /*swtich整体大小及背景色*/
 .wx-switch-input{

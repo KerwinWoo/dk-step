@@ -1,4 +1,6 @@
 <!--components/image-loader/image-loader.wxml-->
-<view wx:if='{{!finishLoadFlag}}' style='{{width ? "width:" + width : ""}};{{height ? "height:" + height : ""}}' class='default-img'></view>
+<view wx:if='{{!finishLoadFlag}}' 
+  style='{{width ? "width:" + width : ""}};{{height ? "height:" + height : ""}}' class='default-img'>
+</view>
 
 <image mode='{{mode}}' lazy-load class='{{finishLoadFlag ? "" : "before-load"}}' src='{{originalImage}}' bindload='finishLoad' style='{{finishLoadFlag && width ? "width:" + width : ""}};{{finishLoadFlag && height ? "height:" + height : ""}}' />

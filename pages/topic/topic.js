@@ -34,7 +34,8 @@ Page({
     let that = this
     
     that.setData({
-      title: options.title
+      title: options.title,
+      comment: options.comment
     })
     // 刷新组件
     that.refreshView = that.selectComponent("#refreshView")

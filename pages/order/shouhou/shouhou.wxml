@@ -5,9 +5,7 @@
     <view class="itm" wx:for="{{orderList}}" wx:key="{{item.id}}">
       <navigator class="wrp" url="/pages/order/detail/detail">
         <view class="pic">
-          <view class="imgwrp">
-            <image mode="aspectFit" src="{{item.pic}}"></image>
-          </view>
+          <image-loader class="imgwrp" mode="aspectFit" original-image="{{item.list_pic_url}}"></image-loader>
         </view>
         <view class="content">
           <view class="name">{{item.name}}</view>

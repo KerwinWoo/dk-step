@@ -13,4 +13,7 @@
     <view>消息分享给好友，可提高邀请成功率哦！</view>
   </view>
   <button class="sharebtn btn-default" open-type="share">快去分享给好友</button>
+  <navigator class="viewOrder" hover-class="none" url="/pages/order/me/me">
+    查看订单详情<image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
+  </navigator>
 </scroll-view>

@@ -61,9 +61,23 @@ function checkSession() {
   return new Promise(function (resolve, reject) {
     wx.checkSession({
       success: function () {
+        console.info('session未过期')
         resolve(true);
       },
       fail: function () {
+        console.info('session过期,重新获取session')
+        wx.login({
+          success: function (res) {
+            request(api.AUTH_GETSESSIONKEY,{
+              code: res.code
+            }).then(function(res){
+              debugger
+            })
+          },
+          fail: function (err) {
+            console.error('login fail')
+          }
+        });
         reject(false);
       }
     })
@@ -77,7 +91,6 @@ function login() {
   return new Promise(function (resolve, reject) {
     wx.login({
       success: function (res) {
-        debugger
         if (res.code) {
           resolve(res);
         } else {
@@ -85,7 +98,6 @@ function login() {
         }
       },
       fail: function (err) {
-        debugger
         reject(err);
       }
     });
@@ -110,7 +122,7 @@ function redirect(url) {
 function showErrorToast(msg) {
   wx.showToast({
     title: msg,
-    image: '/static/images/icon_error.png'
+    icon: 'none'
   })
 }
 
@@ -141,9 +153,7 @@ function checkUserPermisson(){
       success(res) {
         //用户拒绝授权或者用户在设置页面中取消了授权
         if(res.authSetting['scope.userInfo'] != undefined && res.authSetting['scope.userInfo'] == false){
-          wx.redirectTo({
-            url: '/pages/auth/setting/goSetting'
-          })
+          //
         }
         //用户从未授权
         else if (res.authSetting['scope.userInfo'] == undefined){

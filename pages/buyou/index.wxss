@@ -49,7 +49,7 @@
   height:148rpx;
   border-radius:10rpx;
   color:#fff;
-  font-size:24rpx;
+  font-size:32rpx;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -58,6 +58,12 @@
   justify-content: center;
   margin-right: 20rpx;
   float:left;
+  font-weight: bold;
+}
+.topiclist>.itm image-loader{
+  position: absolute;
+  left:0;
+  top:0;
 }
 .topiclist>.itm image{
   width:100%;
@@ -68,8 +74,15 @@
   z-index: 1;
 }
 .topiclist>.itm text{
-  position: relative;
-  z-index: 2;
+  position:relative;
+  z-index:2;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  padding:0 30rpx;
+  width:100%;
+  box-sizing:border-box;
+  text-align:center;
 }
 .subtitle{
   padding:5rpx 0 15rpx 0;
@@ -318,4 +331,10 @@
 .nodata .title{
   margin-top:20rpx;
   font-size:28rpx;
+}
+.txtov{
+  width:220rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

@@ -5,9 +5,11 @@
     <dk-nav title="蛋壳步数换" hasBackBtn="{{false}}" isFixed="{{true}}"></dk-nav>
     <view class="w">
       <view class="t">
-        <navigator open-type="navigate" url="/pages/me/dk/dk" hover-class="none">
+        <navigator open-type="navigate" url="/pages/me/dk/dk" hover-class="none" class="mydk">
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
-          <text>{{myDk}}</text>
+          <text class="it">{{myDk.it}}</text>
+          <text class="ft">.</text>
+          <text class="ft">{{myDk.ft}}</text>
         </navigator>
         <navigator open-type="navigate" url="/pages/calorie/diary/diary" hover-class="none">
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-calorie.png"></image>
@@ -27,13 +29,15 @@
         <view wx:for="{{ssteps}}" 
           wx:key="{{id}}" 
           class="{{item.statusCls}}" 
-          style="color:{{(item.type == 1) ? '#FF2467' : '#FF7110'}};animation-delay:{{item.style.animationDelay}};left:{{item.style.left}}rpx;top:{{item.style.top}}rpx;" 
+          style="color:{{item.style.color}};animation-delay:{{item.style.animationDelay}};left:{{item.style.left}}rpx;top:{{item.style.top}}rpx;" 
           data-id="{{item.id}}" 
-          data-step="{{item.value}}" 
+          data-step="{{item.task_dk_num}}" 
+          data-name="{{item.task_name}}"
+          data-index="{{index}}"
           bindtap="pickStep">
-          <image src="{{(item.type == 1) ? 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ball-s.png' : 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ball-s2.png'}}"></image>
-          <text>{{item.value}}</text>
-          <view>{{item.name}}</view>
+          <image src="{{item.imgSrc}}"></image>
+          <text>{{item.task_dk_num}}</text>
+          <view>{{item.task_name}}</view>
         </view>
       </view>
     </view>
@@ -42,7 +46,7 @@
     <button class="inviteBtn btn-default" hover-class="btnhover" open-type="share">邀请好友永久加成</button>
     <view class="tip">
       <view>
-        <text>每邀请一个好友，额外获得好友10%蛋壳加成</text>
+        <text>当前加成0%，明日加成0%，邀请第一个好友加成4%</text>
         <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/hand.png"></image>
       </view>
     </view>
@@ -106,15 +110,16 @@
     </view>
   </view>
   
-  <view class="section npdb">
+  <view class="section npdb" wx:if="{{itemsNew.length > 0}}">
     <view class="comtitle">
       <text>新人专区</text>
       <text class="comment">新人享有1次免费兑换福利</text>
     </view>
     <scroll-view scroll-x  class="goodlist goodlist_n clearfix">
-      <view class="itm" wx:for="{{itemsNew}}"
+      <navigator class="itm" wx:for="{{itemsNew}}"
             wx:key="{{id}}"
-            bindtap="viewGoodsDetail">
+            url="/pages/mall/goodsdetail/goodsdetail?id={{item.id}}"
+            hover-class="none">
         <view class="wrp">
           <view class="photo">
             <image-loader 
@@ -134,7 +139,7 @@
             <view class="exchangeBtn btn-default">免费兑换</view>
           </view>
         </view>
-      </view>
+      </navigator>
     </scroll-view>
   </view>
   <view class="section invitesection">
@@ -143,8 +148,10 @@
       <text class="comment">好友越多可兑换的商品越好</text>
     </view>
     <view class="goodlist clearfix">
-      <view class="itm" wx:for="{{itemsInvite}}"
-            wx:key="{{id}}" bindtap="viewIvtGoodsDetail">
+      <navigator class="itm" wx:for="{{itemsInvite}}"
+            wx:key="{{id}}" 
+            url="/pages/mall/goodsdetail/goodsdetail?id={{item.id}}&isInvite=true"
+            hover-class="none">
         <view class="wrp">
           <view class="invitenum">当日邀请{{item.dkInvitationNum}}人可兑换</view>
           <view class="photo">
@@ -160,14 +167,14 @@
                 <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
                 <text>{{item.dkEshellNum}}</text>
               </view>
-              <view  class="r">已兑换<text>{{item.changeNumber}}</text>人</view>
+              <view  class="r">已兑换<text>{{item.changeNumber ? item.changeNumber : 0}}</text>人</view>
             </view>
             <view class="exchangeBtn">免费兑换</view>
           </view>
         </view>
-      </view>
+      </navigator>
     </view>
-    <navigator class="getMore" url="/pages/mall/index">点击查看更多商品</navigator>
+    <view class="getMore" bindtap="getMoreGoodsInvite" wx:if="{{inviteMoreShow}}">点击查看更多商品</view>
   </view>
   <view class="section">
     <view class="comtitle">
@@ -175,8 +182,10 @@
       <text class="comment">在乎你的每一步，步数当钱花</text>
     </view>
     <view class="goodlist clearfix">
-      <view class="itm" wx:for="{{itemsValue}}"
-            wx:key="{{id}}" bindtap="viewIvtGoodsDetail">
+      <navigator class="itm" wx:for="{{itemsBuyou}}"
+            wx:key="{{id}}" 
+            url="/pages/mall/goodsdetail/goodsdetail?id={{item.id}}"
+            hover-class="none">
         <view class="wrp">
           <view class="photo">
             <image-loader 
@@ -191,14 +200,14 @@
                 <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
                 <text>{{item.dkEshellNum}}</text>
               </view>
-              <view  class="r">已兑换<text>{{item.changeNumber}}</text>人</view>
+              <view  class="r">已兑换<text>{{item.changeNumber ? item.changeNumber : 0}}</text>人</view>
             </view>
             <view class="exchangeBtn">免费兑换</view>
           </view>
         </view>
-      </view>
+      </navigator>
     </view>
-    <navigator class="getMore" url="/pages/mall/index">点击查看更多商品</navigator>
+    <view class="getMore" bindtap="getMoreGoodsBuyou" wx:if="{{buyouMoreShow}}">点击查看更多商品</view>
   </view>
   <view class="section" style="padding-bottom:20rpx;">
     <view class="comtitle">
@@ -206,12 +215,14 @@
       <text class="comment">超值商品限时换</text>
     </view>
     <view class="goodlist clearfix">
-      <view class="itm" wx:for="{{itemsNew}}"
-            wx:key="{{id}}" bindtap="viewIvtGoodsDetail">
+      <navigator class="itm" wx:for="{{itemsValue}}"
+            wx:key="{{id}}" 
+            url="/pages/mall/goodsdetail/goodsdetail?id={{item.id}}"
+            hover-class="none">
         <view class="wrp">
           <view class="photo">
             <image-loader 
-              original-image="{{item.picUrl}}" 
+              original-image="{{item.list_pic_url}}" 
               mode="aspectFill">
             </image-loader>
           </view>
@@ -220,14 +231,14 @@
             <view class="info">
               <view class="l">
                 <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
-                <text>{{item.egg}}</text>
+                <text>{{item.dkEshellNum}}</text>
               </view>
-              <view  class="r">已兑换<text>{{item.person}}</text>人</view>
+              <view  class="r">已兑换<text>{{item.changeNumber ? item.changeNumber : 0}}</text>人</view>
             </view>
             <view class="exchangeBtn">免费兑换</view>
           </view>
         </view>
-      </view>
+      </navigator>
     </view>
     <!-- <navigator class="getMore" url="/pages/mall/index">点击查看更多商品</navigator> -->
   </view>
@@ -248,6 +259,40 @@
         </button>
       </view>
       <view class="closeBtn" bindtap="closeHongbao">点击关闭</view>
+    </view>
+  </view>
+  
+  <view class="commontoast" wx:if="{{tipShow}}">
+    <view class="wrp">
+      <view class="title">温馨提示</view>
+      <view class="content">兑换{{userStep}}步为{{exchangeDk}}个蛋壳</view>
+      <view class="btns">
+        <view class="btn btn-simple" bindtap="closeLayer">取消</view>
+        <view class="btn btn-default" bindtap="exchangeSubmit">确定</view>
+      </view>
+      <image class="closeBtn" bindtap="closeLayer" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/close.png"></image>
+    </view>
+  </view>
+  
+  <view class="awardLayer" wx:if="{{awardLayer}}">
+    <view class="award">
+      <view class="bg">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/bg_award2.png"></image>
+      </view>
+      <view class="item">
+        <view><image lazy-load src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i_eggs.png" class="giftimg"></image></view>
+      </view>
+      <view class="txt">
+        {{exchangeDk}}<text>蛋壳</text>
+      </view>
+      <view class="awdtip">好友助力即可获得随机步数奖励</view>
+      <view class="btns" bindtap="getAward">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/award_btn.png"></image>
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/yaoqing.png"></image>
+      </view>
+      <view class="close">
+        <image class="closeBtn" bindtap="closeLayer2" data-layerId="awardLayer" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/close.png"></image>
+      </view>
     </view>
   </view>
 </scroll-view>

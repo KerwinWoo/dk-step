@@ -47,7 +47,10 @@
     "pages/team/manage/slogan/slogan",
     "pages/me/homepage/homepage",
     "pages/me/guanzhu/guanzhu",
-    "pages/auth/btnAuth/btnAuth"
+    "pages/auth/btnAuth/btnAuth",
+    "pages/mall/duihuan/duihuan",
+    "pages/game/qiandao/qiandao",
+    "pages/address/addresslist"
   ],
   "window": {
     "backgroundTextStyle": "light",

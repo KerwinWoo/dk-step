@@ -2,24 +2,48 @@
 <view class="container hastop">
   <dk-nav title="商品详情" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
   <view class="goodsimage">
-    <image mode="aspectFill" src="https://img11.360buyimg.com/n1/jfs/t5767/221/3265776907/263788/b5fad17b/593a1dc0Necd552c1.jpg"></image>
+    <swiper
+      indicator-dots="{{indicatorDots}}"
+      autoplay="{{autoplay}}"
+      interval="{{interval}}"
+      duration="{{duration}}"
+    >
+      <block wx:for="{{imgUrls}}" wx:key="{{item.id}}">
+        <swiper-item>
+          <image src="{{item.img_url}}" mode="aspectFill" class="slide-image"/>
+        </swiper-item>
+      </block>
+    </swiper>
     <view class="info">
       <view class="wrp">
-        <view class="name">小米手环</view>
+        <view class="name">{{info.name}}</view>
         <view class="subinfo">
           <view class="dk">
             <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
-            <text>9999</text>
+            <text>{{info.dkEshellNum}}</text>
           </view>
           <view class="r">
-            <view class="baoyou">包邮</view>
-            <view class="sy">剩余<text>99</text>件</view>
+            <view class="baoyou">{{(info.freeMail == 1) ? '包邮' : '不包邮'}}</view>
+            <view class="sy">剩余<text>{{info.goods_number}}</text>件</view>
           </view>
         </view>
       </view>
     </view>
   </view>
-  <view class="record">
+  <navigator class="record" hover-class="none" url="/pages/mall/duihuan/duihuan?id={{currentId}}">
+  	<view class="wrp">
+      <view class="recordlist clearfix">
+        <view class="imgwrp" wx:for="{{changeHistory}}" wx:key="id" wx:if="{{index <= 5}}">
+          <image-loader mode="aspectFill" original-image="{{item.avatar}}"></image-loader>
+        </view>
+      </view>
+      <view class="num"><text>{{info.changeNumber?info.changeNumber:0}}</text>人已兑换</view>
+      <view class="more">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
+      </view>
+    </view>
+  </navigator>
+  <view class="record ivtrecord" wx:if="{{isInvite}}">
   	<view class="wrp">
       <view class="recordlist clearfix">
         <view class="imgwrp">
@@ -41,7 +65,7 @@
           <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
         </view>
       </view>
-      <view class="num"><text>898</text>人已兑换</view>
+      <view class="num">已邀请<text>8</text>人</view>
       <view class="more">
         <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
       </view>
@@ -64,61 +88,73 @@
   </view>
   <view class="comment">
     <view class="comtitle">步友晒单</view>
-    <view class="wrp">
+    <view wx:if="{{!shaidan}}" class="noshaidan">暂无晒单</view>
+    <view class="wrp" wx:if="{{shaidan}}">
       <view class="photo">
-        <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
+        <image-loader mode="aspectFill" original-image="{{shaidan.avatar}}"></image-loader>
       </view>
       <view class="content">
-        <view class="name">行走的蛋壳</view>
-        <view class="p">我在蛋壳步数换兑换的小米手环终于到了，太开心了，以后要坚持运动，争取兑换更多的商品。</view>
-        <view class="pics clearfix">
-          <view class="l">
-            <view class="imgwrp">
-              <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
-            </view>
-          </view>
-          <view class="r">
-            <view class="">
-              <view class="iwrp">
-                <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
+        <view class="name">{{shaidan.nickname}}</view>
+        <view class="p">{{shaidan.content}}</view>
+        <view class="commonimgcont {{(shaidan.img_src.length == 1) ? 'type2' : 'type1'}}{{shaidan.type3}}">
+          <view class="imgwrp" wx:for="{{shaidan.img_src}}" wx:key="{{item}}">
+            <view class="subwrp">
+              <image-loader 
+                original-image="{{item}}" 
+                mode="{{shaidan.imgmode}}"
+                bindtap="previewTopicImg"
+                data-parentIndex="{{index}}"
+                data-current="{{item}}"></image-loader>
               </view>
-            </view>
-            <view class="">
-              <view class="iwrp">
-                <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
-              </view>
-            </view>
           </view>
-          <view class="num">9张</view>
         </view>
-        <view class="viewMore">查看更多晒单</view>
+        <navigator hover-class="none" class="viewMore" url="/pages/buyou/topic/topic?title=步友晒单&comment=你说是啥就是啥&value=showMyList&pic=">查看更多晒单</navigator>
       </view>
     </view>
   </view>
   <view class="detailinfo">
     <view class="comtitle">商品详情</view>
     <view class="goodsintro">
-      <image-loader mode="widthFix" original-image="https://img30.360buyimg.com/popWaterMark/jfs/t20170/111/665035951/269464/1a507c0f/5b134109N8c76048a.jpg"></image-loader>
-      <image-loader mode="widthFix" original-image="https://img30.360buyimg.com/popWaterMark/jfs/t21235/13/616204005/98056/75436c3/5b134108N4fa81059.jpg"></image-loader>
-      <image-loader mode="widthFix" original-image="https://img30.360buyimg.com/popWaterMark/jfs/t19822/252/1068399166/125202/c8b2d5e0/5b134109Nc413c41b.jpg"></image-loader>
-      <image-loader mode="widthFix" original-image="https://img30.360buyimg.com/popWaterMark/jfs/t21724/291/637411747/181858/91483b1d/5b134109N0e3c11ce.jpg"></image-loader>
-      <image-loader mode="widthFix" original-image="https://img30.360buyimg.com/popWaterMark/jfs/t19810/247/1039581514/175536/6c81e3ae/5b134109Nfe9dfaa9.jpg"></image-loader>
-      <image-loader mode="widthFix" original-image="https://img30.360buyimg.com/popWaterMark/jfs/t21637/255/602533631/154678/babe4faf/5b13410aNa0af8b8d.jpg"></image-loader>
-      <image-loader mode="widthFix" original-image="https://img30.360buyimg.com/popWaterMark/jfs/t21247/2/665016973/231089/474174b6/5b13410aN33b7879b.jpg"></image-loader>
-      <image-loader mode="widthFix" original-image="https://img30.360buyimg.com/popWaterMark/jfs/t21061/113/629805580/307868/bcbe9bda/5b13410aN5b9a12d9.jpg"></image-loader>
+      <import src="wxParse/wxParse.wxml" />
+      <template is="wxParse" data="{{wxParseData:goodsDetail.nodes}}" />
     </view>
   </view>
   <view class="btm">
     <view class="heart">
-      <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/goodsdetail_heart1.png"></image></view>
+      <view><image src="{{isHeart ? 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/goodsdetail_heart1.png' : 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/goodsdetail_heart2.png'}}" bindtap="addToHeart"></image></view>
       <view>心愿</view>
     </view>
-    <view class="kefu">
+    <button class="kefu resetBtn" open-type="contact">
       <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/goodsdetail_kefu.png"></image></view>
       <view>客服</view>
-    </view>
-    <view class="btn">
-      差6人，去邀请好友
+    </button>
+    <button class="btn btn-default resetBtn" open-type="share" wx:if="{{inviteShow}}">
+      差{{needInvite}}人，去邀请好友
+    </button>
+    <view class="btn btn-default" bindtap="doExchange" wx:if="{{exchangeShow}}">立即兑换</view>
+    <button class="btn btn-default resetBtn" open-type="share" wx:if="{{newInviteShow}}">
+      蛋壳不足，立即邀请好友
+    </button>
+  </view>
+  <view class="goodpreview{{previewShow ? ' show' : ''}}">
+    <view class="mask" bindtap="hidePreview"></view>
+    <view class="wrp">
+      <view class="t">
+        <view class="dknum">
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
+          <text>{{info.dkEshellNum}}</text>
+        </view>
+        <view class="info">
+          <view>库存量：<text>{{info.goods_number}}</text>件</view>
+          <view>原价：<text>￥{{info.retail_price}}</text></view>
+        </view>
+        <image-loader mode="aspectFill" original-image="{{info.primary_pic_url}}"></image-loader>
+      </view>
+      <view class="buynum">
+        <view class="title">购买数量</view>
+        <dk-stepper class="numstepper" inputStatus="disabled" plusStatus=" disabled"></dk-stepper>
+      </view>
+      <navigator hover-class="none" url="/pages/order/paydetail/paydetail?goodsId={{currentId}}&isNew=1" class="btn-default exchangeBtnTo">立即兑换</navigator>
     </view>
   </view>
 </view>

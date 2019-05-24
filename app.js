@@ -82,5 +82,8 @@ App({
               }
           },
       })
+  },
+  onShow () {
+      //wx.getShareInfo()
   }
 })

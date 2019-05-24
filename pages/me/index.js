@@ -62,8 +62,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-  manageAddress () {
-    wx.chooseAddress()
   }
 })

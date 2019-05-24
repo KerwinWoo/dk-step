@@ -1,5 +1,5 @@
 <!--pages/me/dk/dk.wxml-->
-<view class="container hastop" bindtouchstart='handletouchstart' bindtouchmove='handletouchmove' bindtouchend='handletouchend' bindtouchcancel='handletouchcancel'>
+<view class="container hastop">
   <dk-nav title="我的蛋壳" hasBackBtn="{{true}}" 
     isFixed="{{true}}" 
     hasBorder="{{true}}"
@@ -9,31 +9,21 @@
     <view class="content">
       <view class="title">当前蛋壳</view>
       <view class="info">
-        <text>188.</text><text>88</text>
+        <text>{{myDk.it}}.</text><text>{{myDk.ft}}</text>
       </view>
     </view>
   </view>
   <view class="listcont">
     <view class="title">蛋壳明细</view>
     <view class="list">
-      <view class="itm">
+      <view class="itm" wx:for="{{dklist}}" wx:key="{{item.id}}">
         <view class="l">
-          <view class="name">步数兑换</view>
-          <view class="detail">消耗2500步兑换</view>
-          <view class="time">2019.03.10 22:30</view>
+          <view class="name">{{item.name}}</view>
+          <view class="detail">{{item.desc}}</view>
+          <view class="time">{{item.time}}</view>
         </view>
         <view class="r">
-          <text class="add">+10.6</text>
-        </view>
-      </view>
-      <view class="itm">
-        <view class="l">
-          <view class="name">步数兑换</view>
-          <view class="detail">消耗2500步兑换消耗2500步兑换消耗2500步兑换消耗2500步兑换消耗2500步兑换消耗2500步兑换</view>
-          <view class="time">2019.03.10 22:30</view>
-        </view>
-        <view class="r">
-          <text class="min">-10.6</text>
+          <text class="{{(item.symbol == '+') ? 'add' : 'min'}}">{{item.symbol}}{{item.eshell_num}}</text>
         </view>
       </view>
     </view>

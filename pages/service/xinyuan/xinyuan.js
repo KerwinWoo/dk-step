@@ -1,18 +1,22 @@
 // pages/service/xinyuan/xinyuan.js
+const app = getApp()
+const utils = require('../../../utils/util.js')
+const api = require('../../../api/api.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+  
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.loadUserDkInfo()
+    this.loadList()
   },
 
   /**
@@ -65,5 +69,35 @@ Page({
   },
   backTo () {
     wx.navigateBack()
+  },
+  loadUserDkInfo () {
+    let that = this
+    utils.request(api.HOME_QUERY_USERDK,{
+    }).then(function (res) {
+      that.setData({
+        myDk: res.data.eggshellNum
+      })
+    })
+  },
+  loadList () {
+    let that = this
+    utils.request(api.DKWISH_LIST,{
+    }).then(function (res) {
+      if(res.errno == '0'){
+        that.setData({
+          list: res.data
+        })
+      }
+    })
+  },
+  remove (e) {
+    let that = this
+    utils.request(api.DKWISH_DELETE,{
+      id: e.currentTarget.dataset.id
+    },'POST','application/json').then(function(res){
+      if(res.errno == '0'){
+        that.loadList()
+      }
+    })
   }
 })

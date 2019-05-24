@@ -1,4 +1,7 @@
 // pages/buyou/topic/topic.js
+const app = getApp()
+const utils = require('../../../utils/util.js')
+const api = require('../../../api/api.js')
 Page({
 
   /**
@@ -24,8 +27,11 @@ Page({
       addr: '',
       time: ''
     }],
-    showSkeleton: true,
-    releaseBtnShow: true
+    releaseBtnShow: true,
+    currentTopic: '',
+    pic: '',
+    topicDataLoaded: false,
+    showSkeleton: true
   },
 
   /**
@@ -33,9 +39,11 @@ Page({
    */
   onLoad: function (options) {
     let that = this
-    
     that.setData({
-      title: options.title ? options.title : '#蛋壳步数换'
+      title: options.title ? options.title : '#蛋壳步数换',
+      currentTopic: options.value,
+      pic: options.pic,
+      comment: options.comment
     })
     // 刷新组件
     that.refreshView = that.selectComponent("#refreshView")
@@ -65,7 +73,6 @@ Page({
     that.refreshView.onPageScroll(event)
     
     if(that.data.releaseBtnShow){
-      console.log(9090909090)
       that.setData({
         releaseBtnShow: false
       },() => {
@@ -79,10 +86,8 @@ Page({
   },
   onPullDownRefresh: function () {
     let that = this
-    setTimeout(function () {
-      that.refreshView.stopPullRefresh()
-      that.loadTopicData()
-    }, 1500)
+    that.refreshView.stopPullRefresh()
+    that.loadTopicData()
   },
 
   /**
@@ -131,61 +136,27 @@ Page({
   },
   loadTopicData() {
     let that = this
-    setTimeout(function () {
-      let data = [{
-        id: 1,
-        name: '小兔子',
-        photo: 'https://img30.360buyimg.com/babel/s350x180_jfs/t22660/197/997998956/85092/652504db/5b4c45bfNcfd19212.jpg',
-        topicName: '我的国名女神',
-        content: '在我的生命中，运动就像温柔地吹拂着我，带我走出自我的暖暖春风；我最难忘、最刻骨铭心的记忆都和它相关；因为我爱运动，而运动是我对待度。',
-        imglist: ['https://img11.360buyimg.com/mobilecms/s140x140_jfs/t1/16081/33/1514/306673/5c131c81E0ba11d32/de25680f996e074d.jpg',
-          'https://img11.360buyimg.com/mobilecms/s140x140_jfs/t1/32519/38/9157/134003/5ca451a9E6f621a18/f822bccbe17a9950.jpg',
-          'https://img14.360buyimg.com/n0/jfs/t1/14170/12/431/175747/5c09dac1E48482df7/8c80520525c5daa9.jpg'],
-        addr: '武汉市江夏区',
-        time: '20分钟前',
-        egg: 22,
-        comment: 290,
-        share: 88,
-        collect: 99,
-        giveEgg: false
-      }, {
-        id: 2,
-        name: '小狮子',
-        photo: 'https://img30.360buyimg.com/babel/s350x180_jfs/t22660/197/997998956/85092/652504db/5b4c45bfNcfd19212.jpg',
-        topicName: '我家有萌宠',
-        content: '在我的生命中，运动就像温柔地吹拂着我，带我走出自我的暖暖春风；我最难忘、最刻骨铭心的记忆都和它相关；因为我爱运动，而运动是我对待度。',
-        imglist: ['https://img11.360buyimg.com/mobilecms/s140x140_jfs/t1/16081/33/1514/306673/5c131c81E0ba11d32/de25680f996e074d.jpg',
-          'https://img11.360buyimg.com/mobilecms/s140x140_jfs/t1/32519/38/9157/134003/5ca451a9E6f621a18/f822bccbe17a9950.jpg',
-          'https://img14.360buyimg.com/n0/jfs/t1/14170/12/431/175747/5c09dac1E48482df7/8c80520525c5daa9.jpg'],
-        addr: '武汉市江夏区',
-        time: '20分钟前',
-        egg: 22,
-        comment: 290,
-        share: 88,
-        collect: 99,
-        giveEgg: false
-      }, {
-        id: 3,
-        name: '小猴子',
-        photo: 'https://img30.360buyimg.com/babel/s350x180_jfs/t22660/197/997998956/85092/652504db/5b4c45bfNcfd19212.jpg',
-        topicName: '我家有萌宠',
-        content: '在我的生命中，运动就像温柔地吹拂着我，带我走出自我的暖暖春风；我最难忘、最刻骨铭心的记忆都和它相关；因为我爱运动，而运动是我对待度。',
-        imglist: ['https://img11.360buyimg.com/mobilecms/s140x140_jfs/t1/16081/33/1514/306673/5c131c81E0ba11d32/de25680f996e074d.jpg',
-          'https://img11.360buyimg.com/mobilecms/s140x140_jfs/t1/32519/38/9157/134003/5ca451a9E6f621a18/f822bccbe17a9950.jpg',
-          'https://img14.360buyimg.com/n0/jfs/t1/14170/12/431/175747/5c09dac1E48482df7/8c80520525c5daa9.jpg'],
-        addr: '武汉市江夏区',
-        time: '20分钟前',
-        egg: 22,
-        comment: 290,
-        share: 88,
-        collect: 99,
-        giveEgg: true
-      }]
-      that.setData({
-        topicDataList: data,
-        showSkeleton: false
+    if(!that.data.topicDataLoaded){
+      utils.request(api.BUYOU_RECOMMENT_TOPICLIST,{
+        topicTag: that.data.currentTopic
+      }).then(function(res){
+        let topicData = res.data.data.map(function(value,index){
+          if(value.img_src){
+            value.img_src = value.img_src.split(',')
+          }
+          if(value.create_time){
+            value.create_time = utils.formatTime(new Date(value.create_time))
+          }
+          return value
+        })
+        that.setData({
+          topicDataLoaded: true,
+          topicDataList: topicData,
+          showSkeleton: false
+        })
+        console.log('topicdata', topicData)
       })
-    }, 1000)
+    }
   },
   giveEgg(e) {
     const data = e.currentTarget.dataset

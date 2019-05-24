@@ -45,3 +45,15 @@
   color:#FB793B;
   font-weight: bold;
 }
+.nodata {
+  text-align: center;
+  padding:220rpx 0;
+}
+.nodata image{
+  width:465rpx;
+  height:237rpx;
+}
+.nodata .text{
+  font-size:28rpx;
+  padding:20rpx 0;
+}

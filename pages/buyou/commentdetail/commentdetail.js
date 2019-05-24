@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    currentTopicId: '',
     topic: {
       id: 1,
       name: '小兔子',
@@ -28,7 +29,25 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      currentTopicId: options.id
+    })
+    this.loadTopicInfo()
+  },
+  
+  loadTopicInfo () {
+    let that = this
+    const app = getApp()
+    const utils = require('../../../utils/util.js')
+    const api = require('../../../api/api.js')
+    utils.request(api.BUYOU_TOPICCOMMENT,{
+      communityId: that.data.currentTopicId,
+      page: 1,
+      size: 10
+    }).then(function(res){
+      debugger;
+    })
+    
   },
 
   /**

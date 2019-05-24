@@ -7,6 +7,10 @@ Component({
     duration: {
       type: Number,
       value: 1500
+    },
+    isShow: {
+      type: Boolean,
+      value: false
     }
   },
 
@@ -31,12 +35,14 @@ Component({
       animation.opacity(1).step()
       this.setData({
         animationData: animation.export(),
-        content: val
+        content: val,
+        isShow: true
       })
       setTimeout(function () {
         animation.opacity(0).step()
         this.setData({
-          animationData: animation.export()
+          animationData: animation.export(),
+          isShow: false
         })
       }.bind(this), this.data.duration)
     }

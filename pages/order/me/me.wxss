@@ -47,10 +47,12 @@ page{
 .orderlist .itm .pic{
   margin-right:18rpx;
 }
-.orderlist .itm .pic image{
+.orderlist .itm .pic image-loader{
   width:180rpx;
   height:180rpx;
   border-radius: 10rpx;
+  overflow: hidden;
+  position: relative;
 }
 .orderlist .itm .name{
   width:295rpx;
@@ -100,14 +102,20 @@ page{
   margin-right:10rpx;
 }
 .orderlist .itm .btn-default,.orderlist .itm .btn-simple{
-  font-size:28rpx;
-  font-weight:bold;
+  font-size:30rpx;
   color:#fff;
-  height:70rpx;
-  line-height: 70rpx;
+  height:64rpx;
+  line-height: 64rpx;
   border-radius:35rpx;
   text-align: center;
   display: inline-block;
-  padding:0 26rpx;
+  padding:0 47rpx;
   margin-left:40rpx;
+}
+.nodata{
+  padding-top:160rpx;
+}
+.nodata image{
+  width:451rpx;
+  height:246rpx;
 }

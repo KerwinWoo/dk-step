@@ -1,36 +1,29 @@
 // pages/buyou/fabu/fabu.js
+const app = getApp()
+const utils = require('../../../utils/util.js')
+const api = require('../../../api/api.js')
+const uploadImage = require('../../../utils/uploadFile.js');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    formContent: '',
     address: '',
     addressStatus: false,
-    topicData: [{
-      name: '话题001',
-      isHot: true
-    },{
-      name: '话题002',
-      isHot: true
-    },{
-      name: '话题003',
-      isHot: true
-    },{
-      name: '话题004',
-      isHot: false
-    },{
-      name: '话题005',
-      isHot: false
-    }],
-    choosedTopic: ''
+    topicData: [],
+    choosedTopic: '',
+    choosedTopicValue: '',
+    choosedImgs:[],
+    topicList: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.loadTopicNameData()
   },
 
   /**
@@ -74,6 +67,15 @@ Page({
   onReachBottom: function () {
 
   },
+  loadTopicNameData () {
+    let that = this
+    utils.request(api.BUYOU_QUERY_COMMUNITYLIST,{
+    }).then(function (res) {
+      that.setData({
+        topicList: res.data
+      })
+    })
+  },
 
   /**
    * 用户点击右上角分享
@@ -112,28 +114,105 @@ Page({
   },
   chooseTopic (e) {
     this.setData({
-      choosedTopic: e.currentTarget.dataset.name
+      choosedTopic: e.currentTarget.dataset.name,
+      choosedTopicValue: e.currentTarget.dataset.value
     })
   },
   removeTopic (e) {
     this.setData({
-      choosedTopic: ''
+      choosedTopic: '',
+      choosedTopicValue: ''
     })
   },
-  fabu () {
-    wx.switchTab({
-    	url: '/pages/buyou/index'
+  removeChoosedImg (e) {
+    this.data.choosedImgs.splice(e.currentTarget.dataset.index,1)
+    this.setData({
+      choosedImgs: this.data.choosedImgs
     })
   },
   chooseImg () {
+    let that = this
+    let choosedImgs = that.data.choosedImgs
+    if(choosedImgs.length >= 9){
+      wx.showToast({
+        title: '最多上传9张图片',
+        icon: 'none'
+      })
+      return
+    }
     wx.chooseImage({
-      count: 1,
+      count: 9 - choosedImgs.length,
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success(res) {
-        // tempFilePath可以作为img标签的src属性显示图片
-        const tempFilePaths = res.tempFilePaths
+        that.setData({
+          choosedImgs: that.data.choosedImgs.concat(res.tempFilePaths).slice(0, 9)
+        })
       }
+    })
+  },
+  previewTopicImg (e) {
+    let that = this
+    const data = e.currentTarget.dataset
+    wx.previewImage({
+      current: data.current,
+      urls: that.data.choosedImgs
+    })
+  },
+  submitForm(e) {
+    const content = this.data.formContent
+    let that = this
+    if (content) {
+      wx.showLoading({
+        title: '正在发布...',
+        mask: true
+      })
+      
+      // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+      var tempFilePaths = that.data.choosedImgs;
+      var userId = wx.getStorageSync('userId')
+
+      //支持多图上传
+      let uploadedNum = 0
+      let uploadedImgs = []
+      for (var i = 0; i < tempFilePaths.length; i++) {
+         //上传图片
+         //你的域名下的/usertopic文件下的/当前年月日文件下的/图片.png
+         uploadImage(tempFilePaths[i], 'usertopic/' + userId + '/',
+            function (result) {
+              uploadedNum++
+              uploadedImgs.push(result)
+              if(uploadedNum == tempFilePaths.length){
+                that.createTopic(uploadedImgs.join(','))
+                wx.switchTab({
+                	url: '/pages/buyou/index'
+                })
+              }
+              console.log("======上传成功图片地址为：", result);
+            }, function (result) {
+               console.log("======上传失败======", result);
+               wx.hideLoading()
+            }
+         )
+       }
+    }
+  },
+  createTopic (uploadedImgs) {
+    let that = this
+    return new Promise(function (resolve, reject) {
+      utils.request(api.BUYOU_CREATETOPIC,{
+        title: '',
+        content: that.data.formContent,
+        imgSrc: uploadedImgs,
+        topicTag: that.data.choosedTopicValue,
+        location: that.data.address,
+      },'POST','application/json')
+    });
+  },
+  handleContentInput(e) {
+    const value = e.detail.value
+    this.setData({
+      formContent: value
     })
   }
 })
