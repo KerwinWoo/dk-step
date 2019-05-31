@@ -24,7 +24,8 @@ Page({
     needInvite: 0,
     exchangeShow: false,
     inviteShow: false,
-    shaidan: []
+    shaidan: [],
+    loaded: false
   },
 
   /**
@@ -32,41 +33,19 @@ Page({
    */
   onLoad: function (options) {
     console.info('options',options)
+    if(options.type){
+      wx.setStorageSync('inviteInfo', {
+        type: options.type,
+        business: options.business,
+        push_userid: options.push_userid
+      })
+    }
     let that = this
-    utils.request(api.MALL_QUERY_GOODS_DETAIL,{
-      id: options.id
-    },'GET').then(function(res){
-      if(res.errno == 0){
-        //校验用户蛋壳数是否足够兑换商品
-        utils.request(api.HOME_QUERY_USERDK,{
-        }).then(function (res2) {
-          if(res2.data.eggshellNum*1 >= res.data.info.dkEshellNum*1){
-            that.setData({
-              exchangeShow: true,
-              newInviteShow: false
-            })
-          }
-          else{
-            that.setData({
-              exchangeShow: false,
-              newInviteShow: true
-            })
-          }
-        })
-        that.setData({
-          currentId: options.id,
-          info: res.data.info,
-          changeHistory: res.data.changeHistory ? res.data.changeHistory : [],
-          invitationHistory: res.data.invitationHistory ? res.data.invitationHistory : [],
-          imgUrls: res.data.gallery,
-          needInvite: res.data.info.dkInvitationNum*1 - (res.data.changeHistory?res.data.changeHistory.lenth:0),
-          isInvite: options.isInvite
-        })
-        that.loadHeartDetail()
-        WxParse.wxParse('goodsDetail', 'html', res.data.info.goods_desc, that);
-      }
+    that.setData({
+      currentId: options.id,
+      isInvite: options.isInvite?options.isInvite:'',
+      goodsType: options.goodsType?options.goodsType:''
     })
-    that.loadBuyouShareData()
   },
   
   /**
@@ -80,7 +59,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.loadGoodsDetail()
+    this.loadBuyouShareData()
   },
 
   /**
@@ -117,12 +97,65 @@ Page({
   onShareAppMessage: function () {
     let that = this
     return {
-      title: '一起来赚钱',
-      path: '/pages/mall/goodsdetail/goodsdetail?goodsId='+ that.data.currentId
+      title: '跟我一起来免费兑换"' + that.data.info.name + '"',
+      path: '/pages/mall/goodsdetail/goodsdetail?type=3&business='+ that.data.currentId + '&push_userid=' + wx.getStorageSync('userId')
     }
   },
   backTo () {
     wx.navigateBack()
+  },
+  loadGoodsDetail () {
+    let that = this
+    utils.request(api.MALL_QUERY_GOODS_DETAIL,{
+      id: that.data.currentId
+    },'GET').then(function(res){
+      if(res.errno == 0){
+        
+        res.data.invitationHistory = (res.data.invitationHistory) ? res.data.invitationHistory : []
+        
+        //校验用户蛋壳数是否足够兑换商品
+        utils.request(api.HOME_QUERY_USERDK,{
+        }).then(function (res2) {
+          if(res2.data.eggshellNum*1 > res.data.info.dkEshellNum*1){
+            //邀请人数不足
+            if(res.data.info.dkInvitationNum > res.data.invitationHistory.length){
+              that.setData({
+                exchangeShow: false,
+                newInviteShow: false,
+                inviteShow: true
+              })
+            }
+            else{
+              that.setData({
+                exchangeShow: true,
+                newInviteShow: false,
+                inviteShow: false
+              })
+            }
+          }
+          //蛋壳数不足
+          else{
+            that.setData({
+              exchangeShow: false,
+              newInviteShow: true,
+              inviteShow: false
+            })
+          }
+        })
+        that.setData({
+          info: res.data.info,
+          changeHistory: res.data.changeHistory ? res.data.changeHistory : [],
+          invitationHistory: res.data.invitationHistory ? res.data.invitationHistory : [],
+          imgUrls: res.data.gallery,
+          needInvite: res.data.info.dkInvitationNum*1 - res.data.invitationHistory.length
+        })
+        that.loadHeartDetail()
+        if(!that.data.loaded){
+          WxParse.wxParse('goodsDetail', 'html', res.data.info.goods_desc, that);
+          that.data.loaded = true
+        }
+      }
+    })
   },
   loadBuyouShareData () {
     let that = this
@@ -136,7 +169,7 @@ Page({
             data.img_src = data.img_src.split(',')
           }
           if(data.img_src.length == 1){
-            data.imgmode = 'widthFix'
+            data.imgmode = 'aspectFill'
           }
           else if(data.img_src.length == 4){
             data.type3 = ' type3'
@@ -211,5 +244,14 @@ Page({
     that.setData({
       previewShow: false
     })
+  },
+  bindPlus () {
+    console.log(34343434)
+  },
+  bindMinus () {
+    console.log(90990)
+  },
+  bindManual () {
+    console.log(66666)
   }
 })

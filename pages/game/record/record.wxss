@@ -34,3 +34,8 @@ page{
   line-height: 86rpx;
   bottom:48rpx;
 }
+.nodata image{
+  width:465rpx;
+  height:237rpx;
+  margin-top:255rpx;
+}

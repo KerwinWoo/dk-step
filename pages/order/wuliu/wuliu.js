@@ -1,4 +1,6 @@
 // pages/order/wuliu/wuliu.js
+const utils = require('../../../utils/util.js')
+const api = require('../../../api/api.js')
 Page({
 
   /**
@@ -12,7 +14,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      orderid: options.orderid
+    })
+    this.loadWuliu()
   },
 
   /**
@@ -65,5 +70,20 @@ Page({
   },
   backTo () {
     wx.navigateBack()
+  },
+  loadWuliu () {
+    let that = this
+    utils.request(api.DKORDER_WULIU, {
+      orderId: that.data.orderid
+    }).then(function(res){
+      if(res.errno === 0){
+        that.setData({
+          shippingList: res.data.shippingList,
+          name: res.data.shippingName,
+          shippingNo: res.data.shippingNo
+        })
+      }
+    })
+    
   }
 })

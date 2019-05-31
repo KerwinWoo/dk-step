@@ -8,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    userId: wx.getStorageSync('userId'),
     topicList: [],
     topicDataList: [{
       attention_status:0,
@@ -46,8 +47,11 @@ Page({
       update_time:1557974711000
     }],
     topicDataLoaded: false,
+    topicDataLoaded_ME: false,
     topicDataFirstLoad:true,
+    topicDataFirstLoad_ME:true,
     showTab1Skeleton: true,
+    showTab2Skeleton: false,
     topicDataList_ME: [{
       id:1,
       name: '蛋壳',
@@ -58,9 +62,7 @@ Page({
       addr:'',
       time: ''
     }],
-    topicDataMELoaded: false,
     topicType : 'recomment',
-    showTab2Skeleton: false,
     sliderWidth: 864,
     tabListToTop: 0,
     tablistFixed: false,
@@ -68,6 +70,7 @@ Page({
     releaseBtnShow: true,
     currentTopic: '',
     tuijianCurpage: 1,
+    guanzhuCurpage: 1,
     toastShow: false
   },
 
@@ -78,8 +81,7 @@ Page({
     let that = this
     // 刷新组件
     that.refreshView = that.selectComponent("#refreshView")
-    that.loadTopicNameData()
-
+    
     wx.createSelectorQuery().select('#tablist').boundingClientRect(function (rect) {
       that.setData({
         tabListToTop: rect.top - 64
@@ -87,8 +89,12 @@ Page({
     }).exec()
   },
   onShow () {
-    let that = this
-    that.loadTopicData()
+    if(this.data.previewing){
+      this.data.previewing = false
+    }
+    else{
+      this.refreshPage()
+    }
   },
   
   //触摸开始
@@ -143,11 +149,13 @@ Page({
   },
   onPullDownRefresh:function(){
     let that = this
-    setTimeout(function(){
-      that.refreshView.stopPullRefresh()
-      that.loadTopicNameData()
-      that.loadTopicData()
-    },1500)
+    that.data.tuijianCurpage = 1
+    that.data.guanzhuCurpage = 1
+    that.data.topicDataLoaded = false
+    that.data.topicDataLoaded_ME = false
+    that.loadTopicNameData()
+    that.loadTopicData()
+    that.loadMyTopicData()
   },
 
   /**
@@ -179,12 +187,78 @@ Page({
     let type = this.data.topicType
     if(type == 'recomment'){
       this.data.topicDataLoaded = false
-      this.data.tuijianCurpage++
       this.loadTopicData()
     }
     else if(type == 'me'){
+      this.data.topicDataLoaded_ME = false
       this.loadMyTopicData()
     }
+  },
+  refreshPage () {
+    wx.pageScrollTo({scrollTop: 0,duration: 0})
+    this.setData({
+      topicList: [],
+      topicDataList: [{
+        attention_status:0,
+        avatar:"https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJEQ6FkGMjPpibNCOyFEPhia8SF7QOzEjVibJotaHiaRszgtklNCFF3dhw64WKeq4KyvviaokcJTNSiafOw/132",
+        collection_num:0,
+        collection_status:0,
+        comment_num:0,
+        content:"就睡觉睡觉睡觉睡觉睡觉睡觉开始",
+        create_time:"2019-05-16 10:45:11",
+        create_user_id:38,
+        eshell_num:0,
+        forward_num:0,
+        id:22,
+        img_src:[],
+        location:"",
+        nickname:"Mr.Dreamer",
+        reward_status:1,
+        topic_tag:"话题002",
+        update_time:1557974711000
+      },{
+        attention_status:0,
+        avatar:"https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJEQ6FkGMjPpibNCOyFEPhia8SF7QOzEjVibJotaHiaRszgtklNCFF3dhw64WKeq4KyvviaokcJTNSiafOw/132",
+        collection_num:0,
+        collection_status:0,
+        comment_num:0,
+        content:"就睡觉睡觉睡觉睡觉睡觉睡觉开始",
+        create_time:"2019-05-16 10:45:11",
+        create_user_id:38,
+        eshell_num:0,
+        forward_num:0,
+        id:22,
+        img_src:[],
+        nickname:"Mr.Dreamer",
+        reward_status:1,
+        topic_tag:"话题002",
+        update_time:1557974711000
+      }],
+      topicDataLoaded: false,
+      topicDataLoaded_ME: false,
+      topicDataFirstLoad:true,
+      topicDataFirstLoad_ME:true,
+      showTab1Skeleton: true,
+      showTab2Skeleton: false,
+      topicDataList_ME: [{
+        id:1,
+        name: '蛋壳',
+        photo: '',
+        topicName: '蛋壳步数换',
+        content: '在我的生命中，运动就像温柔地吹拂着我，带我走出自我的暖暖春风；我最难忘、最刻骨铭心的记忆都和它相关；因为我爱运动，而运动是我对待度。',
+        imglist: [],
+        addr:'',
+        time: ''
+      }],
+      topicType : 'recomment',
+      currentTopic: '',
+      tuijianCurpage: 1,
+      guanzhuCurpage: 1
+    })
+    this.loadTopicNameData()
+    this.loadTopicData()
+    this.loadMyTopicData()
+    this.loadMessageNum()
   },
 
   /**
@@ -207,7 +281,6 @@ Page({
         value.comment = obj.TagInfo
         value.imgsrc = obj.backdropPic
       })
-      console.log('topicname data', res.data)
       that.setData({
         sliderWidth: res.data.length * 288,
         topicList: res.data
@@ -222,60 +295,89 @@ Page({
         page: that.data.tuijianCurpage,
         size: 10
       }).then(function(res){
-        let tmpTopicData = res.data.data.map(function(value,index){
-          if(value.img_src){
-            value.img_src = value.img_src.split(',')
-          }
-          if(value.img_src.length == 1){
-            value.imgmode = 'aspectFill'
-          }
-          else if(value.img_src.length == 4){
-            value.type3 = ' type3'
+        that.refreshView.stopPullRefresh()
+        if(res.errno === 0){
+          let tmpTopicData = res.data.data.map(function(value,index){
+            if(value.img_src){
+              value.img_src = value.img_src.split(',')
+            }
+            if(value.img_src.length == 1){
+              value.imgmode = 'aspectFill'
+            }
+            else if(value.img_src.length == 4){
+              value.type3 = ' type3'
+            }
+            else{
+              value.imgmode = 'aspectFill'
+            }
+            if(value.create_time){
+              value.create_time = utils.formatTime(new Date(value.create_time))
+            }
+            return value
+          })
+          if(that.data.topicDataFirstLoad){
+            that.data.topicDataList = tmpTopicData
+            that.data.topicDataFirstLoad = false
           }
           else{
-            value.imgmode = 'aspectFill'
+            that.data.topicDataList = that.data.topicDataList.concat(tmpTopicData)
           }
-          if(value.create_time){
-            value.create_time = utils.formatTime(new Date(value.create_time))
+          console.log('推荐', that.data.topicDataList)
+          that.setData({
+            topicDataLoaded: true,
+            topicDataList: that.data.topicDataList,
+            showTab1Skeleton: false
+          })
+          if(res.data.data && res.data.data.length != 0){
+            that.data.tuijianCurpage++
           }
-          return value
-        })
-        if(that.data.topicDataFirstLoad){
-          that.data.topicDataList = tmpTopicData
-          that.data.topicDataFirstLoad = false
         }
-        else{
-          that.data.topicDataList = that.data.topicDataList.concat(tmpTopicData)
-        }
-        that.setData({
-          topicDataLoaded: true,
-          topicDataList: that.data.topicDataList,
-          showTab1Skeleton: false
-        })
-        console.log('topicdata', tmpTopicData)
       })
     }
   },
   loadMyTopicData () {
     let that = this
-    if(!that.data.topicDataMELoaded){
+    if(!that.data.topicDataLoaded_ME){
       utils.request(api.BUYOU_ATTENTIONUSER_LIST,{
+        topicTag: that.data.currentTopic,
+        page: that.data.guanzhuCurpage,
+        size: 10
       }).then(function(res){
-        let topicData = res.data.data.map(function(value,index){
-          if(value.img_src){
-            value.img_src = value.img_src.split(',')
+        if(res.errno === 0){
+          let tmpTopicData = res.data.data.map(function(value,index){
+            if(value.img_src){
+              value.img_src = value.img_src.split(',')
+            }
+            if(value.img_src.length == 1){
+              value.imgmode = 'aspectFill'
+            }
+            else if(value.img_src.length == 4){
+              value.type3 = ' type3'
+            }
+            else{
+              value.imgmode = 'aspectFill'
+            }
+            if(value.create_time){
+              value.create_time = utils.formatTime(new Date(value.create_time))
+            }
+            return value
+          })
+          if(that.data.topicDataFirstLoad_ME){
+            that.data.topicDataList_ME = tmpTopicData
+            that.data.topicDataFirstLoad_ME = false
           }
-          if(value.create_time){
-            value.create_time = utils.formatTime(new Date(value.create_time))
+          else{
+            that.data.topicDataList_ME = that.data.topicDataList_ME.concat(tmpTopicData)
           }
-          return value
-        })
-        that.setData({
-         topicDataMELoaded: true,
-         topicDataList_ME: topicData,
-         showTab2Skeleton: false
-       })
-        console.log('mytopicdata', topicData)
+          that.setData({
+            topicDataLoaded_ME: true,
+            topicDataList_ME: that.data.topicDataList_ME,
+            showTab2Skeleton: false
+          })
+          if(res.data.data && res.data.data.length != 0){
+            that.data.guanzhuCurpage++
+          }
+        }
       })
     }
   },
@@ -315,7 +417,7 @@ Page({
     this.setData({
       topicType: type,
       showTab1Skeleton: (type == 'recomment' && !this.data.topicDataLoaded) ? true : false,
-      showTab2Skeleton: (type == 'me' && !this.data.topicDataMELoaded) ? true : false
+      showTab2Skeleton: (type == 'me' && !this.data.topicDataLoaded_ME) ? true : false
     })
     if(type == 'recomment'){
       this.loadTopicData()
@@ -327,51 +429,142 @@ Page({
   previewTopicImg (e) {
     const data = e.currentTarget.dataset
     let that = this
-    wx.previewImage({
-      current: data.current,
-      urls: that.data.topicDataList[data.parentindex].img_src
-    })
+    that.data.previewing = true
+    if(that.data.topicType == 'recomment'){
+      wx.previewImage({
+        current: data.current,
+        urls: that.data.topicDataList[data.parentindex].img_src
+      })
+    }
+    else if(that.data.topicType == 'me'){
+      wx.previewImage({
+        current: data.current,
+        urls: that.data.topicDataList_ME[data.parentindex].img_src
+      })
+    }
   },
   shouCang (e) {
     let that = this
     const data = e.currentTarget.dataset
-    utils.request(api.BUYOU_SHOUCANGTOPIC,{
-      communityId: data.id
-    }).then(function(res){
-      if(res.errno == 0){
-        that.toast.showToast('收藏成功')
-        that.data.topicDataList[data.parentindex].shoucang = true
-        that.setData({
-          topicDataList: that.data.topicDataList
-        })
-      }
-      else{
-        wx.showToast({
-          title: res.errmsg,
-          icon: 'none',
-          duration: 2000
-        })
-      }
-    })
+    let currentTopic = that.data.topicDataList[data.parentindex]
+    let colStatus = currentTopic.collection_status
+    if(colStatus == 1){
+      //取消收藏
+      utils.request(api.BUYOU_SHOUCANGTOPIC_CANCEL,{
+        communityId: data.id
+      }).then(function(res){
+        if(res.errno == 0){
+          currentTopic.collection_status = 0
+          currentTopic.collection_num--
+          that.data.topicDataList[data.parentindex] = currentTopic
+          that.setData({
+            topicDataList: that.data.topicDataList
+          })
+        }
+        else{
+          wx.showToast({
+            title: res.errmsg,
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      })
+    }
+    else if(colStatus == 0){
+      //收藏
+      utils.request(api.BUYOU_SHOUCANGTOPIC,{
+        communityId: data.id
+      }).then(function(res){
+        if(res.errno == 0){
+          that.toast.showToast('收藏成功')
+          currentTopic.collection_status = 1
+          currentTopic.collection_num++
+          that.data.topicDataList[data.parentindex] = currentTopic
+          that.setData({
+            topicDataList: that.data.topicDataList
+          })
+        }
+        else{
+          wx.showToast({
+            title: res.errmsg,
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      })
+    }
   },
   guanzhu (e) {
     let that = this
     const data = e.currentTarget.dataset
-    utils.request(api.USER_ATTENTION, {
-      attentionUserId: data.uid
-    }).then(function(res){
-      if(res.errno == 0){
-        that.toast.showToast('关注成功')
-        that.data.topicDataList[data.parentindex].attention_status = 1
+    let status = that.data.topicDataList[data.parentindex].attention_status
+    if(status == 1){
+      utils.request(api.USER_ATTENTION_CANCEL, {
+        attentionUserId: data.uid
+      }).then(function(res){
+        if(res.errno == 0){
+          that.toast.showToast('已取消关注')
+          that.data.topicDataList.map(function(value, index){
+            if(value.create_user_id == data.uid){
+              value.attention_status = 0
+            }
+          })
+          that.data.topicDataList_ME.map(function(value, index){
+            if(value.create_user_id == data.uid){
+              value.attention_status = 0
+            }
+          })
+          that.setData({
+            topicDataList: that.data.topicDataList,
+            topicDataList_ME: that.data.topicDataList_ME
+          })
+        }
+        else{
+          wx.showToast({
+            title: res.errmsg,
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      })
+    }
+    else{
+      utils.request(api.USER_ATTENTION, {
+        attentionUserId: data.uid
+      }).then(function(res){
+        if(res.errno == 0){
+          that.toast.showToast('关注成功')
+          that.data.topicDataList.map(function(value, index){
+            if(value.create_user_id == data.uid){
+              value.attention_status = 1
+            }
+          })
+          that.data.topicDataList_ME.map(function(value, index){
+            if(value.create_user_id == data.uid){
+              value.attention_status = 0
+            }
+          })
+          that.setData({
+            topicDataList: that.data.topicDataList,
+            topicDataList_ME: that.data.topicDataList_ME
+          })
+        }
+        else{
+          wx.showToast({
+            title: res.errmsg,
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      })
+    }
+  },
+  loadMessageNum () {
+    let that = this
+    utils.request(api.MESSAGENUM_TOTAL).then(function(res){
+      if(res.errno === 0){
         that.setData({
-          topicDataList: that.data.topicDataList
-        })
-      }
-      else{
-        wx.showToast({
-          title: res.errmsg,
-          icon: 'none',
-          duration: 2000
+          messageNum: res.data
         })
       }
     })

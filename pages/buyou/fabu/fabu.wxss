@@ -76,12 +76,9 @@ page{
   border:1rpx solid rgba(254,210,108,1);
   background:#fff;
   color:#FF9234;
+  margin-bottom: 20rpx;
 }
 .topiclist .wrp .row{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
 }
 .topiclist .wrp .tip{
   margin-left:12rpx;

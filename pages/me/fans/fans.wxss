@@ -1,6 +1,6 @@
 /* pages/me/fans/fans.wxss */
 page{
-  background:#fff;
+  background:#f2f2f2;
 }
 .bt{
   border-top:1rpx solid #eee;
@@ -52,4 +52,9 @@ page{
 }
 .commonrow .content{
   flex-grow: 1;
+}
+.nodata image{
+  width:450rpx;
+  height:238rpx;
+  margin-top:300rpx;
 }

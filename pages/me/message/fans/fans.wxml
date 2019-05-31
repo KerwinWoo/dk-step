@@ -1,0 +1,20 @@
+<!--pages/me/message/fans/fans.wxml-->
+<view class="container hastop">
+  <dk-nav title="粉丝信息" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+  <view class="dashanglist">
+    <view class="inforow" wx:for="{{list}}" wx:key="{{index}}">
+      <view class="wrp">
+        <view class="pic">
+          <image-loader original-image="{{item.avatar}}" style="position: relative;" mode="aspectFill"></image-loader>
+        </view>
+        <view class="info">
+          <view class="name">{{item.nickname}}</view>
+          <view class="desc">
+            <text class="time">{{item.rewardTime}}</text>
+            <text class="act">关注了您</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

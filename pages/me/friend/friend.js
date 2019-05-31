@@ -1,32 +1,18 @@
+const utils = require('../../../utils/util.js')
+const api = require('../../../api/api.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    friendList: [{
-      id: 1,
-      name: '张三',
-      photo: '../../../image/good01.jpg'
-    }, 
-    {
-      id: 1,
-      name: '李四',
-      photo: '../../../image/good02.jpg'
-    }],
-    showSkeleton: true
+    friendList: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let that = this
-    setTimeout(function(){
-      that.setData({
-        showSkeleton: false
-      })
-    }, 1000)
   },
 
   /**
@@ -40,7 +26,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.loadData()
   },
 
   /**
@@ -78,8 +64,17 @@ Page({
 
   },
   backTo (e) {
-    wx.switchTab({
-    	url: '/pages/index/index'
+    wx.navigateBack()
+  },
+  loadData () {
+    let that = this
+    utils.request(api.HOME_QUERY_FRIENDLIST).then(function(res){
+      if(res.errno === 0){
+        that.setData({
+          friendList: res.data
+        })
+      }
     })
+    
   }
 })

@@ -46,18 +46,7 @@ ff-canvas {
 }
 .postcont .photo image.post{
   width:100%;
-  height:776rpx;
-}
-.postcont .photo image.user{
-  width:120rpx;
-  height:120rpx;
-  border-radius:50%;
-  position: absolute;
-  left:50%;
-  margin-left:-60rpx;
-  top:-60rpx;
-  z-index: 2;
-  border:6rpx solid #fff;
+  height:884rpx;
 }
 .postcont .photo{
   position: relative;
@@ -68,6 +57,28 @@ ff-canvas {
   bottom:20rpx;
   font-weight: bold;
   color:#fff;
+}
+.postcont .photo .user{
+  position: absolute;
+  bottom:200rpx;
+  left:30rpx;
+  z-index: 2;
+}
+.postcont .photo .user image{
+  width:120rpx;
+  height:120rpx;
+  border-radius:50%;
+  border:6rpx solid #fff;
+}
+.postcont .photo .user>view{
+  font-size:28rpx;
+  font-weight:bold;
+  color:#fff;
+  width:230rpx;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  padding-top:6rp;
 }
 .postcont .photo .content .steptitle{
   font-size: 32rpx;

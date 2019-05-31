@@ -18,19 +18,28 @@
       <view class="wrp">
         <view class="name">{{info.name}}</view>
         <view class="subinfo">
-          <view class="dk">
+          <view class="dknum">
             <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
             <text>{{info.dkEshellNum}}</text>
+            <text class="plus" wx:if="{{info.retail_price && info.retail_price > 0}}">+</text>
+            <text class="unit" wx:if="{{info.retail_price && info.retail_price > 0}}">¥</text>
+            <text wx:if="{{info.retail_price && info.retail_price > 0}}">{{info.retail_price}}</text>
+          </view>
+          <view class="price">
+            原价:<text>￥{{info.market_price}}</text>
           </view>
           <view class="r">
             <view class="baoyou">{{(info.freeMail == 1) ? '包邮' : '不包邮'}}</view>
             <view class="sy">剩余<text>{{info.goods_number}}</text>件</view>
           </view>
+          <!-- <view class="exchangeoption" wx:if="{{isInvite}}">
+            兑换条件：邀请<text>{{info.dkInvitationNum}}</text>人
+          </view> -->
         </view>
       </view>
     </view>
   </view>
-  <navigator class="record" hover-class="none" url="/pages/mall/duihuan/duihuan?id={{currentId}}">
+  <navigator class="record" style="margin-top:0;" hover-class="none" url="/pages/mall/duihuan/duihuan?id={{currentId}}">
   	<view class="wrp">
       <view class="recordlist clearfix">
         <view class="imgwrp" wx:for="{{changeHistory}}" wx:key="id" wx:if="{{index <= 5}}">
@@ -43,34 +52,22 @@
       </view>
     </view>
   </navigator>
-  <view class="record ivtrecord" wx:if="{{isInvite}}">
+  <navigator class="record ivtrecord" wx:if="{{isInvite}}" hover-class="none" url="/pages/mall/yaoqing/yaoqing?id={{currentId}}">
   	<view class="wrp">
       <view class="recordlist clearfix">
-        <view class="imgwrp">
-          <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
+        <view class="imgwrp" wx:for="{{invitationHistory}}" wx:key="id" wx:if="{{index <= 5}}">
+          <image-loader mode="aspectFill" original-image="{{item.avatar}}"></image-loader>
         </view>
-        <view class="imgwrp">
-          <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
-        </view>
-        <view class="imgwrp">
-          <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
-        </view>
-        <view class="imgwrp">
-          <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
-        </view>
-        <view class="imgwrp">
-          <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
-        </view>
-        <view class="imgwrp">
-          <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg"></image-loader>
+        <view class="imgWrp inviteMore resetBtn">
+          <image lazy-load="true" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/team_add.png"></image>
         </view>
       </view>
-      <view class="num">已邀请<text>8</text>人</view>
+      <view class="num">已邀请 <text>{{invitationHistory.length}}</text>人</view>
       <view class="more">
         <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
       </view>
     </view>
-  </view>
+  </navigator>
   <view class="notice">
     <view class="wrp">
     	<view class="comtitle">兑换说明</view>
@@ -104,7 +101,8 @@
                 mode="{{shaidan.imgmode}}"
                 bindtap="previewTopicImg"
                 data-parentIndex="{{index}}"
-                data-current="{{item}}"></image-loader>
+                data-current="{{item}}"
+                isSingle="{{(shaidan.img_src.length == 1) ? true : false}}"></image-loader>
               </view>
           </view>
         </view>
@@ -128,13 +126,14 @@
       <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/goodsdetail_kefu.png"></image></view>
       <view>客服</view>
     </button>
-    <button class="btn btn-default resetBtn" open-type="share" wx:if="{{inviteShow}}">
+    <button class="btn btn-default resetBtn" open-type="share" wx:if="{{inviteShow && info.goods_number > 0}}">
       差{{needInvite}}人，去邀请好友
     </button>
-    <view class="btn btn-default" bindtap="doExchange" wx:if="{{exchangeShow}}">立即兑换</view>
-    <button class="btn btn-default resetBtn" open-type="share" wx:if="{{newInviteShow}}">
+    <view class="btn btn-default" bindtap="doExchange" wx:if="{{exchangeShow && info.goods_number > 0}}">立即兑换</view>
+    <button class="btn btn-default resetBtn" open-type="share" wx:if="{{newInviteShow && info.goods_number > 0}}">
       蛋壳不足，立即邀请好友
     </button>
+    <view class="btn btn-disabled" wx:if="{{!info.goods_number || info.goods_number == 0}}">库存不足</view>
   </view>
   <view class="goodpreview{{previewShow ? ' show' : ''}}">
     <view class="mask" bindtap="hidePreview"></view>
@@ -143,18 +142,26 @@
         <view class="dknum">
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
           <text>{{info.dkEshellNum}}</text>
+          <text class="plus" wx:if="{{info.retail_price && info.retail_price > 0}}">+</text>
+          <text wx:if="{{info.retail_price && info.retail_price > 0}}" class="unit">¥</text>
+          <text wx:if="{{info.retail_price && info.retail_price > 0}}">{{info.retail_price}}</text>
         </view>
         <view class="info">
           <view>库存量：<text>{{info.goods_number}}</text>件</view>
-          <view>原价：<text>￥{{info.retail_price}}</text></view>
+          <view>原价：<text>￥{{info.market_price}}</text></view>
         </view>
         <image-loader mode="aspectFill" original-image="{{info.primary_pic_url}}"></image-loader>
       </view>
       <view class="buynum">
         <view class="title">购买数量</view>
-        <dk-stepper class="numstepper" inputStatus="disabled" plusStatus=" disabled"></dk-stepper>
+        <dk-stepper class="numstepper" 
+          inputStatus="{{(goodsType == 'newperson' || goodsType == 'invite') ? 'disabled' : ''}}" 
+          plusStatus="{{(goodsType == 'newperson' || goodsType == 'invite') ? ' disabled' : ''}}"
+          bind:bindPlus="bindPlus"
+          bind:bindMinus="bindMinus"
+          bind:bindManual="bindManual"></dk-stepper>
       </view>
-      <navigator hover-class="none" url="/pages/order/paydetail/paydetail?goodsId={{currentId}}&isNew=1" class="btn-default exchangeBtnTo">立即兑换</navigator>
+      <navigator hover-class="none" url="/pages/order/paydetail/paydetail?goodsId={{currentId}}&goodsType={{goodsType}}" class="btn-default exchangeBtnTo">立即兑换</navigator>
     </view>
   </view>
 </view>

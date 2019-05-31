@@ -32,10 +32,17 @@ Page({
     let that = this;
     //登录远程服务器
     if (that.data.code) {
-      util.request(api.AuthLoginByWeixin, {
+      let inviteInfo = wx.getStorageSync('inviteInfo')
+      let reqData = {
         code: that.data.code,
         userInfo: e.detail
-      }, 'POST', 'application/json').then(res => {
+      }
+      if(inviteInfo){
+        reqData.type = inviteInfo.type
+        reqData.business = inviteInfo.business
+        reqData.push_userid = inviteInfo.push_userid
+      }
+      util.request(api.AuthLoginByWeixin, reqData , 'POST', 'application/json').then(res => {
         if (res.errno === 0) {
           //存储用户信息
           wx.setStorageSync('userInfo', res.data.userInfo);
@@ -47,6 +54,9 @@ Page({
             debugger
           }) */
           wx.navigateBack()
+          if(inviteInfo){
+            wx.removeStorageSync('inviteInfo')
+          }
 
         } else {
           // util.showErrorToast(res.errmsg)

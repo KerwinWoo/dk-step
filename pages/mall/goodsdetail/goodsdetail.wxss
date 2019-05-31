@@ -32,10 +32,21 @@ page{
   top:-40rpx;
   box-sizing: border-box;
   padding:30rpx;
+  position:relative;
+}
+.exchangeoption{
+  position: absolute;
+  top:30rpx;
+  right:30rpx;
+  color:#666;
 }
 .goodsimage .info .name{
   font-size:28rpx;
   font-weight:bold;
+  width:380rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .goodsimage .info .subinfo{
   display: flex;
@@ -74,6 +85,7 @@ page{
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  color:#666;
 }
 .goodsimage .info .subinfo .baoyou{
   margin-right:30rpx;
@@ -100,9 +112,6 @@ page{
   padding:0 30rpx;
   box-sizing: border-box;
   position: relative;
-}
-.recordlist{
-  width:450rpx;
 }
 .record .num{
   font-size:20rpx;
@@ -132,20 +141,19 @@ page{
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+  flex-grow: 1;
 }
 .comtitle{
   font-size:28rpx;
   font-weight:bold;
 }
 .more{
-  position: absolute;
-  right:30rpx;
-  top:0;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   height:100%;
+  margin-left:20rpx;
 }
 .more image{
   width:15rpx;
@@ -299,7 +307,7 @@ page{
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   color:#666;
   border-top:1rpx solid #eee;
 }
@@ -318,6 +326,10 @@ page{
   color:rgba(254,254,254,1);
   text-align: center;
   display: inline-block;
+  flex-grow: 1;
+}
+.btm .kefu{
+  margin:0 40rpx;
 }
 .goodsintro image{
   width:100%;
@@ -411,4 +423,24 @@ page{
 }
 .record.ivtrecord{
   margin-top:30rpx;
+}
+.price{
+  text-decoration:line-through;
+  color:#666;
+  flex-grow: 1;
+  padding-left:20rpx;
+}
+.inviteMore{
+  width:64rpx;
+  height:64rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background:#EEEEEE;
+  border-radius: 50%;
+}
+.inviteMore image{
+  width:36rpx;
+  height:36rpx;
 }

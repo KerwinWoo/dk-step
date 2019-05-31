@@ -2,31 +2,28 @@
 <view class="container hastop">
   <dk-nav title="我的粉丝" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
   <view class="bt">
-    <view class="commonrow">
+    <view class="commonrow" wx:for="{{fanslist}}" wx:key="{{id}}">
       <view class="photo">
-        <image-loader original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/3.jpg" mode="aspectFill"></image-loader>
+        <image-loader original-image="{{item.avatar}}" mode="aspectFill"></image-loader>
       </view>
       <view class="content">
-        <view class="title">小兔子</view>
+        <view class="title">{{item.nickname}}</view>
         <view class="subtitle">每一步都值得，今天天气真好每一步都值得，今天天气真好每一步都值得，今天天气真好每一步都值得，今天天气真好，</view>
       </view>
-      <view class="sideicn">
+      <view class="sideicn" wx:if="{{item.status == 1}}" data-index="{{index}}" data-status="{{item.status}}" data-uid="{{item.user_id}}" bindtap="guanzhu">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_ygz.png"></image>
+        <view>已关注</view>
+      </view>
+      <view class="sideicn" wx:if="{{item.status == 0}}" data-index="{{index}}" data-status="{{item.status}}" data-uid="{{item.user_id}}" bindtap="guanzhu">
         <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_gz.png"></image>
         <view>加关注</view>
       </view>
     </view>
-    <view class="commonrow">
-      <view class="photo">
-        <image-loader original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/3.jpg" mode="aspectFill"></image-loader>
-      </view>
-      <view class="content">
-        <view class="title">小兔子</view>
-        <view class="subtitle">每一步都值得，今天天气真好每一步都值得，今天天气真好每一步都值得，今天天气真好每一步都值得，今天天气真好，</view>
-      </view>
-      <view class="sideicn">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_ygz.png"></image>
-        <view>已关注</view>
-      </view>
-    </view>
+  </view>
+  <view class="nodata" wx:if="{{!fanslist || fanslist.length == 0}}">
+    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/nodata_fensi.png"></image>
+    <view class="title">你还没有粉丝哦</view>
   </view>
 </view>
+
+<dk-toast id="toast" duration="3000" isShow="{{toastShow}}"></dk-toast>

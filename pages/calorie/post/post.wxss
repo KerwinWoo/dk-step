@@ -1,0 +1,2 @@
+/* pages/calorie/post/post.wxss */
+@import '../diary/diary.wxss'

@@ -3,8 +3,9 @@
   <dk-nav title="添加评论" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
   <view class="textarea">
     <textarea
-    placeholder="回复 我是小兔子"
+    placeholder="{{'回复' + targetName}}"
     placeholder-style="color:#999;"
+    bindinput="bindinput"
     />
   </view>
   <view class="tr">

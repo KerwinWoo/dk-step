@@ -44,12 +44,12 @@
   </view>
   <view class="invitecont">
     <button class="inviteBtn btn-default" hover-class="btnhover" open-type="share">邀请好友永久加成</button>
-    <view class="tip">
+    <button class="tip resetBtn" hover-class="btnhover" open-type="share">
       <view>
-        <text>当前加成0%，明日加成0%，邀请第一个好友加成4%</text>
+        <text>当前加成{{jcpercent}}%，明日最高加成{{jcpercent2}}%，邀请第一个好友加成4%</text>
         <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/hand.png"></image>
       </view>
-    </view>
+    </button>
   </view>
   
   <view class="w">
@@ -58,15 +58,15 @@
         <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icon01.png"></image></view>
         <view>幸运转盘</view>
       </navigator>
-      <navigator class="itm" url="/pages/task/task" hover-class="none">
+      <!-- <navigator class="itm" url="/pages/task/task" hover-class="none">
         <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icon02.png"></image></view>
         <view>领取任务</view>
-      </navigator>
-      <navigator class="itm" url="/pages/rule/friendadd/friendadd" hover-class="none">
+      </navigator> -->
+      <navigator class="itm" url="/pages/calorie/post/post" hover-class="none">
         <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icon05.png"></image></view>
         <view>保存海报</view>
       </navigator>
-      <navigator class="itm" url="/pages/me/friend/friend" hover-class="none">
+      <navigator class="itm" url="/pages/rule/friendadd/friendadd" hover-class="none">
         <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icon03.png"></image></view>
         <view>好友加成</view>
       </navigator>
@@ -94,10 +94,10 @@
     <view class="hb">
       <view class="comtitle spe" style="padding-bottom:0;">
         <text>天天签到</text>
-        <view class="switch-cont">
+        <!-- <view class="switch-cont">
           <text>设置签到提醒</text>
           <dk-switch style="display: inline-block;" status="{{settingStatus}}" bindtap="switchTap"></dk-switch>
-        </view>
+        </view> -->
       </view>
       <view class="wrp">
         <image class="bg" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/hb.png"></image>
@@ -118,7 +118,7 @@
     <scroll-view scroll-x  class="goodlist goodlist_n clearfix">
       <navigator class="itm" wx:for="{{itemsNew}}"
             wx:key="{{id}}"
-            url="/pages/mall/goodsdetail/goodsdetail?id={{item.id}}"
+            url="/pages/mall/goodsdetail/goodsdetail?id={{item.id}}&goodsType=newperson"
             hover-class="none">
         <view class="wrp">
           <view class="photo">
@@ -134,7 +134,7 @@
                 <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
                 <text>{{item.dkEshellNum}}</text>
               </view>
-              <view  class="r">已兑换<text>{{item.changeNumber}}</text>人</view>
+              <view  class="r">已兑换<text>{{item.changeNumber?item.changeNumber:0}}</text>人</view>
             </view>
             <view class="exchangeBtn btn-default">免费兑换</view>
           </view>
@@ -150,7 +150,7 @@
     <view class="goodlist clearfix">
       <navigator class="itm" wx:for="{{itemsInvite}}"
             wx:key="{{id}}" 
-            url="/pages/mall/goodsdetail/goodsdetail?id={{item.id}}&isInvite=true"
+            url="/pages/mall/goodsdetail/goodsdetail?id={{item.id}}&isInvite=true&goodsType=invite"
             hover-class="none">
         <view class="wrp">
           <view class="invitenum">当日邀请{{item.dkInvitationNum}}人可兑换</view>
@@ -199,6 +199,9 @@
               <view class="l">
                 <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
                 <text>{{item.dkEshellNum}}</text>
+                <text class="plus" wx:if="{{item.retail_price && item.retail_price > 0}}">+</text>
+                <text class="unit">¥</text>
+                <text wx:if="{{item.retail_price && item.retail_price > 0}}">{{item.retail_price}}</text>
               </view>
               <view  class="r">已兑换<text>{{item.changeNumber ? item.changeNumber : 0}}</text>人</view>
             </view>
@@ -232,6 +235,9 @@
               <view class="l">
                 <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
                 <text>{{item.dkEshellNum}}</text>
+                <text class="plus" wx:if="{{item.retail_price && item.retail_price > 0}}">+</text>
+                <text class="unit">¥</text>
+                <text wx:if="{{item.retail_price && item.retail_price > 0}}">{{item.retail_price}}</text>
               </view>
               <view  class="r">已兑换<text>{{item.changeNumber ? item.changeNumber : 0}}</text>人</view>
             </view>

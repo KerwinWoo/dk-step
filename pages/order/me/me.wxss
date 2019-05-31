@@ -40,7 +40,7 @@ page{
   position: absolute;
   font-size:28rpx;
   font-weight:400;
-  color:#F3AB42;
+  color:#FB793B;
   right:30rpx;
   top:22rpx;
 }
@@ -53,6 +53,10 @@ page{
   border-radius: 10rpx;
   overflow: hidden;
   position: relative;
+}
+.orderlist .itm .pic image-loader image{
+  width:100%;
+  height:100%;
 }
 .orderlist .itm .name{
   width:295rpx;
@@ -75,7 +79,7 @@ page{
 }
 .orderlist .itm .btn{
   box-sizing: border-box;
-  padding:22rpx 46rpx 22rpx 22rpx;
+  padding:22rpx;
 }
 .orderlist .itm .btn{
   position: relative;
@@ -109,8 +113,9 @@ page{
   border-radius:35rpx;
   text-align: center;
   display: inline-block;
-  padding:0 47rpx;
   margin-left:40rpx;
+  width:200rpx;
+  box-sizing: border-box;
 }
 .nodata{
   padding-top:160rpx;

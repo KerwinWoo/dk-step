@@ -178,9 +178,15 @@ page{
 .payinfo .summary .label{
   font-size:28rpx;
   font-weight: bold;
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:flex-end;
 }
 .payinfo .summary .label text{
   font-weight: 400;
+  color:#FB793B;
+  font-size:24rpx;
 }
 .orderinfo{
   font-size:28rpx;

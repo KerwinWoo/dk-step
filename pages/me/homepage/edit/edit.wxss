@@ -1,0 +1,21 @@
+/* pages/me/homepage/edit/edit.wxss */
+.avatar{
+  width:100rpx;
+  height:100rpx;
+  border-radius:50%;
+}
+.row{
+  font-size:32rpx;
+  font-weight:bold;
+  padding:20rpx 60rpx;
+  border-bottom: 1rpx solid #eee;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height:100rpx;
+}
+.more{
+  width:16rpx;
+  height:29rpx;
+}

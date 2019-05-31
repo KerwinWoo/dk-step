@@ -8,7 +8,6 @@
     "pages/rule/rule",
     "pages/me/friend/friend",
     "pages/auth/setting/goSetting",
-    "pages/me/me/me",
     "pages/game/luckywheel/luckywheel",
     "pages/task/task",
     "pages/buyou/index",
@@ -50,7 +49,13 @@
     "pages/auth/btnAuth/btnAuth",
     "pages/mall/duihuan/duihuan",
     "pages/game/qiandao/qiandao",
-    "pages/address/addresslist"
+    "pages/address/addresslist",
+    "pages/mall/yaoqing/yaoqing",
+    "pages/buyou/dashang/dashang",
+    "pages/me/homepage/edit/edit",
+    "pages/calorie/post/post",
+    "pages/me/pinglun/pinglun",
+    "pages/me/message/fans/fans"
   ],
   "window": {
     "backgroundTextStyle": "light",

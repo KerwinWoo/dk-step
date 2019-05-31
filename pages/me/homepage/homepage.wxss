@@ -1,1 +1,141 @@
 /* pages/me/homepage/homepage.wxss */
+@import '../../buyou/index.wxss'
+.pinfo .photo image{
+  width:120rpx;
+  height:120rpx;
+  border-radius:50%;
+}
+.pinfo{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding:30rpx 30rpx 8rpx 30rpx;
+  background:#fff;
+}
+.pinfo .btns{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.pinfo .btns .btn{
+  width:84rpx;
+  height:50rpx;
+  border:1rpx solid rgba(153,153,153,1);
+  border-radius:25rpx;
+  color:#666666;
+  font-size:24rpx;
+  text-align: center;
+  line-height: 50rpx;
+  margin: 0 15rpx;
+}
+.pinfo .info{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  flex-grow: 1;
+  padding-left:20rpx;
+}
+.pinfo .info .name{
+  font-size:32rpx;
+  font-weight:bold;
+}
+.pinfo .info .subtitle{
+  font-size:24rpx;
+  font-family:PingFang-SC-Regular;
+  font-weight:400;
+  color:#999;
+}
+.tip{
+  padding:0 50rpx;
+  font-size: 24rpx;
+  background:#fff;
+}
+.summary{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  background:#fff;
+}
+.summary .itm{
+  text-align: center;
+  font-size: 28rpx;
+  padding: 20rpx 0 30rpx 0;
+}
+.summary .itm .num{
+  font-weight: bold;
+}
+.tablinklist{
+  background:#fff;
+  margin-top:36rpx;
+  font-size:32rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding:0 50rpx;
+}
+.tablinklist .tablink{
+  text-align: center;
+  width:50%;
+  padding:40rpx 0 10rpx 0;
+  position: relative;
+  transition:all .3s;
+}
+.tablinklist .tablink.active{
+  font-size:44rpx;
+  font-weight: bold;
+}
+
+.tablinklist .tablink.active::after{
+  content: '';
+  display: inline-block;
+  position: absolute;
+  width:32rpx;
+  height:8rpx;
+  background:linear-gradient(0deg,rgba(254,99,54,1) 0%,rgba(243,164,71,1) 100%);
+  border-radius:4rpx;
+  bottom:0;
+  left:50%;
+  margin-left:-16rpx;
+}
+.nodata{
+  background:#fff;
+  height:700rpx;
+}
+.topiccontentlist>.itm{
+  padding-left:70rpx;
+}
+.topiccontentlist>.itm .time{
+  font-size:28rpx;
+  font-weight:bold;
+  margin-left:-30rpx;
+}
+.topiccontentlist>.itm:first-child{
+  padding-top:20rpx;
+}
+.nodata image{
+  margin-top:-140rpx;
+}
+.addrs .txtov{
+  width:100%;
+}
+.toFabu{
+  width:580rpx;
+  height:86rpx;
+  border-radius:43rpx;
+  color:#fff;
+  font-size:40rpx;
+  font-weight:bold;
+  text-align: center;
+  line-height: 86rpx;
+  position: absolute;
+  left:50%;
+  bottom:30rpx;
+  margin-left:-290rpx;
+}

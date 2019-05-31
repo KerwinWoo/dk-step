@@ -1,0 +1,82 @@
+/* pages/me/pinglun/pinglun.wxss */
+.commentlist .itm{
+  box-sizing: border-box;
+  background:#fff;
+  padding:30rpx 30rpx 0 30rpx;
+}
+.commentlist .itm .wrp{
+  border-bottom: 1rpx solid #eee;
+  padding-bottom: 30rpx;
+}
+.commentlist .itm .t{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.commentlist .itm image-loader{
+  position: relative;
+}
+.commentlist .itm .t .info image-loader{
+  width:90rpx;
+  height:90rpx;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.commentlist .itm .t .info image-loader image,.topic .pic image-loader image{
+  width:100%;
+  height:100%;
+}
+.commentlist .itm .t .name{
+  font-size:28rpx;
+  font-weight:bold;
+}
+.commentlist .itm .t .info{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.commentlist .itm .t .info .r{
+  margin-left:20rpx;
+}
+.commentlist .itm .t .time{
+  font-size:24rpx;
+  color:#999;
+}
+.commentlist .itm .t .replybtn{
+  width:132rpx;
+  height:60rpx;
+  border-radius:30rpx;
+  text-align: center;
+  line-height: 60rpx;
+  font-size: 24rpx;
+}
+.commentlist .itm .content{
+  font-size:28rpx;
+  color:#666;
+  padding:6rpx 0 16rpx 0;
+}
+.topic .pic image-loader{
+  width:170rpx;
+  height:170rpx;
+  border-radius:2px;
+  overflow: hidden;
+}
+.topic{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  background:#eee;
+  box-sizing: border-box;
+  padding:10rpx 20rpx 10rpx 10rpx;
+}
+.topic .subcontent{
+  flex-grow: 1;
+  color:#999;
+  font-size:24rpx;
+  line-height: 30rpx;
+  padding-left:16rpx;
+  box-sizing: border-box;
+}

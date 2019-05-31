@@ -84,7 +84,7 @@
     <view class="tip highlight">提示：邀请越多好友越容易兑换到商品哦</view>
   </view>
   
-  <view class="common_inviteBtn">邀请好友</view>
+  <button class="common_inviteBtn" open-type="share" hover-class="none">邀请好友</button>
 </view>
 
 

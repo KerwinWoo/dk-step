@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "dk-nav": "/components/dk-navigation/dk-nav",
+    "image-loader": "/components/dk-image-loader/image-loader"
+  }
+}

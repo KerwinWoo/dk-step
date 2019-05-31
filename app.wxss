@@ -152,6 +152,12 @@ page::after{
   line-height: 32rpx;
   font-size:20rpx;
 }
+.plus{
+  margin:0 4rpx;
+}
+.unit{
+  font-weight: 400;
+}
 .goodlist .wrp .info .l text{
   padding-top:6rpx;
 }
@@ -355,4 +361,8 @@ page::after{
   font-size:28rpx;
   text-align: center;
   margin-top:20rpx;
+  color:#ACBDD4;
+}
+.btn-disabled{
+  background:#ddd!important;
 }

@@ -1,6 +1,7 @@
 // pages/calorie/diary/diary.js
 import F2 from '../../../components/f2-canvas/lib/f2';
-
+const utils = require('../../../utils/util.js')
+const api = require('../../../api/api.js')
 let chart = null;
 
 function initChart(canvas, width, height) {
@@ -24,7 +25,8 @@ function initChart(canvas, width, height) {
       lineWidth: 1,
       stroke: '#eee',
     },
-    grid: null
+    grid: null,
+    label: null
   });
   chart.axis('date', {
     line: {
@@ -36,9 +38,7 @@ function initChart(canvas, width, height) {
   chart.source(data, {
     date: {
       type: 'timeCat',
-      mask: 'MM/DD',
-      tickCount: 7,
-      range: [0, 1]
+      mask: 'MM/DD'
     },
     value: {
       tickCount: 3,
@@ -48,6 +48,10 @@ function initChart(canvas, width, height) {
 
   chart.line().position('date*value').color('#FFB304').shape('smooth');
   chart.render();
+  
+  var item = data[0]
+  var point = chart.getPosition(item); // 获取该数据的画布坐标
+  chart.showTooltip(point); // 展示该点的 tooltip
   return chart;
 }
 
@@ -59,14 +63,15 @@ Page({
   data: {
     opts: {
       onInit: initChart
-    }
+    },
+    userInfo: wx.getStorageSync('userInfo'),
+    visible: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
   },
 
   /**
@@ -117,9 +122,13 @@ Page({
   onShareAppMessage: function () {
 
   },
+  show: function() {
+    this.setData({ visible: true })
+  },
+  close: function() {
+    this.setData({ visible: false })
+  },
   backTo (e) {
-    wx.switchTab({
-    	url: '/pages/index/index'
-    })
+    wx.navigateBack()
   }
 })

@@ -62,7 +62,7 @@
 .statuslist .itm:last-child{
   border-left:0;
 }
-.statuslist .itm.active{
+.statuslist .itm:first-child{
   color:#FB793B;
 }
 .statuslist .itm .pointwrp{
@@ -105,12 +105,12 @@
   height:28rpx;
   background:#666;
 }
-.statuslist .active .point{
+.statuslist .itm:first-child .point{
   background:rgba(251,121,59,0.3);
 }
-.statuslist .active .point:before{
+.statuslist .itm:first-child .point:before{
   background:rgba(251,121,59,1);
 }
-.statuslist .itm.active .time{
+.statuslist .itm:first-child .time{
   color:#FB793B;
 }

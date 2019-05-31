@@ -15,6 +15,8 @@ Page({
       it:0,
       ft:0
     },
+    jcpercent: 0,
+    jcpercent2: 100,
     ssteps: [],
     userStep: 0,
     settingStatus: 'off',
@@ -38,11 +40,23 @@ Page({
       })
     }
     else{
-      utils.checkSession().then(function(){
-        that.initData().then(function(){
-          that.initPageData()
-        })
-      })
+      wx.login({
+        success: function (res) {
+          utils.request(api.AUTH_GETSESSIONKEY,{
+            code: res.code
+          },'POST','application/json').then(function(res){
+            if(res.errno === 0){
+              wx.setStorageSync('sessionkey', res.data.sessionkey)
+              that.initData().then(function(){
+                that.initPageData()
+              })
+            }
+          })
+        },
+        fail: function (err) {
+          console.error('login fail')
+        }
+      });
     }
   },
   onLoad (option) {
@@ -96,6 +110,7 @@ Page({
     this.loadStepsInfo()
     this.loadUserWXStepInfo()
     this.loadGoodsInfo()
+    this.loadJiachengInfo()
   },
   loadUserDkInfo () {
     let that = this
@@ -168,6 +183,18 @@ Page({
         that.setData({
           ssteps: data
         })
+    })
+  },
+  loadJiachengInfo () {
+    let that = this
+    utils.request(api.HOME_QUERY_FRIENDADD).then(function(res){
+      res.data.percent
+      if(res.errno === 0){
+        that.setData({
+          jcpercent: res.data.percent,
+          jcpercent2: 100 - res.data.percent
+        })
+      }
     })
   },
   loadGoodsInfo () {
@@ -296,11 +323,18 @@ Page({
   },
   doExchange () {
     let that = this
-    const R = 12500
-    if(that.data.userStep > 0){
+    const R = 1250
+    if(that.data.userStep > 100){
       that.setData({
         tipShow: true,
         exchangeDk: (that.data.userStep/R).toFixed(2)
+      })
+    }
+    else{
+      wx.showToast({
+        title: '步数超过100步才可以兑换',
+        icon: 'none',
+        duration: 2000
       })
     }
   },

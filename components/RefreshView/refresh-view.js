@@ -69,7 +69,7 @@ Component({
         pullState: PULL_DEFAULT,
         dynamicHeight: 0
       }, () => {
-        wx.pageScrollTo({scrollTop: 0,duration: 0})
+        //wx.pageScrollTo({scrollTop: 0,duration: 0})
       })
 
     },

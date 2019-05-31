@@ -4,11 +4,12 @@
   <view class="toptitle">每日签到领好礼</view>
   <view class="cont">
     <view class="wrp">
-      <view class="title">已连续签到<text>3</text>天</view>
+      <view class="title">已连续签到<text>{{lianxu}}</text>天</view>
       <view class="row">
-        <view class="itm active">
+        <view class="itm">
           <view class="t">第一天</view>
           <view class="b">+500步</view>
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i_ok.png" class="activeimg"></image>
         </view>
         <view class="itm">
           <view class="t">第二天</view>
@@ -43,8 +44,21 @@
           </view>
         </view>
       </view>
-      <view class="qiandao btn-default" bindtap="qiandao">立即签到</view>
+      <view class="qiandao btn-default" bindtap="doQiandao">立即签到</view>
     </view>
   </view>
   <view class="tip">每日签到，连续签到有神秘大奖</view>
+</view>
+
+<view class="awardLayer" wx:if="{{awardLayer}}">
+  <view class="award">
+    <view class="title">签到成功</view>
+    <view class="content">已获得{{2000}}步奖励</view>
+    <view class="btns">
+      <view class="btn btn-default" bindtap="closeLayer">确定</view>
+    </view>
+    <view class="close">
+      <image class="closeBtn" bindtap="closeLayer" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/close.png"></image>
+    </view>
+  </view>
 </view>

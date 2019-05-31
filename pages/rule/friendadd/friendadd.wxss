@@ -1,6 +1,7 @@
 /* pages/rule/friendadd/friendadd.wxss */
 .container{
   margin-top: 128rpx;
+  padding-bottom: 120rpx;
 }
 image{
   width:100%;

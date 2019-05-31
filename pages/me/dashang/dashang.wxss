@@ -19,11 +19,18 @@
   box-sizing: border-box;
 	position: relative;
 }
-.inforow .pic image{
+.inforow .pic image-loader{
   width:90rpx;
   height:90rpx;
   border-radius: 50%;
   margin-right: 20rpx;
+  overflow: hidden;
+  position: relative;
+  
+}
+.inforow .pic image-loader image{
+  width:100%;
+  height:100%;
 }
 .inforow .info .name{
   font-size:28rpx;

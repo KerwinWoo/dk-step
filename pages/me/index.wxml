@@ -21,24 +21,24 @@
           </view>
         </view>
       </view>
-      <view class="personalPage">个人主页</view>
+      <navigator hover-class="none" url="/pages/me/homepage/homepage" class="personalPage">个人主页</navigator>
     </view>
     <view class="summary">
       <view class="wrp">
         <navigator class="itm" url="/pages/me/guanzhu/guanzhu" hover-class="none">
-          <view class="num">15</view>
+          <view class="num">{{num_guanzhu}}</view>
           <view class="name">关注</view>
         </navigator>
         <navigator class="itm" url="/pages/me/fans/fans" hover-class="none">
-          <view class="num">15</view>
+          <view class="num">{{num_fensi}}</view>
           <view class="name">粉丝</view>
         </navigator>
         <navigator class="itm" url="/pages/me/dashang/dashang" hover-class="none">
-          <view class="num">15</view>
+          <view class="num">{{num_shang}}</view>
           <view class="name">获赏</view>
         </navigator>
-        <navigator class="itm" url="/pages/me/dashang/dashang" hover-class="none">
-          <view class="num">15</view>
+        <navigator class="itm" url="/pages/me/homepage/homepage" hover-class="none">
+          <view class="num">{{num_tiezi}}</view>
           <view class="name">发帖</view>
         </navigator>
       </view>
@@ -52,19 +52,21 @@
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ordericn_dfk.png"></image>
         </view>
         <view class="title">待付款</view>
-        <view class="message">29</view>
+        <view class="message" wx:if="{{numfk > 0}}">{{numfk}}</view>
       </navigator>
       <navigator class="itm" url="/pages/order/me/me?orderStatus=201" hover-class="none">
         <view class="imgCont">
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ordericn_dfh.png"></image>
         </view>
         <view class="title">待发货</view>
+        <view class="message" wx:if="{{numfh > 0}}">{{numfh}}</view>
       </navigator>
       <navigator class="itm" url="/pages/order/me/me?orderStatus=300" hover-class="none">
         <view class="imgCont">
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ordericn_dsh.png"></image>
         </view>
         <view class="title">待收货</view>
+        <view class="message" wx:if="{{numsh > 0}}">{{numsh}}</view>
       </navigator>
       <navigator class="itm" url="/pages/order/shouhou/shouhou" hover-class="none">
         <view class="imgCont">
@@ -113,9 +115,9 @@
       </button>
       <button class="itm" open-type="contact">
         <view class="imgCont">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_yijian.png"></image>
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_step.png"></image>
         </view>
-        <view class="title">意见反馈</view>
+        <view class="title">步数明细</view>
       </button>
       <navigator class="itm" url="/pages/service/contactus/contactus" hover-class="none">
         <view class="imgCont">

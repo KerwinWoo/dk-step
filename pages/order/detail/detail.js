@@ -1,4 +1,6 @@
 // pages/order/detail/detail.js
+const utils = require('../../../utils/util.js')
+const api = require('../../../api/api.js')
 Page({
 
   /**
@@ -19,14 +21,29 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      orderId: options.orderid
+    })
+    this.loadOrderDetail()
   },
-
+  loadOrderDetail () {
+    let that = this
+    utils.request(api.DKORDER_ORDERDETAIL,{
+      orderId: that.data.orderId
+    },'POST','application/json').then(function(res){
+      if(res.errno === 0){
+        that.setData({
+          orderInfo: res.data.orderInfo,
+          goodsInfo: res.data.goodsInfo
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    this.toast = this.selectComponent("#toast");
   },
 
   /**
@@ -77,5 +94,62 @@ Page({
     wx.navigateTo({
       url: '/pages/order/paydetail/paydetail'
     })
+  },
+  copyText: function (e) {
+    wx.setClipboardData({
+      data: e.currentTarget.dataset.text,
+      success: function (res) {
+        wx.getClipboardData({
+          success: function (res) {
+            wx.showToast({
+              title: '复制成功'
+            })
+          }
+        })
+      }
+    })
+  },
+  toWuliu (e) {
+    let orderid = e.currentTarget.dataset.orderid
+    wx.navigateTo({
+      url: '/pages/order/wuliu/wuliu?orderid=' + orderid
+    })
+  },
+  gotoPay (e) {
+    let data = e.currentTarget.dataset
+    let goodsId = data.goodsid
+    let orderId = data.orderid
+    utils.request(api.PayPrepayId, { orderId: orderId, payType: 1 }, 'POST', 'application/json').then(function (res) {
+      if (res.errno === 0) {
+        let payParam = res.data;
+        console.log('prepay', res)
+        wx.requestPayment({
+          'timeStamp': payParam.timeStamp,
+          'nonceStr': payParam.nonceStr,
+          'package': payParam['package'],
+          'signType': payParam.signType,
+          'paySign': payParam.paySign,
+          'success': function (res) {
+            wx.navigateTo({
+              url: '/pages/order/success/success'
+            })
+          },
+          'fail': function (res) {
+            console.error('支付失败', res)
+          }
+        })
+      }
+      else{
+        wx.showToast({
+          title: res.errmsg,
+          icon: 'none',
+          duration: 2000
+        })
+      }
+    });
+  },
+  bindTzFahuo () {
+    let that = this
+    that.toast.showToast('已通知商家尽快发货，请耐心等待')
   }
 })

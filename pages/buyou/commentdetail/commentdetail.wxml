@@ -1,128 +1,88 @@
 <!--pages/buyou/commentdetail/commentdetail.wxml-->
 <view class="container hastop">
   <dk-nav title="评论详情" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
-  <view class="topiccontentlist skeleton">
+  <view class="topiccontentlist">
     <view class="itm">
-      <image-loader class="photo skeleton-tab1-radius" original-image="{{topic.photo}}"></image-loader>
-      <view class="subscribe skeleton-tab1-rect"><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/guanzhu%402x.png"></image>关注</view>
-      <view class="name">
-        <text class="skeleton-tab1-rect">{{topic.name}}</text>
+      <image-loader class="photo" original-image="{{communityVo.avatar}}"></image-loader>
+      <view class="subscribe" bindtap="guanzhu" data-uid="{{communityVo.create_user_id}}">
+        <image wx:if="{{communityVo.attention_status == 0}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/guanzhu%402x.png"></image>
+        <text wx:if="{{communityVo.attention_status == 0}}">关注</text>
+        <text wx:if="{{communityVo.attention_status == 1}}">已关注</text>
       </view>
-      <view class="topictype skeleton-tab1-rect"><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/huati%402x.png"></image>{{topic.topicName}}</view>
-      <view class="content skeleton-tab1-rect">{{topic.content}}</view>
-      <view class="imgcont clearfix">
-        <view class="wrp" wx:for="{{topicDataList[topicIndex].imglist}}" wx:key="{{item}}">
+      <view class="name">
+        <text class="skeleton-tab1-rect">{{communityVo.nickname}}</text>
+      </view>
+      <view class="topictype">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/huati%402x.png"></image>
+        {{communityVo.tag_name}}
+      </view>
+      <view class="content">{{communityVo.content}}</view>
+      <view class="commonimgcont {{(communityVo.img_src.length == 1) ? 'type2' : 'type1'}}{{communityVo.type3}}">
+        <view class="imgwrp" wx:for="{{communityVo.img_src}}" wx:key="{{item}}">
           <view class="subwrp">
             <image-loader 
               original-image="{{item}}" 
-              mode="aspectFill"
+              mode="{{communityVo.imgmode}}"
               bindtap="previewTopicImg"
-              data-parentIndex="{{topicIndex}}"
-              data-current="{{item}}"></image-loader>
+              data-parentIndex="{{index}}"
+              data-current="{{item}}"
+              isSingle="{{(communityVo.img_src.length == 1) ? true : false}}"></image-loader>
             </view>
         </view>
       </view>
-      <view class="addrs skeleton-tab1-rect">
+      <view class="addrs" wx:if="{{communityVo.location}}">
         <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dibiao%402x.png"></image>
-        <text>{{topic.addr}}</text>
-        <text class="point"></text>
-        <text>{{topic.time}}</text>
-      </view>
-      <view class="opers skeleton-tab1-rect">
-        <view class="itm" bindtap="giveEgg" data-parentindex="{{topicIndex}}">
-          <image wx:if="{{!topic.giveEgg}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dashang-bef.png"></image>
-          <image wx:if="{{topic.giveEgg}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dashang-aft.png"></image>
-          <text class="num">{{topic.egg}}</text>
-        </view>
-        <view class="itm" bindtap="doComment">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/pinglun%402x.png"></image>
-          <text class="num">{{topic.comment}}</text>
-        </view>
-        <view class="itm">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fenxiang%402x.png"></image>
-          <text class="num">{{topic.share}}</text>
-        </view>
-        <view class="itm">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/shoucang-bef%402x.png"></image>
-          <text class="num">{{topic.collect}}</text>
-        </view>
+        <text>{{communityVo.location}}</text>
       </view>
     </view>
   </view>
-  <view class="commenttip">评论</view>
+  <view class="dashanglist">
+    <view class="title">{{rewardUserCount}}人已打赏</view>
+    <view class="list">
+      <view class="itm" wx:for="{{rewardUsersList}}" wx:key="{{index}}" wx:if="{{index <= 7}}">
+        <image-loader original-image="{{item.avatar}}" mode="aspectFit"></image-loader>
+      </view>
+      <navigator class="itm more" hover-class="none" url="/pages/buyou/dashang/dashang?topicid={{communityVo.id}}">
+        <image-loader class="flex-c" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more03.png"></image-loader>
+      </navigator>
+    </view>
+  </view>
+  <view class="commenttip">{{commentList.count}}条评论</view>
   <view class="commentlist">
-    <view class="itm">
+    <view class="itm" wx:for="{{commentList.data}}" wx:key="{{index}}">
       <view class="photo">
-        <image-loader original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg"></image-loader>
+        <image-loader original-image="{{item.avatar}}"></image-loader>
       </view>
       <view class="content">
-        <view class="name">行走的蛋壳</view>
-        <view class="time">58分钟前</view>
-        <view class="txt">好美哦，春天来了就是适合出去跑步，很健康，希望大家都锻炼起来</view>
-      </view>
-    </view>
-    <view class="itm">
-      <view class="photo">
-        <image-loader original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg"></image-loader>
-      </view>
-      <view class="content">
-        <view class="name">行走的蛋壳<text class="reply">回复</text>我是小兔子</view>
-        <view class="time">58分钟前</view>
-        <view class="txt">好美哦，春天来了就是适合出去跑步，很健康，希望大家都锻炼起来</view>
-      </view>
-    </view>
-    <view class="itm">
-      <view class="photo">
-        <image-loader original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg"></image-loader>
-      </view>
-      <view class="content">
-        <view class="name">行走的蛋壳<text class="reply">回复</text>我是小兔子</view>
-        <view class="time">58分钟前</view>
-        <view class="txt">好美哦，春天来了就是适合出去跑步，很健康，希望大家都锻炼起来</view>
-      </view>
-    </view>
-    <view class="itm">
-      <view class="photo">
-        <image-loader original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg"></image-loader>
-      </view>
-      <view class="content">
-        <view class="name">行走的蛋壳<text class="reply">回复</text>我是小兔子</view>
-        <view class="time">58分钟前</view>
-        <view class="txt">好美哦，春天来了就是适合出去跑步，很健康，希望大家都锻炼起来</view>
-      </view>
-    </view>
-    <view class="itm">
-      <view class="photo">
-        <image-loader original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg"></image-loader>
-      </view>
-      <view class="content">
-        <view class="name">行走的蛋壳<text class="reply">回复</text>我是小兔子</view>
-        <view class="time">58分钟前</view>
-        <view class="txt">好美哦，春天来了就是适合出去跑步，很健康，希望大家都锻炼起来</view>
-      </view>
-    </view>
-    <view class="itm">
-      <view class="photo">
-        <image-loader original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg"></image-loader>
-      </view>
-      <view class="content">
-        <view class="name">行走的蛋壳<text class="reply">回复</text>我是小兔子</view>
-        <view class="time">58分钟前</view>
-        <view class="txt">好美哦，春天来了就是适合出去跑步，很健康，希望大家都锻炼起来</view>
-      </view>
-    </view>
-    <view class="itm">
-      <view class="photo">
-        <image-loader original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg"></image-loader>
-      </view>
-      <view class="content">
-        <view class="name">行走的蛋壳<text class="reply">回复</text>我是小兔子</view>
-        <view class="time">58分钟前</view>
-        <view class="txt">好美哦，春天来了就是适合出去跑步，很健康，希望大家都锻炼起来</view>
+        <view class="name">{{item.nickname}}
+          <text class="reply" wx:if="{{item.target_user_id != communityVo.create_user_id}}">回复</text>
+          <text wx:if="{{item.target_user_id != communityVo.create_user_id}}">{{item.target_nickname}}</text>
+        </view>
+        <view class="time">{{item.create_time}}</view>
+        <view class="txt">{{item.comment}}<text class="endcomment" bindtap="doCommentWithName" data-id="{{communityVo.id}}" data-uid="{{item.user_id}}" data-name="{{item.nickname}}">回复</text></view>
       </view>
     </view>
   </view>
   <view class="doComment">
-    <input type="text" placeholder="说点什么吧" bindtap="doComment"/>
+    <input type="text" placeholder="说点什么吧" disabled bindtap="doComment" 
+      data-id="{{communityVo.id}}" data-uid="{{communityVo.create_user_id}}"/>
+    <view class="opers">
+      <view class="itm" bindtap="giveEgg">
+        <image wx:if="{{communityVo.reward_status == 0}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dashang-bef.png"></image>
+        <image wx:if="{{communityVo.reward_status == 1}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
+        <text class="num">{{communityVo.eshell_num}}</text>
+      </view>
+      <button class="itm resetBtn" open-type="share">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fenxiang%402x.png"></image>
+        <text class="num">{{communityVo.forward_num}}</text>
+      </button>
+      <view class="itm" bindtap="shouCang">
+        <image wx:if="{{communityVo.collection_status == 0}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/shoucang-bef.png"></image>
+        <image wx:if="{{communityVo.collection_status == 1}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/shoucang-aft.png"></image>
+        <text class="num">{{communityVo.collection_num}}</text>
+      </view>
+    </view>
   </view>
+  
+  <dk-toast id="toast" duration="3000" isShow="{{toastShow}}"></dk-toast>
 </view>

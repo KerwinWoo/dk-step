@@ -167,10 +167,18 @@ Page({
         title: '正在发布...',
         mask: true
       })
-      
       // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
       var tempFilePaths = that.data.choosedImgs;
       var userId = wx.getStorageSync('userId')
+      
+      if(tempFilePaths.length == 0){
+        that.createTopic('').then(function(res){
+          wx.switchTab({
+            url: '/pages/buyou/index'
+          })
+        })
+        return
+      }
 
       //支持多图上传
       let uploadedNum = 0
@@ -183,9 +191,10 @@ Page({
               uploadedNum++
               uploadedImgs.push(result)
               if(uploadedNum == tempFilePaths.length){
-                that.createTopic(uploadedImgs.join(','))
-                wx.switchTab({
-                	url: '/pages/buyou/index'
+                that.createTopic(uploadedImgs.join(',')).then(function(res){
+                  wx.switchTab({
+                  	url: '/pages/buyou/index'
+                  })
                 })
               }
               console.log("======上传成功图片地址为：", result);
@@ -206,7 +215,19 @@ Page({
         imgSrc: uploadedImgs,
         topicTag: that.data.choosedTopicValue,
         location: that.data.address,
-      },'POST','application/json')
+      },'POST','application/json').then(function(res){
+        if(res.errno === 0){
+          resolve(res)
+        }
+        else{
+          wx.showToast({
+            title: res.errmsg,
+            icon: 'none',
+            duration: 2000
+          })
+          //reject(res)
+        }
+      })
     });
   },
   handleContentInput(e) {

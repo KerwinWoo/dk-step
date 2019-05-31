@@ -2,49 +2,18 @@
 <view class="container hastop">
   <dk-nav title="收到的打赏" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
   <view class="dashanglist">
-    <view class="inforow">
+    <view class="inforow" wx:for="{{list}}" wx:key="{{index}}">
       <view class="wrp">
         <view class="pic">
-          <image-loader original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg" mode="aspectFill"></image-loader>
+          <image-loader original-image="{{item.avatar}}" mode="aspectFill"></image-loader>
         </view>
         <view class="info">
-          <view class="name">行走的蛋壳</view>
+          <view class="name">{{item.nickname}}</view>
           <view class="desc">
-            <text class="time">38分钟前</text>
-            <text class="act">打赏了您<text>2</text>个蛋壳</text>
+            <text class="time">{{item.rewardTime}}</text>
+            <text class="act">打赏了您<text wx:if="{{fromMsgCenter != 1}}">{{item.rewardEggshellNum}}个蛋壳</text></text>
           </view>
         </view>
-				<view class="btn">已回赏</view>
-      </view>
-    </view>
-    <view class="inforow">
-      <view class="wrp">
-        <view class="pic">
-          <image-loader original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg" mode="aspectFill"></image-loader>
-        </view>
-        <view class="info">
-          <view class="name">行走的蛋壳</view>
-          <view class="desc">
-            <text class="time">38分钟前</text>
-            <text class="act">打赏了您<text>2</text>个蛋壳</text>
-          </view>
-        </view>
-				<view class="btn">回赏Ta</view>
-      </view>
-    </view>
-    <view class="inforow">
-      <view class="wrp">
-        <view class="pic">
-          <image-loader original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg" mode="aspectFill"></image-loader>
-        </view>
-        <view class="info">
-          <view class="name">行走的蛋壳</view>
-          <view class="desc">
-            <text class="time">38分钟前</text>
-            <text class="act">打赏了您<text>2</text>个蛋壳</text>
-          </view>
-        </view>
-				<view class="btn">回赏Ta</view>
       </view>
     </view>
   </view>

@@ -5,6 +5,13 @@
   height:280rpx;
   position: relative;
 }
+.banner .topicmask{
+  position: absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+}
 .banner image{
   width:100%;
   height:100%;
@@ -16,6 +23,7 @@
   position: absolute;
   left:50rpx;
   bottom:45rpx;
+  z-index: 2;
 }
 .bannerdesc{
 	width:100%;
@@ -24,4 +32,11 @@
 	line-height: 40rpx;
 	padding:20rpx 50rpx;
 	box-sizing: border-box;
+  min-height: 100rpx;
+}
+.nomoredata{
+  color:#999;
+  font-size: 24rpx;
+  text-align: center;
+  padding:50rpx 0 80rpx 0;
 }

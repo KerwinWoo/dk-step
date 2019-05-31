@@ -57,14 +57,10 @@ page{
   border-top-left-radius: 10rpx;
   border-top-right-radius: 10rpx;
 }
-.cont .wrp .itm.active::after{
-  content:'√';
+.cont .wrp .itm .activeimg{
   display: inline-block;
   width:30rpx;
   height:30rpx;
-  border-radius: 50%;
-  background:#19FF9B;
-  color:#fff;
   position: absolute;
   right:-12rpx;
   top:-12rpx;
@@ -103,4 +99,50 @@ page{
   margin-top:50rpx;
   font-size:24rpx;
   color:#F5F5F5;
+}
+.awardLayer{
+  width:100%;
+  height:100%;
+  position: fixed;
+  left:0;
+  top:0;
+  background:rgba(0,0,0,.3);
+  z-index: 99999;
+}
+.awardLayer .award{
+  position: absolute;
+  top:50%;
+  left:50%;
+  width:600rpx;
+  height:400rpx;
+  margin-left:-300rpx;
+  margin-top:-200rpx;
+  background:#fff;
+  box-sizing: border-box;
+  border-radius: 20rpx;
+  text-align: center;
+  padding:80rpx 50rpx 30rpx 50rpx;
+}
+.awardLayer .award .title{
+  font-size:36rpx;
+  font-weight:bold;
+}
+.awardLayer .award .content{
+  font-size:30rpx;
+  font-weight:400;
+  margin:60rpx 0;
+}
+.awardLayer .award .btn{
+  width:200rpx;
+  height:78rpx;
+  border-radius:40rpx;
+  text-align: center;
+  line-height: 78rpx;
+  color:#fff;
+  font-size:30rpx;
+  display: inline-block;
+}
+.awardLayer .close{
+  margin-top:100rpx;
+  text-align: center;
 }

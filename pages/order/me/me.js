@@ -82,15 +82,44 @@ Page({
     })
     that.loadOrderlist()
   },
-  toWuliu () {
+  toWuliu (e) {
+    let orderid = e.currentTarget.dataset.orderid
     wx.navigateTo({
-      url: '/pages/order/wuliu/wuliu'
+      url: '/pages/order/wuliu/wuliu?orderid=' + orderid
     })
   },
-  gotoPay () {
-    wx.navigateTo({
-      url: '/pages/order/paydetail/paydetail'
-    })
+  gotoPay (e) {
+    let data = e.currentTarget.dataset
+    let goodsId = data.goodsid
+    let orderId = data.orderid
+    utils.request(api.PayPrepayId, { orderId: orderId, payType: 1 }, 'POST', 'application/json').then(function (res) {
+      if (res.errno === 0) {
+        let payParam = res.data;
+        console.log('prepay', res)
+        wx.requestPayment({
+          'timeStamp': payParam.timeStamp,
+          'nonceStr': payParam.nonceStr,
+          'package': payParam['package'],
+          'signType': payParam.signType,
+          'paySign': payParam.paySign,
+          'success': function (res) {
+            wx.navigateTo({
+              url: '/pages/order/success/success'
+            })
+          },
+          'fail': function (res) {
+            console.error('支付失败', res)
+          }
+        })
+      }
+      else{
+        wx.showToast({
+          title: res.errmsg,
+          icon: 'none',
+          duration: 2000
+        })
+      }
+    });
   },
   loadOrderlist () {
     let that = this

@@ -11,14 +11,19 @@
   </view>
   <view class="orderlist">
     <view class="itm" wx:for="{{orderList}}" wx:key="{{item.id}}">
-      <navigator class="wrp" url="/pages/order/detail/detail" hover-class="none">
+      <navigator class="wrp" url="/pages/order/detail/detail?orderid={{item.id}}" hover-class="none">
         <view class="pic">
-          <image-loader class="imgwrp" mode="aspectFit" original-image="{{item.list_pic_url}}"></image-loader>
+          <image-loader class="imgwrp" mode="aspectFill" original-image="{{item.list_pic_url}}"></image-loader>
         </view>
         <view class="content">
           <view class="name">{{item.goodsName}}</view>
           <view class="btm">
-            <view class="dknum"><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image><text>{{item.dk_eshell_num}}</text></view>
+            <view class="dknum">
+              <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
+              <text>{{item.dk_eshell_num}}</text>
+              <text wx:if="{{item.retail_price && item.retail_price > 0}}">+</text>
+              <text wx:if="{{item.retail_price && item.retail_price > 0}}">¥{{item.order_price}}</text>
+           </view>
             <view class="num">×{{item.goodsCount}}</view>
           </view>
         </view>
@@ -30,9 +35,9 @@
           <text>剩余时间：29:25</text>
         </view>
         <view class="btn-default" wx:if="{{item.order_status  == 301}}">去晒单</view>
-        <view class="btn-default" wx:if="{{item.order_status  == 0}}" bindtap="gotoPay">去支付</view>
+        <view class="btn-default" wx:if="{{item.order_status  == 0}}" bindtap="gotoPay" data-goodsid="{{item.goods_id}}" data-orderid="{{item.id}}">去支付</view>
         <view class="btn-simple" bindtap="bindTzFahuo" wx:if="{{item.order_status  == 201}}">催发货</view>
-        <view class="btn-simple" wx:if="{{item.order_status  == 300}}" bindtap="toWuliu">查看物流</view>
+        <view class="btn-simple" wx:if="{{item.order_status  == 300}}" data-orderid="{{item.id}}" bindtap="toWuliu">查看物流</view>
         <view class="btn-simple" wx:if="{{item.order_status  == 300}}">确认收货</view>
       </view>
     </view>

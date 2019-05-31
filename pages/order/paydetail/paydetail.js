@@ -13,7 +13,6 @@ Page({
       detailInfo: ''
     },
     goodsInfo:null,
-    isNew:0,
     goodsId: '',
     region: ['广东省', '广州市', '海珠区'],
     customItem: '全部',
@@ -28,7 +27,7 @@ Page({
     that.stepper = that.selectComponent("#stepper")
     that.setData({
       goodsId: options.goodsId,
-      isNew: options.isNew ? options.isNew : 0
+      goodsType: options.goodsType ? options.goodsType : ''
     })
     utils.request(api.MALL_QUERY_GOODS_DETAIL,{
       id: options.goodsId
@@ -63,6 +62,9 @@ Page({
           })
         }
       })
+    }
+    else{
+      that.loadUserAddress()
     }
   },
 
@@ -131,8 +133,22 @@ Page({
         formId: e.detail.formId
       },'POST','application/json').then(function(res){
         if(res.errno === 0){
-          wx.navigateTo({
-            url: '/pages/order/success/success'
+          let goodsInfo = that.data.goodsInfo
+          if((goodsInfo.retail_price*1 + goodsInfo.mailCost*1) > 0){
+            that.data.orderId = res.data.orderId
+            that.requestPayParam()
+          }
+          else{
+            wx.navigateTo({
+              url: '/pages/order/success/success'
+            })
+          }
+        }
+        else{
+          wx.showToast({
+            title: res.errmsg,
+            icon: 'none',
+            duration: 2000
           })
         }
       })
@@ -144,5 +160,54 @@ Page({
         duration: 2000
       })
     }
+  },
+  //向服务请求支付参数
+  requestPayParam() {
+    let that = this
+    utils.request(api.PayPrepayId, { orderId: that.data.orderId, payType: 1 }, 'POST', 'application/json').then(function (res) {
+      if (res.errno === 0) {
+        let payParam = res.data;
+        wx.requestPayment({
+          'timeStamp': payParam.timeStamp,
+          'nonceStr': payParam.nonceStr,
+          'package': payParam['package'],
+          'signType': payParam.signType,
+          'paySign': payParam.paySign,
+          'success': function (res) {
+            wx.navigateTo({
+              url: '/pages/order/success/success'
+            })
+          },
+          'fail': function (res) {
+            console.error('支付失败', res)
+          }
+        })
+      }
+    });
+  },
+  loadUserAddress () {
+    let that = this
+    utils.request(api.ADDRESS_LIST).then(function(res){
+      if(res.errno === 0){
+        let data = res.data
+        if(res.data.length == 1){
+          that.setData({
+            addressInfo: data[0],
+            addressId: data[0].id
+          })
+        }
+        else{
+          for(let i = 0; i < data.length; i++){
+            if(data[i].is_default == 1){
+              that.setData({
+                addressInfo: data[i],
+                addressId: data[i].id
+              })
+              break
+            }
+          }
+        }
+      }
+    })
   }
 })

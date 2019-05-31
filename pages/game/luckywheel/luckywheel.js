@@ -73,62 +73,70 @@ Page({
 
     var that = this;
     
-    //设置按钮不可点击
-    that.setData({
-      clickLuck:'',
-    })
-    //清空计时器
-    clearInterval(interval);
-    var index = 0;
-    interval = setInterval(function () {
-      if (index > 7) {
-        index = 0;
-        that.data.awards[7].active = false
-      } else if (index != 0) {
-        that.data.awards[index - 1].active = false
-      }
-      that.data.awards[index].active = true
-      that.setData({
-        awards: that.data.awards
-      })
-      index++;
-    }, intime);
-
-    var stoptime = 2000;
     utils.request(api.GAME_GETWHEEL_AWORD).then(function(res){
-      that.loadUserDkInfo()
-      for(let i = 0; i < that.data.awards.length; i++){
-        if(that.data.awards[i].id == res.id){
-          setTimeout(function(){
-            that.stop(i)
-            let giftName = ''
-            let giftImg = ''
-            switch (res.award_name){
-            	case '蛋壳':
-                giftImg = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift04.png'
-            		giftName = res.award_num + '蛋壳'
-                break;
-              case '步数':
-                giftImg = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift02.png'
-                giftName = res.award_num + '步'
-                break;
-              case 'iPhone XS':
-                giftImg = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift01.png'
-                giftName = res.award_name
-                break;
-              case '手环':
-                giftImg = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift03.png'
-                giftName = res.award_name
-                break;
-            	default:
-            		break;
-            }
-            that.setData({
-              giftName: giftName,
-              giftImg: giftImg
-            })
-          }, stoptime)
-          return
+      if(res.code == 500){
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+      }
+      else{
+        //设置按钮不可点击
+        that.setData({
+          clickLuck:'',
+        })
+        //清空计时器
+        clearInterval(interval);
+        var index = 0;
+        interval = setInterval(function () {
+          if (index > 7) {
+            index = 0;
+            that.data.awards[7].active = false
+          } else if (index != 0) {
+            that.data.awards[index - 1].active = false
+          }
+          that.data.awards[index].active = true
+          that.setData({
+            awards: that.data.awards
+          })
+          index++;
+        }, intime);
+        
+        var stoptime = 2000;
+        that.loadUserDkInfo()
+        for(let i = 0; i < that.data.awards.length; i++){
+          if(that.data.awards[i].id == res.id){
+            setTimeout(function(){
+              that.stop(i)
+              let giftName = ''
+              let giftImg = ''
+              switch (res.award_name){
+              	case '蛋壳':
+                  giftImg = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift04.png'
+              		giftName = res.award_num + '蛋壳'
+                  break;
+                case '步数':
+                  giftImg = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift02.png'
+                  giftName = res.award_num + '步'
+                  break;
+                case 'iPhone XS':
+                  giftImg = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift01.png'
+                  giftName = res.award_name
+                  break;
+                case '手环':
+                  giftImg = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift03.png'
+                  giftName = res.award_name
+                  break;
+              	default:
+              		break;
+              }
+              that.setData({
+                giftName: giftName,
+                giftImg: giftImg
+              })
+            }, stoptime)
+            return
+          }
         }
       }
     })
@@ -243,7 +251,10 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: '抽疯了，华为P30 Pro每日限量大派送~',
+      imageUrl: 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/invitelink.gif'
+    }
   },
   backTo (e) {
     wx.navigateBack()

@@ -6,8 +6,8 @@
       <image src="https://img11.360buyimg.com/mobilecms/s140x140_jfs/t25132/222/2230116429/165327/b14181c4/5bc591baN18523c4e.jpg"></image>
     </view>
     <view class="r">
-      <view class="name">物流公司：<text>中通快递</text></view>
-      <view class="orderid"><view>物流单号：<text>123728374889</text></view><view class="copybtn">复制单号</view></view>
+      <view class="name">物流公司：<text>{{name}}</text></view>
+      <view class="orderid"><view>物流单号：<text>{{shippingNo}}</text></view><view class="copybtn">复制单号</view></view>
     </view>
   </view>
   <view class="wuliustatus">
@@ -15,30 +15,10 @@
       <view class="title">物流状态</view>
       <view class="inwrp">
         <view class="statuslist">
-          <view class="itm active">
+          <view class="itm" wx:for="{{shippingList}}" wx:key="index">
             <view class="pointwrp"><view class="point"></view></view>
-            <view class="content">广州市【广州运转中心】，正发往【武汉运转中心】</view>
-            <view class="time">2019-04-02  14：32：30</view>
-          </view>
-          <view class="itm">
-            <view class="pointwrp"><view class="point"></view></view>
-            <view class="content">广州市【广州运转中心】，正发往【武汉运转中心】</view>
-            <view class="time">2019-04-02  14：32：30</view>
-          </view>
-          <view class="itm">
-            <view class="pointwrp"><view class="point"></view></view>
-            <view class="content">广州市【广州运转中心】，正发往【武汉运转中心】</view>
-            <view class="time">2019-04-02  14：32：30</view>
-          </view>
-          <view class="itm">
-            <view class="pointwrp"><view class="point"></view></view>
-            <view class="content">广州市【广州运转中心】，正发往【武汉运转中心】</view>
-            <view class="time">2019-04-02  14：32：30</view>
-          </view>
-          <view class="itm">
-            <view class="pointwrp"><view class="point"></view></view>
-            <view class="content">广州市【广州运转中心】，正发往【武汉运转中心】</view>
-            <view class="time">2019-04-02  14：32：30</view>
+            <view class="content">{{item.AcceptStation}}</view>
+            <view class="time">{{item.AcceptTime}}</view>
           </view>
         </view>
       </view>

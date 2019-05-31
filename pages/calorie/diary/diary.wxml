@@ -1,5 +1,5 @@
 <!--pages/calorie/diary/diary.wxml-->
-<view class="container hastop" bindtouchstart='handletouchstart' bindtouchmove='handletouchmove' bindtouchend='handletouchend' bindtouchcancel='handletouchcancel'>
+<view class="container hastop">
   <dk-nav title="卡路里日记" hasBackBtn="{{true}}" 
     isFixed="{{true}}" 
     hasBorder="{{true}}"
@@ -16,8 +16,9 @@
     <ff-canvas id="line-dom" canvas-id="line" opts="{{opts}}"></ff-canvas>
   </view>
   <view class="postcont">
+    <canvas-share bindclose="close" userInfo="{{userInfo}}" visible="{{visible}}" />
     <view class="wrp">
-      <view class="tag">
+      <!-- <view class="tag">
         <view class="title">今日心情</view>
         <view class="taglist">
           <view class="itm">
@@ -30,9 +31,12 @@
             <image lazy-load src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/face_smile01.png"></image>
           </view>
         </view>
-      </view>
+      </view> -->
       <view class="photo">
-        <image lazy-load="true" class="user" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/2.jpg" mode="aspectFill"></image>
+        <view class="user">
+          <image lazy-load="true" src="{{userInfo.avatarUrl}}" mode="aspectFill"></image>
+          <view>{{userInfo.nickName}}</view>
+        </view>
         <image lazy-load="true" class="post" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/post.jpg" mode="aspectFill"></image>
         <view class="content">
           <view class="steptitle">今日步数</view>
@@ -59,7 +63,7 @@
     </view>
   </view>
   <view class="btns">
-    <view class="savePost btn-default">保存海报</view>
+    <view class="savePost btn-default" bindtap='show'>保存海报</view>
     <view class="savePost refresh btn-default">
       <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/refresh.png"></image>
       <text>换一张</text>

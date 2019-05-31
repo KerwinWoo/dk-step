@@ -1,4 +1,6 @@
 // pages/me/guanzhu/guanzhu.js
+const utils = require('../../../utils/util.js')
+const api = require('../../../api/api.js')
 Page({
 
   /**
@@ -26,7 +28,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.loadGuanzhuData()
   },
 
   /**
@@ -65,5 +67,58 @@ Page({
   },
   backTo () {
     wx.navigateBack()
+  },
+  loadGuanzhuData () {
+    let that = this
+    utils.request(api.BUYOU_ATTENTIONUSER, {
+      page:1,
+      size:1000,
+      sort:'',
+      order:''
+    }).then(function(res){
+      if(res.errno === 0){
+        res.data.data.map(function(value, index){
+          value.status = 1
+        })
+        that.setData({
+          list: res.data.data
+        })
+      }
+      else{
+        wx.showToast({
+          title: res.errmsg,
+          icon: 'none',
+          duration: 2000
+        })
+      }
+    })
+  },
+  guanzhu (e) {
+    let that = this
+    const data = e.currentTarget.dataset
+    if(data.status == 1){
+      utils.request(api.USER_ATTENTION_CANCEL, {
+        attentionUserId: data.uid
+      }).then(function(res){
+        if(res.errno == 0){
+          wx.showToast({
+            title: '已取消关注',
+            icon: 'success',
+            duration: 2000
+          })
+          that.data.list.splice(data.index,1)
+          that.setData({
+            list: that.data.list
+          })
+        }
+        else{
+          wx.showToast({
+            title: res.errmsg,
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      })
+    }
   }
 })

@@ -1,21 +1,13 @@
 // pages/game/record/record.js
+const utils = require('../../../utils/util.js')
+const api = require('../../../api/api.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    tasklistData: [{
-      id: 1,
-      pic: 'https://img12.360buyimg.com/babel/s130x130_jfs/t1/23337/28/15565/169327/5cb001c1E3dc01d1e/60bfcbc3e24ec9f1.jpg',
-      name: '迪士尼（Disney）小学生书包 男童双肩儿童书包3-6年级背包9-12周岁大容量休闲书包 RL0425A',
-      time: '2019-04-05  09:31:28'
-    },{
-      id: 2,
-      pic: 'https://img12.360buyimg.com/babel/s130x130_jfs/t1/23337/28/15565/169327/5cb001c1E3dc01d1e/60bfcbc3e24ec9f1.jpg',
-      name: '小学生书包',
-      time: '2019-04-05  09:31:28'
-    }]
+    rewardsList: []
   },
 
   /**
@@ -36,7 +28,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.loadData()
   },
 
   /**
@@ -80,5 +72,40 @@ Page({
   },
   backTo (e) {
     wx.navigateBack()
+  },
+  loadData () {
+    let that = this
+    utils.request(api.REWARDRECORDS).then(function(res){
+      /* if(res.errno === 0){
+        that.setData({
+          rewardsList: res.data
+        })
+      } */
+      res.map(function(value, index){
+        switch (value.award_name){
+        	case '蛋壳':
+            value.img = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift04.png'
+        		break;
+          case '步数':
+            value.img = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift02.png'
+            value.award_name = '步数'
+            break;
+          case 'iPhone XS':
+            value.img = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift01.png'
+            value.award_num = ''
+            break;
+          case '手环':
+            value.img = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift03.png'
+            value.award_num = ''
+            break;
+        	default:
+        		break;
+        }
+        value.award_time = utils.formatTime(new Date(value.award_time))
+      })
+      that.setData({
+        rewardsList: res
+      })
+    })
   }
 })

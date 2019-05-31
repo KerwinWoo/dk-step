@@ -1,6 +1,7 @@
 {
   "backgroundColor": "#fff",
   "usingComponents": {
+    "image-loader": "/components/dk-image-loader/image-loader",
     "dk-nav": "/components/dk-navigation/dk-nav"
   }
 }

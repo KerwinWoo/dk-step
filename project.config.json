@@ -35,7 +35,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 10,
+			"current": 47,
 			"list": [
 				{
 					"id": 0,
@@ -111,7 +111,7 @@
 					"id": 10,
 					"name": "goodsdetail",
 					"pathName": "pages/mall/goodsdetail/goodsdetail",
-					"query": "id=1181051&isInvite=true",
+					"query": "",
 					"scene": null
 				},
 				{
@@ -129,17 +129,17 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 13,
 					"name": "topic",
 					"pathName": "pages/buyou/topic/topic",
-					"query": "",
+					"query": "value=spring",
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 14,
 					"name": "commentdetail",
 					"pathName": "pages/buyou/commentdetail/commentdetail",
-					"query": "",
+					"query": "id=53",
 					"scene": null
 				},
 				{
@@ -321,6 +321,55 @@
 					"id": -1,
 					"name": "address",
 					"pathName": "pages/address/addresslist",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 41,
+					"name": "goodsdetail",
+					"pathName": "pages/mall/goodsdetail/goodsdetail",
+					"query": "id=1181050&isInvite=true&type=3&business=1181050&push_userid=46",
+					"scene": null
+				},
+				{
+					"id": 42,
+					"name": "homepage",
+					"pathName": "pages/me/homepage/homepage",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "homepageedit",
+					"pathName": "pages/me/homepage/edit/edit",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "friendadd",
+					"pathName": "pages/rule/friendadd/friendadd",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "friends",
+					"pathName": "pages/me/friend/friend",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pinglun",
+					"pathName": "pages/me/pinglun/pinglun",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "message",
+					"pathName": "pages/me/message/message",
 					"query": "",
 					"scene": null
 				}

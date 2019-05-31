@@ -12,9 +12,7 @@
     <view class="itm" wx:for="{{list}}" wx:key="id">
       <view class="wrp">
         <view class="pic">
-          <view class="imgwrp">
-            <image mode="aspectFill" src="{{item.primary_pic_url}}"></image>
-          </view>
+          <image-loader class="imgwrp" mode="aspectFill" original-image="{{item.primary_pic_url}}"></image-loader>
         </view>
         <view class="content">
           <view class="name">{{item.name}}</view>

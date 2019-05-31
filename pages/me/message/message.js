@@ -1,11 +1,16 @@
 // pages/me/message/message.js
+const utils = require('../../../utils/util.js')
+const api = require('../../../api/api.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    numDs: 0,
+    numPl: 0,
+    numFs: 0,
+    numXt: 0
   },
 
   /**
@@ -26,7 +31,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.loadMessageNum()
   },
 
   /**
@@ -65,5 +70,13 @@ Page({
   },
   backTo () {
     wx.navigateBack()
+  },
+  loadMessageNum () {
+    let that = this
+    utils.request(api.MESSAGENUM_TYPE).then(function(res){
+      if(res.errno === 0){
+        debugger
+      }
+    })
   }
 })
