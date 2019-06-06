@@ -11,26 +11,12 @@ Page({
     goodsTypeData: [],
     currentType: 0,
     navbarLeft: 0,
-    goodListData: [{
-      id: 1,
-      name: '小狗摆件',
-      dk: 99,
-      person: 232,
-      photo: 'https://img30.360buyimg.com/babel/s170x180_jfs/t1/14532/21/15291/38093/5cae9621Ef20d5a0f/0d0fed6ecac3fd4b.jpg'
-    },{
-      id: 2,
-      name: '小狗摆件',
-      dk: 99,
-      person: 232,
-      photo: 'https://img11.360buyimg.com/babel/s170x180_jfs/t1/34003/9/2429/57738/5caf0af7E214c6e8b/93c6f91cbb920ab5.jpg'
-    },{
-      id: 3,
-      name: '小狗摆件',
-      dk: 99,
-      person: 232,
-      photo: 'https://img13.360buyimg.com/babel/s170x180_jfs/t1/2231/33/14640/79157/5bdc1be4Ec59247c8/ec47353a00cc9d25.jpg'
-    }],
-    navbarWidth: 2000
+    goodListData: [],
+    navbarWidth: 2000,
+    currentCategoryId: '',
+    pageSize: 12,
+    allData: [],
+    firstLoad: true
   },
 
   /**
@@ -41,7 +27,7 @@ Page({
     // 刷新组件
     that.refreshView = that.selectComponent("#refreshView")
     
-    that.loadGoodsTypes()
+    that.loadGoodsData()
   },
 
   /**
@@ -83,7 +69,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this.loadGoodsData()
   },
 
   /**
@@ -118,37 +104,86 @@ Page({
       that.refreshView.stopPullRefresh()
     },1500)
   },
-  loadGoodsTypes () {
+  loadGoodsData () {
     let that = this
-    utils.request(api.MALL_QUERY_DKGOODS_LIST,{
+    let param = {
       dkPartion: 'dkMoneyChange',
-      page: 1,
-      size:10,
-      isHot:1
-    }, 'Get').then(function (res) {
-      let data = res.data
-      that.setData({
-        goodsTypeData: data.categoryList,
-        goodListData: data.goodsList
-      })
+      page: (!that.data.firstLoad)?that.data.allData[that.data.currentType].currentPage:1,
+      size: that.data.pageSize,
+      isHot:(that.data.currentType == 0)?1:0,
+      categoryId:(that.data.goodsTypeData && that.data.goodsTypeData.length > 1) ? that.data.goodsTypeData[that.data.currentType].id:''
+    }
+    if(that.data.currentType != 0){
+      param = {
+        dkPartion: 'dkMoneyChange',
+        page: (!that.data.firstLoad)?that.data.allData[that.data.currentType].currentPage:1,
+        size: that.data.pageSize,
+        categoryId:(that.data.goodsTypeData && that.data.goodsTypeData.length > 1) ? that.data.goodsTypeData[that.data.currentType].id:''
+      }
+    }
+    utils.request(api.MALL_QUERY_DKGOODS_LIST, param, 'Get').then(function (res) {
+      if(res.errno === 0){
+        let data = res.data
+        //首页加载
+        if(that.data.firstLoad){
+          data.categoryList.unshift({
+            id: 0,
+            name: '热门推荐'
+          })
+          data.categoryList.forEach(function(value, index){
+            that.data.allData.push({
+              currentPage: 1,
+              list: [],
+              gooslistContHeight: 0
+            })
+          })
+          that.setData({
+            goodsTypeData: data.categoryList,
+            firstLoad: false,
+            allData: that.data.allData
+          })
+        }
+        let curData = that.data.allData[that.data.currentType]
+        if(data.goodsList.length != 0){
+          curData.currentPage++
+        }
+        curData.list = curData.list.concat(data.goodsList)
+        curData.gooslistContHeight = Math.ceil(curData.list.length/2)*545+30
+        that.data.allData[that.data.currentType] = curData
+        that.setData({
+          allData: that.data.allData
+        })
+      }
     })
   },
   changeType (e) {
     /*获取可视窗口宽度*/
-  　let w = wx.getSystemInfoSync().windowWidth;
-  　var leng= this.data.goodsTypeData.length;
-  　var idx = e.target.dataset.index;
-  　var disX = (idx - 2) * w / leng;
-  　if(idx != this.data.currentType){
-  　　this.setData({
-  　　　currentType : idx
-  　　})
-  　}
   　this.setData({
-  　　navbarLeft : disX
-  　})
+      currentType: e.target.dataset.index
+    })
   },
   backTo () {
     wx.navigateBack()
+  },
+  swiperchange (e) {
+    let that = this
+    let w = wx.getSystemInfoSync().windowWidth;
+  　var leng= that.data.goodsTypeData.length;
+  　var idx = e.detail.current;
+  　var disX = (idx - 1) * w / leng;
+  　if(idx != that.data.currentType){
+  　　that.setData({
+  　　　currentType : idx
+  　　})
+  　}
+    that.data.allData[idx].currentPage = 1
+    that.data.allData[idx].list = []
+  　that.setData({
+      navbarLeft : disX,
+      currentCategoryId: that.data.goodsTypeData[idx].id,
+      allData: that.data.allData
+  　})
+    wx.pageScrollTo({scrollTop: 0,duration: 0})
+    that.loadGoodsData()
   }
 })

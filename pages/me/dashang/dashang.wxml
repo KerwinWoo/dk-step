@@ -11,7 +11,7 @@
           <view class="name">{{item.nickname}}</view>
           <view class="desc">
             <text class="time">{{item.rewardTime}}</text>
-            <text class="act">打赏了您<text wx:if="{{fromMsgCenter != 1}}">{{item.rewardEggshellNum}}个蛋壳</text></text>
+            <text class="act">打赏了你<text wx:if="{{fromMsgCenter != 1}}">{{item.rewardEggshellNum}}枚蛋壳</text></text>
           </view>
         </view>
       </view>

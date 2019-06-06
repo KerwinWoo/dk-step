@@ -2,23 +2,30 @@
 <scroll-view class="container hastop{{(isPay? ' hasBottom' : '')}}">
   <dk-nav title="订单详情" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
   <view class="banner">
+    <image class="bg" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/bg_order.png"></image>
 	  <view class="title">{{orderInfo.order_status_text}}</view>
-    <view class="subtitle" wx:if="{{orderInfo.order_status == '301'}}">您的订单已完成，赶紧晒单获得更多奖励吧！</view>
-    <view class="subtitle" wx:if="{{orderInfo.order_status == '201'}}">订单正在准备出库，即将赶往你的目的地，请您耐心等待</view>
-    <view class="subtitle" wx:if="{{orderInfo.order_status == '0'}}">订单已经提交，请在01时20分钟内完成支付，超时订单将自动取消</view>
-    <view class="subtitle" wx:if="{{orderInfo.order_status == '300'}}">订单已经发货，正在飞速赶往你的目的地，请您耐心等待</view>
-    <image class="bgicn" wx:if="{{orderInfo.order_status == '301'}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/order_complete.png"></image>
-    <image class="bgicn" wx:if="{{orderInfo.order_status == '201'}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/order_fahuo.png"></image>
-    <image class="bgicn" wx:if="{{orderInfo.order_status == '0'}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/order_zhifu.png"></image>
-    <image class="bgicn" wx:if="{{orderInfo.order_status == '300'}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/order_yifahuo.png"></image>
+    <view class="subtitle" wx:if="{{orderInfo.order_status == '301' && orderInfo.order_status_text != '已取消'}}">你的订单已完成，赶紧晒单获得更多奖励吧！</view>
+    <view class="subtitle" wx:if="{{orderInfo.order_status == '201' && orderInfo.order_status_text != '已取消'}}">订单正在准备出库，即将赶往你的目的地，请你耐心等待</view>
+    <view class="subtitle" wx:if="{{orderInfo.order_status == '0' && orderInfo.order_status_text != '已取消'}}">
+      订单已经提交，请在<text>{{timer.min}}</text>分<text>{{timer.sec}}</text>秒 内完成支付，超时订单将自动取消
+    </view>
+    <view class="subtitle" wx:if="{{orderInfo.order_status == '300' && orderInfo.order_status_text != '已取消'}}">订单已经发货，正在飞速赶往你的目的地，请你耐心等待</view>
+    <view class="subtitle" wx:if="{{orderInfo.order_status_text == '已取消'}}">您的订单已取消，赶紧去兑换更多商品吧！</view>
+    
+    
+    <image class="bgicn" wx:if="{{orderInfo.order_status == '301' && orderInfo.order_status_text != '已取消'}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/order_complete.png"></image>
+    <image class="bgicn" wx:if="{{orderInfo.order_status == '201' && orderInfo.order_status_text != '已取消'}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/order_fahuo.png"></image>
+    <image class="bgicn" wx:if="{{orderInfo.order_status == '0' && orderInfo.order_status_text != '已取消'}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/order_zhifu.png"></image>
+    <image class="bgicn" wx:if="{{orderInfo.order_status == '300' && orderInfo.order_status_text != '已取消'}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/order_yifahuo.png"></image>
+    <image class="bgicn" style="width:88rpx;height:101rpx;" wx:if="{{orderInfo.order_status_text == '已取消'}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/order_cancel.png"></image>
   </view>
   <view class="recevierinfo">
     <view class="l">
       <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dibiao%402x.png"></image>
     </view>
     <view class="r">
-      <view class="t">收货人：<text>行走的蛋壳</text> <text class="phone">13817878787</text></view>
-      <view class="b">湖北省武汉市洪山区珞喻路光谷国际商会大厦20楼2013室</view>
+      <view class="t">收货人：<text>{{orderInfo.consignee}}</text> <text class="phone">{{orderInfo.mobile}}</text></view>
+      <view class="b">{{orderInfo.province + orderInfo.city + orderInfo.district + orderInfo.address}}</view>
     </view>
   </view>
   
@@ -33,18 +40,25 @@
       <view class="info">
         <view class="l">
           <view class="name">{{goodsInfo.goods_name}}</view>
-          <view class="dk">
+          <view class="dknum">
             <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
             <text>{{goodsInfo.dk_eshell_num}}</text>
+            <text class="plus" wx:if="{{(goodsInfo.retail_price) > 0}}">+</text>
+            <text class="unit" wx:if="{{(goodsInfo.retail_price) > 0}}">￥</text>
+            <text wx:if="{{(goodsInfo.retail_price) > 0}}">{{goodsInfo.retail_price}}</text>
           </view>
         </view>
         <view class="r">
           <view class="num">×{{goodsInfo.number}}</view>
-          <view class="btn" wx:if="{{orderInfo.order_status == '301'}}">立即晒单</view>
+          <navigator class="btn" wx:if="{{orderInfo.order_status == '301'}}" hover-class="none" url="/pages/buyou/fabu/fabu?topicValue=shaidan">立即晒单</navigator>
           <view class="btn btn-simple" wx:if="{{orderInfo.order_status == '201'}}" bindtap="bindTzFahuo">催发货</view>
           <view class="btn btn-simple" wx:if="{{orderInfo.order_status == '300'}}" bindtap="toWuliu" data-orderid="{{orderInfo.id}}">查看物流</view>
         </view>
       </view>
+    </view>
+    <view class="buyercomment">
+      <text>备注:</text>
+      <input type="text" disabled value="{{orderInfo.postscript}}"/>
     </view>
   </view>
   <view class="payinfo">
@@ -59,16 +73,17 @@
     </view>
     <view class="row">
       <view class="label">运费</view>
-      <view class="num">￥0.00</view>
+      <view class="num">￥{{orderInfo.freight_price}}</view>
     </view>
     <view class="summary">
       <view class="label">实付：
       <view class="dknum">
         <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
         <text>{{orderInfo.dk_eshell_num}}</text>
+        <text class="plus" wx:if="{{(orderInfo.actual_price) > 0}}">+</text>
+        <text class="unit" wx:if="{{(orderInfo.actual_price) > 0}}">￥</text>
+        <text wx:if="{{(orderInfo.actual_price) > 0}}">{{orderInfo.actual_price}}</text>
       </view>
-      <text class="plus" wx:if="{{(orderInfo.actual_price) > 0}}">+</text>
-      <text class="unit" wx:if="{{(orderInfo.actual_price) > 0}}">￥{{orderInfo.actual_price}}</text>
     </view>
     </view>
   </view>
@@ -82,8 +97,8 @@
     <image class="icn" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
   </button>
   <view class="pay" wx:if="{{orderInfo.order_status == '0'}}">
-    <view class="cancel">取消订单</view>
-    <view class="payBtn btn-default" bindtap="gotoPay">去支付</view>
+    <view class="cancel" bindtap="doCancel">取消订单</view>
+    <view class="payBtn btn-default" data-goodsid="{{goodsInfo.id}}" data-orderId="{{orderInfo.id}}" bindtap="gotoPay">去支付</view>
   </view>
 </scroll-view>
 

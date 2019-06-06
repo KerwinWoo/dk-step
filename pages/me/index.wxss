@@ -109,6 +109,9 @@ page{
   font-size:28rpx;
   color:#333;
 }
+.tp .summary .wrp .itm .name{
+  color:#999;
+}
 .tp .summary .wrp .itm .num{
   font-weight: bold;
   font-size: 30rpx;
@@ -118,6 +121,10 @@ page{
   background:#fff;
   padding:115rpx 30rpx 30rpx 30rpx;
   margin-bottom: 30rpx;
+}
+.ordercont .imgCont{
+  position: relative;
+  display: inline-block;
 }
 .servcont{
   padding:30rpx;
@@ -150,15 +157,15 @@ page{
 }
 .ordercont .itm .message{
   position: absolute;
-  width:40rpx;
-  height:40rpx;
+  width:34rpx;
+  height:34rpx;
   background:#FF000F;
   border-radius:50%;
-  font-size:24rpx;
+  font-size:22rpx;
   text-align: center;
-  line-height: 40rpx;
+  line-height: 34rpx;
   color:#fff;
-  top:-20rpx;
+  top:-16rpx;
   right:-10rpx;
 }
 .message-s{

@@ -16,7 +16,7 @@ Page({
       'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640',
       'https://images.unsplash.com/photo-1551446591-142875a901a1?w=640'
     ],
-    indicatorDots: true,
+    indicatorDots: false,
     autoplay: true,
     interval: 5000,
     duration: 1000,
@@ -25,7 +25,12 @@ Page({
     exchangeShow: false,
     inviteShow: false,
     shaidan: [],
-    loaded: false
+    loaded: false,
+    choosedGoodsInfo: {
+      retail_price: 0,
+      dkEshellNum: 0,
+      num: 1
+    }
   },
 
   /**
@@ -33,18 +38,12 @@ Page({
    */
   onLoad: function (options) {
     console.info('options',options)
-    if(options.type){
-      wx.setStorageSync('inviteInfo', {
-        type: options.type,
-        business: options.business,
-        push_userid: options.push_userid
-      })
-    }
     let that = this
     that.setData({
       currentId: options.id,
       isInvite: options.isInvite?options.isInvite:'',
-      goodsType: options.goodsType?options.goodsType:''
+      goodsType: options.goodsType?options.goodsType:'',
+      fromIndex: options.fromIndex?options.fromIndex:''
     })
   },
   
@@ -97,12 +96,24 @@ Page({
   onShareAppMessage: function () {
     let that = this
     return {
-      title: '跟我一起来免费兑换"' + that.data.info.name + '"',
-      path: '/pages/mall/goodsdetail/goodsdetail?type=3&business='+ that.data.currentId + '&push_userid=' + wx.getStorageSync('userId')
+      title: '就差你了，你帮我点一下就能用步数兑换到这个商品了~"',
+      imageUrl: that.data.info.list_pic_url,
+      path: '/pages/index/index?fromInvite=1&type=3&business='+ that.data.info.id 
+      + '&push_userid=' + wx.getStorageSync('userId') 
+      + '&forwardUrl='
+      + encodeURIComponent('/pages/mall/goodsdetail/goodsdetail?id='+that.data.currentId
+      +'&isInvite='+that.data.isInvite+'&goodsType='+that.data.goodsType)
     }
   },
   backTo () {
-    wx.navigateBack()
+    if(this.data.fromIndex && this.data.fromIndex == 0){
+      wx.switchTab({
+        url: '/pages/index/index'
+      })
+    }
+    else{
+      wx.navigateBack()
+    }
   },
   loadGoodsDetail () {
     let that = this
@@ -116,6 +127,9 @@ Page({
         //校验用户蛋壳数是否足够兑换商品
         utils.request(api.HOME_QUERY_USERDK,{
         }).then(function (res2) {
+          that.setData({
+            userDknum: res2.data.eggshellNum
+          })
           if(res2.data.eggshellNum*1 > res.data.info.dkEshellNum*1){
             //邀请人数不足
             if(res.data.info.dkInvitationNum > res.data.invitationHistory.length){
@@ -129,7 +143,12 @@ Page({
               that.setData({
                 exchangeShow: true,
                 newInviteShow: false,
-                inviteShow: false
+                inviteShow: false,
+                choosedGoodsInfo: {
+                  retail_price: res.data.info.retail_price,
+                  dkEshellNum: res.data.info.dkEshellNum,
+                  num: 1
+                }
               })
             }
           }
@@ -245,13 +264,120 @@ Page({
       previewShow: false
     })
   },
-  bindPlus () {
-    console.log(34343434)
+  bindPlus (e) {
+    let that = this
+    let choosedGoodsInfo = that.data.choosedGoodsInfo
+    let userDknum = that.data.userDknum
+    let choosednum = that.selectComponent("#mystepper").data.num
+    let goodsInfo = that.data.info
+    let totalDk = choosednum*(goodsInfo.dkEshellNum)
+    if(totalDk > userDknum){
+      wx.showToast({
+        title: '蛋壳数不足',
+        icon: 'none',
+        duration: 2000
+      })
+      that.selectComponent("#mystepper").setData({
+        num: --choosednum
+      })
+    }
+    else{
+      if(choosednum > goodsInfo.goods_number){
+        wx.showToast({
+          title: '超出商品库存',
+          icon: 'none',
+          duration: 2000
+        })
+        that.selectComponent("#mystepper").setData({
+          num: --choosednum
+        })
+      }
+      else{
+        that.setData({
+          choosedGoodsInfo: {
+            retail_price: (choosednum*(goodsInfo.retail_price)).toFixed(2),
+            dkEshellNum: choosednum*(goodsInfo.dkEshellNum),
+            num: choosednum
+          }
+        })
+      }
+    }
   },
   bindMinus () {
-    console.log(90990)
+    let that = this
+    let choosedGoodsInfo = that.data.choosedGoodsInfo
+    let userDknum = that.data.userDknum
+    let choosednum = that.selectComponent("#mystepper").data.num
+    let goodsInfo = that.data.info
+    let totalDk = choosednum*(goodsInfo.dkEshellNum)
+    that.setData({
+      choosedGoodsInfo: {
+        retail_price: (choosednum*(goodsInfo.retail_price)).toFixed(2),
+        dkEshellNum: choosednum*(goodsInfo.dkEshellNum),
+        num: choosednum
+      }
+    })
   },
   bindManual () {
-    console.log(66666)
+    let that = this
+    let choosedGoodsInfo = that.data.choosedGoodsInfo
+    let userDknum = that.data.userDknum
+    let choosednum = that.selectComponent("#mystepper").data.num
+    let goodsInfo = that.data.info
+    let totalDk = choosednum*(goodsInfo.dkEshellNum)
+    if(choosednum <= 0){
+      wx.showToast({
+        title: '购买数量要大于0哦~',
+        icon: 'none',
+        duration: 2000
+      })
+      that.setData({
+        choosedGoodsInfo: {
+          retail_price: goodsInfo.retail_price,
+          dkEshellNum: goodsInfo.dkEshellNum,
+          num: 1
+        }
+      })
+      choosednum = 1
+    }
+    if(totalDk > userDknum){
+      wx.showToast({
+        title: '蛋壳数不足',
+        icon: 'none',
+        duration: 2000
+      })
+      that.setData({
+        choosedGoodsInfo: {
+          retail_price: goodsInfo.retail_price,
+          dkEshellNum: goodsInfo.dkEshellNum,
+          num: 1
+        }
+      })
+    }
+    else{
+      if(choosednum > goodsInfo.goods_number){
+        wx.showToast({
+          title: '超出商品库存',
+          icon: 'none',
+          duration: 2000
+        })
+        that.setData({
+          choosedGoodsInfo: {
+            retail_price: goodsInfo.retail_price,
+            dkEshellNum: goodsInfo.dkEshellNum,
+            num: 1
+          }
+        })
+      }
+      else{
+        that.setData({
+          choosedGoodsInfo: {
+            retail_price: (choosednum*(goodsInfo.retail_price)).toFixed(2),
+            dkEshellNum: choosednum*(goodsInfo.dkEshellNum),
+            num: choosednum
+          }
+        })
+      }
+    }
   }
 })

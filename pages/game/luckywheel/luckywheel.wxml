@@ -81,7 +81,7 @@
       <view>当前蛋壳：<text>{{myDk}}</text></view>
     </view>
   </view>
-  <button class="inviteBtn btn-default" open-type="share">邀请好友一起来抽奖</button>
+  <button class="inviteBtn btn-default" open-type="share" data-linkfrom="type3">邀请好友一起来抽奖</button>
   <view class="rulecont" wx:if="{{ruleLayer}}">
     <view class="ruledesc">
       <view class="flag">

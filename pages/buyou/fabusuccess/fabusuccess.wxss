@@ -1,0 +1,73 @@
+/* pages/buyou/fabusuccess/fabusuccess.wxss */
+.icon image{
+  width:141rpx;
+  height:110rpx;
+  display: inline-block;
+}
+.icon{
+  text-align: center;
+  margin:180rpx 0 30rpx 0;
+}
+.title{
+  font-size:36rpx;
+  font-weight:bold;
+  text-align: center;
+}
+.subtitle{
+  font-size:30rpx;
+  text-align: left;
+  width: 568rpx;
+  margin:30rpx auto;
+}
+.photocont{
+  width:540rpx;
+  height:647rpx;
+  background:#fff;
+  box-shadow:0px 0px 20px 0px rgba(15,15,15,0.2);
+  border-radius:10px;
+  box-sizing: border-box;
+  margin:40rpx auto 50rpx auto;
+  padding:30rpx 60rpx;
+}
+.photocont .t{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  color:#999;
+  font-size: 24rpx;
+}
+.photocont .t image{
+  width:60rpx;
+  height:60rpx;
+  border-radius:50%;
+  margin-right: 20rpx;
+}
+.photocont .content{
+  font-size:28rpx;
+  line-height:40rpx;
+  margin-bottom: 10rpx;
+  margin-top:10rpx;
+  height:80rpx;
+  overflow:hidden; 
+  text-overflow:ellipsis;
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2; 
+}
+.shareBtn{
+  width:580rpx;
+  height:86rpx;
+  border-radius:43rpx;
+  text-align: center;
+  line-height: 86rpx;
+  margin:0 auto;
+  color:#fff;
+  font-size:40rpx;
+  display: block;
+}
+.pt image{
+  width:100%;
+  height:430rpx;
+  border-radius:10rpx;
+}

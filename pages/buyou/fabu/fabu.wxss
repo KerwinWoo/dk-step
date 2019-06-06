@@ -23,13 +23,13 @@ page{
   position:relative;
 }
 .imgcont .uploadImg.wrp image {
-  width:72rpx;
-  height:56rpx;
+  width:84rpx;
+  height:76rpx;
   position:absolute;
   left:50%;
-  margin-left:-36rpx;
+  margin-left:-42rpx;
   top:50%;
-  margin-top:-28rpx;
+  margin-top:-38rpx;
 }
 
 .getaddress{

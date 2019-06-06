@@ -211,6 +211,14 @@ Page({
     } */
     const data = e.currentTarget.dataset
     let that = this
+    if(data.uid == that.data.userId){
+      wx.showToast({
+        title:'不能打赏自己哦~',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
     let itemData = that.data.topicDataList[data.parentindex]
     if(itemData.reward_status == 0){
       utils.request(api.BUYOU_DASHANG,{
@@ -218,7 +226,7 @@ Page({
         targetUserId: data.uid
       }).then(function(res){
         if(res.errno == 0){
-          that.toast.showToast('打赏成功，已将您的2枚蛋壳打赏给TA')
+          that.toast.showToast('打赏成功，已将你的2枚蛋壳打赏给TA')
           that.data.topicDataList[data.parentindex].reward_status = 1
           that.data.topicDataList[data.parentindex].eshell_num = that.data.topicDataList[data.parentindex].eshell_num + 2
           that.setData({

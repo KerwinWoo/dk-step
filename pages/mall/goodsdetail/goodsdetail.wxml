@@ -29,7 +29,8 @@
             原价:<text>￥{{info.market_price}}</text>
           </view>
           <view class="r">
-            <view class="baoyou">{{(info.freeMail == 1) ? '包邮' : '不包邮'}}</view>
+            <view wx:if="{{info.freeMail == 1}}" class="baoyou">包邮</view>
+            <view wx:if="{{info.freeMail == 0}}" class="baoyou">邮费:{{info.mailCost}}元</view>
             <view class="sy">剩余<text>{{info.goods_number}}</text>件</view>
           </view>
           <!-- <view class="exchangeoption" wx:if="{{isInvite}}">
@@ -39,7 +40,33 @@
       </view>
     </view>
   </view>
-  <navigator class="record" style="margin-top:0;" hover-class="none" url="/pages/mall/duihuan/duihuan?id={{currentId}}">
+  <view class="standard">
+    <view class="itm">
+      <view class="icn">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_bao.png" lazy-load></image>
+        <view>正品保障</view>
+      </view>
+    </view>
+    <view class="itm">
+      <view class="icn">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_zhen.png" lazy-load></image>
+        <view>品质甄选</view>
+      </view>
+    </view>
+    <view class="itm">
+      <view class="icn">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_pei.png" lazy-load></image>
+        <view>买贵就赔</view>
+      </view>
+    </view>
+    <view class="itm">
+      <view class="icn">
+        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_shou.png" lazy-load></image>
+        <view>售后无忧</view>
+      </view>
+    </view>
+  </view>
+  <!-- <navigator class="record" style="margin-top:0;" hover-class="none" url="/pages/mall/duihuan/duihuan?id={{currentId}}">
   	<view class="wrp">
       <view class="recordlist clearfix">
         <view class="imgwrp" wx:for="{{changeHistory}}" wx:key="id" wx:if="{{index <= 5}}">
@@ -51,8 +78,8 @@
         <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
       </view>
     </view>
-  </navigator>
-  <navigator class="record ivtrecord" wx:if="{{isInvite}}" hover-class="none" url="/pages/mall/yaoqing/yaoqing?id={{currentId}}">
+  </navigator> -->
+  <!-- <navigator class="record ivtrecord" wx:if="{{isInvite}}" hover-class="none" url="/pages/mall/yaoqing/yaoqing?id={{currentId}}">
   	<view class="wrp">
       <view class="recordlist clearfix">
         <view class="imgwrp" wx:for="{{invitationHistory}}" wx:key="id" wx:if="{{index <= 5}}">
@@ -67,7 +94,7 @@
         <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
       </view>
     </view>
-  </navigator>
+  </navigator> -->
   <view class="notice">
     <view class="wrp">
     	<view class="comtitle">兑换说明</view>
@@ -79,7 +106,7 @@
         <view class="itm">3、兑换成功的实物商品将再2个工作日内发货</view>
         <view class="itm">4、邮寄区域暂不支持新疆、西藏、海南、港澳台及海外地区</view>
         <view class="itm">5、免费兑换的商品均暂不支持退换货</view>
-        <view class="itm">温馨提示：兑换商品前去“我的”“地址管理”内填写详细邮寄地址并确认（要不商品怎么找到您）</view>
+        <view class="itm">温馨提示：兑换商品前去“我的”“地址管理”内填写详细邮寄地址并确认（要不商品怎么找到你）</view>
       </view>
     </view>
   </view>
@@ -106,7 +133,7 @@
               </view>
           </view>
         </view>
-        <navigator hover-class="none" class="viewMore" url="/pages/buyou/topic/topic?title=步友晒单&comment=你说是啥就是啥&value=showMyList&pic=">查看更多晒单</navigator>
+        <navigator hover-class="none" class="viewMore btn-simple" url="/pages/buyou/topic/topic?title=步友晒单&comment=你说是啥就是啥&value=showMyList&pic=">查看更多晒单</navigator>
       </view>
     </view>
   </view>
@@ -141,27 +168,29 @@
       <view class="t">
         <view class="dknum">
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
-          <text>{{info.dkEshellNum}}</text>
-          <text class="plus" wx:if="{{info.retail_price && info.retail_price > 0}}">+</text>
-          <text wx:if="{{info.retail_price && info.retail_price > 0}}" class="unit">¥</text>
-          <text wx:if="{{info.retail_price && info.retail_price > 0}}">{{info.retail_price}}</text>
+          <text>{{choosedGoodsInfo.dkEshellNum}}</text>
+          <text class="plus" wx:if="{{choosedGoodsInfo.retail_price && choosedGoodsInfo.retail_price > 0}}">+</text>
+          <text wx:if="{{choosedGoodsInfo.retail_price && choosedGoodsInfo.retail_price > 0}}" class="unit">¥</text>
+          <text wx:if="{{choosedGoodsInfo.retail_price && choosedGoodsInfo.retail_price > 0}}">{{choosedGoodsInfo.retail_price}}</text>
         </view>
         <view class="info">
           <view>库存量：<text>{{info.goods_number}}</text>件</view>
-          <view>原价：<text>￥{{info.market_price}}</text></view>
+          <view class="centerline">原价：<text>￥{{info.market_price}}</text></view>
         </view>
         <image-loader mode="aspectFill" original-image="{{info.primary_pic_url}}"></image-loader>
       </view>
       <view class="buynum">
         <view class="title">购买数量</view>
-        <dk-stepper class="numstepper" 
+        <dk-stepper id="mystepper" class="numstepper" 
           inputStatus="{{(goodsType == 'newperson' || goodsType == 'invite') ? 'disabled' : ''}}" 
-          plusStatus="{{(goodsType == 'newperson' || goodsType == 'invite') ? ' disabled' : ''}}"
+          plusStatus="{{(goodsType == 'newperson' || goodsType == 'invite') ? 'disabled' : ''}}"
+          minusStatus="{{(choosedGoodsInfo.num > 1)?'':'disabled'}}"
+          num = "{{choosedGoodsInfo.num}}"
           bind:bindPlus="bindPlus"
           bind:bindMinus="bindMinus"
           bind:bindManual="bindManual"></dk-stepper>
       </view>
-      <navigator hover-class="none" url="/pages/order/paydetail/paydetail?goodsId={{currentId}}&goodsType={{goodsType}}" class="btn-default exchangeBtnTo">立即兑换</navigator>
+      <navigator hover-class="none" url="/pages/order/paydetail/paydetail?goodsId={{currentId}}&goodsType={{goodsType}}&num={{choosedGoodsInfo.num}}" class="btn-default exchangeBtnTo">立即兑换</navigator>
     </view>
   </view>
 </view>

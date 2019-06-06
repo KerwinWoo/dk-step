@@ -13,7 +13,7 @@
         </navigator>
         <navigator open-type="navigate" url="/pages/calorie/diary/diary" hover-class="none">
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-calorie.png"></image>
-          <text>卡路里日记</text>
+          <text>卡路里</text>
         </navigator>
       </view>
       <view class="steps">
@@ -26,30 +26,37 @@
             <view class="tip">每日24点前清零</view>
           </view>
         </view>
-        <view wx:for="{{ssteps}}" 
-          wx:key="{{id}}" 
-          class="{{item.statusCls}}" 
-          style="color:{{item.style.color}};animation-delay:{{item.style.animationDelay}};left:{{item.style.left}}rpx;top:{{item.style.top}}rpx;" 
-          data-id="{{item.id}}" 
-          data-step="{{item.task_dk_num}}" 
-          data-name="{{item.task_name}}"
-          data-index="{{index}}"
-          bindtap="pickStep">
-          <image src="{{item.imgSrc}}"></image>
-          <text>{{item.task_dk_num}}</text>
-          <view>{{item.task_name}}</view>
-        </view>
+        <movable-area>
+          <movable-view class="{{item.mvCls}}" wx:for="{{ssteps}}" 
+          wx:key="{{id}}" x="{{item.style.left}}" y="{{item.style.top}}" 
+          direction="all" bindchange="onMoveChange" data-idx="{{index}}">
+            <button 
+              class="sstep resetBtn" 
+              style="color:{{item.style.color}};animation-delay:{{item.style.animationDelay}};" 
+              data-id="{{item.task_id}}" 
+              data-step="{{item.task_dk_num}}" 
+              data-name="{{item.task_name}}"
+              data-index="{{index}}"
+              bindtap="pickStep"
+              data-linkfrom="type1"
+              open-type="{{item.isInvite?'share':''}}">
+              <image src="{{item.imgSrc}}"></image>
+              <text>{{item.task_dk_num}}</text>
+              <view>{{item.task_name}}</view>
+            </button>
+          </movable-view>
+        </movable-area>
       </view>
     </view>
-  </view>
-  <view class="invitecont">
-    <button class="inviteBtn btn-default" hover-class="btnhover" open-type="share">邀请好友永久加成</button>
-    <button class="tip resetBtn" hover-class="btnhover" open-type="share">
-      <view>
-        <text>当前加成{{jcpercent}}%，明日最高加成{{jcpercent2}}%，邀请第一个好友加成4%</text>
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/hand.png"></image>
-      </view>
-    </button>
+    <view class="invitecont">
+      <button class="inviteBtn btn-default" data-linkfrom="type1" hover-class="btnhover" open-type="share">邀请好友永久加成</button>
+      <button class="tip resetBtn" hover-class="btnhover" data-linkfrom="type1" open-type="share">
+        <view>
+          <text>当前加成{{jcpercent}}%，明日最高加成{{jcpercent2}}%，邀请第一个好友加成4%</text>
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/hand.png"></image>
+        </view>
+      </button>
+    </view>
   </view>
   
   <view class="w">
@@ -62,17 +69,21 @@
         <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icon02.png"></image></view>
         <view>领取任务</view>
       </navigator> -->
-      <navigator class="itm" url="/pages/calorie/post/post" hover-class="none">
-        <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icon05.png"></image></view>
-        <view>保存海报</view>
-      </navigator>
       <navigator class="itm" url="/pages/rule/friendadd/friendadd" hover-class="none">
         <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icon03.png"></image></view>
         <view>好友加成</view>
       </navigator>
+      <navigator class="itm" url="/pages/mall/index" hover-class="none">
+        <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icon06.png"></image></view>
+        <view>步友专享</view>
+      </navigator>
       <navigator class="itm" url="/pages/me/friend/friend" hover-class="none">
         <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icon04.png"></image></view>
         <view>好友列表</view>
+      </navigator>
+      <navigator class="itm" url="/pages/calorie/post/post" hover-class="none">
+        <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icon05.png"></image></view>
+        <view>保存海报</view>
       </navigator>
     </view>
     <view class="activlsit clearfix">
@@ -85,8 +96,8 @@
       </view>
       <view class="itm">
         <navigator class="wrp" url="/pages/team/team" open-type="switchTab">
-          <view class="title">健步团</view>
-          <view class="subtitle">亲朋好友一起玩</view>
+          <view class="title">组团PK</view>
+          <view class="subtitle">一起PK赢蛋壳</view>
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/tiaozhansai%402x.png"></image>
         </navigator>
       </view>
@@ -103,7 +114,7 @@
         <image class="bg" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/hb.png"></image>
         <image bindtap="kaiHongbao" animation="{{kaiAnimation}}" class="kai" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/kai.png"></image>
         <view>
-          <view class="subtitle">今日已签到<text>30000</text>人</view>
+          <view class="subtitle">今日已签到<text> {{qiandaoNum}}</text>人</view>
           <view class="title">每天签到领取步数奖励</view>
         </view>
       </view>
@@ -210,7 +221,7 @@
         </view>
       </navigator>
     </view>
-    <view class="getMore" bindtap="getMoreGoodsBuyou" wx:if="{{buyouMoreShow}}">点击查看更多商品</view>
+    <navigator class="getMore" url="/pages/mall/index" hover-class="none">点击查看更多商品</navigator>
   </view>
   <view class="section" style="padding-bottom:20rpx;">
     <view class="comtitle">
@@ -250,10 +261,10 @@
   </view>
   
   <view class="moretip">
-    更多商品每天上新，敬请期待~
+    更多商品每天上新，记得每天登陆来逛逛哦~
   </view>
   
-  <view class="mask" wx:if="{{showMask}}">
+<!--  <view class="mask" wx:if="{{showMask}}">
     <view class="hongbao" wx:if="{{isHongbaoShow}}">
       <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/bg_hongbao%402x.png"></image>
       <view class="txtcont">
@@ -266,21 +277,23 @@
       </view>
       <view class="closeBtn" bindtap="closeHongbao">点击关闭</view>
     </view>
-  </view>
+  </view> -->
   
   <view class="commontoast" wx:if="{{tipShow}}">
-    <view class="wrp">
-      <view class="title">温馨提示</view>
-      <view class="content">兑换{{userStep}}步为{{exchangeDk}}个蛋壳</view>
-      <view class="btns">
-        <view class="btn btn-simple" bindtap="closeLayer">取消</view>
-        <view class="btn btn-default" bindtap="exchangeSubmit">确定</view>
+    <form name="payForm" report-submit="true" bindsubmit="exchangeSubmit">
+      <view class="wrp">
+        <view class="title">温馨提示</view>
+        <view class="content">兑换{{userStep}}步为{{exchangeDk}}枚蛋壳</view>
+        <view class="btns">
+          <view class="btn btn-simple" bindtap="closeLayer">取消</view>
+          <button class="btn btn-default resetBtn" form-type="submit">确定</button>
+        </view>
+        <image class="closeBtn" bindtap="closeLayer" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/close.png"></image>
       </view>
-      <image class="closeBtn" bindtap="closeLayer" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/close.png"></image>
-    </view>
+    </form>
   </view>
   
-  <view class="awardLayer" wx:if="{{awardLayer}}">
+  <view class="awardLayer layer" wx:if="{{awardLayer}}">
     <view class="award">
       <view class="bg">
         <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/bg_award2.png"></image>
@@ -291,13 +304,52 @@
       <view class="txt">
         {{exchangeDk}}<text>蛋壳</text>
       </view>
-      <view class="awdtip">好友助力即可获得随机步数奖励</view>
-      <view class="btns" bindtap="getAward">
+      <view class="awdtip">邀请好友即可获得永久步数加成</view>
+      <button class="btns resetBtn" bindtap="getAward" open-type="share" data-linkfrom="type2">
         <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/award_btn.png"></image>
         <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/yaoqing.png"></image>
-      </view>
+      </button>
       <view class="close">
         <image class="closeBtn" bindtap="closeLayer2" data-layerId="awardLayer" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/close.png"></image>
+      </view>
+    </view>
+  </view>
+  
+  <view class="gzhLayer layer flex-c" wx:if="{{gzhLayerShow}}">
+    <view class="wrp">
+      <view class="title">如何关注公众号</view>
+      <view class="row">
+        <view class="rank">
+          <image class="bg" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_rankbg.png"></image>
+          <view class="subwrp">1</view>
+        </view>
+        <view class="content">
+          打开微信，点击右上角【+】，再点击“添加朋友”，再点击“公众号”
+        </view>
+      </view>
+      <view class="row">
+        <view class="rank">
+          <image class="bg" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_rankbg.png"></image>
+          <view class="subwrp">2</view>
+        </view>
+        <view class="content">
+          <view>在搜索框输入“蛋壳步数换”</view>
+          <view>点击“关注公众号”</view>
+        </view>
+      </view>
+      <view class="row">
+        <view class="rank">
+          <image class="bg" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_rankbg.png"></image>
+          <view class="subwrp">3</view>
+        </view>
+        <view class="content">
+          从公众号进入“蛋壳步数换”小程序领取任务奖励
+        </view>
+      </view>
+      <view class="gzhGetStep btn-default disabled" wx:if="{{gzhType == 2}}">领取步数</view>
+      <view class="gzhGetStep btn-default" wx:if="{{gzhType == 0}}" bindtap="gzhGetStep">领取步数</view>
+      <view class="close">
+        <image class="closeBtn" bindtap="closeLayerGzh" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/close.png"></image>
       </view>
     </view>
   </view>

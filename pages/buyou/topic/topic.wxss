@@ -1,5 +1,8 @@
 /* pages/buyou/topic/topic.wxss */
 @import "/pages/buyou/index.wxss";
+page{
+  padding-bottom: 120rpx;
+}
 .banner{
   width:100%;
   height:280rpx;
@@ -39,4 +42,18 @@
   font-size: 24rpx;
   text-align: center;
   padding:50rpx 0 80rpx 0;
+}
+.joinTopic{
+  width:580rpx;
+  height:86rpx;
+  text-align: center;
+  line-height: 86rpx;
+  border-radius:43rpx;
+  position: fixed;
+  left:50%;
+  margin-left:-290rpx;
+  bottom:50rpx;
+  color:#fff;
+  font-size:40rpx;
+  font-weight:bold;
 }

@@ -16,25 +16,41 @@ Page({
     goodsId: '',
     region: ['广东省', '广州市', '海珠区'],
     customItem: '全部',
-    postscript: ''
+    postscript: '',
+    choosedGoodsInfo: {
+      retail_price: 0,
+      dkEshellNum: 0,
+      num: 1
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log('options', options)
     let that = this
-    that.stepper = that.selectComponent("#stepper")
+    that.stepper = that.selectComponent("#mystepper")
     that.setData({
       goodsId: options.goodsId,
-      goodsType: options.goodsType ? options.goodsType : ''
+      goodsType: options.goodsType ? options.goodsType : '',
+      'choosedGoodsInfo.num': options.num ? options.num : 1
     })
     utils.request(api.MALL_QUERY_GOODS_DETAIL,{
       id: options.goodsId
     },'GET').then(function(res){
       if(res.errno == 0){
         that.setData({
-          goodsInfo: res.data.info
+          goodsInfo: res.data.info,
+          choosedGoodsInfo : options.num ? {
+            retail_price: (res.data.info.retail_price*options.num).toFixed(2),
+            dkEshellNum: res.data.info.dkEshellNum*options.num,
+            num: options.num
+          } : {
+            retail_price: res.data.info.retail_price,
+            dkEshellNum: res.data.info.dkEshellNum,
+            num: 1
+          }
         })
       }
     })
@@ -66,6 +82,7 @@ Page({
     else{
       that.loadUserAddress()
     }
+    that.loadUserDknum()
   },
 
   /**
@@ -116,6 +133,17 @@ Page({
     	url: '/pages/address/addresslist'
     })
   },
+  loadUserDknum () {
+    let that = this
+    utils.request(api.HOME_QUERY_USERDK,{
+    }).then(function (res) {
+      if(res.errno === 0){
+        that.setData({
+          userDknum: res.data.eggshellNum
+        })
+      }
+    })
+  },
   postscriptChange (event) {
     this.setData({
       postscript: event.detail.value
@@ -127,7 +155,7 @@ Page({
     if(address.id){
       utils.request(api.DKORDER_SUBMIT,{
         goodsId: that.data.goodsId,
-        addresssId: address.id,
+        addressId: address.id,
         goodsNumber: that.stepper.data.num,
         postscript: that.data.postscript,
         formId: e.detail.formId
@@ -140,7 +168,7 @@ Page({
           }
           else{
             wx.navigateTo({
-              url: '/pages/order/success/success'
+              url: '/pages/order/success/success?goodsurl='+encodeURIComponent(that.data.goodsInfo.primary_pic_url)
             })
           }
         }
@@ -155,7 +183,7 @@ Page({
     }
     else{
       wx.showToast({
-        title: '请您填写地址信息',
+        title: '请填写地址信息',
         icon: 'none',
         duration: 2000
       })
@@ -174,12 +202,21 @@ Page({
           'signType': payParam.signType,
           'paySign': payParam.paySign,
           'success': function (res) {
-            wx.navigateTo({
-              url: '/pages/order/success/success'
+            utils.request(api.PAYQUERY,{
+              orderId: that.data.orderId
+            },'POST','application/json').then(function(res){
+              if(res.errno === 0){
+                wx.navigateTo({
+                  url: '/pages/order/success/success?goodsid='+that.data.goodsId
+                })
+              }
             })
           },
           'fail': function (res) {
-            console.error('支付失败', res)
+            console.error('支付取消', res)
+            wx.navigateTo({
+              url: '/pages/order/detail/detail?orderid='+that.data.orderId+'&fromIndex=0'
+            })
           }
         })
       }
@@ -209,5 +246,121 @@ Page({
         }
       }
     })
+  },
+  bindPlus (e) {
+    let that = this
+    let choosedGoodsInfo = that.data.choosedGoodsInfo
+    let userDknum = that.data.userDknum
+    let choosednum = that.selectComponent("#mystepper").data.num
+    let goodsInfo = that.data.goodsInfo
+    let totalDk = choosednum*(goodsInfo.dkEshellNum)
+    if(totalDk > userDknum){
+      wx.showToast({
+        title: '蛋壳数不足',
+        icon: 'none',
+        duration: 2000
+      })
+      that.selectComponent("#mystepper").setData({
+        num: --choosednum
+      })
+    }
+    else{
+      if(choosednum > goodsInfo.goods_number){
+        wx.showToast({
+          title: '超出商品库存',
+          icon: 'none',
+          duration: 2000
+        })
+        that.selectComponent("#mystepper").setData({
+          num: --choosednum
+        })
+      }
+      else{
+        that.setData({
+          choosedGoodsInfo: {
+            retail_price: (choosednum*(goodsInfo.retail_price)).toFixed(2),
+            dkEshellNum: choosednum*(goodsInfo.dkEshellNum),
+            num: choosednum
+          }
+        })
+      }
+    }
+  },
+  bindMinus () {
+    let that = this
+    let choosedGoodsInfo = that.data.choosedGoodsInfo
+    let userDknum = that.data.userDknum
+    let choosednum = that.selectComponent("#mystepper").data.num
+    let goodsInfo = that.data.goodsInfo
+    let totalDk = choosednum*(goodsInfo.dkEshellNum)
+    that.setData({
+      choosedGoodsInfo: {
+        retail_price: (choosednum*(goodsInfo.retail_price)).toFixed(2),
+        dkEshellNum: choosednum*(goodsInfo.dkEshellNum),
+        num: choosednum
+      }
+    })
+  },
+  bindManual () {
+    let that = this
+    let choosedGoodsInfo = that.data.choosedGoodsInfo
+    let userDknum = that.data.userDknum
+    let choosednum = that.selectComponent("#mystepper").data.num
+    let goodsInfo = that.data.goodsInfo
+    let totalDk = choosednum*(goodsInfo.dkEshellNum)
+    if(choosednum <= 0){
+      wx.showToast({
+        title: '购买数量要大于0哦~',
+        icon: 'none',
+        duration: 2000
+      })
+      that.setData({
+        choosedGoodsInfo: {
+          retail_price: goodsInfo.retail_price,
+          dkEshellNum: goodsInfo.dkEshellNum,
+          num: 1
+        }
+      })
+      choosednum = 1
+    }
+    if(totalDk > userDknum){
+      wx.showToast({
+        title: '蛋壳数不足',
+        icon: 'none',
+        duration: 2000
+      })
+      that.setData({
+        choosedGoodsInfo: {
+          retail_price: goodsInfo.retail_price,
+          dkEshellNum: goodsInfo.dkEshellNum,
+          num: 1
+        }
+      })
+    }
+    else{
+      if(choosednum > goodsInfo.goods_number){
+        wx.showToast({
+          title: '超出商品库存',
+          icon: 'none',
+          duration: 2000
+        })
+        that.setData({
+          choosedGoodsInfo: {
+            retail_price: goodsInfo.retail_price,
+            dkEshellNum: goodsInfo.dkEshellNum,
+            num: 1
+          }
+        })
+      }
+      else{
+        that.setData({
+          choosedGoodsInfo: {
+            retail_price: (choosednum*(goodsInfo.retail_price)).toFixed(2),
+            dkEshellNum: choosednum*(goodsInfo.dkEshellNum),
+            num: choosednum
+          }
+        })
+      }
+    }
   }
 })

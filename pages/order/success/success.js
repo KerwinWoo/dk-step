@@ -12,7 +12,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      imgUrl: options.goodsurl?options.goodsurl:'',
+      goodsid: options.goodsid?options.goodsid:''
+    })
   },
 
   /**
@@ -61,9 +64,15 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: '我用步数兑换了这个宝贝，你也可以哦~',
+      path: '/pages/index/index?fromInvite=1&type=1&push_userid=' + wx.getStorageSync('userId'),
+      imageUrl: this.data.imgUrl
+    }
   },
   backTo () {
-    wx.navigateBack()
+    wx.navigateTo({
+      url: '/pages/mall/goodsdetail/goodsdetail?fromIndex=0&id='+this.data.goodsid
+    })
   }
 })

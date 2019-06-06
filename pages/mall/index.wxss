@@ -49,9 +49,14 @@ page{
   z-index: 999;
 }
 .goodlist{
-  margin:30rpx 0;
   background:#fff;
-  padding:30rpx 30rpx 0 30rpx;
+  padding:30rpx;
   box-sizing: border-box;
-  margin-top:58rpx;
+}
+.swipercont{
+  margin-top:60rpx;
+  min-height:100%;
+}
+page,.container{
+  height:100%;
 }

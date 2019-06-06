@@ -23,7 +23,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.loadTopicNameData()
+    if(options.topicValue){
+      this.loadTopicNameData(options.topicValue)
+    }
+    else{
+      this.loadTopicNameData()
+    }
   },
 
   /**
@@ -67,13 +72,26 @@ Page({
   onReachBottom: function () {
 
   },
-  loadTopicNameData () {
+  loadTopicNameData (param) {
     let that = this
     utils.request(api.BUYOU_QUERY_COMMUNITYLIST,{
     }).then(function (res) {
-      that.setData({
-        topicList: res.data
-      })
+      if(res.errno === 0){
+        if(param){
+          res.data.forEach(function(value, index){
+            if(value.value == param){
+              that.setData({
+                choosedTopic: value.name,
+                choosedTopicValue: value.value
+              })
+              return false
+            }
+          })
+        }
+        that.setData({
+          topicList: res.data
+        })
+      }
     })
   },
 
@@ -173,9 +191,11 @@ Page({
       
       if(tempFilePaths.length == 0){
         that.createTopic('').then(function(res){
-          wx.switchTab({
-            url: '/pages/buyou/index'
-          })
+          if(res.errno === 0){
+            wx.navigateTo({
+              url: '/pages/buyou/fabusuccess/fabusuccess?topicid=' + res.data.topicId
+            })
+          }
         })
         return
       }
@@ -192,9 +212,11 @@ Page({
               uploadedImgs.push(result)
               if(uploadedNum == tempFilePaths.length){
                 that.createTopic(uploadedImgs.join(',')).then(function(res){
-                  wx.switchTab({
-                  	url: '/pages/buyou/index'
-                  })
+                  if(res.errno === 0){
+                    wx.navigateTo({
+                      url: '/pages/buyou/fabusuccess/fabusuccess?topicid=' + res.data.topicId
+                    })
+                  }
                 })
               }
               console.log("======上传成功图片地址为：", result);

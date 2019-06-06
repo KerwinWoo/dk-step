@@ -1,6 +1,6 @@
 const root = 'api/';
-const API_BASE_URL = 'https://xiaochengxu.su360.com/' + root;
-//const API_BASE_URL = 'http://10.0.0.207:8080/platform/' + root;
+const API_BASE_URL = 'https://api.datebook.cc/' + root;
+//const API_BASE_URL = 'http://10.0.0.212:8080/platform/' + root;
 module.exports = {
   HOME_QUERY_GOODS: API_BASE_URL + 'dk_index/category', //首页商品展示
   HOME_QUERY_USERDK: API_BASE_URL + 'dkeshell/query_dk_num', //查询当前用户的蛋壳数
@@ -13,6 +13,7 @@ module.exports = {
   AUTH_GETSESSIONKEY: API_BASE_URL + 'auth/sessionkey', //获取sessinkey
   INIT_DKDATA: API_BASE_URL + 'auth/init_dk_data',//初始化数据
   SYNC_STEPS: API_BASE_URL + 'auth/decrypt_weixin_data',//用户登录步数同步接口
+  COMMON_INVITATION: API_BASE_URL + 'auth/invitation',//通用邀请
   HOME_QUERY_DKINDEX_CATEGORY: API_BASE_URL + 'dk_index/category',
   MALL_QUERY_DKGOODS_LIST: API_BASE_URL + 'dk_goods/list',
   MALL_QUERY_GOODS_DETAIL: API_BASE_URL + 'dk_goods/detail',
@@ -57,6 +58,8 @@ module.exports = {
   DKORDER_LIST: API_BASE_URL + 'dk_order/list',// 订单管理
   DKORDER_WULIU: API_BASE_URL + 'dk_order/express',//查看物流
   DKORDER_ORDERDETAIL: API_BASE_URL + 'dk_order/detail',//订单详情
+  DKORDER_CANCEL: API_BASE_URL + 'dk_order/cancelOrder',//订单取消
+  DKORDER_CONFIRM: API_BASE_URL + 'dk_order/confirm',//确认收货
 
   PayPrepayId: API_BASE_URL + 'pay/prepay', //获取微信统一下单prepay_id
   
@@ -66,13 +69,32 @@ module.exports = {
   
   QIANDAOLIST: API_BASE_URL + 'dkstep/sing_in_record',// 连续签到记录查询
   QIANDAO: API_BASE_URL + 'dkstep/sing_in',// 用户签到 
+  QIANDAONUM: API_BASE_URL + 'dkstep/sign_user_num',// 今日签到人数
+  STEPRECORD: API_BASE_URL + 'dkstep/query_step_records',// 查找步数消费生成记录
   
   MESSAGENUM_TOTAL: API_BASE_URL + 'notice/count_unread_notice_total',// 查询我的未读通知总数
   MESSAGENUM_TYPE: API_BASE_URL + 'notice/count_unread_notice_type',// 分别统计我的各类未读通知数目
-  MESSAGENUM_REWARD: API_BASE_URL + 'notice/unreadNotice_reward',// 我的未读[打赏]通知
-  MESSAGENUM_COMMENT: API_BASE_URL + 'notice/unreadNotice_comment',// 我的未读[评论]通知
-  MESSAGENUM_FANS: API_BASE_URL + 'notice/unreadNotice_fans',// 我的未读[粉丝(被关注)]通知
-  MESSAGENUM_SYSTEM: API_BASE_URL + 'notice/unreadNotice_sys',// 我的未读[系统]通知
+  MESSAGENUM_REWARD: API_BASE_URL + 'notice/my_notice_reward',// 我的未读[打赏]通知
+  MESSAGENUM_COMMENT: API_BASE_URL + 'notice/my_notice_comment',// 我的未读[评论]通知
+  MESSAGENUM_FANS: API_BASE_URL + 'notice/my_notice_fans',// 我的未读[粉丝(被关注)]通知
+  MESSAGENUM_SYSTEM: API_BASE_URL + 'notice/my_notice_sys',// 我的未读[系统]通知
   MESSAGENUM_CHANGESTATUS: API_BASE_URL + 'notice/change_notice_status',// 改变[某个]通知的阅读状态
   MESSAGENUM_CHANGESTATUS_BATCH: API_BASE_URL + 'notice/change_notice_status_Batch',// 改变[批量]通知的阅读状态
+  
+  TEAM_CREATE: API_BASE_URL + 'run_team/creat_team',// 创建跑团
+  TEAM_LIST: API_BASE_URL + 'run_team/my_team_list',// 我参与的团队列表
+  TEAM_DETAIL: API_BASE_URL + 'run_team/team_details',// 团队详情
+  TEAM_DETAIL_EXIT: API_BASE_URL + 'run_team/quit_team',// 退出团队
+  TEAM_DETAIL_DELETE: API_BASE_URL + 'run_team/dismiss_team',// 解散团队
+  TEAM_DETAIL_EXPEL: API_BASE_URL + 'run_team/expel_team',// 踢出团队
+  TEAM_UPDATE: API_BASE_URL + 'run_team/update_team',// 修改团队信息
+  TEAM_JOIN: API_BASE_URL + 'run_team/join_team',// 加入团队
+  
+  REWARD_USER: API_BASE_URL + 'step_square/reward_user',// 打赏个人
+  TOPIC_FORWARD: API_BASE_URL + 'step_square/forward',// 话题转发+1
+  
+  PAYQUERY: API_BASE_URL + 'pay/query',// 支付成功-查询微信支付状态
+  
+  GZH_QUERY:  API_BASE_URL + 'wxtask/concern',// 支付成功-查询微信支付状态
+  GZH_REWARD:  API_BASE_URL + 'wxtask/reward',// 支付成功-查询微信支付状态
 };

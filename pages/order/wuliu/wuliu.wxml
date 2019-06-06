@@ -7,7 +7,8 @@
     </view>
     <view class="r">
       <view class="name">物流公司：<text>{{name}}</text></view>
-      <view class="orderid"><view>物流单号：<text>{{shippingNo}}</text></view><view class="copybtn">复制单号</view></view>
+      <view class="orderid"><view>物流单号：<text>{{shippingNo}}</text></view>
+      <view class="copybtn" bindtap='copyText' data-text="{{shippingNo}}">复制单号</view></view>
     </view>
   </view>
   <view class="wuliustatus">

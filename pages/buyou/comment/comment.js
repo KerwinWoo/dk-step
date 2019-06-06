@@ -77,7 +77,7 @@ Page({
     let that = this
     if(!that.data.comment){
       wx.showToast({
-        title: '请您添加评论信息',
+        title: '请添加评论信息',
         icon: 'none',
         duration: 2000
       })

@@ -134,12 +134,21 @@ image{
   text-align: center;
   line-height: 86rpx;
   display: block;
+  margin-top:100rpx;
 }
-.createBtn.disable{
-  background:#eee;
+.createBtn.disabled{
+  background:#eee!important;
+  color:#999;
 }
 .tip{
   font-size:24rpx;
   text-align: center;
   margin-top:10rpx;
+}
+button[disabled]{
+  background:#eee!important;
+  color:#999!important;
+}
+.require{
+  border:1px solid #FE6134;
 }

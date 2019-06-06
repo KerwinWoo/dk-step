@@ -179,7 +179,7 @@ Page({
     let that = this
     let itemData = that.data.topicDataList[data.parentindex]
     if (!itemData.giveEgg) {
-      that.toast.showToast('打赏成功，已将您的1枚蛋壳打赏给TA')
+      that.toast.showToast('打赏成功，已将你的1枚蛋壳打赏给TA')
       that.data.topicDataList[data.parentindex].giveEgg = true
       that.setData({
         topicDataList: that.data.topicDataList

@@ -2,56 +2,29 @@
 <view class="container hastop">
   <dk-nav title="收到的评论" hasBorder hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
   <view class="commentlist">
-    <view class="itm">
+    <view class="itm" wx:for="{{list}}" wx:key="{{noticeId}}">
       <view class="wrp">
         <view class="t">
           <view class="info">
             <view class="img">
-              <image-loader mode="aspectFill" original-image=""></image-loader>
+              <image-loader mode="aspectFill" original-image="{{item.avatar}}"></image-loader>
             </view>
             <view class="r">
-              <view class="name">行走的蛋壳</view>
-              <view class="time">58分钟前</view>
+              <view class="name">{{item.nickname}}</view>
+              <view class="time">{{item.createTime}}</view>
             </view>
           </view>
-          <view class="replybtn btn-simple">回复</view>
+          <navigator class="replybtn btn-simple" url="/pages/buyou/comment/comment?targetName={{item.nickname}}&communityId={{item.communityId}}&targetUserId={{item.userId}}" hover-class="none">回复</navigator>
         </view>
         <view class="content">
-          好美哦，春天来了就是适合出去跑步，很健康，希望大家都锻炼起来
+          {{item.comment}}
         </view>
         <view class="topic">
           <view class="pic">
-            <image-loader original-image="" mode="aspectFill"></image-loader>
+            <image-loader original-image="{{item.imgSrc}}" mode="aspectFill"></image-loader>
           </view>
           <view class="subcontent">
-            在我的生命中，运动就像温柔地吹拂着我，带我走出自我的暖暖春风；我最难忘、最刻骨铭心的记忆都和它相关；因为我爱运动，而运动是我对待度。
-          </view>
-        </view>
-      </view>
-    </view>
-    <view class="itm">
-      <view class="wrp">
-        <view class="t">
-          <view class="info">
-            <view class="img">
-              <image-loader mode="aspectFill" original-image=""></image-loader>
-            </view>
-            <view class="r">
-              <view class="name">行走的蛋壳</view>
-              <view class="time">58分钟前</view>
-            </view>
-          </view>
-          <view class="replybtn btn-simple">回复</view>
-        </view>
-        <view class="content">
-          好美哦，春天来了就是适合出去跑步，很健康，希望大家都锻炼起来
-        </view>
-        <view class="topic">
-          <view class="pic">
-            <image-loader original-image="" mode="aspectFill"></image-loader>
-          </view>
-          <view class="subcontent">
-            在我的生命中，运动就像温柔地吹拂着我，带我走出自我的暖暖春风；我最难忘、最刻骨铭心的记忆都和它相关；因为我爱运动，而运动是我对待度。
+            {{item.content}}          
           </view>
         </view>
       </view>

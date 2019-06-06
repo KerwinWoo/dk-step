@@ -137,6 +137,14 @@ Page({
   giveEgg (e) {
     const data = e.currentTarget.dataset
     let that = this
+    if(that.data.communityVo.create_user_id == wx.getStorageSync('userId')){
+      wx.showToast({
+        title:'不能打赏自己哦~',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
     let itemData = that.data.topicDataList[data.parentindex]
     if(itemData.reward_status == 0){
       let communityVo = that.data.communityVo
@@ -145,7 +153,7 @@ Page({
         targetUserId: communityVo.create_user_id
       }).then(function(res){
         if(res.errno == 0){
-          that.toast.showToast('打赏成功，已将您的2枚蛋壳打赏给TA')
+          that.toast.showToast('打赏成功，已将你的2枚蛋壳打赏给TA')
           communityVo.reward_status = 1
           that.setData({
             communityVo: communityVo

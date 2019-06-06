@@ -11,6 +11,14 @@ Component({
     inputStatus: {
       type: String,
       value: ''
+    },
+    minusStatus: {
+      type: String,
+      value: ''
+    },
+    num: {
+        type: Number,
+        value:1
     }
   },
 
@@ -30,7 +38,7 @@ Component({
    */
   methods: {
     /* 点击减号 */  
-    bindMinus: function(event) {  
+    bindMinus: function(e) {  
         var num = this.data.num;  
         // 如果大于1时，才可以减  
         if (num > 1) {  
@@ -42,12 +50,12 @@ Component({
         this.setData({  
             num: num,  
             minusStatus: minusStatus  
-        });  
-        this.triggerEvent('bindMinus', {event}, {})
+        });
+        this.triggerEvent('bindMinus', {e}, {})
     },  
     /* 点击加号 */  
-    bindPlus: function(event) {  
-        if(this.data.plusStatus != ' disabled'){
+    bindPlus: function(e) {
+        if(this.data.plusStatus != 'disabled'){
            var num = this.data.num;  
            // 不作过多考虑自增1  
            num ++;  
@@ -59,7 +67,7 @@ Component({
                minusStatus: minusStatus  
            });  
         }
-        this.triggerEvent('bindPlus', {event}, {})
+        this.triggerEvent('bindPlus', {e}, {})
     },  
     /* 输入框事件 */  
     bindManual: function(e) {  
@@ -68,6 +76,7 @@ Component({
         this.setData({  
             num: num  
         });  
+        e.currentTarget.dataset.num = num
         this.triggerEvent('bindManual', {e}, {})
     } 
   }

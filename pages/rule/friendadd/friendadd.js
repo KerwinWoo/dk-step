@@ -61,7 +61,11 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: '道路千万条，走路第一条，步数别浪费，快来这里兑',
+      path: '/pages/index/index?fromInvite=1&type=1&push_userid=' + wx.getStorageSync('userId'),
+      imageUrl: 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/invitation_homepage.png'
+    }
   },
   backTo (e) {
     wx.switchTab({

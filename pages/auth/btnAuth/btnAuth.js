@@ -49,20 +49,15 @@ Page({
           wx.setStorageSync('token', res.data.token);
           wx.setStorageSync('userId', res.data.userId);
           wx.setStorageSync('sessionkey', res.data.sessionkey);
-          /* util.request(api.SYNC_STEPS,{
-          }).then(function (res) {
-            debugger
-          }) */
-          wx.navigateBack()
           if(inviteInfo){
             wx.removeStorageSync('inviteInfo')
           }
+          wx.navigateBack()
 
         } else {
-          // util.showErrorToast(res.errmsg)
           wx.showModal({
             title: '提示',
-            content: res.errmsg,
+            content: res.errmsg?res.errmsg:res.msg,
             showCancel: false
           });
         }

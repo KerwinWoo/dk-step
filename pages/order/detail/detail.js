@@ -14,17 +14,61 @@ Page({
       num: 2,
       dk: 989
     },
-    isPay: true
+    isPay: true,
+    countDownList: [],
+    actEndTimeList: [],
+    intervalHander: null
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log('options', options)
     this.setData({
-      orderId: options.orderid
+      orderId: options.orderid,
+      fromIndex : options.fromIndex?options.fromIndex:''
     })
     this.loadOrderDetail()
+  },
+  timeFormat(param){//小于10的格式化函数
+    return param < 10 ? '0' + param : param; 
+  },
+  countDown(){
+    let newTime = new Date().getTime();
+    let endTime = this.data.endTime;
+    let obj = null;
+    // 如果活动未结束，对时间进行处理
+    if (endTime - newTime > 0){
+      let time = (endTime - newTime) / 1000;
+      // 获取天、时、分、秒
+      let day = parseInt(time / (60 * 60 * 24));
+      let hou = parseInt(time % (60 * 60 * 24) / 3600);
+      let min = parseInt(time % (60 * 60 * 24) % 3600 / 60);
+      let sec = parseInt(time % (60 * 60 * 24) % 3600 % 60);
+      obj = {
+        day: this.timeFormat(day),
+        hou: this.timeFormat(hou),
+        min: this.timeFormat(min),
+        sec: this.timeFormat(sec)
+      }
+    }else{//活动已结束，全部设置为'00'
+      obj = {
+        day: '00',
+        hou: '00',
+        min: '00',
+        sec: '00'
+      }
+      clearInterval(this.data.intervalHander)
+      this.data.intervalHander = null
+      wx.navigateTo({
+        url: '/pages/order/me/me'
+      })
+    }
+    // 渲染，然后每隔一秒执行一次倒计时函数
+    this.setData({
+      timer: obj
+    })
   },
   loadOrderDetail () {
     let that = this
@@ -34,8 +78,16 @@ Page({
       if(res.errno === 0){
         that.setData({
           orderInfo: res.data.orderInfo,
-          goodsInfo: res.data.goodsInfo
+          goodsInfo: res.data.goodsInfo,
+          endTime: new Date().getTime() + (res.data.orderInfo.finalTime*1000)
         })
+        if(res.data.orderInfo.order_status == '0'){
+          // 执行倒计时函数
+          that.countDown()
+          that.data.intervalHander = setInterval(function(){
+            that.countDown()
+          }, 1000)
+        }
       }
     })
   },
@@ -88,7 +140,14 @@ Page({
 
   },
   backTo () {
-    wx.navigateBack()
+    if(this.data.fromIndex && this.data.fromIndex == 0){
+      wx.navigateTo({
+        url: '/pages/order/me/me?orderStatus=0&fromIndex=0'
+      })
+    }
+    else{
+      wx.navigateBack()
+    }
   },
   gotoPay () {
     wx.navigateTo({
@@ -119,7 +178,7 @@ Page({
     let data = e.currentTarget.dataset
     let goodsId = data.goodsid
     let orderId = data.orderid
-    utils.request(api.PayPrepayId, { orderId: orderId, payType: 1 }, 'POST', 'application/json').then(function (res) {
+    utils.request(api.PayPrepayId, { orderId: orderId}, 'POST', 'application/json').then(function (res) {
       if (res.errno === 0) {
         let payParam = res.data;
         console.log('prepay', res)
@@ -151,5 +210,22 @@ Page({
   bindTzFahuo () {
     let that = this
     that.toast.showToast('已通知商家尽快发货，请耐心等待')
+  },
+  doCancel () {
+    let that = this
+    utils.request(api.DKORDER_CANCEL,{
+      orderId: that.data.orderId
+    }).then(function(res){
+      if(res.errno === 0){
+        wx.showToast({
+          title: '取消成功',
+          icon: 'success',
+          duration: 2000,
+          success: function(){
+            wx.navigateBack()
+          }
+        })
+      }
+    })
   }
 })

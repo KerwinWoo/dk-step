@@ -37,9 +37,9 @@ function formatNumber(n) {
 }
 
 function request(url, data = {}, method = "POST", header = "application/x-www-form-urlencoded") {
-  wx.showLoading({
+  /* wx.showLoading({
     title: '加载中...',
-  });
+  }); */
   return new Promise(function (resolve, reject) {
     wx.request({
       url: url,
@@ -50,7 +50,7 @@ function request(url, data = {}, method = "POST", header = "application/x-www-fo
         'X-Nideshop-Token': wx.getStorageSync('token')
       },
       success: function (res) {
-        wx.hideLoading();
+        //wx.hideLoading();
         if (res.statusCode == 200) {
 
           if (res.data.errno == 401) {

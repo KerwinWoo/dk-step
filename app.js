@@ -44,7 +44,8 @@ App({
     },
     token: '',
     windowWidth: 0,
-    windowHeight: 0
+    windowHeight: 0,
+    teamFromUrl: ''
   },
   // 更新小程序
   updateManager: function () {

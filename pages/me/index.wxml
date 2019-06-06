@@ -50,27 +50,28 @@
       <navigator class="itm" url="/pages/order/me/me?orderStatus=0" hover-class="none">
         <view class="imgCont">
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ordericn_dfk.png"></image>
+          <view class="message" wx:if="{{numfk > 0}}">{{numfk}}</view>
         </view>
         <view class="title">待付款</view>
-        <view class="message" wx:if="{{numfk > 0}}">{{numfk}}</view>
       </navigator>
       <navigator class="itm" url="/pages/order/me/me?orderStatus=201" hover-class="none">
         <view class="imgCont">
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ordericn_dfh.png"></image>
+          <view class="message" wx:if="{{numfh > 0}}">{{numfh}}</view>
         </view>
         <view class="title">待发货</view>
-        <view class="message" wx:if="{{numfh > 0}}">{{numfh}}</view>
       </navigator>
       <navigator class="itm" url="/pages/order/me/me?orderStatus=300" hover-class="none">
         <view class="imgCont">
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ordericn_dsh.png"></image>
+          <view class="message" wx:if="{{numsh > 0}}">{{numsh}}</view>
         </view>
         <view class="title">待收货</view>
-        <view class="message" wx:if="{{numsh > 0}}">{{numsh}}</view>
       </navigator>
       <navigator class="itm" url="/pages/order/shouhou/shouhou" hover-class="none">
         <view class="imgCont">
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ordericn_sh.png"></image>
+          <view class="message" wx:if="{{numth > 0}}">{{numth}}</view>
         </view>
         <view class="title">退换/售后</view>
       </navigator>
@@ -113,12 +114,12 @@
         </view>
         <view class="title">联系客服</view>
       </button>
-      <button class="itm" open-type="contact">
+      <navigator class="itm" url="/pages/service/bushu/bushu" hover-class="none">
         <view class="imgCont">
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_step.png"></image>
         </view>
         <view class="title">步数明细</view>
-      </button>
+      </navigator>
       <navigator class="itm" url="/pages/service/contactus/contactus" hover-class="none">
         <view class="imgCont">
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_lianxi.png"></image>
@@ -133,7 +134,7 @@
       </navigator>
     </view>
     <view class="row">
-      <navigator class="itm" url="" hover-class="none">
+      <navigator class="itm" url="/pages/rule/rule" hover-class="none">
         <view class="imgCont">
           <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_rule.png"></image>
         </view>

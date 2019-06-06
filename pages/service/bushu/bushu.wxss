@@ -1,0 +1,8 @@
+/* pages/service/bushu/bushu.wxss */
+@import '../../me/dk/dk.wxss'
+.t .info text:last-child{
+  font-size: 66rpx;
+ }
+ .list .itm .l{
+   line-height: 40rpx;
+ }

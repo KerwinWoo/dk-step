@@ -1,10 +1,27 @@
 <!--pages/me/friend/friend.wxml-->
 <view class="container">
   <dk-nav title="好友列表" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+  <view class="banner">
+    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/banner_friend.png" lazy-load></image>
+  </view>
+  <view class="summary">
+    <view class="itm">
+      <view class="title">当前好友</view>
+      <view>{{count}}</view>
+    </view>
+     <view class="itm">
+      <view class="title">当前加成</view>
+      <view>{{nowPercent}}%</view>
+    </view>
+     <view class="itm">
+      <view class="title">在途加成</view>
+      <view>{{futurePercent}}%</view>
+    </view>
+  </view>
   <view class="row titlerow">
     <view class="col">排名</view>
-    <view class="col">用户名</view>
-    <view class="col">运动步数</view>
+    <view class="col">好友昵称</view>
+    <view class="col">步数</view>
     <view class="col">打赏</view>
   </view>
   <view class="row contentrow" wx:for="{{friendList}}" wx:key="{{index}}">
@@ -12,15 +29,20 @@
       <image wx:if="{{index == 0}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/friend_r1.png"></image>
       <image wx:if="{{index == 1}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/friend_r2.png"></image>
       <image wx:if="{{index == 2}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/friend_r3.png"></image>
+      <image wx:if="{{index != 0 && index != 1 && index != 2}}" src=""></image>
       <text>{{index+1}}</text>
     </view>
     <view class="col">
-      <image class="photo" mode="aspectFill" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg"></image>
+      <image-loader class="photo" original-image="{{item.avatar}}" mode="aspectFill"></image-loader>
       <text>{{item.nickname}}</text>
     </view>
-    <view class="col">23000</view>
+    <view class="col">{{item.step?item.step:0}}</view>
     <view class="col">
-      <view class="dsbtn btn-simple">已打赏</view>
+      <view class="dsbtn btn-simple" wx:if="{{item.reward_eggshell_num}}">已打赏</view>
+      <view class="dsbtn btn-simple" data-targetid="{{item.user_friend_id}}" bindtap="rewardUser" wx:if="{{!item.reward_eggshell_num}}">打赏Ta</view>
     </view>
   </view>
 </view>
+<button open-type="share" hover-class="none" class="inviteBtn btn-default resetBtn">邀请好友</button>
+
+<dk-toast id="toast" duration="3000"></dk-toast>

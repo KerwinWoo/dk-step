@@ -1,25 +1,11 @@
 <!--pages/team/manage/member/member.wxml-->
 <view class="container hastop">
   <dk-nav title="成员管理" hasBackBtn hasBorder isFixed bind:backTo="backTo"></dk-nav>
-  <view class="row">
+  <view class="row" wx:for="{{teamMemberList}}" wx:key="{{index}}">
     <view class="wrp">
-      <view class="pic"><image mode="aspectFill" lazy-load src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg"></image></view>
-      <view class="name">行走的蛋壳</view>
-      <view class="btn btn-simple">踢出团队</view>
-    </view>
-  </view>
-  <view class="row">
-    <view class="wrp">
-      <view class="pic"><image mode="aspectFill" lazy-load src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg"></image></view>
-      <view class="name">行走的蛋壳</view>
-      <view class="btn btn-simple">踢出团队</view>
-    </view>
-  </view>
-  <view class="row">
-    <view class="wrp">
-      <view class="pic"><image mode="aspectFill" lazy-load src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg"></image></view>
-      <view class="name">行走的蛋壳</view>
-      <view class="btn btn-simple">踢出团队</view>
+      <view class="pic"><image mode="aspectFill" lazy-load src="{{item.avatar}}"></image></view>
+      <view class="name">{{item.nickname}}</view>
+      <view class="btn btn-simple" data-userid="{{item.user_id}}" wx:if="{{item.user_id != userId}}" bindtap="doExpel">踢出团队</view>
     </view>
   </view>
   

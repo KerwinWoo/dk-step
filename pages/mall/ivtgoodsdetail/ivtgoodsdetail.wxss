@@ -1,5 +1,0 @@
-/* pages/mall/ivtgoodsdetail/ivtgoodsdetail.wxss */
-@import '/pages/mall/goodsdetail/goodsdetail.wxss';
-.record.ivtrecord{
-  margin-top:30rpx;
-}

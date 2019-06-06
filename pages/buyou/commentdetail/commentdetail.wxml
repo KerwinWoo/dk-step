@@ -12,7 +12,7 @@
       <view class="name">
         <text class="skeleton-tab1-rect">{{communityVo.nickname}}</text>
       </view>
-      <view class="topictype">
+      <view class="topictype"  wx:if="{{communityVo.tag_name}}">
         <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/huati%402x.png"></image>
         {{communityVo.tag_name}}
       </view>
@@ -31,7 +31,6 @@
         </view>
       </view>
       <view class="addrs" wx:if="{{communityVo.location}}">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dibiao%402x.png"></image>
         <text>{{communityVo.location}}</text>
       </view>
     </view>
@@ -59,7 +58,10 @@
           <text wx:if="{{item.target_user_id != communityVo.create_user_id}}">{{item.target_nickname}}</text>
         </view>
         <view class="time">{{item.create_time}}</view>
-        <view class="txt">{{item.comment}}<text class="endcomment" bindtap="doCommentWithName" data-id="{{communityVo.id}}" data-uid="{{item.user_id}}" data-name="{{item.nickname}}">回复</text></view>
+        <view class="txt">{{item.comment}}
+        <text class="endcomment" bindtap="doCommentWithName" 
+          data-id="{{communityVo.id}}" data-uid="{{item.user_id}}" 
+          data-name="{{item.nickname}}">回复</text></view>
       </view>
     </view>
   </view>

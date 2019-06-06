@@ -1,4 +1,6 @@
 // pages/order/shouhou/shouhou.js
+const utils = require('../../../utils/util.js')
+const api = require('../../../api/api.js')
 Page({
 
   /**
@@ -33,7 +35,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.loadOrderlist()
   },
 
   /**
@@ -72,5 +74,19 @@ Page({
   },
   backTo () {
     wx.navigateBack()
+  },
+  loadOrderlist () {
+    let that = this
+    utils.request(api.DKORDER_LIST,{
+      page:1,
+      size:10,
+      order_status: '402'
+    },'POST').then(function(res){
+      if(res.errno === 0){
+        that.setData({
+          orderList: res.data.data
+        })
+      }
+    })
   }
 })

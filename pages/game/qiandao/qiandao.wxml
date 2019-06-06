@@ -8,40 +8,46 @@
       <view class="row">
         <view class="itm">
           <view class="t">第一天</view>
-          <view class="b">+500步</view>
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i_ok.png" class="activeimg"></image>
+          <view class="b">+{{signList[0].day1.step}}步</view>
+          <image wx:if="{{lianxu > 0}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i_ok.png" class="activeimg"></image>
         </view>
         <view class="itm">
           <view class="t">第二天</view>
-          <view class="b">+800步</view>
+          <view class="b">+{{signList[1].day2.step}}步</view>
+          <image wx:if="{{lianxu > 1}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i_ok.png" class="activeimg"></image>
         </view>
         <view class="itm">
           <view class="t">第三天</view>
-          <view class="b">+1000步</view>
+          <view class="b">+{{signList[2].day3.step}}步</view>
+          <image wx:if="{{lianxu > 2}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i_ok.png" class="activeimg"></image>
         </view>
         <view class="itm">
           <view class="t">第四天</view>
           <view class="b">
-            <view>+1000步</view>
-            <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>×2</view>
+            <view>+{{signList[3].day4.step}}步</view>
+            <view wx:if="{{signList[3].day4.dk > 0}}"><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>×2</view>
           </view>
+          <image wx:if="{{lianxu > 3}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i_ok.png" class="activeimg"></image>
         </view>
       </view>
       <view class="row row2">
         <view class="itm">
           <view class="t">第五天</view>
-          <view class="b">+1500步</view>
+          <view class="b">+{{signList[4].day5.step}}步</view>
+          <image wx:if="{{lianxu > 4}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i_ok.png" class="activeimg"></image>
         </view>
         <view class="itm">
           <view class="t">第六天</view>
-          <view class="b">+2000步</view>
+          <view class="b">+{{signList[5].day6.step}}步</view>
+          <image wx:if="{{lianxu > 5}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i_ok.png" class="activeimg"></image>
         </view>
         <view class="itm">
           <view class="t">第七天</view>
           <view class="b">
-            <view>+2000步</view>
-            <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>×5</view>
+            <view>+{{signList[6].day7.step}}步</view>
+            <view wx:if="{{signList[6].day7.dk > 0}}"><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>×5</view>
           </view>
+          <image wx:if="{{lianxu > 6}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i_ok.png" class="activeimg"></image>
         </view>
       </view>
       <view class="qiandao btn-default" bindtap="doQiandao">立即签到</view>

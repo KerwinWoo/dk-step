@@ -1,4 +1,6 @@
 // pages/me/sysmsg/sysmsg.js
+const utils = require('../../../utils/util.js')
+const api = require('../../../api/api.js')
 Page({
 
   /**
@@ -26,7 +28,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.loadData()
   },
 
   /**
@@ -65,5 +67,36 @@ Page({
   },
   backTo () {
     wx.navigateBack()
+  },
+  loadData () {
+    let that = this
+    utils.request(api.MESSAGENUM_SYSTEM).then(function(res){
+      if(res.errno === 0){
+        res.data.data.map(function(value){
+          value.createTime = utils.formatDate(new Date(value.createTime), 'MM-dd hh:mm:ss')
+        })
+        that.setData({
+          list: res.data.data
+        })
+        that.readAll()
+      }
+    })
+  },
+  readAll () {
+    let that = this
+    let ids = []
+    that.data.list.map(function(value, index){
+      if(value.readStatus == '0'){
+        ids.push(value.id)
+      }
+    })
+    if(ids.length > 0){
+      utils.request(api.MESSAGENUM_CHANGESTATUS_BATCH,{
+        ids: ids
+      }).then(function(res){
+        if(res.errno === 0){
+        }
+      })
+    }
   }
 })

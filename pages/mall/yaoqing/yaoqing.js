@@ -76,8 +76,9 @@ Page({
   onShareAppMessage: function () {
     let that = this
     return {
-      title: '跟我一起来免费兑换"' + that.data.info.name + '"',
-      path: '/pages/mall/goodsdetail/goodsdetail?type=3&business='+ that.data.info.id + '&push_userid=' + wx.getStorageSync('userId')
+      title: '就差你了，你帮我点一下就能用步数兑换到这个商品了~',
+      imageUrl: that.data.info.list_pic_url,
+      path: '/pages/index/index?fromInvite=1&type=3&business='+ that.data.info.id + '&push_userid=' + wx.getStorageSync('userId') + '&forwardUrl='+encodeURIComponent('/pages/mall/goodsdetail/goodsdetail'),
     }
   },
   backTo () {

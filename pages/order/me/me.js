@@ -18,11 +18,10 @@ Page({
   onLoad: function (options) {
     console.log('options', options)
     let that = this
-    if(options.orderStatus){
-      that.setData({
-        order_status : options.orderStatus
-      })
-    }
+    that.setData({
+      order_status : options.orderStatus?options.orderStatus:'',
+      fromIndex : options.fromIndex?options.fromIndex:''
+    })
     that.loadOrderlist()
   },
   /**
@@ -73,7 +72,14 @@ Page({
 
   },
   backTo () {
-    wx.navigateBack()
+    if(this.data.fromIndex && this.data.fromIndex == 0){
+      wx.switchTab({
+        url: '/pages/me/index'
+      })
+    }
+    else{
+      wx.navigateBack()
+    }
   },
   changeType (e) {
     let that = this
@@ -138,5 +144,23 @@ Page({
   bindTzFahuo () {
     let that = this
     that.toast.showToast('已通知商家尽快发货，请耐心等待')
+  },
+  toShouhuo (e) {
+    let that = this
+    utils.request(api.DKORDER_CONFIRM, {
+      orderId: e.currentTarget.dataset.orderid
+    }).then(function(res){
+      if(res.errno === 0){
+        wx.showToast({
+          title: '订单已完成',
+          icon: 'success',
+          duration: 2000
+        })
+        that.setData({
+          order_status: '301'
+        })
+        that.loadOrderlist()
+      }
+    })
   }
 })

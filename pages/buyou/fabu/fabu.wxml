@@ -14,11 +14,6 @@
   </view> -->
   <view class="choosedImgs">
     <view class="imgcont clearfix">
-      <view class="uploadImg wrp" bindtap="chooseImg">
-        <view class="subwrp">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fabu_upload.png"></image>
-        </view>
-      </view>
       <view class="wrp" wx:for="{{choosedImgs}}" wx:key="{{item}}">
         <view class="subwrp">
           <image-loader 
@@ -29,6 +24,11 @@
             data-current="{{item}}"></image-loader>
         </view>
         <image class="removeBtn" data-index="{{index}}" bindtap="removeChoosedImg" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fabu_close.png"></image>
+      </view>
+      <view class="uploadImg wrp" bindtap="chooseImg" wx:if="{{choosedImgs.length < 9}}">
+        <view class="subwrp">
+          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fabu_upload.png"></image>
+        </view>
       </view>
     </view>
   </view>
@@ -42,9 +42,10 @@
       <view class="row">
         <view class="topic choosed" wx:if="{{choosedTopic != ''}}">
           #{{choosedTopic}}
-          <image class="remove" bindtap="removeTopic" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fabu_close.png"></image>
+          <image class="remove" bindtap="removeTopic" 
+            src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fabu_close.png"></image>
         </view>
-        <view class="tip">参与话题可获得更多步友的关注和打赏哦</view>
+        <view class="tip" wx:if="{{choosedTopic == ''}}">参与话题可获得更多步友的关注和打赏哦</view>
       </view>
       <view class="title">
         <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fabu_huati.png"></image>

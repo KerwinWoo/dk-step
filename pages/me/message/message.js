@@ -75,7 +75,27 @@ Page({
     let that = this
     utils.request(api.MESSAGENUM_TYPE).then(function(res){
       if(res.errno === 0){
-        debugger
+        let [a,b,c,d] = [0,0,0,0]
+        res.data.forEach(function(value, index){
+          if(value.noticeType == '1'){
+            a = value.count
+          }
+          if(value.noticeType == '2'){
+            b = value.count
+          }
+          if(value.noticeType == '3'){
+            c = value.count
+          }
+          if(value.noticeType == '4'){
+            d = value.count
+          }
+        })
+        that.setData({
+          numDs: a,
+          numPl: b,
+          numFs: c,
+          numXt: d
+        })
       }
     })
   }

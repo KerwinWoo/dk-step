@@ -4,130 +4,63 @@
   <view class="teaminfo">
     <view class="wrp">
       <view class="photo">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg" mode="aspectFill"></image>
+        <image src="{{teamDetail.avatar}}" mode="aspectFill"></image>
       </view>
       <view class="info">
-        <view class="name">勇胜队</view>
+        <view class="name">{{teamDetail.team_name}}</view>
         <view class="captain">
-          团长：<text>行走的蛋壳</text>
+          团长：<text>{{teamDetail.nickname}}</text>
         </view>
         <view class="member">
-          <view>成员：<text>8</text>人</view>
-          <view>目标：<text>5000</text>步</view>
+          <view>成员：<text>{{teamMemberList.length}}</text>人</view>
+          <view>目标：<text>{{teamDetail.step_day_num}}</text>步</view>
         </view>
       </view>
-      <navigator class="manageBtn btn-simple" hover-class="none" open-type="navigate" url="/pages/team/manage/manage">管理团队</navigator>
+      <navigator wx:if="{{teamDetail.userId == userId}}" class="manageBtn btn-simple" 
+      hover-class="none" open-type="navigate" url="/pages/team/manage/manage?teamId={{teamDetail.teamId}}">管理团队</navigator>
+      <view class="manageBtn btn-simple" wx:if="{{teamDetail.userId != userId}}" bindtap="exitTeam">退出团队</view>
     </view>
-    <view class="slogan">团队宣言：每天运动多一点，健康多一点。每天运动多一点，健康多一点。每天运动多一点，健康多一点。每天运动多一点，健康多一点。</view>
+    <view class="slogan">团队宣言：{{teamDetail.team_declaration}}</view>
   </view>
   <view class="members">
-    <view class="title">今日运动详情</view>
+    <view class="title">今日步数详情</view>
     <view class="memberlist">
-      <view class="itm">
+      <view class="itm" wx:for="{{teamMemberList}}" wx:key="{{index}}">
         <view class="rank">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/friend_r1.png"></image>
-          <text>1</text>
+          <image wx:if="{{index == 0}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_ran1.png"></image>
+          <image wx:if="{{index == 1}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_ran2.png"></image>
+          <image wx:if="{{index == 2}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_ran3.png"></image>
+          <text wx:if="{{index > 2}}">{{index+1}}</text>
         </view>
         <view class="photo">
-          <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg"></image-loader>
-          <text>小狗子</text>
-          <view class="flagcont">
+          <image-loader mode="aspectFill" original-image="{{item.avatar}}"></image-loader>
+          <text>{{item.nickname}}</text>
+          <view class="flagcont" wx:if="{{item.is_leader == 1}}">
             <image class="flag" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/flag01.png"></image>
-            <text>团长</text>
           </view>
         </view>
-        <view class="step">23000</view>
-        <view class="status uncomp">已打赏</view>
-      </view>
-      <view class="itm">
-        <view class="rank">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/friend_r2.png"></image>
-          <text>2</text>
-        </view>
-        <view class="photo">
-          <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg"></image-loader>
-          <text>小狗子</text>
-        </view>
-        <view class="step">23000</view>
-        <view class="status uncomp">打赏ta</view>
-      </view>
-      <view class="itm">
-        <view class="rank">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/friend_r3.png"></image>
-          <text>3</text>
-        </view>
-        <view class="photo">
-          <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg"></image-loader>
-          <text>小狗子小狗子小狗子</text>
-          <view class="flagcont">
-            <image class="flag" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/flag01.png"></image>
-            <text>团长</text>
-          </view>
-        </view>
-        <view class="step">23000</view>
-        <view class="status comp">已达标</view>
-      </view>
-      <view class="itm">
-        <view class="rank">
-          <image src=""></image>
-          <text>4</text>
-        </view>
-        <view class="photo">
-          <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg"></image-loader>
-          <text>小狗子</text>
-        </view>
-        <view class="step">23000</view>
-        <view class="status comp">已达标</view>
-      </view>
-      <view class="itm">
-        <view class="rank">
-          <image src=""></image>
-          <text>4</text>
-        </view>
-        <view class="photo">
-          <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg"></image-loader>
-          <text>小狗子</text>
-        </view>
-        <view class="step">23000</view>
-        <view class="status uncomp">提醒ta</view>
-      </view>
-      <view class="itm">
-        <view class="rank">
-          <image src=""></image>
-          <text>4</text>
-        </view>
-        <view class="photo">
-          <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg"></image-loader>
-          <text>小狗子</text>
-        </view>
-        <view class="step">23000</view>
-        <view class="status comp">已达标</view>
-      </view>
-      <view class="itm">
-        <view class="rank">
-          <image src=""></image>
-          <text>4</text>
-        </view>
-        <view class="photo">
-          <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg"></image-loader>
-          <text>小狗子</text>
-        </view>
-        <view class="step">23000</view>
-        <view class="status comp">已达标</view>
-      </view>
-      <view class="itm">
-        <view class="rank">
-          <image src=""></image>
-          <text>4</text>
-        </view>
-        <view class="photo">
-          <image-loader mode="aspectFill" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/1.jpg"></image-loader>
-          <text>小狗子</text>
-        </view>
-        <view class="step">23000</view>
-        <view class="status comp">已达标</view>
+        <view class="step">{{item.step_first_num}}</view>
+        <view class="status btn-simple" wx:if="{{item.targetStatus == 1}}">已打赏</view>
+        <view class="status btn-simple" wx:if="{{item.targetStatus == 2}}" data-targetid="{{item.user_id}}" bindtap="rewardUser">打赏Ta</view>
+        <view class="status btn-simple" wx:if="{{item.targetStatus == 3}}">未达标</view>
       </view>
     </view>
   </view>
 </view>
-<button class="common_inviteBtn" open-type="share">邀请更多好友</button>
+<button class="common_inviteBtn" open-type="share" wx:if="{{teamMemberList.length < 100}}">邀请更多好友</button>
+
+<view class="commonLayer" wx:if="{{commonLayer}}">
+  <view class="award">
+    <view class="title">温馨提示</view>
+    <view class="content">确定要退出该团队？</view>
+    <view class="btns">
+      <view class="btn btn-simple" bindtap="doExit">确定</view>
+      <view class="btn btn-default" bindtap="cancel">取消</view>
+    </view>
+    <view class="close">
+      <image class="closeBtn" bindtap="cancel" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/close.png"></image>
+    </view>
+  </view>
+</view>
+
+<dk-toast id="toast" duration="3000" isShow="{{toastShow}}"></dk-toast>

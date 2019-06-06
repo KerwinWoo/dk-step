@@ -34,18 +34,23 @@
             <view class="name">{{goodsInfo.name}}</view>
             <view class="dknum">
               <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
-              <text>{{goodsInfo.dkEshellNum}}</text>
-              <text wx:if="{{goodsInfo.retail_price && goodsInfo.retail_price > 0}}">+</text>
-              <text wx:if="{{goodsInfo.retail_price && goodsInfo.retail_price > 0}}">¥{{goodsInfo.retail_price}}</text>
+              <text>{{choosedGoodsInfo.dkEshellNum}}</text>
+              <text class="plus" wx:if="{{choosedGoodsInfo.retail_price && choosedGoodsInfo.retail_price > 0}}">+</text>
+              <text wx:if="{{choosedGoodsInfo.retail_price && choosedGoodsInfo.retail_price > 0}}" class="unit">¥</text>
+              <text wx:if="{{choosedGoodsInfo.retail_price && choosedGoodsInfo.retail_price > 0}}">{{choosedGoodsInfo.retail_price}}</text>
             </view>
           </view>
         </view>
       </view>
       <view class="buynum">
         <view class="title">购买数量</view>
-        <dk-stepper id="stepper" class="numstepper" 
-          inputStatus="{{(goodsType == 'newperson' || goodsType == 'invite') ? 'disabled' : ''}}" 
-          plusStatus="{{(goodsType == 'newperson' || goodsType == 'invite') ? ' disabled' : ''}}"></dk-stepper>
+        <dk-stepper id="mystepper" class="numstepper" 
+         inputStatus="{{(goodsType == 'newperson' || goodsType == 'invite') ? 'disabled' : ''}}" 
+         plusStatus="{{(goodsType == 'newperson' || goodsType == 'invite') ? 'disabled' : ''}}"
+         num = "{{choosedGoodsInfo.num}}"
+         bind:bindPlus="bindPlus"
+         bind:bindMinus="bindMinus"
+         bind:bindManual="bindManual"></dk-stepper>
       </view>
       <view class="buyercomment">
         <input type="text" bindchange="postscriptChange" value="{{postscript}}" placeholder="买家备注：（最多50个字）" placeholder-style="color:#666" maxlength="50" />
@@ -55,11 +60,11 @@
       <view class="title">支付信息</view>
       <view class="row">
         <view class="label">蛋壳</view>
-        <view class="num">{{goodsInfo.dkEshellNum}}</view>
+        <view class="num">{{choosedGoodsInfo.dkEshellNum}}</view>
       </view>
       <view class="row">
         <view class="label">现金</view>
-        <view class="num">￥{{goodsInfo.retail_price}}</view>
+        <view class="num">￥{{choosedGoodsInfo.retail_price}}</view>
       </view>
       <view class="row">
         <view class="label">运费</view>
@@ -69,9 +74,10 @@
         <view class="label">实付：
           <view class="dknum">
             <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
-            <text>{{goodsInfo.dkEshellNum}}</text>
-            <text wx:if="{{goodsInfo.retail_price && goodsInfo.retail_price > 0}}">+</text>
-            <text wx:if="{{goodsInfo.retail_price && goodsInfo.retail_price > 0}}">¥{{goodsInfo.retail_price+goodsInfo.mailCost}}</text>
+            <text>{{choosedGoodsInfo.dkEshellNum}}</text>
+            <text class="plus" wx:if="{{goodsInfo.retail_price && goodsInfo.retail_price > 0}}">+</text>
+            <text class="unit" wx:if="{{goodsInfo.retail_price && goodsInfo.retail_price > 0}}">¥</text>
+            <text wx:if="{{goodsInfo.retail_price && goodsInfo.retail_price > 0}}">{{choosedGoodsInfo.retail_price*1+goodsInfo.mailCost*1}}</text>
           </view>
         </view>
       </view>

@@ -1,9 +1,9 @@
 <!--components/dk-stepper/stepper.wxml-->
 <view class="stepper">  
     <!-- 减号 -->  
-    <text class="{{minusStatus}}" bindtap="bindMinus">-</text>  
+    <text class="{{minusStatus}}" bindtap="bindMinus" data-num="{{num}}">-</text>  
     <!-- 数值 -->  
     <input type="number" disabled="{{(inputStatus == 'disabled') ? true : false}}" bindchange="bindManual" value="{{num}}" />  
     <!-- 加号 -->  
-    <text class="normal{{plusStatus}}" bindtap="bindPlus">+</text>  
+    <text class="normal {{plusStatus}}" bindtap="bindPlus" data-num="{{num}}">+</text>  
 </view> 

@@ -1,19 +1,21 @@
 <!--pages/team/manage/manage.wxml-->
 <view class="container hastop">
   <dk-nav title="管理团队" hasBackBtn hasBorder isFixed bind:backTo="backTo"></dk-nav>
-  <navigator class="row" url="/pages/team/manage/member/member">
+  <navigator class="row" url="/pages/team/manage/member/member?teamId={{teamDetail.teamId}}">
     <view class="wrp">
       <view class="title">成员管理</view>
       <view class="more">
+        <text>{{teamMemberList.length}}人</text>
         <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
       </view>
     </view>
   </navigator>
-  <navigator class="row" url="/pages/team/manage/slogan/slogan">
+  <navigator class="row" 
+    url="/pages/team/manage/slogan/slogan?slogan={{teamDetail.team_declaration}}&teamId={{teamDetail.teamId}}&teamName={{teamDetail.team_name}}&targetNum={{array[index]}}">
     <view class="wrp">
       <view class="title">团队宣言</view>
       <view class="more">
-        <text>每天运动多一点，健康多每天运动多一点，健康多每天运动多一点，健康多每天运动多一点，健康多每天运动多一点，健康多</text>
+        <text>{{teamDetail.team_declaration}}</text>
         <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
       </view>
     </view>
@@ -31,15 +33,29 @@
       </view>
     </view>
   </view>
-  <navigator class="row" url="/pages/team/manage/name/name">
+  <navigator class="row" url="/pages/team/manage/name/name?slogan={{teamDetail.team_declaration}}&teamId={{teamDetail.teamId}}&teamName={{teamDetail.team_name}}&targetNum={{array[index]}}">
     <view class="wrp">
       <view class="title">团队名称</view>
       <view class="more">
-        <text>勇士队</text>
+        <text>{{teamDetail.team_name}}</text>
         <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
       </view>
     </view>
   </navigator>
   
-  <view class="dismiss btn-simple">解散团队</view>
+  <view class="dismiss btn-simple" bindtap="dismissTeam">解散团队</view>
+</view>
+
+<view class="commonLayer" wx:if="{{commonLayer}}">
+  <view class="award">
+    <view class="title">温馨提示</view>
+    <view class="content">确定要解散该团队？</view>
+    <view class="btns">
+      <view class="btn btn-simple" bindtap="doExit">确定</view>
+      <view class="btn btn-default" bindtap="cancel">取消</view>
+    </view>
+    <view class="close">
+      <image class="closeBtn" bindtap="cancel" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/close.png"></image>
+    </view>
+  </view>
 </view>

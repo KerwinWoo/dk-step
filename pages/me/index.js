@@ -14,14 +14,14 @@ Page({
     num_tiezi: 0,
     numfk: 0,
     numfh: 0,
-    numsh: 0
+    numsh: 0,
+    numth: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
   },
 
   /**
@@ -83,7 +83,7 @@ Page({
     },'POST').then(function(res){
       if(res.errno === 0){
         let data = res.data.data
-        let [numfk,numfh,numsh] = [0,0,0]
+        let [numfk,numfh,numsh,numth] = [0,0,0,0]
         data.forEach(function(e){
           if(e.order_status == '0'){
             numfk++
@@ -94,11 +94,15 @@ Page({
           else if(e.order_status == '300'){
             numsh++
           }
+          else if(e.order_status == '401' || e.order_status == '402'){
+            numth++
+          }
         })
         that.setData({
           numfk: numfk,
           numfh: numfh,
-          numsh: numsh
+          numsh: numsh,
+          numth: numth
         })
       }
     })

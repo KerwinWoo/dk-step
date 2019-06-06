@@ -251,8 +251,10 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
+    let that = this
     return {
       title: '抽疯了，华为P30 Pro每日限量大派送~',
+      path: '/pages/index/index?fromInvite=1&type=1&push_userid=' + wx.getStorageSync('userId') + '&forwardUrl='+encodeURIComponent('/pages/game/luckywheel/luckywheel'),
       imageUrl: 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/invitelink.gif'
     }
   },

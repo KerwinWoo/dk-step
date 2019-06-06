@@ -9,7 +9,8 @@
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
-		"autoAudits": false
+		"autoAudits": false,
+		"checkInvalidKey": true
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.0.8",
@@ -35,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 47,
+			"current": 50,
 			"list": [
 				{
 					"id": 0,
@@ -328,7 +329,7 @@
 					"id": 41,
 					"name": "goodsdetail",
 					"pathName": "pages/mall/goodsdetail/goodsdetail",
-					"query": "id=1181050&isInvite=true&type=3&business=1181050&push_userid=46",
+					"query": "id=1181047",
 					"scene": null
 				},
 				{
@@ -371,6 +372,27 @@
 					"name": "message",
 					"pathName": "pages/me/message/message",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "rule",
+					"pathName": "pages/rule/rule",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 49,
+					"name": "orderdetail",
+					"pathName": "pages/order/detail/detail",
+					"query": "orderid=333",
+					"scene": null
+				},
+				{
+					"id": 50,
+					"name": "fabusuccess",
+					"pathName": "pages/buyou/fabusuccess/fabusuccess",
+					"query": "topicid=130",
 					"scene": null
 				}
 			]

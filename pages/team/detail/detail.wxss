@@ -87,10 +87,12 @@ page{
 .memberlist .itm .rank image{
   width:30rpx;
   height:37rpx;
-  margin-right:10rpx;
 }
 .memberlist .itm .photo{
-  width:340rpx;
+  width:410rpx;
+  flex-grow: 1;
+  box-sizing: border-box;
+  padding:0 20rpx;
 }
 .memberlist .itm .photo,.memberlist .itm .rank{
   display: flex;
@@ -99,17 +101,28 @@ page{
   justify-content: flex-start;
   position: relative;
 }
-.memberlist .itm .photo image-loader image{
+.memberlist .itm .rank{
+  width:50rpx;
+  font-size:28rpx;
+  justify-content: center;
+}
+.memberlist .itm .photo image-loader{
   width:80rpx;
   height:80rpx;
   border-radius: 50%;
   margin-right:20rpx;
+  overflow: hidden;
+  position: relative;
+}
+.memberlist .itm .photo image-loader image{
+  width:80rpx;
+  height:80rpx;
 }
 .memberlist .itm .photo>text{
   font-size:30rpx;
   font-weight:bold;
   display: inline-block;
-  max-width:220rpx;
+  max-width:280rpx;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -117,6 +130,7 @@ page{
 }
 .memberlist .itm .step{
   font-size:28rpx;
+  margin:0 20rpx;
 }
 .memberlist .itm .status{
   width:103rpx;
@@ -142,8 +156,8 @@ page{
 }
 .memberlist .itm .flagcont{
   position: relative;
-  width:50rpx;
-  height:58rpx;
+  width:34rpx;
+  height:38rpx;
 }
 .memberlist .itm .flagcont text{
   position: relative;

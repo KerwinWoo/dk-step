@@ -1,4 +1,7 @@
 // pages/team/myteam/myteam.js
+const app = getApp()
+const utils = require('../../../utils/util.js')
+const api = require('../../../api/api.js')
 Page({
 
   /**
@@ -26,7 +29,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.loadMyTeamData()
   },
 
   /**
@@ -64,18 +67,22 @@ Page({
 
   },
   createTeam () {
+    app.globalData.teamFromUrl = 'myteam'
     wx.switchTab({
       url: '/pages/team/team'
-    })
-  },
-  toTeamDetail () {
-    wx.navigateTo({
-      url: '/pages/team/detail/detail'
     })
   },
   backTo () {
-    wx.switchTab({
-      url: '/pages/team/team'
+    this.createTeam()
+  },
+  loadMyTeamData () {
+    let that = this
+    utils.request(api.TEAM_LIST).then(function(res){
+      if(res.errno === 0){
+        that.setData({
+          teamList: res.data
+        })
+      }
     })
   }
 })

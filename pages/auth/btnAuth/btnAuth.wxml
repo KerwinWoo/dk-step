@@ -1,17 +1,14 @@
 <!--index.wxml-->
 <view class="page">
-  <view class="hd">
-    <image class="logo" src="../../../resources/image/loading.gif"></image>
-    <view class="title">欢迎您使用蛋壳步数换小程序!</view>
+  <image class="bg" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/bg_auth.png"></image>
+  <view class="tptitle">欢迎来到蛋壳步数换小程序</view>
+  <view class="logo">
+    <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/logo.png"></image></view>
+    <view class="title">在乎你的每一步</view>
   </view>
-  <view class="bd">
-    <view class="top_line"></view>
-    <text class="m_name">蛋壳步数换小程序申请获得以下权限</text>
-    <text class="s_name">· 获得你的公开信息（昵称、头像等）</text>
-  </view>
-  <view class="btn spacing">
-    <!-- 需要使用 button 来授权登录 -->
-    <button wx:if="{{canIUse}}" open-type="getUserInfo" class="weui_btn weui_btn_primary" bindgetuserinfo="bindGetUserInfo">授权登录</button>
-    <!-- <view wx:else>请升级微信版本</view> -->
-  </view>
+  <button class="loginbtn resetBtn" wx:if="{{canIUse}}" open-type="getUserInfo" 
+    bindgetuserinfo="bindGetUserInfo">
+    <image class="wechat" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/wechat.png"></image>
+    <text>微信授权登录</text>
+  </button>
 </view>

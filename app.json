@@ -27,7 +27,6 @@
     "pages/buyou/topic/topic",
     "pages/buyou/commentdetail/commentdetail",
     "pages/me/fans/fans",
-    "pages/mall/ivtgoodsdetail/ivtgoodsdetail",
     "pages/order/detail/detail",
     "pages/order/me/me",
     "pages/order/shouhou/shouhou",
@@ -55,7 +54,9 @@
     "pages/me/homepage/edit/edit",
     "pages/calorie/post/post",
     "pages/me/pinglun/pinglun",
-    "pages/me/message/fans/fans"
+    "pages/me/message/fans/fans",
+    "pages/service/bushu/bushu",
+    "pages/buyou/fabusuccess/fabusuccess"
   ],
   "window": {
     "backgroundTextStyle": "light",

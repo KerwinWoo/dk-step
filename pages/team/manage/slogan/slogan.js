@@ -1,4 +1,6 @@
 // pages/team/manage/slogan/slogan.js
+const utils = require('../../../../utils/util.js')
+const api = require('../../../../api/api.js')
 Page({
 
   /**
@@ -12,7 +14,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      slogan: options.slogan?options.slogan:'',
+      teamName: options.teamName?options.teamName:'',
+      targetNum: options.targetNum?options.targetNum:'',
+      teamId: options.teamId?options.teamId:'',
+    })
   },
 
   /**
@@ -65,5 +72,32 @@ Page({
   },
   backTo () {
     wx.navigateBack()
+  },
+  bindinput (e) {
+    this.setData({
+      slogan: e.detail.value
+    })
+  },
+  updateTeam () {
+    let that = this
+    if(that.data.slogan){
+      utils.request(api.TEAM_UPDATE, {
+        teamId: that.data.teamId,
+        teamName: that.data.teamName,
+        declaration: that.data.slogan,
+        targetNum: that.data.targetNum
+      }).then(function(res){
+        if(res.errno === 0){
+          wx.navigateBack()
+        }
+      })
+    }
+    else{
+      wx.showToast({
+        title: '请输入团队宣言',
+        icon:'none',
+        duration:2000
+      })
+    }
   }
 })

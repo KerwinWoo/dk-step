@@ -114,7 +114,7 @@ page{
   text-align: center;
   display: inline-block;
   margin-left:40rpx;
-  width:200rpx;
+  width:180rpx;
   box-sizing: border-box;
 }
 .nodata{

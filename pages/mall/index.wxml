@@ -1,6 +1,6 @@
 <!--pages/mall/index.wxml-->
 <refresh-view id='refreshView' hasTop="true" backgroundColor="#f2f2f2" bind:onRefresh="onPullDownRefresh"/>
-<scroll-view class="container" bindtouchstart='handletouchstart' bindtouchmove='handletouchmove' bindtouchend='handletouchend' bindtouchcancel='handletouchcancel'>
+<view class="container" bindtouchstart='handletouchstart' bindtouchmove='handletouchmove' bindtouchend='handletouchend' bindtouchcancel='handletouchcancel'>
   <dk-nav title="步友专享" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
   <scroll-view scroll-x class="fixedNav navbar" scroll-left="{{navbarLeft}}" scroll-with-animation="true">
     <view wx:for="{{goodsTypeData}}"
@@ -10,28 +10,42 @@
           class="itm{{(currentType == index) ? ' active' : ''}}"
           bindtap="changeType">{{item.name}}</view>
   </scroll-view>
-  <view class="goodlist clearfix">
-    <view class="itm" wx:for="{{goodListData}}"
-          wx:key="{{id}}">
-      <view class="wrp">
-        <view class="photo">
-          <image-loader 
-            original-image="{{item.list_pic_url}}" 
-            mode="aspectFill">
-          </image-loader>
-        </view>
-        <view class="content">
-          <view class="name">{{item.name}}</view>
-          <view class="info">
-            <view class="l">
-              <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
-              <text>{{item.dkEshellNum}}</text>
+  <swiper indicator-dots="{{false}}"
+    autoplay="{{false}}" circular bindchange="swiperchange"
+    class="swipercont" style="height:{{allData[currentType].gooslistContHeight}}rpx"
+    current="{{currentType}}">
+    <block wx:for="{{goodsTypeData}}" wx:key="{{index}}">
+      <swiper-item>
+        <view class="goodlist clearfix">
+          <navigator class="itm" wx:for="{{allData[index].list}}"
+                wx:key="{{id}}" 
+                url="/pages/mall/goodsdetail/goodsdetail?id={{item.id}}"
+                hover-class="none">
+            <view class="wrp">
+              <view class="photo">
+                <image-loader 
+                  original-image="{{item.list_pic_url}}" 
+                  mode="aspectFill">
+                </image-loader>
+              </view>
+              <view class="content">
+                <view class="name">{{item.name}}</view>
+                <view class="info">
+                  <view class="l">
+                    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
+                    <text>{{item.dkEshellNum}}</text>
+                    <text class="plus" wx:if="{{item.retail_price && item.retail_price > 0}}">+</text>
+                    <text class="unit">¥</text>
+                    <text wx:if="{{item.retail_price && item.retail_price > 0}}">{{item.retail_price}}</text>
+                  </view>
+                  <view  class="r">已兑换<text>{{item.changeNumber?item.changeNumber:0}}</text>人</view>
+                </view>
+                <view class="exchangeBtn">免费兑换</view>
+              </view>
             </view>
-            <view  class="r">已兑换<text>{{item.changeNumber}}</text>人</view>
-          </view>
-          <view class="exchangeBtn">免费兑换</view>
+          </navigator>
         </view>
-      </view>
-    </view>
-  </view>
-</scroll-view>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>

@@ -15,7 +15,7 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      fromMsgCenter: options.fromMsgCenter
+      fromMsgCenter: options.fromMsgCenter?options.fromMsgCenter:0
     })
   },
 
@@ -98,12 +98,30 @@ Page({
     utils.request(api.MESSAGENUM_REWARD).then(function(res){
       if(res.errno === 0){
         res.data.data.map(function(value){
-          value.rewardTime = utils.formatDate(new Date(value.create_time), 'MM-dd hh:mm:ss')
+          value.rewardTime = utils.formatDate(new Date(value.createTime), 'MM-dd hh:mm:ss')
         })
         that.setData({
           list: res.data.data
         })
+        that.readAll()
       }
     })
+  },
+  readAll () {
+    let that = this
+    let ids = []
+    that.data.list.map(function(value, index){
+      if(value.readStatus == '0'){
+        ids.push(value.noticeId)
+      }
+    })
+    if(ids.length > 0){
+      utils.request(api.MESSAGENUM_CHANGESTATUS_BATCH,{
+        ids: ids
+      }).then(function(res){
+        if(res.errno === 0){
+        }
+      })
+    }
   }
 })

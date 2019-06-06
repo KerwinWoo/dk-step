@@ -3,18 +3,24 @@
   <dk-nav title="退款/售后" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
   <view class="orderlist">
     <view class="itm" wx:for="{{orderList}}" wx:key="{{item.id}}">
-      <navigator class="wrp" url="/pages/order/detail/detail">
+      <navigator class="wrp" url="/pages/order/detail/detail?orderid={{item.id}}" hover-class="none">
         <view class="pic">
           <image-loader class="imgwrp" mode="aspectFit" original-image="{{item.list_pic_url}}"></image-loader>
         </view>
         <view class="content">
-          <view class="name">{{item.name}}</view>
+          <view class="name">{{item.goodsName}}</view>
           <view class="btm">
-            <view class="dknum"><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image><text>{{item.dk}}</text></view>
-            <view class="num">×{{item.num}}</view>
+            <view class="dknum">
+              <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
+              <text>{{item.dk_eshell_num}}</text>
+              <text class="plus" wx:if="{{(item.actual_price) > 0}}">+</text>
+              <text class="unit" wx:if="{{(item.actual_price) > 0}}">￥</text>
+              <text wx:if="{{(item.actual_price) > 0}}">{{item.actual_price}}</text>
+            </view>
+            <view class="num">×{{item.goodsCount}}</view>
           </view>
         </view>
-        <view class="status">{{item.status}}</view>
+        <view class="status">{{item.order_status_text}}</view>
       </navigator>
     </view>
   </view>

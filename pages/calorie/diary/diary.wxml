@@ -6,11 +6,11 @@
     bind:backTo="backTo"></dk-nav>
   <view class="ttitle">
     <view class="title">微信运动数据</view>
-    <view class="history">
+    <!-- <view class="history">
       <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_calendar.png"></image>
       <text>历史记录</text>
       <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more.png"></image>
-    </view>
+    </view> -->
   </view>
   <view class="chartcont">
     <ff-canvas id="line-dom" canvas-id="line" opts="{{opts}}"></ff-canvas>

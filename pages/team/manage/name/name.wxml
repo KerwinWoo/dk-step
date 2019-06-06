@@ -2,9 +2,9 @@
 <view class="container hastop">
   <dk-nav title="团队名称" hasBackBtn isFixed bind:backTo="backTo"></dk-nav>
    <view class="wrp">
-    <input placeholder="团队名称" placeholder-style="color:#999"/>
+    <input placeholder="团队名称" bindinput="bindinput" value="{{teamName}}" placeholder-style="color:#999"/>
     <view class="submitbtn">
-      <text class="btn-default">确定</text>
+      <text class="btn-default" bindtap="updateTeam">确定</text>
     </view>
   </view>
 </view>

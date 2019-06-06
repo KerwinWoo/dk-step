@@ -2,6 +2,7 @@
 @import "/pages/task/task.wxss";
 page{
   background:#fff;
+  padding-bottom: 100rpx;
 }
 .tasklist .itm .desc{
   font-size:24rpx;

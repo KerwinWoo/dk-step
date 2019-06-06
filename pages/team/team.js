@@ -1,4 +1,7 @@
 // pages/team/team.js
+const app = getApp()
+const utils = require('../../utils/util.js')
+const api = require('../../api/api.js')
 Page({
 
   /**
@@ -6,16 +9,19 @@ Page({
    */
   data: {
     array: [5000, 10000, 15000, 20000],
-    index: 0,
     teamName: '',
-    teamSlogan: ''
+    teamSlogan: '',
+    userInfo: wx.getStorageSync('userInfo'),
+/*    teamRequired: true,
+    sloganRequired: true, */
+    buttonDisabled: true,
+    index: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
   },
 
   /**
@@ -29,7 +35,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    if(!app.globalData.teamFromUrl || app.globalData.teamFromUrl != 'myteam'){
+      this.loadMyTeamData()
+    }
+    else{
+      app.globalData.teamFromUrl = ''
+    }
   },
 
   /**
@@ -64,7 +75,11 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return false
+    let that = this
+    return {
+      title: '加入我的步友团',
+      path: '/pages/index/index?fromInvite=1&type=2&business='+ that.data.teamId + '&push_userid=' + wx.getStorageSync('userId') + '&forwardUrl='+encodeURIComponent('/pages/team/myteam/myteam')
+    }
   },
   backTo (e) {
     wx.switchTab({
@@ -77,17 +92,56 @@ Page({
     })
   },
   createTeam () {
-    console.error('点击邀请之前需要校验团队名称和宣言是否为空，但是这个分享动作如何阻止？？？')
-    wx.navigateTo({
-      url: '/pages/team/myteam/myteam'
-    })
-    /* if(this.data.teamName != '' && this.data.teamSlogan != ''){
-      wx.navigateTo({
-        url: '/pages/team/myteam/myteam'
+    let that = this
+    if(!that.data.teamName){
+      wx.showToast({
+        title: '请输入团队名称',
+        icon: 'none'
       })
+      return
     }
-    else{
-      console.log('bull shit')
-    } */
+    if(!that.data.teamSlogan){
+      wx.showToast({
+        title: '请输入团队宣言',
+        icon: 'none'
+      })
+      return
+    }
+    utils.request(api.TEAM_CREATE,{
+      teamName: that.data.teamName,
+      declaration: that.data.teamSlogan,
+      targetNum: that.data.array[that.data.index]
+    }).then(function(res){
+      if(res.errno === 0){
+        wx.navigateTo({
+          url: '/pages/team/myteam/myteam'
+        })
+      }
+    })
+  },
+  teamNameInput (e) {
+    let teamName = e.detail.value;
+    this.setData({
+      teamName: teamName
+    })
+  }
+  ,
+  sloganInput (e) {
+    let slogan = e.detail.value;
+    this.setData({
+      teamSlogan: slogan
+    })
+  },
+  loadMyTeamData () {
+    let that = this
+    utils.request(api.TEAM_LIST).then(function(res){
+      if(res.errno === 0){
+        if(res.data.length > 0){
+          wx.navigateTo({
+            url: '/pages/team/myteam/myteam'
+          })
+        }
+      }
+    })
   }
 })

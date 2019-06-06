@@ -12,11 +12,11 @@ Page({
     topicList: [],
     topicDataList: [{
       attention_status:0,
-      avatar:"https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJEQ6FkGMjPpibNCOyFEPhia8SF7QOzEjVibJotaHiaRszgtklNCFF3dhw64WKeq4KyvviaokcJTNSiafOw/132",
+      avatar:"",
       collection_num:0,
       collection_status:0,
       comment_num:0,
-      content:"就睡觉睡觉睡觉睡觉睡觉睡觉开始",
+      content:"蛋壳步数换",
       create_time:"2019-05-16 10:45:11",
       create_user_id:38,
       eshell_num:0,
@@ -24,26 +24,26 @@ Page({
       id:22,
       img_src:[],
       location:"",
-      nickname:"Mr.Dreamer",
+      nickname:"蛋壳步数换",
       reward_status:1,
-      topic_tag:"话题002",
+      topic_tag:"蛋壳步数换",
       update_time:1557974711000
     },{
       attention_status:0,
-      avatar:"https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJEQ6FkGMjPpibNCOyFEPhia8SF7QOzEjVibJotaHiaRszgtklNCFF3dhw64WKeq4KyvviaokcJTNSiafOw/132",
+      avatar:"",
       collection_num:0,
       collection_status:0,
       comment_num:0,
-      content:"就睡觉睡觉睡觉睡觉睡觉睡觉开始",
+      content:"蛋壳步数换",
       create_time:"2019-05-16 10:45:11",
       create_user_id:38,
       eshell_num:0,
       forward_num:0,
       id:22,
       img_src:[],
-      nickname:"Mr.Dreamer",
+      nickname:"蛋壳步数换",
       reward_status:1,
-      topic_tag:"话题002",
+      topic_tag:"蛋壳步数换",
       update_time:1557974711000
     }],
     topicDataLoaded: false,
@@ -54,10 +54,10 @@ Page({
     showTab2Skeleton: false,
     topicDataList_ME: [{
       id:1,
-      name: '蛋壳',
+      name: '蛋壳步数换',
       photo: '',
       topicName: '蛋壳步数换',
-      content: '在我的生命中，运动就像温柔地吹拂着我，带我走出自我的暖暖春风；我最难忘、最刻骨铭心的记忆都和它相关；因为我爱运动，而运动是我对待度。',
+      content: '蛋壳步数换',
       imglist: [],
       addr:'',
       time: ''
@@ -87,14 +87,16 @@ Page({
         tabListToTop: rect.top - 64
       })
     }).exec()
+    
+    that.refreshPage()
   },
   onShow () {
-    if(this.data.previewing){
+    /* if(this.data.previewing){
       this.data.previewing = false
     }
     else{
       this.refreshPage()
-    }
+    } */
   },
   
   //触摸开始
@@ -149,13 +151,14 @@ Page({
   },
   onPullDownRefresh:function(){
     let that = this
-    that.data.tuijianCurpage = 1
+    /* that.data.tuijianCurpage = 1
     that.data.guanzhuCurpage = 1
     that.data.topicDataLoaded = false
     that.data.topicDataLoaded_ME = false
     that.loadTopicNameData()
     that.loadTopicData()
-    that.loadMyTopicData()
+    that.loadMyTopicData() */
+    that.refreshPage('innerrefresh')
   },
 
   /**
@@ -194,17 +197,17 @@ Page({
       this.loadMyTopicData()
     }
   },
-  refreshPage () {
-    wx.pageScrollTo({scrollTop: 0,duration: 0})
-    this.setData({
+  refreshPage (fromParam) {
+    let that = this
+    that.setData({
       topicList: [],
-      topicDataList: [{
+      topicDataList: (fromParam == 'innerrefresh') ? []:[{
         attention_status:0,
-        avatar:"https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJEQ6FkGMjPpibNCOyFEPhia8SF7QOzEjVibJotaHiaRszgtklNCFF3dhw64WKeq4KyvviaokcJTNSiafOw/132",
+        avatar:"",
         collection_num:0,
         collection_status:0,
         comment_num:0,
-        content:"就睡觉睡觉睡觉睡觉睡觉睡觉开始",
+        content:"蛋壳步数换",
         create_time:"2019-05-16 10:45:11",
         create_user_id:38,
         eshell_num:0,
@@ -212,40 +215,40 @@ Page({
         id:22,
         img_src:[],
         location:"",
-        nickname:"Mr.Dreamer",
+        nickname:"蛋壳步数换",
         reward_status:1,
-        topic_tag:"话题002",
+        topic_tag:"蛋壳步数换",
         update_time:1557974711000
       },{
         attention_status:0,
-        avatar:"https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJEQ6FkGMjPpibNCOyFEPhia8SF7QOzEjVibJotaHiaRszgtklNCFF3dhw64WKeq4KyvviaokcJTNSiafOw/132",
+        avatar:"",
         collection_num:0,
         collection_status:0,
         comment_num:0,
-        content:"就睡觉睡觉睡觉睡觉睡觉睡觉开始",
+        content:"蛋壳步数换",
         create_time:"2019-05-16 10:45:11",
         create_user_id:38,
         eshell_num:0,
         forward_num:0,
         id:22,
         img_src:[],
-        nickname:"Mr.Dreamer",
+        nickname:"蛋壳步数换",
         reward_status:1,
-        topic_tag:"话题002",
+        topic_tag:"蛋壳步数换",
         update_time:1557974711000
       }],
       topicDataLoaded: false,
       topicDataLoaded_ME: false,
       topicDataFirstLoad:true,
       topicDataFirstLoad_ME:true,
-      showTab1Skeleton: true,
+      showTab1Skeleton: (fromParam == 'innerrefresh') ? false : true,
       showTab2Skeleton: false,
-      topicDataList_ME: [{
+      topicDataList_ME: (fromParam == 'innerrefresh') ? []:[{
         id:1,
-        name: '蛋壳',
+        name: '蛋壳步数换',
         photo: '',
         topicName: '蛋壳步数换',
-        content: '在我的生命中，运动就像温柔地吹拂着我，带我走出自我的暖暖春风；我最难忘、最刻骨铭心的记忆都和它相关；因为我爱运动，而运动是我对待度。',
+        content: '蛋壳步数换',
         imglist: [],
         addr:'',
         time: ''
@@ -255,17 +258,53 @@ Page({
       tuijianCurpage: 1,
       guanzhuCurpage: 1
     })
-    this.loadTopicNameData()
-    this.loadTopicData()
-    this.loadMyTopicData()
-    this.loadMessageNum()
+    that.loadTopicNameData()
+    that.loadTopicData()
+    that.loadMyTopicData()
+    that.loadMessageNum()
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage: function (option) {
+    let topicIndex = option.target.dataset.topicindex
+    let topic = null
+    this.data.previewing = true
+    if(this.data.topicType == 'recomment'){
+      topic = this.data.topicDataList[topicIndex]
+    }
+    else if(this.data.topicType == 'me'){
+      topic = this.data.topicDataList_ME[topicIndex]
+    }
+    this.forward(topic.id, topicIndex)
+    let name = (topic.tag_name?('#'+topic.tag_name+'#'):'') + topic.content
+    return {
+      title: name,
+      path: '/pages/index/index?fromInvite=1&type=1&push_userid=' + wx.getStorageSync('userId') + '&forwardUrl='+encodeURIComponent('/pages/buyou/commentdetail/commentdetail?id='+topic.id),
+      imageUrl: topic.img_src?topic.img_src[0]:'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/invitation_homepage.png'
+    }
+  },
+  forward (id, topicIndex) {
+    let that = this
+    utils.request(api.TOPIC_FORWARD,{
+      communityId:id
+    }).then(function(res){
+      if(res.errno === 0){
+        if(that.data.topicType == 'recomment'){
+          that.data.topicDataList[topicIndex].forward_num++
+          that.setData({
+            topicDataList: that.data.topicDataList
+          })
+        }
+        else if(that.data.topicType == 'me'){
+          that.data.topicDataList_ME[topicIndex].forward_num++
+          that.setData({
+            topicDataList_ME: that.data.topicDataList_ME
+          })
+        }
+      }
+    })
   },
   backTo (e) {
     wx.switchTab({
@@ -388,6 +427,14 @@ Page({
     } */
     const data = e.currentTarget.dataset
     let that = this
+    if(data.uid == that.data.userId){
+      wx.showToast({
+        title:'不能打赏自己哦~',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
     let itemData = that.data.topicDataList[data.parentindex]
     if(itemData.reward_status == 0){
       utils.request(api.BUYOU_DASHANG,{
@@ -395,7 +442,7 @@ Page({
         targetUserId: data.uid
       }).then(function(res){
         if(res.errno == 0){
-          that.toast.showToast('打赏成功，已将您的2枚蛋壳打赏给TA')
+          that.toast.showToast('打赏成功，已将你的2枚蛋壳打赏给TA')
           that.data.topicDataList[data.parentindex].reward_status = 1
           that.data.topicDataList[data.parentindex].eshell_num = that.data.topicDataList[data.parentindex].eshell_num + 2
           that.setData({
