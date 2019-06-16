@@ -1,8 +1,7 @@
 /* pages/game/qiandao/qiandao.wxss */
 page{
-  background:url("https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/bg_qiandao.png");
+  background:url("https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/bg_qiandao.png");
   background-size: cover;
-  padding-top:128rpx;
   box-sizing: border-box;
 }
 .toptitle{
@@ -84,7 +83,6 @@ page{
   padding:0 80rpx;
 }
 .qiandao{
-  margin-top:40rpx;
   width:580rpx;
   height:86rpx;
   line-height: 86rpx;
@@ -93,6 +91,11 @@ page{
   color:#fff;
   font-size:40rpx;
   font-weight:bold;
+  margin: 40rpx auto 0 auto;
+}
+.qiandao.disabled{
+  background:#eee;
+  color:#999;
 }
 .tip{
   text-align: center;
@@ -121,7 +124,7 @@ page{
   box-sizing: border-box;
   border-radius: 20rpx;
   text-align: center;
-  padding:80rpx 50rpx 30rpx 50rpx;
+  padding:70rpx 50rpx 30rpx 50rpx;
 }
 .awardLayer .award .title{
   font-size:36rpx;
@@ -145,4 +148,7 @@ page{
 .awardLayer .close{
   margin-top:100rpx;
   text-align: center;
+}
+.dknum image{
+  margin-right:0;
 }

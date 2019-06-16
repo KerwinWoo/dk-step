@@ -1,7 +1,7 @@
 <!--pages/me/yijian/yijian.wxml-->
 <view class="container hastop">
-  <dk-nav title="意见反馈" hasBorder="{{true}}" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
-  <view class="cont">
+<!--  <dk-nav title="意见反馈" hasBorder="{{true}}" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+ -->  <view class="cont">
     <view class="trow">
       <view class="cmtitle">意见与建议</view>
     </view>
@@ -14,7 +14,7 @@
     <view class="photos">
       <view class="cmtitle">相关截图（选填）</view>
       <view class="uploadImg" bindtap="chooseImg">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fabu_upload.png"></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/fabu_upload.png"></image>
       </view>
     </view>
   </view>

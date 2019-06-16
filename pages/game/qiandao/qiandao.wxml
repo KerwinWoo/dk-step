@@ -1,7 +1,7 @@
 <!--pages/game/qiandao/qiandao.wxml-->
 <view class="container">
-  <dk-nav title="签到" hasBackBtn="{{true}}" theme="white" bgColor="none" bind:backTo="backTo"></dk-nav>
-  <view class="toptitle">每日签到领好礼</view>
+<!--  <dk-nav title="签到" hasBackBtn="{{true}}" theme="white" bgColor="none" bind:backTo="backTo"></dk-nav>
+ -->  <view class="toptitle">每日签到领好礼</view>
   <view class="cont">
     <view class="wrp">
       <view class="title">已连续签到<text>{{lianxu}}</text>天</view>
@@ -9,48 +9,49 @@
         <view class="itm">
           <view class="t">第一天</view>
           <view class="b">+{{signList[0].day1.step}}步</view>
-          <image wx:if="{{lianxu > 0}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i_ok.png" class="activeimg"></image>
+          <image wx:if="{{lianxu > 0}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i_ok.png" class="activeimg"></image>
         </view>
         <view class="itm">
           <view class="t">第二天</view>
           <view class="b">+{{signList[1].day2.step}}步</view>
-          <image wx:if="{{lianxu > 1}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i_ok.png" class="activeimg"></image>
+          <image wx:if="{{lianxu > 1}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i_ok.png" class="activeimg"></image>
         </view>
         <view class="itm">
           <view class="t">第三天</view>
           <view class="b">+{{signList[2].day3.step}}步</view>
-          <image wx:if="{{lianxu > 2}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i_ok.png" class="activeimg"></image>
+          <image wx:if="{{lianxu > 2}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i_ok.png" class="activeimg"></image>
         </view>
         <view class="itm">
           <view class="t">第四天</view>
           <view class="b">
             <view>+{{signList[3].day4.step}}步</view>
-            <view wx:if="{{signList[3].day4.dk > 0}}"><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>×2</view>
+            <view class="dknum" wx:if="{{signList[3].day4.dk > 0}}"><image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i-egg.png"></image>×2</view>
           </view>
-          <image wx:if="{{lianxu > 3}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i_ok.png" class="activeimg"></image>
+          <image wx:if="{{lianxu > 3}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i_ok.png" class="activeimg"></image>
         </view>
       </view>
       <view class="row row2">
         <view class="itm">
           <view class="t">第五天</view>
           <view class="b">+{{signList[4].day5.step}}步</view>
-          <image wx:if="{{lianxu > 4}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i_ok.png" class="activeimg"></image>
+          <image wx:if="{{lianxu > 4}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i_ok.png" class="activeimg"></image>
         </view>
         <view class="itm">
           <view class="t">第六天</view>
           <view class="b">+{{signList[5].day6.step}}步</view>
-          <image wx:if="{{lianxu > 5}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i_ok.png" class="activeimg"></image>
+          <image wx:if="{{lianxu > 5}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i_ok.png" class="activeimg"></image>
         </view>
         <view class="itm">
           <view class="t">第七天</view>
           <view class="b">
             <view>+{{signList[6].day7.step}}步</view>
-            <view wx:if="{{signList[6].day7.dk > 0}}"><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>×5</view>
+            <view class="dknum" wx:if="{{signList[6].day7.dk > 0}}"><image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i-egg.png"></image>×5</view>
           </view>
-          <image wx:if="{{lianxu > 6}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i_ok.png" class="activeimg"></image>
+          <image wx:if="{{lianxu > 6}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i_ok.png" class="activeimg"></image>
         </view>
       </view>
-      <view class="qiandao btn-default" bindtap="doQiandao">立即签到</view>
+      <view class="qiandao btn-default" bindtap="doQiandao" wx:if="{{!sign}}">立即签到</view>
+      <view class="qiandao disabled" wx:if="{{sign}}">今日已签到</view>
     </view>
   </view>
   <view class="tip">每日签到，连续签到有神秘大奖</view>
@@ -59,12 +60,12 @@
 <view class="awardLayer" wx:if="{{awardLayer}}">
   <view class="award">
     <view class="title">签到成功</view>
-    <view class="content">已获得{{2000}}步奖励</view>
+    <view class="content">已获得{{awardstep}}步<text wx:if="{{awarddk && awarddk > 0}}">和{{awarddk}}枚蛋壳</text>奖励</view>
     <view class="btns">
       <view class="btn btn-default" bindtap="closeLayer">确定</view>
     </view>
     <view class="close">
-      <image class="closeBtn" bindtap="closeLayer" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/close.png"></image>
+      <image class="closeBtn" bindtap="closeLayer" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/close.png"></image>
     </view>
   </view>
 </view>

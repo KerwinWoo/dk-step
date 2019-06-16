@@ -1,7 +1,7 @@
 <!--pages/mall/goodsdetail/goodsdetail.wxml-->
 <view class="container hastop">
-  <dk-nav title="商品详情" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
-  <view class="goodsimage">
+<!--  <dk-nav title="商品详情" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+ -->  <view class="goodsimage">
     <swiper
       indicator-dots="{{indicatorDots}}"
       autoplay="{{autoplay}}"
@@ -19,11 +19,11 @@
         <view class="name">{{info.name}}</view>
         <view class="subinfo">
           <view class="dknum">
-            <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
+            <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i-egg.png"></image>
             <text>{{info.dkEshellNum}}</text>
-            <text class="plus" wx:if="{{info.retail_price && info.retail_price > 0}}">+</text>
-            <text class="unit" wx:if="{{info.retail_price && info.retail_price > 0}}">¥</text>
-            <text wx:if="{{info.retail_price && info.retail_price > 0}}">{{info.retail_price}}</text>
+            <text class="plus" wx:if="{{info.retail_price > 0}}">+</text>
+            <text class="unit" wx:if="{{info.retail_price > 0}}">¥</text>
+            <text wx:if="{{info.retail_price > 0}}">{{info.retail_price}}</text>
           </view>
           <view class="price">
             原价:<text>￥{{info.market_price}}</text>
@@ -43,25 +43,25 @@
   <view class="standard">
     <view class="itm">
       <view class="icn">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_bao.png" lazy-load></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/icn_bao.png" lazy-load></image>
         <view>正品保障</view>
       </view>
     </view>
     <view class="itm">
       <view class="icn">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_zhen.png" lazy-load></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/icn_zhen.png" lazy-load></image>
         <view>品质甄选</view>
       </view>
     </view>
     <view class="itm">
       <view class="icn">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_pei.png" lazy-load></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/icn_pei.png" lazy-load></image>
         <view>买贵就赔</view>
       </view>
     </view>
     <view class="itm">
       <view class="icn">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_shou.png" lazy-load></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/icn_shou.png" lazy-load></image>
         <view>售后无忧</view>
       </view>
     </view>
@@ -75,38 +75,38 @@
       </view>
       <view class="num"><text>{{info.changeNumber?info.changeNumber:0}}</text>人已兑换</view>
       <view class="more">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/more02.png"></image>
       </view>
     </view>
   </navigator> -->
-  <!-- <navigator class="record ivtrecord" wx:if="{{isInvite}}" hover-class="none" url="/pages/mall/yaoqing/yaoqing?id={{currentId}}">
+  <navigator class="record ivtrecord" wx:if="{{isInvite}}" hover-class="none" 
+  url="/pages/mall/yaoqing/yaoqing?id={{currentId}}&isInvite={{isInvite}}&goodsType={{goodsType}}">
   	<view class="wrp">
       <view class="recordlist clearfix">
         <view class="imgwrp" wx:for="{{invitationHistory}}" wx:key="id" wx:if="{{index <= 5}}">
           <image-loader mode="aspectFill" original-image="{{item.avatar}}"></image-loader>
         </view>
         <view class="imgWrp inviteMore resetBtn">
-          <image lazy-load="true" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/team_add.png"></image>
+          <image lazy-load="true" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/team_add.png"></image>
         </view>
       </view>
       <view class="num">已邀请 <text>{{invitationHistory.length}}</text>人</view>
       <view class="more">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/more02.png"></image>
       </view>
     </view>
-  </navigator> -->
+  </navigator>
   <view class="notice">
     <view class="wrp">
     	<view class="comtitle">兑换说明</view>
       <view class="content">
-        <view class="itm">
-          1、商品库存每天6：00-24：00每个专区每小时至少补货一次
-        </view>
-        <view class="itm">2、虚拟商品兑换成功即可使用，无需平台发货，请仔细阅读商品详情兑换规则后，再进行兑换</view>
-        <view class="itm">3、兑换成功的实物商品将再2个工作日内发货</view>
-        <view class="itm">4、邮寄区域暂不支持新疆、西藏、海南、港澳台及海外地区</view>
-        <view class="itm">5、免费兑换的商品均暂不支持退换货</view>
-        <view class="itm">温馨提示：兑换商品前去“我的”“地址管理”内填写详细邮寄地址并确认（要不商品怎么找到你）</view>
+        <view class="itm">1.	商品库存每周不定时更新；</view>
+        <view class="itm">2.	虚拟商品兑换成功后即可使用，无需平台发货，请仔细阅读商品详情兑换规则后，再进行兑换；</view>
+        <view class="itm">3.	兑换成功的商品将在2个工作日内发货，进口等特殊商品最多在7个工作日内发货；</view>
+        <view class="itm">4.	口红类商品请自行备注色号或咨询客服</view>
+        <view class="itm">5.	新疆、西藏、海南、港澳台及海外等地区暂不支持发货；</view>
+        <view class="itm">6.	免费兑换的商品暂不支持退换货；</view>
+        <view class="itm">温馨提示：为保证兑换的商品快速安全送达，请务必真实填写收货人、联系电话、邮寄地址并仔细确认。</view>
       </view>
     </view>
   </view>
@@ -133,7 +133,7 @@
               </view>
           </view>
         </view>
-        <navigator hover-class="none" class="viewMore btn-simple" url="/pages/buyou/topic/topic?title=步友晒单&comment=你说是啥就是啥&value=showMyList&pic=">查看更多晒单</navigator>
+        <navigator hover-class="none" class="viewMore btn-simple" url="/pages/buyou/topic/topic?value={{shaidan.topic_tag}}">查看更多晒单</navigator>
       </view>
     </view>
   </view>
@@ -146,32 +146,33 @@
   </view>
   <view class="btm">
     <view class="heart">
-      <view><image src="{{isHeart ? 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/goodsdetail_heart1.png' : 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/goodsdetail_heart2.png'}}" bindtap="addToHeart"></image></view>
+      <view><image src="{{isHeart ? 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/goodsdetail_heart1.png' : 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/goodsdetail_heart2.png'}}" bindtap="addToHeart"></image></view>
       <view>心愿</view>
     </view>
     <button class="kefu resetBtn" open-type="contact">
-      <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/goodsdetail_kefu.png"></image></view>
+      <view><image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/goodsdetail_kefu.png"></image></view>
       <view>客服</view>
     </button>
-    <button class="btn btn-default resetBtn" open-type="share" wx:if="{{inviteShow && info.goods_number > 0}}">
+    <button class="btn btn-default resetBtn" open-type="share" wx:if="{{info.is_on_sale == 1 && inviteShow && info.goods_number > 0}}">
       差{{needInvite}}人，去邀请好友
     </button>
-    <view class="btn btn-default" bindtap="doExchange" wx:if="{{exchangeShow && info.goods_number > 0}}">立即兑换</view>
-    <button class="btn btn-default resetBtn" open-type="share" wx:if="{{newInviteShow && info.goods_number > 0}}">
+    <view class="btn btn-default" bindtap="doExchange" wx:if="{{info.is_on_sale == 1 && exchangeShow && info.goods_number > 0}}">立即兑换</view>
+    <button class="btn btn-default resetBtn" open-type="share" wx:if="{{info.is_on_sale == 1 && newInviteShow && info.goods_number > 0}}">
       蛋壳不足，立即邀请好友
     </button>
-    <view class="btn btn-disabled" wx:if="{{!info.goods_number || info.goods_number == 0}}">库存不足</view>
+    <view class="btn btn-disabled" wx:if="{{info.is_on_sale == 1 && (!info.goods_number || info.goods_number == 0)}}">库存不足</view>
+    <view class="btn btn-disabled" wx:if="{{info.is_on_sale == 0}}">商品已下架</view>
   </view>
   <view class="goodpreview{{previewShow ? ' show' : ''}}">
     <view class="mask" bindtap="hidePreview"></view>
     <view class="wrp">
       <view class="t">
         <view class="dknum">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
-          <text>{{choosedGoodsInfo.dkEshellNum}}</text>
-          <text class="plus" wx:if="{{choosedGoodsInfo.retail_price && choosedGoodsInfo.retail_price > 0}}">+</text>
-          <text wx:if="{{choosedGoodsInfo.retail_price && choosedGoodsInfo.retail_price > 0}}" class="unit">¥</text>
-          <text wx:if="{{choosedGoodsInfo.retail_price && choosedGoodsInfo.retail_price > 0}}">{{choosedGoodsInfo.retail_price}}</text>
+          <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i-egg.png"></image>
+          <text>{{info.dkEshellNum}}</text>
+          <text class="plus" wx:if="{{info.retail_price > 0}}">+</text>
+          <text wx:if="{{info.retail_price > 0}}" class="unit">¥</text>
+          <text wx:if="{{info.retail_price > 0}}">{{info.retail_price}}</text>
         </view>
         <view class="info">
           <view>库存量：<text>{{info.goods_number}}</text>件</view>
@@ -181,16 +182,16 @@
       </view>
       <view class="buynum">
         <view class="title">购买数量</view>
-        <dk-stepper id="mystepper" class="numstepper" 
+        <dk-stepper class="numstepper" 
           inputStatus="{{(goodsType == 'newperson' || goodsType == 'invite') ? 'disabled' : ''}}" 
           plusStatus="{{(goodsType == 'newperson' || goodsType == 'invite') ? 'disabled' : ''}}"
-          minusStatus="{{(choosedGoodsInfo.num > 1)?'':'disabled'}}"
+          minusStatus="{{(choosedGoodsInfo.num == 1)?'disabled':''}}"
           num = "{{choosedGoodsInfo.num}}"
           bind:bindPlus="bindPlus"
           bind:bindMinus="bindMinus"
           bind:bindManual="bindManual"></dk-stepper>
       </view>
-      <navigator hover-class="none" url="/pages/order/paydetail/paydetail?goodsId={{currentId}}&goodsType={{goodsType}}&num={{choosedGoodsInfo.num}}" class="btn-default exchangeBtnTo">立即兑换</navigator>
+      <navigator hover-class="none" url="/pages/order/paydetail/paydetail?isInvite={{isInvite}}&goodsId={{currentId}}&goodsType={{goodsType}}&num={{choosedGoodsInfo.num}}" class="btn-default exchangeBtnTo">立即兑换</navigator>
     </view>
   </view>
 </view>

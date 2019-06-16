@@ -1,67 +1,78 @@
 <!--pages/game/luckywheel/luckywheel.wxml-->
-<view class="container">
-  <dk-nav title="幸运大转盘" hasBackBtn="{{true}}" theme="white" bgColor="none" bind:backTo="backTo"></dk-nav>
-  <view class="tptitle">
+<view class="container" style="padding-top:30rpx;">
+<!--  <dk-nav title="幸运大转盘" hasBackBtn="{{true}}" theme="white" bgColor="none" bind:backTo="backTo"></dk-nav>
+ -->  <view class="tptitle">
     <view class="rule" bindtap="viewRule">查看规则</view>
-    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_xingyun.png"></image>
+    <navigator class="history rule" hover-class="none" url="/pages/game/record/record">抽奖记录</navigator>
+    <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/game_xingyun.png"></image>
   </view>
   <view class="subtitle">
-    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_zhongjiang.png"></image>
+    <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/game_zhongjiang.png"></image>
     <view class="tipcont">
-      <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/tipbg.png"></image>
+      <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/tipbg.png"></image>
       <text>10蛋壳每次</text>
     </view>
   </view>
-  <view class="box">
-    <view class="message">恭喜<text>小鱼</text>获得<text>20</text>枚蛋壳</view>
-    <image class="bg" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_pan.png"></image>
+  <view class="box" id="element">
+    <view class="messagecont" style="height:{{messageheight}}px;">
+      <view class="message" style="top:{{messageTop}}px;">
+        <view class="itm" wx:for="{{rewardList}}" wx:key="{{index}}" style="height:{{messageheight}}px;">
+          <text>恭喜</text>
+          <text class="nickname highlight">{{item.nickname}}</text>
+          <text>抽中</text>
+          <text class="highlight">{{(item.award_num && item.award_num > 1) ? item.award_num : ''}}</text>
+          <text>{{item.award_name}}</text>
+        </view>
+      </view>
+    </view>
+    <image class="bg" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/game_pan.png"></image>
     <view class="wrp">
       <view class="row">
         <view class="itm">
-          <image class="itmbg" src="{{awards[0].active ? 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_grid_active.png' :'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_grid.png'}}"></image>
+          <image class="itmbg" src="{{awards[0].active ? 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/game_grid_active.png' :'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/game_grid.png'}}"></image>
           <image class="gift" src="{{awards[0].img}}"></image>
           <text>{{awards[0].award_num}}{{awards[0].award_name}}</text>
         </view>
         <view class="itm">
-          <image class="itmbg" src="{{awards[1].active ? 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_grid_active.png' :'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_grid.png'}}"></image>
+          <image class="itmbg" src="{{awards[1].active ? 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/game_grid_active.png' :'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/game_grid.png'}}"></image>
           <image class="gift" src="{{awards[1].img}}"></image>
           <text>{{awards[1].award_num}}{{awards[1].award_name}}</text>
         </view>
         <view class="itm">
-          <image class="itmbg" src="{{awards[2].active ? 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_grid_active.png' :'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_grid.png'}}"></image>
+          <image class="itmbg" src="{{awards[2].active ? 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/game_grid_active.png' :'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/game_grid.png'}}"></image>
           <image class="gift" src="{{awards[2].img}}"></image>
           <text>{{awards[2].award_num}}{{awards[2].award_name}}</text>
         </view>
       </view>
       <view class="row">
         <view class="itm">
-          <image class="itmbg" src="{{awards[7].active ? 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_grid_active.png' :'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_grid.png'}}"></image>
+          <image class="itmbg" src="{{awards[7].active ? 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/game_grid_active.png' :'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/game_grid.png'}}"></image>
           <image class="gift" src="{{awards[7].img}}"></image>
           <text>{{awards[7].award_num}}{{awards[7].award_name}}</text>
         </view>
         <view class="itm btnitm" bindtap="{{clickLuck}}">
-          <image class="start" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_startbg.png"></image>
-          <image class="starttxt" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_start.png"></image>
+          <image class="start" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/game_startbg.png"></image>
+          <image class="starttxt" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/game_start.png"></image>
         </view>
         <view class="itm">
-          <image class="itmbg" src="{{awards[3].active ? 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_grid_active.png' :'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_grid.png'}}"></image>
+          <image class="itmbg" src="{{awards[3].active ? 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/game_grid_active.png' :'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/game_grid.png'}}"></image>
           <image class="gift" src="{{awards[3].img}}"></image>
           <text>{{awards[3].award_num}}{{awards[3].award_name}}</text>
         </view>
       </view>
       <view class="row">
         <view class="itm">
-          <image class="itmbg" src="{{awards[6].active ? 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_grid_active.png' :'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_grid.png'}}"></image>
+          <image class="itmbg" src="{{awards[6].active ? 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/game_grid_active.png' :'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/game_grid.png'}}"></image>
           <image class="gift" src="{{awards[6].img}}"></image>
           <text>{{awards[6].award_num}}{{awards[6].award_name}}</text>
         </view>
         <view class="itm">
-          <image class="itmbg" src="{{awards[5].active ? 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_grid_active.png' :'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_grid.png'}}"></image>
+          <image class="itmbg" src="{{awards[5].active ? 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/game_grid_active.png' :'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/game_grid.png'}}"></image>
           <image class="gift" src="{{awards[5].img}}"></image>
           <text>{{awards[5].award_num}}{{awards[5].award_name}}</text>
         </view>
         <view class="itm">
-          <image class="itmbg" src="{{awards[4].active ? 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_grid_active.png' :'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/game_grid.png'}}"></image>
+          <image class="itmbg" src="{{awards[4].active ? 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/game_grid_active.png' :'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/game_grid.png'}}"></image>
           <image class="gift" src="{{awards[4].img}}"></image>
           <text>{{awards[4].award_num}}{{awards[4].award_name}}</text>
         </view>
@@ -81,11 +92,11 @@
       <view>当前蛋壳：<text>{{myDk}}</text></view>
     </view>
   </view>
-  <button class="inviteBtn btn-default" open-type="share" data-linkfrom="type3">邀请好友一起来抽奖</button>
+  <button class="ivtbtn btn-default" open-type="share" data-linkfrom="type3">邀请好友一起来抽奖</button>
   <view class="rulecont" wx:if="{{ruleLayer}}">
     <view class="ruledesc">
       <view class="flag">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/choujiang_flag.png"></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/choujiang_flag.png"></image>
         <text>规则说明</text>
       </view>
       <view class="wrp">
@@ -96,34 +107,38 @@
         </view>
         <view class="title">发放形式</view>
         <view class="content">
-          <view>1. 抽中步数奖品请在首页小气泡点击领取，请在当日24：00前领取</view>
-          <view>2. 抽中蛋壳直接发送至“我的蛋壳”，可点击“我的蛋壳”查看</view>
-          <view>3. 抽中实物奖品，请详细填写订单收货地址等信息，我们将在5个工作日为你免费邮寄，请注意查收</view>
+          <view>1. 抽中步数奖品系统自动发放在首页大气泡中，可点击兑换成蛋壳</view>
+          <view>2. 抽中的蛋壳奖品系统直接发放在“我的蛋壳”，可点击“我的蛋壳”查看</view>
+          <view>3. 抽中实物奖品，请联系客服领取，平台会在5个工作日为你免费邮寄，请注意查收</view>
         </view>
       </view>
       <view class="close">
-        <image class="closeBtn" bindtap="closeLayer" data-layerId="ruleLayer" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/close.png"></image>
+        <image class="closeBtn" bindtap="closeLayer" data-layerId="ruleLayer" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/close.png"></image>
       </view>
     </view>
   </view>
   <view class="awardLayer" wx:if="{{awardLayer}}">
     <view class="award">
       <view class="bg">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/bg_award.png"></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/bg_award.png"></image>
       </view>
       <view class="item">
         <view><image src="{{giftImg}}" class="giftimg"></image></view>
         <view>{{giftName}}</view>
       </view>
-      <view class="txt">
+      <view class="txt" wx:if="{{!isReal}}">
         获奖啦
       </view>
+      <view class="realtxt" wx:if="{{isReal}}">
+        <view>恭喜你中奖了</view>
+        <view>请联系客服领取</view>
+      </view>
       <view class="btns" bindtap="getAward">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/award_btn.png"></image>
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/award_get.png"></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/award_btn.png"></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/award_get.png"></image>
       </view>
       <view class="close">
-        <image class="closeBtn" bindtap="closeLayer" data-layerId="awardLayer" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/close.png"></image>
+        <image class="closeBtn" bindtap="closeLayer" data-layerId="awardLayer" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/close.png"></image>
       </view>
     </view>
   </view>

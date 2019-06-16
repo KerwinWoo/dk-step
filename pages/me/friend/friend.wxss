@@ -4,7 +4,6 @@ page{
   padding-bottom: 100rpx;
 }
 .container{
-  margin-top:128rpx;
 }
 .row{
   display: flex;
@@ -146,4 +145,9 @@ page{
   font-size:40rpx;
   font-weight:bold;
   line-height: 86rpx;
+}
+.nodata image{
+  width:450rpx;
+  height:238rpx;
+  margin-top:100rpx;
 }

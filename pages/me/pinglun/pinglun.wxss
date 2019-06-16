@@ -1,4 +1,7 @@
 /* pages/me/pinglun/pinglun.wxss */
+page{
+  background:#f2f2f2;
+}
 .commentlist .itm{
   box-sizing: border-box;
   background:#fff;
@@ -79,4 +82,9 @@
   line-height: 30rpx;
   padding-left:16rpx;
   box-sizing: border-box;
+}
+.nodata image{
+  width:451rpx;
+  height:246rpx;
+  margin-top:260rpx;
 }

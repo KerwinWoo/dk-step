@@ -127,8 +127,8 @@ Page({
           icon: 'success',
           duration: 2000,
           success: function(){
-            wx.navigateTo({
-              url: '/pages/team/myteam/myteam'
+            wx.switchTab({
+            	url: '/pages/team/team'
             })
           }
         })

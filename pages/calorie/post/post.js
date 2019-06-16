@@ -1,19 +1,47 @@
 // pages/calorie/post/post.js
+const utils = require('../../../utils/util.js')
+const api = require('../../../api/api.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    userInfo: wx.getStorageSync('userInfo'),
-    visible: false
+    userInfo: null,
+    visible: false,
+    faces: [{
+      name: '灰常开心',
+      url: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/face_happy02.png'
+    },{
+      name: '有点慵懒',
+      url: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/face_smile02.png'
+    },{
+      name: '有点低沉',
+      url: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/face_uhappy02.png'
+    }],
+    faceindex: 0,
+    postindex: 0,
+    posturl: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/post1.png',
+    posturllist: ['https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/post1.png',
+    'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/post2.png',
+    'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/post3.png'],
+    revokeLayerShow: false,
+    step: 0,
+    fromtask: 0,
+    shareType: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let userInfo = wx.getStorageSync('userInfo')
+    userInfo.postUrl = this.data.posturl
+    this.setData({
+      userInfo: userInfo,
+      fromtask: options.fromtask?options.fromtask:0
+    })
+    this.postcanvas = this.selectComponent(".postcanvas")
   },
 
   /**
@@ -27,7 +55,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({
+      revokeLayerShow: false
+    })
+    this.loadwxstep()
   },
 
   /**
@@ -62,9 +93,85 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: '步数当钱花，快来一起发',
+      path: '/pages/index/index?fromInvite=1&type=1&push_userid=' + wx.getStorageSync('userId'),
+      imageUrl: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/invitation_homepage.png'
+    }
   },
-  backTo (e) {
-    wx.navigateBack()
+  toggleface () {
+    this.data.faceindex++
+    if(this.data.faceindex == 3){
+      this.data.faceindex = 0
+    }
+    let userInfo = this.data.userInfo
+    userInfo.faceindex = this.data.faceindex
+    this.setData({
+      faceindex: this.data.faceindex,
+      userInfo: userInfo
+    })
+  },
+  show: function() {
+    let that = this
+    wx.getSetting({
+      success(res) {
+        //用户拒绝授权或者用户在设置页面中取消了授权
+        if(res.authSetting['scope.writePhotosAlbum'] != undefined && res.authSetting['scope.writePhotosAlbum'] == false){
+          that.setData({
+            revokeLayerShow: true
+          })
+        }
+        //用户从未授权
+        else{
+          that.setData({
+            revokeLayerShow: false
+          })
+          that.setData({
+            visible: true,
+            shareType: true
+          })
+        }
+      },
+      fail(res){
+        console.log('获取用户设置信息错误')
+      }
+    }) 
+  },
+  refreshPost () {
+    this.data.postindex++
+    if(this.data.postindex == this.data.posturllist.length){
+      this.data.postindex = 0
+    }
+    this.setData({
+      postindex: this.data.postindex
+    })
+    let userInfo = this.data.userInfo
+    userInfo.postUrl = this.data.posturllist[this.data.postindex]
+    this.setData({
+      posturl: this.data.posturllist[this.data.postindex],
+      userInfo: userInfo
+    })
+  },
+  loadwxstep () {
+    let that = this
+    utils.request(api.QUERY_WXSTEP).then(function(res){
+      if(res.errno === 0){
+        that.data.userInfo.step = res.data.stepFirstNum
+        that.setData({
+          step: res.data.stepFirstNum,
+          userInfo: that.data.userInfo
+        })
+      }
+    })
+  },
+  changesharetype () {
+    this.setData({
+      shareType: false
+    })
+  },
+  cancelRevoke () {
+    this.setData({
+      revokeLayerShow: false
+    })
   }
 })

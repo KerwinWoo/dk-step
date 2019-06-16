@@ -1,8 +1,7 @@
 /* pages/game/luckywheel/luckywheel.wxss */
 page{
-  background:url("https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/bg_game.png");
+  background:url("https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/bg_game.png");
   background-size: cover;
-  padding-top:128rpx;
   box-sizing: border-box;
 }
 .container{
@@ -18,8 +17,11 @@ page{
   text-align: center;
   position: absolute;
   right:30rpx;
-  top:10rpx;
+  top:20rpx;
   border-radius:20rpx;
+}
+.history{
+  left:30rpx;
 }
 image{
   width:100%;
@@ -175,17 +177,15 @@ image{
 }
 .box .message{
   text-align: center;
-  width:100%;
+  color:#fff;
+  font-size:22rpx;
+  transition: top .8s;
   position: absolute;
   left:0;
   top:0;
-  color:#fff;
-  font-size:22rpx;
-  height:60rpx;
-  line-height: 60rpx;
-  z-index: 3;
+  width:100%;
 }
-.box .message text{
+.box .message .highlight{
   color:#EFFF00;
   margin:0 4rpx;
 }
@@ -340,8 +340,8 @@ image{
   top:0;
 }
 .awardLayer .btns image:nth-of-type(2){
-  width:169rpx;
-  height:40rpx;
+  width:85rpx;
+  height:38rpx;
   display: inline-block;
   position: relative;
 }
@@ -357,7 +357,7 @@ image{
   width:90rpx;
   height:90rpx;
 }
-.awardLayer .txt{
+.awardLayer .txt,.awardLayer .realtxt{
   width:100%;
   text-align: center;
   position: absolute;
@@ -366,4 +366,45 @@ image{
   font-size:44rpx;
   font-weight: bold;
   color:#fff;
+}
+.awardLayer .realtxt{
+  font-size:32rpx;
+  top:340rpx;
+  line-height:40rpx;
+}
+.nickname{
+  width:100rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+}
+.message .itm>text{
+  display: inline-block;
+}
+.message .itm{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height:60rpx;
+}
+.messagecont{
+  height:60rpx;
+  overflow: hidden;
+  width:100%;
+  position: absolute;
+  left:0;
+  top:0;
+  z-index: 3;
+}
+.ivtbtn{
+  width:580rpx;
+  height:86rpx;
+  border-radius:43rpx;
+  margin:130rpx auto 0 auto;
+  font-size:40rpx;
+  font-weight:bold;
+  color:#fff;
+  line-height: 86rpx;
 }

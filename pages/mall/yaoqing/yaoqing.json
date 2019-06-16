@@ -1,5 +1,7 @@
 {
   "backgroundColor":"#fff",
+  "navigationBarTitleText": "邀请记录",
+  "navigationBarBackgroundColor": "#fff",
   "usingComponents": {
     "dk-nav": "/components/dk-navigation/dk-nav"
   }

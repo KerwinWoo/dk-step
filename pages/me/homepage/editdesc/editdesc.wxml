@@ -1,0 +1,16 @@
+<!--pages/me/homepage/editdesc/editdesc.wxml-->
+<view class="container hastop">
+<!--  <dk-nav title="个人介绍" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+ -->  <view class="textarea">
+    <textarea
+    placeholder="一句话介绍自己(最多25字)"
+    placeholder-style="color:#999;"
+    bindinput="bindinput"
+    maxlength="25"
+    value="{{desc?desc:''}}"
+    />
+  </view>
+  <view class="tr">
+    <view class="sendBtn btn-default" bindtap="sendComment">确定</view>
+  </view>
+</view>

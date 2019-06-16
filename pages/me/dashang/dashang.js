@@ -7,7 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    currentPage: 1,
+    list: []
   },
 
   /**
@@ -15,7 +16,11 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      fromMsgCenter: options.fromMsgCenter?options.fromMsgCenter:0
+      fromta: options.fromta?options.fromta:'',
+      userid: options.userid?options.userid:''
+    })
+    wx.setNavigationBarTitle({
+    	title: ((options.fromta && options.fromta == 1)?'TA':'我') + '收到的打赏'
     })
   },
 
@@ -23,19 +28,15 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if(this.data.fromMsgCenter == 1){
-      this.loadMessageNum()
-    }
-    else{
-      this.loadData()
-    }
+    this.data.currentPage = 1
+    this.data.list = []
+    this.loadData()
   },
 
   /**
@@ -63,7 +64,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this.loadData()
   },
 
   /**
@@ -72,55 +73,47 @@ Page({
   onShareAppMessage: function () {
 
   },
-  backTo () {
-    wx.navigateBack()
-  },
   loadData () {
     let that = this
-    utils.request(api.BUYOU_DASHANGLIST,{
-      page: 1,
-      size: 100,
-      sort: '',
-      order: ''
-    }).then(function(res){
+    let apiUrl = (that.data.fromta)?api.TA_REWARDLIST:api.BUYOU_DASHANGLIST
+    let params = {
+      page: that.data.currentPage,
+      size:30,
+      sort:'',
+      order:''
+    }
+    if(that.data.fromta){
+      params.targetUserId = that.data.userid
+    }
+    utils.request(apiUrl,params).then(function(res){
       if(res.errno === 0){
         res.data.data.map(function(value){
           value.rewardTime = utils.formatDate(new Date(value.rewardTime), 'MM-dd hh:mm:ss')
         })
         that.setData({
-          list: res.data.data
+          list: that.data.list.concat(res.data.data)
         })
-      }
-    })
-  },
-  loadMessageNum () {
-    let that = this
-    utils.request(api.MESSAGENUM_REWARD).then(function(res){
-      if(res.errno === 0){
-        res.data.data.map(function(value){
-          value.rewardTime = utils.formatDate(new Date(value.createTime), 'MM-dd hh:mm:ss')
-        })
-        that.setData({
-          list: res.data.data
-        })
-        that.readAll()
-      }
-    })
-  },
-  readAll () {
-    let that = this
-    let ids = []
-    that.data.list.map(function(value, index){
-      if(value.readStatus == '0'){
-        ids.push(value.noticeId)
-      }
-    })
-    if(ids.length > 0){
-      utils.request(api.MESSAGENUM_CHANGESTATUS_BATCH,{
-        ids: ids
-      }).then(function(res){
-        if(res.errno === 0){
+        if(res.data.data && res.data.data.length != 0){
+          that.data.currentPage++
         }
+        else{
+          if(that.data.currentPage != 1){
+            utils.nomoreData()
+          }
+        }
+      }
+    })
+  },
+  toTA (e) {
+    let uid = e.currentTarget.dataset.uid
+    if(uid == wx.getStorageSync('userId')){
+      wx.navigateTo({
+        url: '/pages/me/homepage/homepage'
+      })
+    }
+    else{
+      wx.navigateTo({
+        url: '/pages/ta/ta?userid='+uid
       })
     }
   }

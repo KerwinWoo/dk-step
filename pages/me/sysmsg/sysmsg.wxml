@@ -1,10 +1,10 @@
 <!--pages/me/sysmsg/sysmsg.wxml-->
 <view class="container hastop">
-  <dk-nav title="系统消息" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
-  <view class="messagelist">
+<!--  <dk-nav title="系统消息" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+ -->  <view class="messagelist">
     <view class="inforow" wx:for="{{list}}" wx:key="{{index}}">
       <view class="wrp">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_laba.png" class="icn"></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/icn_laba.png" class="icn"></image>
         <view class="title">
           <text class="name">系统通知</text>
           <text class="time">{{item.createTime}}</text>
@@ -14,6 +14,10 @@
         </view>
       </view>
     </view>
+  </view>
+    <view class="nodata" wx:if="{{!list || list.length == 0}}">
+    <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/nodata_pinglun.png"></image>
+    <view class="title">暂无系统消息</view>
   </view>
 </view>
 

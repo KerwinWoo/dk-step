@@ -1,23 +1,25 @@
 <!--pages/service/contactus/contactus.wxml-->
 <view class="container hastop">
-  <dk-nav title="联系我们" hasBackBtn="{{true}}" bind:backTo="backTo"></dk-nav>
-  <view class="banner">
-    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/bg_contactus.png" lazy-load="true"></image>
+<!--  <dk-nav title="联系我们" hasBackBtn="{{true}}" bind:backTo="backTo"></dk-nav>
+ -->  <view class="banner">
+    <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/bg_contactus.png" lazy-load="true"></image>
   </view>
   <view class="content">
     <view class="title">
       蛋壳步数换：在乎你的每一步
     </view>
     <view class="txt">
-      蛋壳步数换，让你的运动不再浪费，可累积步数兑换各种奖励，更能邀请好友帮你助力，定期红包活动及抽奖活动更新，让健康和惊喜伴你左右，一起走一起来！
-    </view>
+蛋壳步数换，专注于让你每天步数不再浪费，累积兑换各种实惠超值奖品的同时与步友一起记录分享美好生活。    </view>
     <view class="txt">
-      “健康是永远的财富”。尤其在健康中国建设大背景下，青少年学生的健康事关国家未来、民族兴衰，一刻也忽视不得。只有拥有健康的体魄和健全的人格，以及良好的精神状态和坚强的意志，才能肩负起未来祖国建设、中华民族伟大复兴的重任。
-    </view>
+世界那么大！我们倡导在闲暇之余，去走走，去看看，去交流，去分享，去发现，去探索，去爱，去发现生活的新奇和美好。在蛋壳步数换，你所走的每一步，流的每一滴汗水都会创造价值得到回报，因为我们：在乎你的每一步！    </view>
   </view>
   <view class="contactinfo">
     <view class="title">联系客服</view>
-    <view class="time">周一至周五：9：00-18：00</view>
+    <view class="time">周一至周五：9：00-20：00</view>
     <view class="time" style="font-size:24rpx;">(非工作日联系客服，将于下一个工作日回复您）</view>
+  </view>
+  <view class="contactinfo">
+    <view class="title">商务合作</view>
+    <view class="time">dkstep@163.com</view>
   </view>
 </view>

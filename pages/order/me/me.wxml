@@ -1,8 +1,8 @@
 <!--pages/order/me/me.wxml-->
 <refresh-view id='refreshView' hasTop="true" backgroundColor="#f2f2f2" bind:onRefresh="onPullDownRefresh"/>
 <scroll-view class="container hastop">
-  <dk-nav title="我的订单" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
-  <view class="typelist">
+<!--  <dk-nav title="我的订单" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+ -->  <view class="typelist">
     <view data-type="" class="itm{{order_status == '' ? ' active' : ''}}" bindtap="changeType">全部</view>
     <view data-type="0" class="itm{{order_status == '0' ? ' active' : ''}}" bindtap="changeType">待付款</view>
     <view data-type="201" class="itm{{order_status == '201' ? ' active' : ''}}" bindtap="changeType">待发货</view>
@@ -19,20 +19,20 @@
           <view class="name">{{item.goodsName}}</view>
           <view class="btm">
             <view class="dknum">
-              <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
+              <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i-egg.png"></image>
               <text>{{item.dk_eshell_num}}</text>
               <text class="plus" wx:if="{{item.retail_price && item.retail_price > 0}}">+</text>
               <text wx:if="{{item.retail_price && item.retail_price > 0}}" class="unit">¥</text>
-              <text wx:if="{{item.retail_price && item.retail_price > 0}}">{{item.order_price}}</text>
+              <text wx:if="{{item.retail_price && item.retail_price > 0}}">{{item.retail_price}}</text>
            </view>
             <view class="num">×{{item.goodsCount}}</view>
           </view>
         </view>
-        <view class="status">{{item.order_status_text}}</view>
+        <view class="status">{{(item.order_status_text == '已取消' && (item.order_status == '401' || item.order_status == '402'))? '已退款' : item.order_status_text}}</view>
       </navigator>
       <view class="btn">
         <!-- <view class="time" wx:if="{{item.status  == '待付款'}}">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-time.png"></image>
+          <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i-time.png"></image>
           <text>剩余时间：29:25</text>
         </view> -->
         <navigator hover-class="none" url="/pages/buyou/fabu/fabu?topicValue=shaidan" class="btn-default" wx:if="{{item.order_status  == 301}}">去晒单</navigator>
@@ -44,7 +44,7 @@
     </view>
   </view>
   <view class="nodata" wx:if="{{orderList.length  == 0}}">
-    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/nodata_order.png"></image>
+    <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/nodata_order.png"></image>
     <text class="title">暂无相关订单</text>
   </view>
   

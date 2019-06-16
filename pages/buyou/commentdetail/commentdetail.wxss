@@ -5,6 +5,7 @@ page{
 }
 .topiccontentlist{
   border-top:1px solid #eee;
+  min-height: 100rpx;
 }
 .topiccontentlist>.itm{
   margin-bottom: 0;

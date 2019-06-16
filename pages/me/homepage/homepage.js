@@ -7,19 +7,25 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userInfo: wx.getStorageSync('userInfo'),
-    userId: wx.getStorageSync('userId'),
     num_guanzhu: 0,
     num_fensi: 0,
     num_shang: 0,
     num_tiezi: 0,
-    currentType: 'me'
+    currentType: 'me',
+    currentpage1: 1,
+    currentpage2: 1,
+    fabulist: [],
+    shouchanglist: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      userInfo: wx.getStorageSync('userInfo'),
+      userId: wx.getStorageSync('userId')
+    })
   },
 
   /**
@@ -37,6 +43,10 @@ Page({
       this.data.previewing = false
     }
     else{
+      this.data.currentpage1 = 1
+      this.data.currentpage2 = 1
+      this.data.fabulist = []
+      this.data.shouchanglist = []
       this.loadMyTopicList()
       this.loadMySCTopicList()
       this.loadInfoNum()
@@ -68,21 +78,47 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    if(this.data.currentType == 'me'){
+      this.loadMyTopicList()
+    }
+    else{
+      this.loadMySCTopicList()
+    }
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-    return {
-      title: '要想富，先走路，走路也能成首富',
-      path: '/pages/index/index?fromInvite=1&type=1&push_userid=' + wx.getStorageSync('userId'),
-      imageUrl: 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/invitation_homepage.png'
+  onShareAppMessage: function (option) {
+    let data = option.target.dataset
+    let type = data.type
+    if(type && type == 'share'){
+      return {
+        title: '',
+        path: '/pages/index/index',
+        imageUrl: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/invitation_team.png'
+      }
     }
-  },
-  backTo () {
-    wx.navigateBack()
+    else{
+      let topicIndex = data.topicindex
+      let topic = null
+      this.data.previewing = true
+      if(this.data.currentType == 'me'){
+        topic = this.data.fabulist[topicIndex]
+      }
+      else{
+        topic = this.data.shouchanglist[topicIndex]
+      }
+      if(this.data.userId != topic.create_user_id){
+        this.forward(topic.id, topicIndex)
+      }
+      let name = (topic.tag_name?('#'+topic.tag_name+'#'):'') + topic.content
+      return {
+        title: name,
+        path: '/pages/index/index?fromInvite=1&type=1&push_userid=' + wx.getStorageSync('userId') + '&forwardUrl='+encodeURIComponent('/pages/buyou/commentdetail/commentdetail?id='+topic.id),
+        imageUrl: topic.img_src?topic.img_src[0]:'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/invitation_homepage.png'
+      }
+    }
   },
   loadInfoNum () {
     let that = this
@@ -109,8 +145,8 @@ Page({
   loadMyTopicList () {
     let that = this
     utils.request(api.BUYOU_MYTOPICLIST, {
-      page:1,
-      size:1000,
+      page: that.data.currentpage1,
+      size:20,
       sort:'',
       order:''
     }).then(function(res){
@@ -120,23 +156,25 @@ Page({
           if(value.img_src){
             value.img_src = value.img_src.split(',')
           }
-          if(value.img_src.length == 1){
-            value.imgmode = 'aspectFill'
-          }
-          else if(value.img_src.length == 4){
+          if(value.img_src.length == 4){
             value.type3 = ' type3'
           }
-          else{
-            value.imgmode = 'aspectFill'
-          }
+          value.imgmode = 'aspectFill'
           if(value.create_time){
             value.create_time = utils.formatDate(new Date(value.create_time), 'MM/dd hh:mm')
           }
           return value
         })
-        console.log(tmpTopicData)
+        if(res.data.data && res.data.data.length != 0){
+          that.data.currentpage1++
+        }
+        else{
+          if(that.data.currentpage1 > 1){
+            utils.nomoreData()
+          }
+        }
         that.setData({
-          fabulist: tmpTopicData
+          fabulist: that.data.fabulist.concat(tmpTopicData)
         })
       }
       else{
@@ -151,13 +189,12 @@ Page({
   loadMySCTopicList () {
     let that = this
     utils.request(api.BUYOU_MYSCTOPICLIST, {
-      page:1,
-      size:1000,
+      page: that.data.currentpage2,
+      size: 20,
       sort:'',
       order:''
     }).then(function(res){
       if(res.errno === 0){
-        //debugger
         let tmpTopicData = res.data.data.map(function(value,index){
           if(value.img_src){
             value.img_src = value.img_src.split(',')
@@ -176,9 +213,16 @@ Page({
           }
           return value
         })
-        console.log(tmpTopicData)
+        if(res.data.data && res.data.data.length != 0){
+          that.data.currentpage2++
+        }
+        else{
+          if(that.data.currentpage2 > 1){
+            utils.nomoreData()
+          }
+        }
         that.setData({
-          shouchanglist: tmpTopicData
+          shouchanglist: that.data.shouchanglist.concat(tmpTopicData)
         })
       }
       else{
@@ -245,44 +289,50 @@ Page({
     })
   },
   giveEgg (e) {
-   /* if(true){
-      this.toast.showToast('收藏成功')
-      return
-    } */
     const data = e.currentTarget.dataset
     let that = this
-    let itemData = that.data.shouchanglist[data.parentindex]
-    if(itemData.reward_status == 0){
-      utils.request(api.BUYOU_DASHANG,{
-        communityId: data.id,
-        targetUserId: data.uid
-      }).then(function(res){
-        if(res.errno == 0){
-          wx.showToast({
-            title: '打赏成功',
-            icon: 'success',
-            duration: 2000
-          })
-          that.data.shouchanglist[data.parentindex].reward_status = 1
-          that.data.shouchanglist[data.parentindex].eshell_num = that.data.shouchanglist[data.parentindex].eshell_num + 2
-          that.setData({
-            shouchanglist: that.data.shouchanglist
-          })
-        }
-        else{
-          wx.showToast({
-            title: res.errmsg,
-            icon: 'none',
-            duration: 2000
-          })
-        }
-      })
+    let list = (that.data.currentType == 'me') ? that.data.fabulist :that.data.shouchanglist
+    if(data.uid != that.data.userId){
+      let itemData = list[data.parentindex]
+      if(itemData.reward_status == 0){
+        utils.request(api.BUYOU_DASHANG,{
+          communityId: data.id,
+          targetUserId: data.uid
+        }).then(function(res){
+          if(res.errno == 0){
+            wx.showToast({
+              title: '打赏成功',
+              icon: 'success',
+              duration: 2000
+            })
+            list[data.parentindex].reward_status = 1
+            list[data.parentindex].eshell_num = list[data.parentindex].eshell_num + 2
+            if(that.data.currentType == 'me'){
+              that.setData({
+                fabulist: list
+              })
+            }
+            else{
+              that.setData({
+                shouchanglist: list
+              })
+            }
+          }
+          else{
+            utils.showErrorToast(res.errmsg?res.errmsg:res.msg)
+          }
+        })
+      }
+    }
+    else{
+      utils.showErrorToast('不能打赏自己哦~')
     }
   },
   shouCang (e) {
     let that = this
     const data = e.currentTarget.dataset
-    let currentTopic = that.data.shouchanglist[data.parentindex]
+    let list = (that.data.currentType == 'me') ? that.data.fabulist :that.data.shouchanglist
+    let currentTopic = list[data.parentindex]
     let colStatus = currentTopic.collection_status
     if(colStatus == 1){
       //取消收藏
@@ -290,19 +340,84 @@ Page({
         communityId: data.id
       }).then(function(res){
         if(res.errno == 0){
-          that.data.shouchanglist.splice(data.parentindex, 1)
+          that.data.currentpage2 = 1
+          that.data.shouchanglist = []
+          that.loadMySCTopicList()
+          utils.showSuccessToast('已取消收藏')
+          if(that.data.currentType == 'me'){
+            currentTopic.collection_status = 0
+            currentTopic.collection_num--
+            list[data.parentindex] = currentTopic
+            that.setData({
+              fabulist: list
+            })
+          }
+          else{
+            let idx = -1
+            that.data.fabulist.forEach(function(value,index){
+              if(currentTopic.id == value.id){
+                idx = index
+                return false
+              }
+            })
+            if(idx != -1){
+              /* that.setData({
+                fabulist: that.data.fabulist
+              }) */
+              that.data.fabulist[idx].collection_status = 0
+              that.data.fabulist[idx].collection_num--
+            }
+          }
+        }
+        else{
+          utils.showErrorToast(res.errmsg?res.errmsg:res.msg)
+        }
+      })
+    }
+    else if(colStatus == 0){
+      //收藏
+      utils.request(api.BUYOU_SHOUCANGTOPIC,{
+        communityId: data.id
+      }).then(function(res){
+        if(res.errno == 0){
+          that.data.currentpage2 = 1
+          that.data.shouchanglist = []
+          that.loadMySCTopicList()
+          utils.showSuccessToast('收藏成功')
+          if(that.data.currentType == 'me'){
+            currentTopic.collection_status = 1
+            currentTopic.collection_num++
+            list[data.parentindex] = currentTopic
+            that.setData({
+              fabulist: list
+            })
+          }
+        }
+        else{
+          utils.showErrorToast(res.errmsg?res.errmsg:res.msg)
+        }
+      })
+    }
+  },
+  forward (id, topicIndex) {
+    let that = this
+    utils.request(api.TOPIC_FORWARD,{
+      communityId:id
+    }).then(function(res){
+      if(res.errno === 0){
+        if(that.data.currentType == 'me'){
+          that.data.fabulist[topicIndex].forward_num++
+          that.setData({
+            fabulist: that.data.fabulist
+          })
+        }
+        else{
+          that.data.shouchanglist[topicIndex].forward_num++
           that.setData({
             shouchanglist: that.data.shouchanglist
           })
         }
-        else{
-          wx.showToast({
-            title: res.errmsg,
-            icon: 'none',
-            duration: 2000
-          })
-        }
-      })
-    }
+      }
+    })
   }
 })

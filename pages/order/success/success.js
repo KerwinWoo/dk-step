@@ -13,8 +13,10 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      imgUrl: options.goodsurl?options.goodsurl:'',
-      goodsid: options.goodsid?options.goodsid:''
+      imgUrl: options.goodsurl?decodeURIComponent(options.goodsurl):'',
+      goodsid: options.goodsid?options.goodsid:'',
+      isInvite: options.isInvite?options.isInvite:'',
+      goodsType: options.goodsType?options.goodsType:''
     })
   },
 
@@ -43,7 +45,9 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    wx.reLaunch({
+      url: '/pages/mall/goodsdetail/goodsdetail?id='+that.data.goodsid+'&isInvite='+that.data.isInvite+'&goodsType='+that.data.goodsType
+    })
   },
 
   /**
@@ -69,10 +73,5 @@ Page({
       path: '/pages/index/index?fromInvite=1&type=1&push_userid=' + wx.getStorageSync('userId'),
       imageUrl: this.data.imgUrl
     }
-  },
-  backTo () {
-    wx.navigateTo({
-      url: '/pages/mall/goodsdetail/goodsdetail?fromIndex=0&id='+this.data.goodsid
-    })
   }
 })

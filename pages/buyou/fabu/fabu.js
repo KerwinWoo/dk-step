@@ -16,7 +16,8 @@ Page({
     choosedTopic: '',
     choosedTopicValue: '',
     choosedImgs:[],
-    topicList: []
+    topicList: [],
+    revokeLayerShow: false
   },
 
   /**
@@ -94,39 +95,51 @@ Page({
       }
     })
   },
-
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
 
   },
-  backTo () {
-    wx.navigateBack()
-  },
   getAddress () {
     let that = this
     wx.getSetting({
       success(res) {
+        console.log('位置权限信息：')
+        console.log(res)
         const setting = res.authSetting,
           locationSetting = setting['scope.userLocation']
         if(locationSetting != undefined && locationSetting == false){
-          console.log('设置按钮引导用户点击授权查位置')
+          that.setData({
+            revokeLayerShow: true
+          })
         }
-      }
-    })
-    wx.chooseLocation({
-      success (res) {
-        that.setData({
-          address: res.address,
-          addressStatus: true
-        })
-      },
-      fail (res) {
-        that.setData({
-          address: '',
-          addressStatus: false
-        })
+        /* else if(locationSetting == true){
+          that.setData({
+            revokeLayerShow: false
+          })
+        } */
+        //用户从未授权
+        else{
+          wx.chooseLocation({
+            success (res) {
+              that.setData({
+                address: res.address,
+                addressStatus: true
+              })
+            },
+            fail (res) {
+              that.setData({
+                address: '',
+                addressStatus: false
+              })
+            },
+            complete (res) {
+              console.log('获取位置信息完成')
+              console.log(res)
+            }
+          })
+        }
       }
     })
   },
@@ -227,6 +240,9 @@ Page({
          )
        }
     }
+    else{
+      utils.showErrorToast('请填写动态内容')
+    }
   },
   createTopic (uploadedImgs) {
     let that = this
@@ -256,6 +272,11 @@ Page({
     const value = e.detail.value
     this.setData({
       formContent: value
+    })
+  },
+  cancelRevoke () {
+    this.setData({
+      revokeLayerShow: false
     })
   }
 })

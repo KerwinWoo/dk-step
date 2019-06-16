@@ -7,7 +7,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    rewardsList: []
+    rewardsList: [],
+    offset: 0,
+    size: 30
   },
 
   /**
@@ -56,7 +58,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this.loadData()
   },
 
   /**
@@ -75,27 +77,25 @@ Page({
   },
   loadData () {
     let that = this
-    utils.request(api.REWARDRECORDS).then(function(res){
-      /* if(res.errno === 0){
-        that.setData({
-          rewardsList: res.data
-        })
-      } */
+    utils.request(api.REWARDRECORDS,{
+      offset: that.data.offset,
+      size: that.data.size
+    }).then(function(res){
       res.map(function(value, index){
         switch (value.award_name){
         	case '蛋壳':
-            value.img = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift04.png'
+            value.img = 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/gift04.png'
         		break;
           case '步数':
-            value.img = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift02.png'
+            value.img = 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/gift02.png'
             value.award_name = '步数'
             break;
           case 'iPhone XS':
-            value.img = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift01.png'
+            value.img = 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/gift01.png'
             value.award_num = ''
             break;
           case '手环':
-            value.img = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift03.png'
+            value.img = 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/gift03.png'
             value.award_num = ''
             break;
         	default:
@@ -103,8 +103,16 @@ Page({
         }
         value.award_time = utils.formatTime(new Date(value.award_time))
       })
+      if(res && res.length > 0){
+        that.data.offset = that.data.offset + that.data.size
+      }
+      else{
+        if(that.data.offset != 0){
+          utils.nomoreData()
+        }
+      }
       that.setData({
-        rewardsList: res
+        rewardsList: that.data.rewardsList.concat(res)
       })
     })
   }

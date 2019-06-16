@@ -1,23 +1,27 @@
 <!--pages/me/guanzhu/guanzhu.wxml-->
 <view class="container hastop">
-  <dk-nav title="我的关注" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
-  <view class="bt">
+<!--  <dk-nav title="{{(fromta && fromta == 1)?'TA':'我'}}的关注" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+ -->  <view class="bt">
     <view class="commonrow" wx:for="{{list}}" wx:key="{{index}}">
       <view class="photo">
-        <image-loader original-image="{{item.avatar}}" mode="aspectFill"></image-loader>
+        <image-loader bindtap="toTA" data-uid="{{item.id}}" original-image="{{item.avatar}}" mode="aspectFill"></image-loader>
       </view>
       <view class="content">
         <view class="title">{{item.nickname}}</view>
-        <view class="subtitle">{{item.id}}这家伙很懒</view>
+        <view class="subtitle"></view>
       </view>
-      <view class="sideicn" wx:if="{{item.status == 1}}" data-index="{{index}}" data-status="{{item.status}}" data-uid="{{item.id}}" bindtap="guanzhu">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_ygz.png"></image>
+      <view class="sideicn" wx:if="{{item.status == 1 && item.id != myuserId}}" data-index="{{index}}" data-status="{{item.status}}" data-uid="{{item.id}}" bindtap="guanzhu">
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/icn_ygz.png"></image>
         <view>已关注</view>
+      </view>
+      <view class="sideicn" wx:if="{{item.status == 0 && item.id != myuserId}}" data-index="{{index}}" data-status="{{item.status}}" data-uid="{{item.id}}" bindtap="guanzhu">
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/icn_gz.png"></image>
+        <view>关注</view>
       </view>
     </view>
   </view>
   <view class="nodata" wx:if="{{!list || list.length == 0}}">
-    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/nodata.png"></image>
+    <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/nodata.png"></image>
     <view class="title">暂无关注的人</view>
   </view>
 </view>

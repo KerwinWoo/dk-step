@@ -80,7 +80,8 @@ Page({
         that.setData({
           shippingList: res.data.shippingList,
           name: res.data.shippingName,
-          shippingNo: res.data.shippingNo
+          shippingNo: res.data.shippingNo,
+          goodImg: res.data.goodImg
         })
       }
     })

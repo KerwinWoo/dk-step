@@ -8,7 +8,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userStep: 0
+    userStep: 0,
+    offset: 0,
+    size: 30,
+    list: []
   },
 
   /**
@@ -29,6 +32,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.data.offset = 0
+    this.data.list = []
     this.loadData()
     this.loadUserWXStepInfo()
   },
@@ -58,7 +63,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this.loadData()
   },
 
   /**
@@ -73,19 +78,55 @@ Page({
   loadData () {
     let that = this
     utils.request(api.STEPRECORD,{
-      size:1000,
-      offset:0
+      size:that.data.size,
+      offset: that.data.offset
     }).then(function(res){
       /* if(res.errno == 0){
         debugger
       } */
       if(res){
         res.map(function(value, index){
+          if(value.flag == 2){
+            switch (value['produce_type']){
+              case 1:
+                value.task_name = '兑换蛋壳'
+              	break;
+            	default:
+            		break;
+            }
+          }
+          else if(value.flag == 1){
+            switch (value['produce_type']){
+              case 1:
+                value.task_name = '微信同步'
+                break;
+            	case 2:
+                value.task_name = '抽奖中奖'
+            		break;
+              case 3:
+                value.task_name = '连续签到奖励'
+                break;
+              case 4:
+                //value.task_name = value.task_name
+                break;
+              case 5:
+                value.task_name = '好友加成奖励'
+                break;
+            	default:
+            		break;
+            }
+          }
           value.produce_time = utils.formatTime(new Date(value.produce_time))
         })
-        that.setData({
-          list: res
-        })
+        if(res && res.length > 0){
+          that.data.offset = that.data.offset + that.data.size
+          that.setData({
+            list: that.data.list.concat(res)
+          })
+        }
+        else if(res.length == 0){
+          utils.nomoreData()
+        }
       }
     })
   },

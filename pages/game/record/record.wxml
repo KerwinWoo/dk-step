@@ -1,7 +1,7 @@
 <!--pages/game/record/record.wxml-->
 <view class="container hastop">
-  <dk-nav title="抽奖记录" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
-  <view class="taskcont" wx:if="{{rewardsList.length > 0}}">
+<!--  <dk-nav title="抽奖记录" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+ -->  <view class="taskcont" wx:if="{{rewardsList.length > 0}}">
     <view class="tasklist">
       <view class="itm" wx:for="{{rewardsList}}" wx:key="{{index}}">
         <view class="photo">
@@ -18,7 +18,7 @@
     </view>
   </view>
   <view class="nodata" wx:if="{{rewardsList.length == 0}}">
-    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/nodata2.png"></image>
+    <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/nodata2.png"></image>
     <text class="title">你还未参与抽奖</text>
   </view>
   <view class="toGame btn-default" bindtap="toGame">{{(rewardsList.length == 0)?'立即参与抽奖':'继续抽奖'}}</view>

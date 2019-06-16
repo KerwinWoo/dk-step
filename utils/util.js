@@ -1,4 +1,5 @@
 var api = require('../api/api.js');
+var utils = require('../utils/util.js');
 
 function formatTime(date) {
   var year = date.getFullYear()
@@ -36,7 +37,7 @@ function formatNumber(n) {
   return n[1] ? n : '0' + n
 }
 
-function request(url, data = {}, method = "POST", header = "application/x-www-form-urlencoded") {
+function request(url, data = {}, method = "POST", header = "application/x-www-form-urlencoded", redirectOrNot = true) {
   /* wx.showLoading({
     title: '加载中...',
   }); */
@@ -53,10 +54,12 @@ function request(url, data = {}, method = "POST", header = "application/x-www-fo
         //wx.hideLoading();
         if (res.statusCode == 200) {
 
-          if (res.data.errno == 401) {
-            wx.navigateTo({
-              url: '/pages/auth/btnAuth/btnAuth',
-            })
+          if (res.data.errno == 401 || res.data.errno == 409) {
+            if(redirectOrNot){
+              wx.navigateTo({
+                url: '/pages/auth/btnAuth/btnAuth',
+              })
+            }
           } else {
             resolve(res.data);
           }
@@ -140,13 +143,15 @@ function redirect(url) {
 function showErrorToast(msg) {
   wx.showToast({
     title: msg,
-    icon: 'none'
+    icon: 'none',
+    duration: 2000
   })
 }
 
 function showSuccessToast(msg) {
   wx.showToast({
     title: msg,
+    duration: 2000
   })
 }
 
@@ -188,6 +193,71 @@ function checkUserPermisson(){
   })
 }
 
+function nomoreData(){
+  wx.showToast({
+    title: '没有更多信息了',
+    icon: 'none',
+    duration: 2000
+  })
+}
+
+function checkMessage () {
+  utils.request(api.MESSAGENUM_TOTAL).then(function(res){
+    if(res.errno === 0){
+      wx.setStorageSync('messagenum', res.data)
+      if(res.data && res.data > 0){
+          wx.showTabBarRedDot({
+              index: 3
+          })
+      }
+      else{
+          wx.hideTabBarRedDot({
+              index: 3
+          })
+      }
+    }
+  })
+}
+
+
+function getDay(day){  
+   var today = new Date();  
+      
+   var targetday_milliseconds=today.getTime() + 1000*60*60*24*day;          
+
+   today.setTime(targetday_milliseconds); //注意，这行是关键代码
+      
+   var tYear = today.getFullYear();  
+   var tMonth = today.getMonth();  
+   var tDate = today.getDate();  
+   tMonth = doHandleMonth(tMonth + 1);  
+   tDate = doHandleMonth(tDate);  
+   return tYear+"-"+tMonth+"-"+tDate;  
+}
+function doHandleMonth(month){  
+   var m = month;  
+   if(month.toString().length == 1){  
+      m = "0" + month;  
+   }  
+   return m;  
+}
+
+function get7days(){
+  let result = []
+  for(let i = 0; i > -7; i--){
+    result.push(getDay(i))
+  }
+  return result
+}
+
+const rpx2px = function createRpx2px() {
+  const { windowWidth } = wx.getSystemInfoSync()
+
+  return function(rpx) {
+    return windowWidth / 750 * rpx
+  }
+}
+
 module.exports = {
   formatTime,
   formatDate,
@@ -198,5 +268,8 @@ module.exports = {
   checkSession,
   login,
   randomNum,
-  checkUserPermisson
+  checkUserPermisson,
+  nomoreData,
+  get7days,
+  rpx2px
 }

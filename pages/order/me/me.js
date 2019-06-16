@@ -9,7 +9,8 @@ Page({
    */
   data: {
     order_status: '',
-    orderList: []
+    orderList: [],
+    currentPage: 1
   },
 
   /**
@@ -62,7 +63,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this.loadOrderlist()
   },
 
   /**
@@ -71,20 +72,12 @@ Page({
   onShareAppMessage: function () {
 
   },
-  backTo () {
-    if(this.data.fromIndex && this.data.fromIndex == 0){
-      wx.switchTab({
-        url: '/pages/me/index'
-      })
-    }
-    else{
-      wx.navigateBack()
-    }
-  },
   changeType (e) {
     let that = this
     that.setData({
-      order_status: e.currentTarget.dataset.type
+      order_status: e.currentTarget.dataset.type,
+      currentPage: 1,
+      orderList: []
     })
     that.loadOrderlist()
   },
@@ -130,14 +123,17 @@ Page({
   loadOrderlist () {
     let that = this
     utils.request(api.DKORDER_LIST,{
-      page:1,
+      page:that.data.currentPage,
       size:10,
       order_status: (that.data.order_status) ? that.data.order_status*1 : ''
     },'POST').then(function(res){
       if(res.errno === 0){
-        that.setData({
-          orderList: res.data.data
-        })
+        if(res.data.data && res.data.data.length > 0){
+          that.data.currentPage++
+          that.setData({
+            orderList: that.data.orderList.concat(res.data.data)
+          })
+        }
       }
     })
   },
@@ -157,7 +153,9 @@ Page({
           duration: 2000
         })
         that.setData({
-          order_status: '301'
+          order_status: '301',
+          currentPage: 1,
+          orderList: []
         })
         that.loadOrderlist()
       }

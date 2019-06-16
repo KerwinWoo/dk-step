@@ -1,28 +1,28 @@
 <!--pages/me/fans/fans.wxml-->
 <view class="container hastop">
-  <dk-nav title="我的粉丝" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
-  <view class="bt">
-    <view class="commonrow" wx:for="{{fanslist}}" wx:key="{{id}}">
+<!--  <dk-nav title="{{(fromta && fromta == 1)?'TA':'我'}}的粉丝" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+ -->  <view class="bt">
+    <view class="commonrow" wx:for="{{fanslist}}" wx:key="{{user_id}}">
       <view class="photo">
-        <image-loader original-image="{{item.avatar}}" mode="aspectFill"></image-loader>
+        <image-loader bindtap="toTA" data-uid="{{item.user_id}}" original-image="{{item.avatar}}" mode="aspectFill"></image-loader>
       </view>
       <view class="content">
         <view class="title">{{item.nickname}}</view>
-        <view class="subtitle">每一步都值得，今天天气真好每一步都值得，今天天气真好每一步都值得，今天天气真好每一步都值得，今天天气真好，</view>
+        <view class="subtitle">{{item.user_desc?item.user_desc:''}}</view>
       </view>
-      <view class="sideicn" wx:if="{{item.status == 1}}" data-index="{{index}}" data-status="{{item.status}}" data-uid="{{item.user_id}}" bindtap="guanzhu">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_ygz.png"></image>
+      <view class="sideicn" wx:if="{{item.status == 1 && currentUserId!=item.user_id}}" data-index="{{index}}" data-status="{{item.status}}" data-uid="{{item.user_id}}" bindtap="guanzhu">
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/icn_ygz.png"></image>
         <view>已关注</view>
       </view>
-      <view class="sideicn" wx:if="{{item.status == 0}}" data-index="{{index}}" data-status="{{item.status}}" data-uid="{{item.user_id}}" bindtap="guanzhu">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_gz.png"></image>
+      <view class="sideicn" wx:if="{{item.status == 0 && currentUserId!=item.user_id}}" data-index="{{index}}" data-status="{{item.status}}" data-uid="{{item.user_id}}" bindtap="guanzhu">
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/icn_gz.png"></image>
         <view>加关注</view>
       </view>
     </view>
   </view>
   <view class="nodata" wx:if="{{!fanslist || fanslist.length == 0}}">
-    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/nodata_fensi.png"></image>
-    <view class="title">你还没有粉丝哦</view>
+    <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/nodata_fensi.png"></image>
+    <view class="title">{{(fromta && fromta == 1)?'TA':'你'}}还没有粉丝哦</view>
   </view>
 </view>
 

@@ -20,14 +20,16 @@ Page({
     clickLuck:'clickLuck',
     luckPosition:0,
     giftImg: '',
-    giftName: ''
+    giftName: '',
+    messageTop: 0,
+    awardindex: 0,
+    isReal: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.loadUserDkInfo()
     this.loadAwardsData()
   },
   loadUserDkInfo () {
@@ -43,20 +45,20 @@ Page({
     let that = this
     utils.request(api.GAME_WHEEL_AWORD).then(function(res){
       res.map(function(value, index){
-        switch (value.award_name){
-        	case '蛋壳':
-            value.img = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift04.png'
+        switch (value.id){
+        	case 1: case 2: case 3:
+            value.img = 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/gift04.png'
         		break;
-          case '步数':
-            value.img = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift02.png'
+          case 4: case 5: case 7:
+            value.img = 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/gift02.png'
             value.award_name = '步'
             break;
-          case 'iPhone XS':
-            value.img = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift01.png'
+          case 6:
+            value.img = 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/gift01.png'
             value.award_num = ''
             break;
-          case '手环':
-            value.img = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift03.png'
+          case 8:
+            value.img = 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/gift03.png'
             value.award_num = ''
             break;
         	default:
@@ -72,75 +74,89 @@ Page({
   clickLuck:function(){
 
     var that = this;
-    
-    utils.request(api.GAME_GETWHEEL_AWORD).then(function(res){
-      if(res.code == 500){
-        wx.showToast({
-          title: res.msg,
-          icon: 'none'
-        })
-      }
-      else{
-        //设置按钮不可点击
-        that.setData({
-          clickLuck:'',
-        })
-        //清空计时器
-        clearInterval(interval);
-        var index = 0;
-        interval = setInterval(function () {
-          if (index > 7) {
-            index = 0;
-            that.data.awards[7].active = false
-          } else if (index != 0) {
-            that.data.awards[index - 1].active = false
-          }
-          that.data.awards[index].active = true
+    if(that.data.myDk < 10){
+      utils.showErrorToast('蛋壳不足，无法抽奖')
+    }
+    else{
+      that.setData({
+        myDk: (that.data.myDk - 10).toFixed(2)
+      })
+      utils.request(api.GAME_GETWHEEL_AWORD).then(function(res){
+        if(res.code == 500){
           that.setData({
-            awards: that.data.awards
+            myDk: (that.data.myDk + 10).toFixed(2)
           })
-          index++;
-        }, intime);
-        
-        var stoptime = 2000;
-        that.loadUserDkInfo()
-        for(let i = 0; i < that.data.awards.length; i++){
-          if(that.data.awards[i].id == res.id){
-            setTimeout(function(){
-              that.stop(i)
-              let giftName = ''
-              let giftImg = ''
-              switch (res.award_name){
-              	case '蛋壳':
-                  giftImg = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift04.png'
-              		giftName = res.award_num + '蛋壳'
-                  break;
-                case '步数':
-                  giftImg = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift02.png'
-                  giftName = res.award_num + '步'
-                  break;
-                case 'iPhone XS':
-                  giftImg = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift01.png'
-                  giftName = res.award_name
-                  break;
-                case '手环':
-                  giftImg = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift03.png'
-                  giftName = res.award_name
-                  break;
-              	default:
-              		break;
-              }
-              that.setData({
-                giftName: giftName,
-                giftImg: giftImg
-              })
-            }, stoptime)
-            return
+          wx.showToast({
+            title: res.msg,
+            icon: 'none'
+          })
+        }
+        else{
+          //设置按钮不可点击
+          that.setData({
+            clickLuck:'',
+          })
+          //清空计时器
+          clearInterval(interval);
+          var index = 0;
+          interval = setInterval(function () {
+            if (index > 7) {
+              index = 0;
+              that.data.awards[7].active = false
+            } else if (index != 0) {
+              that.data.awards[index - 1].active = false
+            }
+            that.data.awards[index].active = true
+            that.setData({
+              awards: that.data.awards
+            })
+            index++;
+          }, intime);
+          
+          var stoptime = 2000;
+          for(let i = 0; i < that.data.awards.length; i++){
+            if(that.data.awards[i].id == res.id){
+              setTimeout(function(){
+                that.stop(i)
+                let giftName = ''
+                let giftImg = ''
+                let isReal = false
+                switch (res.id){
+                	case 1: case 2: case 3:
+                    giftImg = 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/gift04.png'
+                		giftName = res.award_num + '蛋壳'
+                    break;
+                  case 4: case 5: case 7:
+                    giftImg = 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/gift02.png'
+                    giftName = res.award_num + '步'
+                    break;
+                  case 6:
+                    giftImg = 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/gift01.png'
+                    giftName = res.award_name
+                    isReal = true
+                    break;
+                  case 8:
+                    giftImg = 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/gift03.png'
+                    giftName = res.award_name
+                    isReal = true
+                    break;
+                	default:
+                		break;
+                }
+                that.setData({
+                  giftName: giftName,
+                  giftImg: giftImg,
+                  awardType: res.type,
+                  goods_id: res.goods_id?res.goods_id:'',
+                  isReal: isReal
+                })
+              }, stoptime)
+              return
+            }
           }
         }
-      }
-    })
-
+      })
+    }
   },
 
   stop: function (which){
@@ -216,7 +232,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.loadAwardsInfo()
+    this.calculate()
+    this.loadUserDkInfo()
   },
 
   /**
@@ -255,7 +273,7 @@ Page({
     return {
       title: '抽疯了，华为P30 Pro每日限量大派送~',
       path: '/pages/index/index?fromInvite=1&type=1&push_userid=' + wx.getStorageSync('userId') + '&forwardUrl='+encodeURIComponent('/pages/game/luckywheel/luckywheel'),
-      imageUrl: 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/invitelink.gif'
+      imageUrl: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/invitelink.gif'
     }
   },
   backTo (e) {
@@ -266,6 +284,12 @@ Page({
     this.setData({
       [key]: false
     })
+    this.data.awards.map(function(value){
+      value.active = false
+    })
+    this.setData({
+      awards: this.data.awards
+    })
   },
   viewRule () {
     this.setData({
@@ -273,8 +297,62 @@ Page({
     })
   },
   getAward () {
+    this.data.awards.map(function(value){
+      value.active = false
+    })
     this.setData({
+      awards: this.data.awards,
       awardLayer: false
+    })
+    this.loadAwardsInfo()
+    /* if(this.data.awardType == 3 && this.data.goods_id){
+      wx.navigateTo({
+      	url: '/pages/order/paydetail/paydetail?goodsId='+this.data.goods_id+'&goodsType=newperson&num=1'
+      })
+    }
+    else{
+      
+    } */
+  },
+  loadAwardsInfo () {
+    let that = this
+    utils.request(api.GAME_GETWHEEL_AWORDRECORD,{
+      offset: 0,
+      size: 20
+    }).then(function(res){
+      if(res.errno === 0){
+        that.setData({
+          rewardList: res.data
+        })
+        if(that.data.awardInterval){
+          //
+        }
+        else{
+          that.data.awardInterval = setInterval(function(){
+            that.data.messageTop -= that.data.messageheight
+            that.data.awardindex++
+            if(that.data.awardindex == (res.data.length - 1)){
+              that.data.messageTop = 0
+              that.data.awardindex = 0
+            }
+            that.setData({
+              messageTop: that.data.messageTop
+            })
+          }, 5*1000)
+        }
+      }
+    })
+  },
+  calculate () {
+    let that = this
+    const query = wx.createSelectorQuery()
+    query.select('#element').boundingClientRect()
+    query.selectViewport().scrollOffset()
+    const ratio = 0.08877285
+    query.exec(function(res){
+      that.setData({
+        messageheight: res[0].height*ratio
+      })
     })
   }
 })

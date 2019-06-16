@@ -1,0 +1,40 @@
+<!--pages/team/createteam/createteam.wxml-->
+<view class="container hastop">
+  <navigator class="stepcont" open-type="navigate" url="/pages/rule/teamrule/teamrule">
+    <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/banner_pk.png"></image>
+  </navigator>
+  <view class="formTab">
+    <view class="wrp">
+      <view class="row">
+        <input value="{{teamName}}" bindinput="teamNameInput" 
+        placeholder="请输入团队名称(10字以内)" maxlength="10" placeholder-style="color:#999"/></view>
+      <view class="row">
+        <textarea value="{{teamSlogan}}" placeholder="请输入团队宣言(65字以内)" 
+        placeholder-style="color:#999" maxlength="65" bindinput="sloganInput"/>
+      </view>
+      <view class="row pickerrow">
+        <view class="title">选择每日目标步数</view>
+        <view class="picker">
+          <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+            <view class="picker_num">
+              {{array[index]}}步<image class="more" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/icn_down.png"></image>
+            </view>
+          </picker>
+        </view>
+      </view>
+      <view class="friendlist clearfix">
+        <view class="itm">
+          <view class="wrp">
+            <view class="photo">
+              <image src="{{userInfo.avatarUrl}}" mode="aspectFill"></image>
+            </view>
+            <view class="name">{{userInfo.nickName}}</view>
+          </view>
+        </view>
+      </view>
+      
+      <view class="createBtn btn-default" bindtap="doCreateTeam">点击创建</view>
+      <view class="tip">创建团队邀请好友加入PK步数，至少5人以上</view>
+    </view>
+  </view>
+</view>

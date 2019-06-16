@@ -1,10 +1,10 @@
 <!--pages/order/paydetail/paydetail.wxml-->
-<scroll-view class="container hastop">
-  <dk-nav title="支付详情" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
-  <form name="payForm" report-submit="true" bindsubmit="getFormId">
-    <view class="recevierinfo" bindtap="chooseAddress"  wx:if="{{addressInfo.id}}">
+<scroll-view class="container {{isOrdered?'':'hasbottom'}}">
+<!--  <dk-nav title="支付详情" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+ -->  <form name="payForm" report-submit="true" bindsubmit="getFormId" wx:if="{{!isOrdered}}">
+    <view class="recevierinfo" bindtap="chooseAddress"  wx:if="{{addressInfo.id && goodsInfo.dkIsReal == 0}}">
       <view class="l">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dibiao%402x.png"></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/dibiao%402x.png"></image>
       </view>
       <view class="r">
         <view class="t" wx:if="{{addressInfo.userName != ''}}">收货人：<text>{{addressInfo.userName}}</text> <text class="phone">{{addressInfo.telNumber}}</text></view>
@@ -12,14 +12,14 @@
         <view class="defaultInfo" wx:if="{{addressInfo.userName == ''}}">请选择收货地址</view>
       </view>
       <view class="more">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/more02.png"></image>
       </view>
     </view>
-    <view class="recevierinfo" wx:if="{{!addressInfo.id}}">
+    <view class="recevierinfo" wx:if="{{!addressInfo.id && goodsInfo.dkIsReal == 0}}">
       <view class="addAddressBtn btn-simple" bindtap="openAddress">请添加收货地址</view>
     </view>
     <view class="btmborder" wx:if="{{addressInfo.id}}">
-      <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/pay_border.png"></image>
+      <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/pay_border.png"></image>
     </view>
     <view class="card{{(addressInfo.id)?'':' hasMgt'}}">
       <view class="title">商品信息</view>
@@ -33,27 +33,29 @@
           <view class="l">
             <view class="name">{{goodsInfo.name}}</view>
             <view class="dknum">
-              <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
-              <text>{{choosedGoodsInfo.dkEshellNum}}</text>
-              <text class="plus" wx:if="{{choosedGoodsInfo.retail_price && choosedGoodsInfo.retail_price > 0}}">+</text>
-              <text wx:if="{{choosedGoodsInfo.retail_price && choosedGoodsInfo.retail_price > 0}}" class="unit">¥</text>
-              <text wx:if="{{choosedGoodsInfo.retail_price && choosedGoodsInfo.retail_price > 0}}">{{choosedGoodsInfo.retail_price}}</text>
+              <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i-egg.png"></image>
+              <text>{{goodsInfo.dkEshellNum}}</text>
+              <text class="plus" wx:if="{{goodsInfo.retail_price > 0}}">+</text>
+              <text wx:if="{{goodsInfo.retail_price > 0}}" class="unit">¥</text>
+              <text wx:if="{{goodsInfo.retail_price > 0}}">{{goodsInfo.retail_price}}</text>
             </view>
           </view>
         </view>
       </view>
       <view class="buynum">
         <view class="title">购买数量</view>
-        <dk-stepper id="mystepper" class="numstepper" 
+        <dk-stepper class="numstepper" 
          inputStatus="{{(goodsType == 'newperson' || goodsType == 'invite') ? 'disabled' : ''}}" 
          plusStatus="{{(goodsType == 'newperson' || goodsType == 'invite') ? 'disabled' : ''}}"
+         minusStatus="{{(choosedGoodsInfo.num == 1)?'disabled':''}}"
          num = "{{choosedGoodsInfo.num}}"
          bind:bindPlus="bindPlus"
          bind:bindMinus="bindMinus"
          bind:bindManual="bindManual"></dk-stepper>
       </view>
       <view class="buyercomment">
-        <input type="text" bindchange="postscriptChange" value="{{postscript}}" placeholder="买家备注：（最多50个字）" placeholder-style="color:#666" maxlength="50" />
+        <textarea type="text" bindinput="postscriptChange" value="{{postscript}}" 
+        placeholder="买家备注：（最多50个字）" placeholder-style="color:#666" maxlength="50" ></textarea>
       </view>
     </view>
     <view class="payinfo">
@@ -73,15 +75,34 @@
       <view class="summary">
         <view class="label">实付：
           <view class="dknum">
-            <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
+            <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i-egg.png"></image>
             <text>{{choosedGoodsInfo.dkEshellNum}}</text>
-            <text class="plus" wx:if="{{goodsInfo.retail_price && goodsInfo.retail_price > 0}}">+</text>
-            <text class="unit" wx:if="{{goodsInfo.retail_price && goodsInfo.retail_price > 0}}">¥</text>
-            <text wx:if="{{goodsInfo.retail_price && goodsInfo.retail_price > 0}}">{{choosedGoodsInfo.retail_price*1+goodsInfo.mailCost*1}}</text>
+            <text class="plus" wx:if="{{((goodsInfo.retail_price*1+goodsInfo.mailCost*1) > 0)}}">+</text>
+            <text class="unit" wx:if="{{((goodsInfo.retail_price*1+goodsInfo.mailCost*1) > 0)}}">¥</text>
+            <text wx:if="{{((goodsInfo.retail_price*1+goodsInfo.mailCost*1) > 0)}}">{{choosedGoodsInfo.retail_price*1+goodsInfo.mailCost*1}}</text>
           </view>
         </view>
       </view>
     </view>
-    <button class="exchangeBtn btn-default resetBtn" form-type="submit">立即兑换</button>
+    <button class="exchangeBtn btn-default resetBtn" form-type="submit" wx:if="{{payable}}">立即兑换</button>
+    <view class="exchangeBtn disabled" wx:if="{{!payable}}">立即兑换</view>
   </form>
+  
+  <view class="paysuccess" wx:if="{{isOrdered}}">
+    <view class="title">
+       <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/status_success.png"></image>
+       <text>兑换成功</text>
+     </view>
+     <view class="bg">
+       <image mode="aspectFill" src="{{goodsInfo.primary_pic_url}}"></image>
+     </view>
+     <view class="tip">
+       <view>订单已提交至后台处理</view>
+       <view>消息分享给好友，可提高邀请成功率哦！</view>
+     </view>
+     <button class="sharebtn btn-default" open-type="share">快去分享给好友</button>
+     <navigator class="viewOrder" hover-class="none" url="/pages/order/me/me">
+       查看订单详情<image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/more02.png"></image>
+     </navigator>
+  </view>
 </scroll-view>

@@ -4,7 +4,7 @@
   width: 100%;
   justify-content: center;
   position: fixed;
-  top:150rpx;
+  top:0;
   z-index: 100000;
 }
 .dk-toast-content{

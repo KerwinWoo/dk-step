@@ -45,6 +45,8 @@ Page({
       goodsType: options.goodsType?options.goodsType:'',
       fromIndex: options.fromIndex?options.fromIndex:''
     })
+    
+    that.stepper = that.selectComponent(".numstepper")
   },
   
   /**
@@ -95,14 +97,27 @@ Page({
    */
   onShareAppMessage: function () {
     let that = this
-    return {
-      title: '就差你了，你帮我点一下就能用步数兑换到这个商品了~"',
-      imageUrl: that.data.info.list_pic_url,
-      path: '/pages/index/index?fromInvite=1&type=3&business='+ that.data.info.id 
-      + '&push_userid=' + wx.getStorageSync('userId') 
-      + '&forwardUrl='
-      + encodeURIComponent('/pages/mall/goodsdetail/goodsdetail?id='+that.data.currentId
-      +'&isInvite='+that.data.isInvite+'&goodsType='+that.data.goodsType)
+    if(that.data.isInvite){
+      return {
+        title: '就差你了，你帮我点一下就能用步数兑换到这个商品了~"',
+        imageUrl: that.data.info.list_pic_url,
+        path: '/pages/index/index?fromInvite=1&type=3&business='+ that.data.info.id 
+        + '&push_userid=' + wx.getStorageSync('userId') 
+        + '&forwardUrl='
+        + encodeURIComponent('/pages/mall/goodsdetail/goodsdetail?id='+that.data.currentId
+        +'&isInvite='+that.data.isInvite+'&goodsType='+that.data.goodsType)
+      }
+    }
+    else{
+      return {
+        title: '要想富，先走路，走路也能成首富',
+        imageUrl: that.data.info.list_pic_url,
+        path: '/pages/index/index?fromInvite=1&type=3&business='+ that.data.info.id 
+        + '&push_userid=' + wx.getStorageSync('userId') 
+        + '&forwardUrl='
+        + encodeURIComponent('/pages/mall/goodsdetail/goodsdetail?id='+that.data.currentId
+        +'&isInvite='+that.data.isInvite+'&goodsType='+that.data.goodsType)
+      }
     }
   },
   backTo () {
@@ -113,6 +128,9 @@ Page({
     }
     else{
       wx.navigateBack()
+      /* wx.navigateTo({
+      	url: '/pages/mall/index?timercount=' + this.data.timercount
+      }) */
     }
   },
   loadGoodsDetail () {
@@ -130,7 +148,7 @@ Page({
           that.setData({
             userDknum: res2.data.eggshellNum
           })
-          if(res2.data.eggshellNum*1 > res.data.info.dkEshellNum*1){
+          if(res2.data.eggshellNum*1 >= res.data.info.dkEshellNum*1){
             //邀请人数不足
             if(res.data.info.dkInvitationNum > res.data.invitationHistory.length){
               that.setData({
@@ -179,23 +197,18 @@ Page({
   loadBuyouShareData () {
     let that = this
     utils.request(api.BUYOU_RECOMMENT_TOPICLIST,{
-      topicTag: 'showMyList'
+      topicTag: 'shaidan'
     }).then(function(res){
       if(res.errno == 0){
-        if(res.data.data.length > 0){
-          let data = res.data.data[0]
+        if(res.data.communityList.data.length > 0){
+          let data = res.data.communityList.data[0]
           if(data.img_src){
             data.img_src = data.img_src.split(',')
           }
-          if(data.img_src.length == 1){
-            data.imgmode = 'aspectFill'
-          }
-          else if(data.img_src.length == 4){
+          if(data.img_src.length == 4){
             data.type3 = ' type3'
           }
-          else{
-            data.imgmode = 'aspectFill'
-          }
+          data.imgmode = 'aspectFill'
           that.setData({
             shaidan: data
           })
@@ -268,7 +281,7 @@ Page({
     let that = this
     let choosedGoodsInfo = that.data.choosedGoodsInfo
     let userDknum = that.data.userDknum
-    let choosednum = that.selectComponent("#mystepper").data.num
+    let choosednum = that.stepper.data.num
     let goodsInfo = that.data.info
     let totalDk = choosednum*(goodsInfo.dkEshellNum)
     if(totalDk > userDknum){
@@ -277,7 +290,7 @@ Page({
         icon: 'none',
         duration: 2000
       })
-      that.selectComponent("#mystepper").setData({
+      that.stepper.setData({
         num: --choosednum
       })
     }
@@ -288,7 +301,7 @@ Page({
           icon: 'none',
           duration: 2000
         })
-        that.selectComponent("#mystepper").setData({
+        that.stepper.setData({
           num: --choosednum
         })
       }
@@ -307,7 +320,7 @@ Page({
     let that = this
     let choosedGoodsInfo = that.data.choosedGoodsInfo
     let userDknum = that.data.userDknum
-    let choosednum = that.selectComponent("#mystepper").data.num
+    let choosednum = that.stepper.data.num
     let goodsInfo = that.data.info
     let totalDk = choosednum*(goodsInfo.dkEshellNum)
     that.setData({
@@ -322,7 +335,7 @@ Page({
     let that = this
     let choosedGoodsInfo = that.data.choosedGoodsInfo
     let userDknum = that.data.userDknum
-    let choosednum = that.selectComponent("#mystepper").data.num
+    let choosednum = that.stepper.data.num
     let goodsInfo = that.data.info
     let totalDk = choosednum*(goodsInfo.dkEshellNum)
     if(choosednum <= 0){

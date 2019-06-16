@@ -1,7 +1,8 @@
 {
   "backgroundColor":"#fff",
+  "navigationBarTitleText": "卡路里日记",
+  "navigationBarBackgroundColor": "#fff",
   "usingComponents": {
-    "dk-nav": "/components/dk-navigation/dk-nav",
     "ff-canvas": "/components/f2-canvas/f2-canvas",
     "canvas-share": "/components/canvas-share/index"
   }

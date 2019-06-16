@@ -1,6 +1,6 @@
 <!--pages/rule/teamrule/teamrule.wxml-->
 <view class="container hastop">
-  <dk-nav title="规则" hasBackBtn="{{true}}" bind:backTo="backTo"></dk-nav>
+  <!-- <dk-nav title="规则" hasBackBtn="{{true}}" bind:backTo="backTo"></dk-nav> -->
   <view class="wrp">
     <view class="ttitle">加入/创建团队规则说明</view>
     <view class="list">

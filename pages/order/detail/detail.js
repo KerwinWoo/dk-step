@@ -95,7 +95,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    this.toast = this.selectComponent("#toast");
+    this.toast = this.selectComponent(".dktoast");
   },
 
   /**
@@ -139,21 +139,11 @@ Page({
   onShareAppMessage: function () {
 
   },
-  backTo () {
-    if(this.data.fromIndex && this.data.fromIndex == 0){
-      wx.navigateTo({
-        url: '/pages/order/me/me?orderStatus=0&fromIndex=0'
-      })
-    }
-    else{
-      wx.navigateBack()
-    }
-  },
-  gotoPay () {
+/*  gotoPay () {
     wx.navigateTo({
       url: '/pages/order/paydetail/paydetail'
     })
-  },
+  }, */
   copyText: function (e) {
     wx.setClipboardData({
       data: e.currentTarget.dataset.text,
@@ -222,7 +212,9 @@ Page({
           icon: 'success',
           duration: 2000,
           success: function(){
-            wx.navigateBack()
+            wx.navigateTo({
+              url:'/pages/order/me/me?fromIndex=0'
+            })
           }
         })
       }

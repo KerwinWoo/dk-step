@@ -142,6 +142,18 @@ Page({
         }).then(function(res){
           if(res.errno === 0){
             that.loadData()
+            that.setData({
+              awardLayer: true,
+              awardstep: that.data.signList[that.data.lianxu]['day'+(that.data.lianxu+1)].step,
+              awarddk: that.data.signList[that.data.lianxu]['day'+(that.data.lianxu+1)].dk
+            })
+          }
+          else{
+            wx.showToast({
+              title:res.errmsg?res.errmsg:res.msg,
+              icon: 'none',
+              duration: 2000
+            })
           }
         })
       }
@@ -153,9 +165,6 @@ Page({
         duration: 2000
       })
     }
-    /* that.setData({
-      awardLayer: true
-    }) */
   },
   closeLayer () {
     this.setData({

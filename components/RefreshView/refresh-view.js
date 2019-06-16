@@ -48,7 +48,10 @@ Component({
     platform = wx.getSystemInfoSync().platform
     scale =  wx.getSystemInfoSync().windowWidth / 375 *2
   },
-  attached: function() {},
+  attached: function() {
+    var that = this; 
+    that.setStatusHeight(); 
+  },
   ready: function() {},
   moved: function() {},
   detached: function() {},
@@ -56,6 +59,16 @@ Component({
    * 组件的方法列表
    */
   methods: {
+    setStatusHeight: function() {
+      var that = this
+          , sysinfo = wx.getSystemInfoSync()
+          , statusHeight = sysinfo.statusBarHeight
+          , isiOS = sysinfo.system.indexOf('iOS') > -1
+          , navHeight;
+      that.setData({
+          status: statusHeight
+      })
+    },
     //自动刷新
     autoRefresh() {
       this._pullStateChange(PULL_REFRESHING, this.data.refreshHeight)

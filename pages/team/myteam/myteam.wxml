@@ -1,16 +1,15 @@
 <!--pages/team/myteam/myteam.wxml-->
 <view class="container hastop">
-  <dk-nav title="我的团队" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
-  <navigator class="banner" open-type="navigate" url="/pages/rule/teamrule/teamrule">
-    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/banner_pk.png"></image>
+<!--  <dk-nav title="我的团队" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+ -->  <navigator class="banner" open-type="navigate" url="/pages/rule/teamrule/teamrule">
+    <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/banner_pk.png"></image>
   </navigator>
   <view class="teamlist">
     <navigator hover-class="none" class="itm" wx:for="{{teamList}}" wx:key="{{index}}" url="/pages/team/detail/detail?teamId={{item.team_id}}">
       <view class="photo">
         <image src="{{item.leader_avatar}}" mode="aspectFill"></image>
         <view class="flagcont">
-          <image class="flag" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/flag01.png"></image>
-          <text>团长</text>
+          <image class="flag" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/flag01.png"></image>
         </view>
       </view>
       <view class="info">
@@ -24,7 +23,7 @@
         </view>
       </view>
       <view class="more">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/more02.png"></image>
       </view>
       <view class="createFlag" wx:if="{{item.team_status == 0}}">创建中</view>
     </navigator>

@@ -1,6 +1,7 @@
 {
   "backgroundColor":"#fff",
+  "navigationBarTitleText": "发布",
+  "navigationBarBackgroundColor": "#fff",
   "usingComponents": {
-    "dk-nav": "/components/dk-navigation/dk-nav"
   }
 }

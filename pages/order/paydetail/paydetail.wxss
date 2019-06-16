@@ -1,9 +1,18 @@
 /* pages/order/paydetail/paydetail.wxss */
 @import "/pages/order/detail/detail.wxss";
+page,.container{
+  min-height:100%;
+}
+.container{
+  box-sizing: content-box;
+}
+.container.hasbottom{
+  padding-bottom:200rpx;
+}
 .recevierinfo{
   padding:30rpx;
   position: relative;
-  padding-right:50rpx;
+  /* padding-right:50rpx; */
   margin-bottom: 0;
 }
 .recevierinfo .addAddressBtn{
@@ -68,17 +77,12 @@
   left:50%;
   margin-left:-290rpx;
 }
+.exchangeBtn.disabled{
+  background:#ddd;
+  color:#999;
+}
 .defaultInfo{
   font-weight: bold;
-}
-.buyercomment input{
-  width:100%;
-  height:70rpx;
-  background:#eee;
-  box-sizing: border-box;
-  padding-left:30rpx;
-  margin-top:20rpx;
-  font-size: 24rpx;
 }
 .payinfo .summary .label{
   display: flex;
@@ -88,4 +92,63 @@
 }
 .hasMgt{
   margin-top:30rpx;
+}
+.paysuccess{
+  width:100%;
+  height:100%;
+  background:#fff;
+  box-sizing: border-box;
+  padding-bottom:230rpx;
+}
+.paysuccess .title{
+  font-size:44rpx;
+  color:#FB793B;
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-top:120rpx;
+  padding-bottom: 60rpx;
+}
+.paysuccess .title image{
+  width:50rpx;
+  height:50rpx;
+  margin-right:35rpx;
+}
+.paysuccess .bg{
+  text-align: center;
+  margin-bottom: 100rpx;
+}
+.paysuccess .bg image{
+  width:356rpx;
+  height:233rpx;
+}
+.paysuccess .tip{
+  text-align: center;
+  font-size:30rpx;
+  line-height: 50rpx;
+}
+.paysuccess .sharebtn{
+  width:580rpx;
+  height:86rpx;
+  border-radius:43rpx;
+  margin:0 auto;
+  text-align: center;
+  line-height: 86rpx;
+  font-size:40rpx;
+  font-weight: bold;
+  box-sizing: border-box;
+  color:#fff;
+  margin-top:50rpx;
+}
+.paysuccess .viewOrder {
+  text-align: center;
+  font-size: 28rpx;
+  padding:40rpx 0 100rpx 0;
+}
+.paysuccess .viewOrder image{
+  width:11rpx;
+  height:20rpx;
+  margin-left:12rpx;
 }

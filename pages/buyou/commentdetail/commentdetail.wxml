@@ -1,11 +1,11 @@
 <!--pages/buyou/commentdetail/commentdetail.wxml-->
 <view class="container hastop">
-  <dk-nav title="评论详情" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
-  <view class="topiccontentlist">
+<!--  <dk-nav title="评论详情" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+ -->  <view class="topiccontentlist">
     <view class="itm">
-      <image-loader class="photo" original-image="{{communityVo.avatar}}"></image-loader>
-      <view class="subscribe" bindtap="guanzhu" data-uid="{{communityVo.create_user_id}}">
-        <image wx:if="{{communityVo.attention_status == 0}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/guanzhu%402x.png"></image>
+      <image-loader class="photo" bindtap="toTA" data-uid="{{communityVo.create_user_id}}" original-image="{{communityVo.avatar}}"></image-loader>
+      <view class="subscribe" wx:if="{{userId != communityVo.create_user_id}}" bindtap="guanzhu" data-uid="{{communityVo.create_user_id}}">
+        <image wx:if="{{communityVo.attention_status == 0}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/guanzhu%402x.png"></image>
         <text wx:if="{{communityVo.attention_status == 0}}">关注</text>
         <text wx:if="{{communityVo.attention_status == 1}}">已关注</text>
       </view>
@@ -13,7 +13,7 @@
         <text class="skeleton-tab1-rect">{{communityVo.nickname}}</text>
       </view>
       <view class="topictype"  wx:if="{{communityVo.tag_name}}">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/huati%402x.png"></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/huati%402x.png"></image>
         {{communityVo.tag_name}}
       </view>
       <view class="content">{{communityVo.content}}</view>
@@ -36,21 +36,21 @@
     </view>
   </view>
   <view class="dashanglist">
-    <view class="title">{{rewardUserCount}}人已打赏</view>
+    <view class="title">{{rewardUserCount?rewardUserCount:0}}人已打赏</view>
     <view class="list">
       <view class="itm" wx:for="{{rewardUsersList}}" wx:key="{{index}}" wx:if="{{index <= 7}}">
-        <image-loader original-image="{{item.avatar}}" mode="aspectFit"></image-loader>
+        <image-loader bindtap="toTA" data-uid="{{item.user_id}}" original-image="{{item.avatar}}" mode="aspectFit"></image-loader>
       </view>
       <navigator class="itm more" hover-class="none" url="/pages/buyou/dashang/dashang?topicid={{communityVo.id}}">
-        <image-loader class="flex-c" original-image="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more03.png"></image-loader>
+        <image-loader class="flex-c" original-image="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/more03.png"></image-loader>
       </navigator>
     </view>
   </view>
-  <view class="commenttip">{{commentList.count}}条评论</view>
+  <view class="commenttip">{{communityVo.comment_num}}条评论</view>
   <view class="commentlist">
-    <view class="itm" wx:for="{{commentList.data}}" wx:key="{{index}}">
+    <view class="itm" wx:for="{{commentList}}" wx:key="{{index}}">
       <view class="photo">
-        <image-loader original-image="{{item.avatar}}"></image-loader>
+        <image-loader original-image="{{item.avatar}}" bindtap="toTA" data-uid="{{item.user_id}}"></image-loader>
       </view>
       <view class="content">
         <view class="name">{{item.nickname}}
@@ -59,7 +59,7 @@
         </view>
         <view class="time">{{item.create_time}}</view>
         <view class="txt">{{item.comment}}
-        <text class="endcomment" bindtap="doCommentWithName" 
+        <text class="endcomment" wx:if="{{item.user_id != userId}}" bindtap="doCommentWithName" 
           data-id="{{communityVo.id}}" data-uid="{{item.user_id}}" 
           data-name="{{item.nickname}}">回复</text></view>
       </view>
@@ -70,17 +70,17 @@
       data-id="{{communityVo.id}}" data-uid="{{communityVo.create_user_id}}"/>
     <view class="opers">
       <view class="itm" bindtap="giveEgg">
-        <image wx:if="{{communityVo.reward_status == 0}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dashang-bef.png"></image>
-        <image wx:if="{{communityVo.reward_status == 1}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
+        <image wx:if="{{communityVo.reward_status == 0}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/dashang-bef.png"></image>
+        <image wx:if="{{communityVo.reward_status == 1}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i-egg.png"></image>
         <text class="num">{{communityVo.eshell_num}}</text>
       </view>
       <button class="itm resetBtn" open-type="share">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fenxiang%402x.png"></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/fenxiang%402x.png"></image>
         <text class="num">{{communityVo.forward_num}}</text>
       </button>
       <view class="itm" bindtap="shouCang">
-        <image wx:if="{{communityVo.collection_status == 0}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/shoucang-bef.png"></image>
-        <image wx:if="{{communityVo.collection_status == 1}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/shoucang-aft.png"></image>
+        <image wx:if="{{communityVo.collection_status == 0}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/shoucang-bef.png"></image>
+        <image wx:if="{{communityVo.collection_status == 1}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/shoucang-aft.png"></image>
         <text class="num">{{communityVo.collection_num}}</text>
       </view>
     </view>

@@ -68,7 +68,7 @@ ff-canvas {
   width:120rpx;
   height:120rpx;
   border-radius:50%;
-  border:6rpx solid #fff;
+  border:1rpx solid #eee;
 }
 .postcont .photo .user>view{
   font-size:28rpx;

@@ -1,22 +1,37 @@
 <!--pages/me/homepage/edit/edit.wxml-->
 <view class="container hastop">
-  <dk-nav title="个人信息" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
-  <view class="row">
+<!--  <dk-nav title="个人信息" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+ -->  <view class="row">
     <view class="label">头像</view>
     <view>
-      <image src="{{userInfo.avatarUrl}}" class="avatar" mode="aspectFill"></image>
+      <image src="{{userInfo.avatar}}" class="avatar" mode="aspectFill"></image>
     </view>
   </view>
-  <view class="row">
-    <view class="label">性别</view>
-    <view>
-      <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png" class="more"></image>
-    </view>
-  </view>
-  <view class="row">
+  <navigator class="row" hover-class="none" url="/pages/me/homepage/editdesc/editdesc?userId={{userInfo.userId}}&desc={{userInfo.userDesc}}&gender={{userInfo.gender}}">
     <view class="label">一句话介绍</view>
     <view>
-      <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png" class="more"></image>
+      <text class="desc">{{userInfo.userDesc?userInfo.userDesc:''}}</text>
+      <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/more02.png" class="more"></image>
     </view>
-  </view>
+  </navigator>
+  <picker class="row" bindchange="bindPickerChange" style="position: relative;" range-key="name" value="{{genderindex}}" range="{{genderarray}}">
+    <view class="label" style="display: inline-block;">性别</view>
+    <view style="position: absolute;display: inline-block;right:60rpx;top:50%;margin-top:-15rpx;">
+      <text class="desc">{{genderarray[genderindex].name}}</text>
+      <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/more02.png" class="more"></image>
+    </view>
+  </picker>
+  <picker class="row" bindchange="bindPickerChange2" style="position: relative;" value="{{ageindex}}" range="{{agearray}}">
+    <view class="label" style="display: inline-block;">年龄</view>
+    <view style="position: absolute;display: inline-block;right:60rpx;top:50%;margin-top:-15rpx;">
+      <text class="desc">{{agearray[ageindex]}}</text>
+      <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/more02.png" class="more"></image>
+    </view>
+  </picker>
+  <!-- <view class="row">
+    <view class="label">地区</view>
+    <view>
+      <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/more02.png" class="more"></image>
+    </view>
+  </view> -->
 </view>

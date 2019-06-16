@@ -1,6 +1,8 @@
 {
+  "backgroundColor":"#fff",
+  "navigationBarTitleText": "签到",
+  "navigationBarBackgroundColor": "#fff",
   "usingComponents": {
-    "dk-nav": "/components/dk-navigation/dk-nav",
     "image-loader": "/components/dk-image-loader/image-loader"
   }
 }

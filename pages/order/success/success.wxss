@@ -1,5 +1,11 @@
 /* pages/order/success/success.wxss */
-.title{
+.paysuccess{
+  width:100%;
+  height:100%;
+  background:#fff;
+  box-sizing: border-box;
+}
+.paysuccess .title{
   font-size:44rpx;
   color:#FB793B;
   font-weight: bold;
@@ -7,28 +13,28 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-top:120rpx;
-  margin-bottom: 60rpx;
+  padding-top:120rpx;
+  padding-bottom: 60rpx;
 }
-.title image{
+.paysuccess .title image{
   width:50rpx;
   height:50rpx;
   margin-right:35rpx;
 }
-.bg{
+.paysuccess .bg{
   text-align: center;
   margin-bottom: 100rpx;
 }
-.bg image{
+.paysuccess .bg image{
   width:356rpx;
   height:233rpx;
 }
-.tip{
+.paysuccess .tip{
   text-align: center;
   font-size:30rpx;
   line-height: 50rpx;
 }
-.sharebtn{
+.paysuccess .sharebtn{
   width:580rpx;
   height:86rpx;
   border-radius:43rpx;
@@ -41,12 +47,12 @@
   color:#fff;
   margin-top:50rpx;
 }
-.viewOrder {
+.paysuccess .viewOrder {
   text-align: center;
   font-size: 28rpx;
-  margin-top:40rpx;
+  padding:40rpx 0 100rpx 0;
 }
-.viewOrder image{
+.paysuccess .viewOrder image{
   width:11rpx;
   height:20rpx;
   margin-left:12rpx;

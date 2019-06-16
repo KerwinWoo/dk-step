@@ -1,7 +1,7 @@
 <!--pages/buyou/comment/comment.wxml-->
 <view class="container hastop">
-  <dk-nav title="添加评论" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
-  <view class="textarea">
+<!--  <dk-nav title="添加评论" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+ -->  <view class="textarea">
     <textarea
     placeholder="{{'回复' + targetName}}"
     placeholder-style="color:#999;"

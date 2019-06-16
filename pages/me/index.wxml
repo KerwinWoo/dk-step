@@ -1,23 +1,24 @@
 <!--pages/me/index.wxml-->
 <view class="container">
-  <dk-nav title="我的" hasBackBtn="{{false}}" isFixed="{{true}}" theme="white" bgColor="transparent"></dk-nav>
-  <view class="tp">
+<!--  <dk-nav title="我的" hasBackBtn="{{false}}" isFixed="{{true}}" theme="white" bgColor="transparent"></dk-nav>
+ -->  <view class="tp">
     <view class="content">
       <view class="wrp">
         <view class="photo">
-          <image mode="aspectFill" src="{{userInfo.avatarUrl}}"></image>
+          <image mode="aspectFill" src="{{userInfo.avatar}}"></image>
         </view>
         <view class="info">
           <view class="name">
-            <text>{{userInfo.nickName}}</text>
-            <text class="updateBtn">更新资料</text>
+            <text>{{userInfo.nickname}}</text>
+            <button class="updateBtn resetBtn" open-type="getUserInfo" 
+              bindgetuserinfo="bindGetUserInfo">更新资料</button>
           </view>
           <view class="otr">
             <text>ID : </text>
-            <text>12322323</text>
+            <text>{{userInfo.diplayId}}</text>
             <text class="line"></text>
             <text>邀请人 : </text>
-            <text>小李</text>
+            <text>{{userInfo.inviteId ? userInfo.inviteId : '暂无'}}</text>
           </view>
         </view>
       </view>
@@ -49,28 +50,28 @@
     <view class="row">
       <navigator class="itm" url="/pages/order/me/me?orderStatus=0" hover-class="none">
         <view class="imgCont">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ordericn_dfk.png"></image>
+          <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/ordericn_dfk.png"></image>
           <view class="message" wx:if="{{numfk > 0}}">{{numfk}}</view>
         </view>
         <view class="title">待付款</view>
       </navigator>
       <navigator class="itm" url="/pages/order/me/me?orderStatus=201" hover-class="none">
         <view class="imgCont">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ordericn_dfh.png"></image>
+          <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/ordericn_dfh.png"></image>
           <view class="message" wx:if="{{numfh > 0}}">{{numfh}}</view>
         </view>
         <view class="title">待发货</view>
       </navigator>
       <navigator class="itm" url="/pages/order/me/me?orderStatus=300" hover-class="none">
         <view class="imgCont">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ordericn_dsh.png"></image>
+          <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/ordericn_dsh.png"></image>
           <view class="message" wx:if="{{numsh > 0}}">{{numsh}}</view>
         </view>
         <view class="title">待收货</view>
       </navigator>
       <navigator class="itm" url="/pages/order/shouhou/shouhou" hover-class="none">
         <view class="imgCont">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ordericn_sh.png"></image>
+          <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/ordericn_sh.png"></image>
           <view class="message" wx:if="{{numth > 0}}">{{numth}}</view>
         </view>
         <view class="title">退换/售后</view>
@@ -83,26 +84,26 @@
     <view class="row">
       <navigator class="itm" url="/pages/service/xinyuan/xinyuan" hover-class="none">
         <view class="imgCont">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_xinyuan.png"></image>
+          <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/sevicn_xinyuan.png"></image>
         </view>
         <view class="title">心愿清单</view>
       </navigator>
       <navigator class="itm" url="/pages/me/message/message" hover-class="none">
         <view class="imgCont">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_xiaoxi.png"></image>
+          <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/sevicn_xiaoxi.png"></image>
         </view>
         <view class="title">消息通知</view>
-        <view class="message-s"></view>
+        <view class="message-s" wx:if="{{messagenum && (messagenum > 0)}}"></view>
       </navigator>
       <navigator class="itm" url="/pages/game/record/record" hover-class="none">
         <view class="imgCont">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_choujiang.png"></image>
+          <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/sevicn_choujiang.png"></image>
         </view>
         <view class="title">抽奖记录</view>
       </navigator>
       <navigator class="itm" url="/pages/address/addresslist" hover-class="none">
         <view class="imgCont">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_dizhi.png"></image>
+          <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/sevicn_dizhi.png"></image>
         </view>
         <view class="title">地址管理</view>
       </navigator>
@@ -110,25 +111,25 @@
     <view class="row">
       <button class="itm" open-type="contact">
         <view class="imgCont">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_kefu.png"></image>
+          <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/sevicn_kefu.png"></image>
         </view>
         <view class="title">联系客服</view>
       </button>
       <navigator class="itm" url="/pages/service/bushu/bushu" hover-class="none">
         <view class="imgCont">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_step.png"></image>
+          <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/sevicn_step.png"></image>
         </view>
         <view class="title">步数明细</view>
       </navigator>
       <navigator class="itm" url="/pages/service/contactus/contactus" hover-class="none">
         <view class="imgCont">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_lianxi.png"></image>
+          <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/sevicn_lianxi.png"></image>
         </view>
         <view class="title">联系我们</view>
       </navigator>
       <navigator class="itm" url="/pages/service/questions/questions" hover-class="none">
         <view class="imgCont">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_wenti.png"></image>
+          <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/sevicn_wenti.png"></image>
         </view>
         <view class="title">常见问题</view>
       </navigator>
@@ -136,10 +137,28 @@
     <view class="row">
       <navigator class="itm" url="/pages/rule/rule" hover-class="none">
         <view class="imgCont">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/sevicn_rule.png"></image>
+          <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/sevicn_rule.png"></image>
         </view>
         <view class="title">步友规范</view>
       </navigator>
+    </view>
+  </view>
+</view>
+
+<view class="revokeLayer layer" wx:if="{{revokeLayerShow}}">
+  <view class="wrp">
+    <view class="logo">
+      <image lazy-load src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/logo_c.png"></image>
+    </view>
+    <view class="title">
+      开启用户信息授权
+    </view>
+    <view class="subtitle">
+      我们需要开启该权限，才能获取个人基本信息为您服务
+    </view>
+    <view class="btns">
+      <view bindtap="cancelRevoke" class="btn cancel btn-simple">取消</view>
+      <button class="btn btn-default resetBtn" open-type="openSetting">确定</button>
     </view>
   </view>
 </view>

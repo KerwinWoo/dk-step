@@ -1,11 +1,11 @@
 <!--pages/me/message/fans/fans.wxml-->
 <view class="container hastop">
-  <dk-nav title="粉丝信息" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
-  <view class="dashanglist">
+<!--  <dk-nav title="粉丝信息" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+ -->  <view class="dashanglist">
     <view class="inforow" wx:for="{{list}}" wx:key="{{index}}">
       <view class="wrp">
         <view class="pic">
-          <image-loader original-image="{{item.avatar}}" style="position: relative;" mode="aspectFill"></image-loader>
+          <image-loader bindtap="toTA" data-uid="{{item.userId}}" original-image="{{item.avatar}}" style="position: relative;" mode="aspectFill"></image-loader>
         </view>
         <view class="info">
           <view class="name">{{item.nickname}}</view>
@@ -16,5 +16,9 @@
         </view>
       </view>
     </view>
+  </view>
+  <view class="nodata" wx:if="{{!list || list.length == 0}}">
+    <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/nodata_fensi.png"></image>
+    <view class="title">你还没有粉丝哦</view>
   </view>
 </view>

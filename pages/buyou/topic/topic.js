@@ -8,7 +8,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userId: wx.getStorageSync('userId'),
     topicDataList: [{
       id: 1,
       name: '蛋壳',
@@ -44,10 +43,11 @@ Page({
   onLoad: function (options) {
     let that = this
     that.setData({
-      title: options.title ? options.title : '蛋壳步数换',
       currentTopic: options.value,
-      pic: options.pic,
-      comment: options.comment
+      userId: wx.getStorageSync('userId')
+    })
+    wx.setNavigationBarTitle({
+    	title:'#' + options.title
     })
     // 刷新组件
     that.refreshView = that.selectComponent("#refreshView")
@@ -133,36 +133,55 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage: function (option) {
+    let topicIndex = option.target.dataset.topicindex
+    let topic = null
+    //this.data.previewing = true
+    topic = this.data.topicDataList[topicIndex]
+    if(this.data.userId != topic.create_user_id){
+      this.forward(topic.id, topicIndex)
+    }
+    let name = (topic.tag_name?('#'+topic.tag_name+'#'):'') + topic.content
+    return {
+      title: name,
+      path: '/pages/index/index?fromInvite=1&type=1&push_userid=' + wx.getStorageSync('userId') + '&forwardUrl='+encodeURIComponent('/pages/buyou/commentdetail/commentdetail?id='+topic.id),
+      imageUrl: topic.img_src?topic.img_src[0]:'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/invitation_homepage.png'
+    }
   },
-  backTo() {
-    wx.navigateBack()
+  forward (id, topicIndex) {
+    let that = this
+    utils.request(api.TOPIC_FORWARD,{
+      communityId:id
+    }).then(function(res){
+      if(res.errno === 0){
+        that.data.topicDataList[topicIndex].forward_num++
+        that.setData({
+          topicDataList: that.data.topicDataList
+        })
+      }
+    })
   },
   loadTopicData() {
     let that = this
     if(!that.data.topicDataLoaded){
+      wx.showLoading()
       utils.request(api.BUYOU_RECOMMENT_TOPICLIST,{
         topicTag: that.data.currentTopic,
         page: that.data.tuijianCurpage,
         size: 10
       }).then(function(res){
         that.refreshView.stopPullRefresh()
+        wx.hideLoading()
         if(res.errno === 0){
-          if(res.data.data.length > 0){
-            let tmpTopicData = res.data.data.map(function(value,index){
+          if(res.data.communityList.data.length > 0){
+            let tmpTopicData = res.data.communityList.data.map(function(value,index){
               if(value.img_src){
                 value.img_src = value.img_src.split(',')
               }
-              if(value.img_src.length == 1){
-                value.imgmode = 'aspectFill'
-              }
-              else if(value.img_src.length == 4){
+              if(value.img_src.length == 4){
                 value.type3 = ' type3'
               }
-              else{
-                value.imgmode = 'aspectFill'
-              }
+              value.imgmode = 'aspectFill'
               if(value.create_time){
                 value.create_time = utils.formatTime(new Date(value.create_time))
               }
@@ -182,7 +201,7 @@ Page({
               showSkeleton: false,
               noMoreDataShow: false
             })
-            if(res.data.data && res.data.data.length != 0){
+            if(res.data.communityList.data && res.data.communityList.data.length != 0){
               that.data.tuijianCurpage++
             }
           }
@@ -200,6 +219,19 @@ Page({
               })
             }
           }
+          
+          let taginfo = res.data.tagsDetails[0]
+          let obj = JSON.parse(taginfo.remark)
+          that.setData({
+            taginfo: {
+              name: taginfo.name,
+              comment: obj.TagInfo,
+              pic: obj.backdropPic
+            }
+          })
+          wx.setNavigationBarTitle({
+          	title:'#' + taginfo.name
+          })
         }
       })
     }
@@ -353,6 +385,19 @@ Page({
             duration: 2000
           })
         }
+      })
+    }
+  },
+  toTA (e) {
+    let uid = e.currentTarget.dataset.uid
+    if(uid == wx.getStorageSync('userId')){
+      wx.navigateTo({
+        url: '/pages/me/homepage/homepage'
+      })
+    }
+    else{
+      wx.navigateTo({
+        url: '/pages/ta/ta?userid='+uid
       })
     }
   }

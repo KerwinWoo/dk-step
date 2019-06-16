@@ -33,10 +33,10 @@
   
 /*普通样式*/  
 .stepper .normal{  
-    color: black;  
+    color: #333;  
 }  
   
 /*禁用样式*/  
 .stepper .disabled{  
-    color: #ccc;  
-} 
+  color: #ccc;
+}

@@ -70,7 +70,7 @@ Page({
     return {
       title: '快来和我一起组团PK，步数还可以当钱花~',
       path: '/pages/index/index?fromInvite=1&type=2&business='+ that.data.teamId + '&push_userid=' + wx.getStorageSync('userId') + '&forwardUrl='+encodeURIComponent('/pages/team/detail/detail?teamId='+that.data.teamId),
-      imageUrl: 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/invitation_team.png'
+      imageUrl: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/invitation_team.png'
     }
   },
   backTo () {
@@ -92,7 +92,7 @@ Page({
     let that = this
     utils.request(api.TEAM_DETAIL_EXPEL,{
       teamId: that.data.teamId,
-      userId: e.currentTarget.dataset.userid
+      targetUserId: e.currentTarget.dataset.userid
     }).then(function(res){
       if(res.errno === 0){
         that.loadTeamDetail()

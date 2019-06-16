@@ -19,3 +19,15 @@
   width:16rpx;
   height:29rpx;
 }
+.desc{
+  font-size:2r8px;
+  font-weight:400;
+  color:#999;
+  width:320rpx;
+  overflow: hidden;
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right:30rpx;
+  text-align: right;
+}

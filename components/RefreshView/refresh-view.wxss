@@ -8,9 +8,9 @@
   display: flex;
   width: 100%;
 }
-.refresh-container.hasTop{
+/* .refresh-container.hasTop{
   margin-top:128rpx;
-}
+} */
 .refresh-layout {
   vertical-align: center;
   width: 100%;
@@ -24,7 +24,7 @@
   height: 100rpx;
   display: inline-block;
   vertical-align: middle;
-  background: transparent url('https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/loading.gif') no-repeat;
+  background: transparent url('https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/loading.gif') no-repeat;
   background-size: 100%;
 }
 

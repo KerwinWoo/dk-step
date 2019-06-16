@@ -7,7 +7,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userInfo: wx.getStorageSync('userInfo'),
     num_guanzhu: 0,
     num_fensi: 0,
     num_shang: 0,
@@ -15,13 +14,18 @@ Page({
     numfk: 0,
     numfh: 0,
     numsh: 0,
-    numth: 0
+    numth: 0,
+    revokeLayerShow: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      userInfo: wx.getStorageSync('userInfo'),
+      userId: wx.getStorageSync('userId')
+    })
   },
 
   /**
@@ -37,7 +41,9 @@ Page({
   onShow: function () {
     this.loadOrderlist()
     this.loadInfoNum()
-    
+    this.setData({
+      messagenum: wx.getStorageSync('messagenum')
+    })
   },
 
   /**
@@ -127,6 +133,62 @@ Page({
           duration: 2000
         })
       }
+    })
+  },
+  bindGetUserInfo: function(e) {
+    let that = this;
+    wx.login({
+      success: function(res1) {
+        if (res1.code) {
+          wx.getSetting({
+            success(res) {
+              //用户拒绝授权或者用户在设置页面中取消了授权
+              if(res.authSetting['scope.userInfo'] != undefined && res.authSetting['scope.userInfo'] == false){
+                that.setData({
+                  revokeLayerShow: true
+                })
+              }
+              //用户从未授权
+              else{
+                that.setData({
+                  revokeLayerShow: false
+                })
+                //登录远程服务器
+                let reqData = {
+                  code: res1.code,
+                  userInfo: e.detail,
+                  isUpdate: 0
+                }
+                utils.request(api.AuthLoginByWeixin, reqData , 'POST', 'application/json').then(res => {
+                  if (res.errno === 0) {
+                    //存储用户信息
+                    wx.setStorageSync('userInfo', res.data.userInfo);
+                    wx.setStorageSync('token', res.data.token);
+                    wx.setStorageSync('userId', res.data.userId);
+                    wx.setStorageSync('sessionkey', res.data.sessionkey);
+                    that.setData({
+                      userId: res.data.userId,
+                      userInfo: res.data.userInfo
+                    })
+                    utils.showSuccessToast('更新成功')
+                  } else {
+                    wx.showModal({
+                      title: '提示',
+                      content: res.errmsg?res.errmsg:res.msg,
+                      showCancel: false
+                    });
+                  }
+                });
+              }
+            }
+          }) 
+        }
+      }
+    })
+  },
+  cancelRevoke () {
+    this.setData({
+      revokeLayerShow: false
     })
   }
 })

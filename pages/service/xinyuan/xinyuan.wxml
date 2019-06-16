@@ -1,10 +1,10 @@
 <!--pages/service/xinyuan/xinyuan.wxml-->
 <scroll-view class="container hastop{{(isPay? ' hasBottom' : '')}}">
-  <dk-nav title="心愿清单" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
-  <view class="currentDk">
+<!--  <dk-nav title="心愿清单" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+ -->  <view class="currentDk">
     <text class="title">当前蛋壳</text>
     <view class="dknum">
-      <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
+      <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i-egg.png"></image>
       <text>{{myDk}}</text>
     </view>
   </view>
@@ -18,8 +18,11 @@
           <view class="name">{{item.name}}</view>
           <view class="btm">
             <view class="dknum">
-              <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
+              <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i-egg.png"></image>
               <text>{{item.dk_eshell_num}}</text>
+              <text class="plus" wx:if="{{item.retail_price > 0}}">+</text>
+              <text class="unit" wx:if="{{item.retail_price > 0}}">¥</text>
+              <text wx:if="{{item.retail_price > 0}}">{{item.retail_price}}</text>
             </view>
             <view class="btn" bindtap="remove" data-id="{{item.id}}">移除清单</view>
           </view>
@@ -28,7 +31,7 @@
     </view>
   </view>
   <view class="nodata" wx:if="{{!list || list.length == 0}}">
-    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/nodata2.png"></image>
+    <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/nodata2.png"></image>
     <view class="text">暂无心愿清单</view>
   </view>
 </scroll-view>

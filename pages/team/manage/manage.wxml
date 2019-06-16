@@ -1,12 +1,12 @@
 <!--pages/team/manage/manage.wxml-->
 <view class="container hastop">
-  <dk-nav title="管理团队" hasBackBtn hasBorder isFixed bind:backTo="backTo"></dk-nav>
-  <navigator class="row" url="/pages/team/manage/member/member?teamId={{teamDetail.teamId}}">
+<!--  <dk-nav title="管理团队" hasBackBtn hasBorder isFixed bind:backTo="backTo"></dk-nav>
+ -->  <navigator class="row" url="/pages/team/manage/member/member?teamId={{teamDetail.teamId}}">
     <view class="wrp">
       <view class="title">成员管理</view>
       <view class="more">
         <text>{{teamMemberList.length}}人</text>
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/more02.png"></image>
       </view>
     </view>
   </navigator>
@@ -16,7 +16,7 @@
       <view class="title">团队宣言</view>
       <view class="more">
         <text>{{teamDetail.team_declaration}}</text>
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/more02.png"></image>
       </view>
     </view>
   </navigator>
@@ -27,7 +27,7 @@
         <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
           <view class="picker_num">
             <text>{{array[index]}}步</text>
-            <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
+            <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/more02.png"></image>
           </view>
         </picker>
       </view>
@@ -38,7 +38,7 @@
       <view class="title">团队名称</view>
       <view class="more">
         <text>{{teamDetail.team_name}}</text>
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/more02.png"></image>
       </view>
     </view>
   </navigator>
@@ -55,7 +55,7 @@
       <view class="btn btn-default" bindtap="cancel">取消</view>
     </view>
     <view class="close">
-      <image class="closeBtn" bindtap="cancel" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/close.png"></image>
+      <image class="closeBtn" bindtap="cancel" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/close.png"></image>
     </view>
   </view>
 </view>

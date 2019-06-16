@@ -1,9 +1,14 @@
+const utils = require('../../utils/util.js')
+const api = require('../../api/api.js')
+
 function getImageInfo(url) {
   return new Promise((resolve, reject) => {
+    console.log(url)
     wx.getImageInfo({
       src: url,
       success: resolve,
-      fail: reject,
+      fail: function(res){
+      },
     })
   })
 }
@@ -33,7 +38,10 @@ function saveImageToPhotosAlbum(option) {
     wx.saveImageToPhotosAlbum({
       ...option,
       success: resolve,
-      fail: reject,
+      fail: function(res){
+        console.log('保存图片到相册失败', res)
+        utils.showErrorToast(res)
+      },
     })
   })
 }
@@ -44,14 +52,18 @@ Component({
       type: Boolean,
       value: false,
       observer(visible) {
-        if (visible && !this.beginDraw) {
+        if (visible && !this.data.beginDraw) {
           this.draw()
-          this.beginDraw = true
+          this.data.beginDraw = true
         }
       }
     },
     userInfo: {
       type: Object,
+      value: false
+    },
+    fromtask: {
+      type: Boolean,
       value: false
     }
   },
@@ -60,12 +72,13 @@ Component({
     beginDraw: false,
     isDraw: false,
 
-    canvasWidth: 843,
-    canvasHeight: 1500,
+    canvasWidth: 750,
+    canvasHeight: 1334,
 
     imageFile: '',
 
     responsiveScale: 1,
+    fromtask: false
   },
 
   lifetimes: {
@@ -90,12 +103,23 @@ Component({
       this.triggerEvent('close')
     },
     handleSave() {
-      const { imageFile } = this.data
-
+      let that = this
+      const { imageFile,fromtask } = this.data
       if (imageFile) {
+        console.log(imageFile)
         saveImageToPhotosAlbum({
           filePath: imageFile,
         }).then(() => {
+          if(that.data.fromtask && that.data.fromtask == 1){
+            utils.request(api.UPDATETASK,{
+              taskId: 2
+            }).then(function(res){
+              if(res.errno === 0){
+                console.log('每日分享任务完成')
+                utils.showSuccessToast('分享任务完成')
+              }
+            })
+          }
           wx.showToast({
             icon: 'none',
             title: '分享图片已保存至相册',
@@ -105,18 +129,21 @@ Component({
       }
     },
     draw() {
-      wx.showLoading()
+      wx.showLoading({
+        title: '正在生成海报'
+      })
       const { userInfo, canvasWidth, canvasHeight } = this.data
-      const { avatarUrl, nickName } = userInfo
-      const avatarPromise = getImageInfo(avatarUrl)
-      const backgroundPromise = getImageInfo('https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/post.jpg')
-
-      Promise.all([avatarPromise, backgroundPromise])
-        .then(([avatar, background]) => {
+      const { avatar, nickname, postUrl, step } = userInfo
+      const avatarPromise = getImageInfo(avatar)
+      const backgroundPromise = getImageInfo(postUrl)
+      const codeimgPromise = getImageInfo('https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/code.jpg')
+      Promise.all([avatarPromise, backgroundPromise, codeimgPromise])
+        .then(([avatar, background, code]) => {
           const ctx = wx.createCanvasContext('share', this)
 
           const canvasW = rpx2px(canvasWidth * 2)
           const canvasH = rpx2px(canvasHeight * 2)
+          const bgheight = canvasH*0.83396226
 
           // 绘制背景
           ctx.drawImage(
@@ -124,39 +151,121 @@ Component({
             0,
             0,
             canvasW,
-            canvasH
+            bgheight
           )
-
+          //绘制头像边框
+          const bdrwidth = rpx2px(120*2)
+          const r = bdrwidth/2
+          const left = rpx2px(30*2)
+          ctx.save()
+          ctx.arc(r + left, (bgheight - bdrwidth - rpx2px(260*2) + r), r, 0, 2 * Math.PI)
+          ctx.strokeStyle = '#eee'
+          ctx.stroke()
+          ctx.clip()
           // 绘制头像
-          const radius = rpx2px(90 * 2)
-          const y = rpx2px(120 * 2)
           ctx.drawImage(
             avatar.path,
-            canvasW / 2 - radius,
-            y - radius,
-            radius * 2,
-            radius * 2,
+            left,
+            bgheight - bdrwidth - rpx2px(260*2),
+            bdrwidth,
+            bdrwidth,
           )
-
-          // 绘制用户名
-          ctx.setFontSize(60)
-          ctx.setTextAlign('center')
-          ctx.setFillStyle('#ffffff')
+          ctx.restore()
+          
+          //绘制用户名
+          ctx.beginPath()
+          ctx.setFontSize(rpx2px(24*2))
+          ctx.setStrokeStyle('#fff')
+          ctx.setFillStyle('#fff')
           ctx.fillText(
-            nickName,
-            canvasW / 2,
-            y + rpx2px(150 * 2),
+            nickname,
+            left,
+            bgheight - rpx2px(230*2),
           )
-          ctx.stroke()
+          
+          //绘制今日步数
+          ctx.beginPath()
+          ctx.setFontSize(rpx2px(32*2))
+          ctx.setStrokeStyle('#fff')
+          ctx.setFillStyle('#fff')
+          ctx.font = 'normal bold '+rpx2px(32*2)+'px sans-serif';
+          ctx.fillText(
+            '今日步数',
+            left,
+            bgheight - rpx2px(120*2),
+          )
+          
+          //绘制步数信息
+          ctx.beginPath()
+          ctx.setFontSize(rpx2px(70*2))
+          ctx.setStrokeStyle('#fff')
+          ctx.setFillStyle('#fff')
+          ctx.fillText(
+            step,
+            left - rpx2px(5*2),
+            bgheight - rpx2px(40*2),
+          )
+          
+          //绘制今日心情
+          
+          
+          //绘制底部背景
+          ctx.beginPath()
+          ctx.rect(0,bgheight,canvasW,canvasH - bgheight);
+          ctx.setFillStyle('#fff')
+          ctx.fill()
+          //绘制口号信息
+          ctx.setFontSize(rpx2px(32*2))
+          ctx.setStrokeStyle('#333')
+          ctx.setFillStyle('#333')
+          ctx.fillText(
+            '蛋壳步数换',
+            left,
+            bgheight + rpx2px(96*2),
+          )
+          ctx.setFontSize(rpx2px(32*2))
+          ctx.setStrokeStyle('#333')
+          ctx.setFillStyle('#333')
+          ctx.fillText(
+            '在乎你的每一步',
+            left,
+            bgheight + rpx2px(150*2),
+          )
+          
+          //绘制二维码信息
+          ctx.beginPath()
+          const codewidth = rpx2px(100*2)
+          ctx.drawImage(
+            code.path,
+            canvasW - codewidth - rpx2px(50*2),
+            bgheight + rpx2px(40*2),
+            codewidth,
+            codewidth
+          )
+          ctx.setFontSize(rpx2px(24*2))
+          ctx.setStrokeStyle('#333')
+          ctx.setFillStyle('#333')
+          ctx.fillText(
+            '长按扫码加入',
+            canvasW - codewidth - rpx2px(76*2),
+            bgheight + rpx2px(40*2) + codewidth + rpx2px(30*2),
+          )
+          
 
           ctx.draw(false, () => {
             canvasToTempFilePath({
               canvasId: 'share',
-            }, this).then(({ tempFilePath }) => this.setData({ imageFile: tempFilePath }))
+            }, this).then(({ tempFilePath }) => {
+              this.setData({ 
+                imageFile: tempFilePath,
+                visible: false, 
+                beginDraw: false,
+              })
+              this.handleSave()
+            })
           })
-
           wx.hideLoading()
-          this.setData({ isDraw: true })
+          this.setData({ isDraw: true})
         })
         .catch(() => {
           this.setData({ beginDraw: false })

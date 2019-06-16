@@ -1,0 +1,30 @@
+/* pages/me/homepage/editdesc/editdesc.wxss */
+.textarea{
+  box-sizing: border-box;
+  padding:17rpx 30rpx;
+}
+.textarea textarea{
+  height:230rpx;
+  background:#eee;
+  border-radius:10rpx;
+  box-sizing: border-box;
+  padding:24rpx;
+  font-size:28rpx;
+  width:100%;
+}
+.tr{
+  text-align: right;
+  padding-right:30rpx;
+  box-sizing: border-box;
+}
+.sendBtn{
+  display: inline-block;
+  width:150rpx;
+  height:70rpx;
+  line-height: 70rpx;
+  background:linear-gradient(0deg,rgba(244,181,68,1) 0%,rgba(242,162,65,1) 100%);
+  border-radius:35rpx;
+  text-align: center;
+  color:#fff;
+  font-size:28rpx;
+}

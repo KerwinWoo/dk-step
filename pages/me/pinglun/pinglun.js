@@ -7,7 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    currentPage: 1,
+    list: []
   },
 
   /**
@@ -28,6 +29,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.data.currentPage = 1
+    this.data.list = []
     this.loadData()
   },
 
@@ -56,7 +59,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this.loadData()
   },
 
   /**
@@ -70,7 +73,10 @@ Page({
   },
   loadData () {
     let that = this
-    utils.request(api.MESSAGENUM_COMMENT).then(function(res){
+    utils.request(api.MESSAGENUM_COMMENT,{
+      page: that.data.currentPage,
+      size: 20
+    }).then(function(res){
       if(res.errno === 0){
         res.data.data.map(function(value){
           value.createTime = utils.formatDate(new Date(value.createTime), 'MM-dd hh:mm:ss')
@@ -78,8 +84,16 @@ Page({
             value.imgSrc = value.imgSrc.split(',')[0]
           }
         })
+        if(res.data.data && res.data.data.length != 0){
+          that.data.currentPage++
+        }
+        else{
+          if(that.data.currentPage != 1){
+            utils.nomoreData()
+          }
+        }
         that.setData({
-          list: res.data.data
+          list: that.data.list.concat(res.data.data)
         })
         that.readAll()
       }
@@ -87,18 +101,23 @@ Page({
   },
   readAll () {
     let that = this
-    let ids = []
-    that.data.list.map(function(value, index){
-      if(value.readStatus == '0'){
-        ids.push(value.noticeId)
+    utils.request(api.MESSAGENUM_CHANGESTATUS_BATCH,{
+      noticeType: 2
+    }).then(function(res){
+      if(res.errno === 0){
       }
     })
-    if(ids.length > 0){
-      utils.request(api.MESSAGENUM_CHANGESTATUS_BATCH,{
-        ids: ids
-      }).then(function(res){
-        if(res.errno === 0){
-        }
+  },
+  toTA (e) {
+    let uid = e.currentTarget.dataset.uid
+    if(uid == wx.getStorageSync('userId')){
+      wx.navigateTo({
+        url: '/pages/me/homepage/homepage'
+      })
+    }
+    else{
+      wx.navigateTo({
+        url: '/pages/ta/ta?userid='+uid
       })
     }
   }

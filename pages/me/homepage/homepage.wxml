@@ -1,20 +1,20 @@
 <!--pages/me/homepage/homepage.wxml-->
 <view class="container hastop">
-  <dk-nav title="个人主页" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
-  <view class="pinfo">
+<!--  <dk-nav title="个人主页" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+ -->  <view class="pinfo">
     <view class="photo">
-      <image src="{{userInfo.avatarUrl}}" mode="aspectFill"></image>
+      <image src="{{userInfo.avatar}}" mode="aspectFill"></image>
     </view>
     <view class="info">
-      <view class="name">{{userInfo.nickName}}</view>
-      <view class="subtitle">ID: {{userId}}</view>
+      <view class="name">{{userInfo.nickname}}</view>
+      <view class="subtitle">ID: {{userInfo.diplayId}}</view>
     </view>
     <view class="btns">
       <navigator url="/pages/me/homepage/edit/edit" hover-class="none" class="edit btn">编辑</navigator>
-      <button class="share resetBtn btn" open-type="share">分享</button>
+      <button data-type="share" class="share resetBtn btn" open-type="share">分享</button>
     </view>
   </view>
-  <view class="tip">我很懒，我什么都没有留下</view>
+  <view class="tip">{{userInfo.userDesc?userInfo.userDesc:'这家伙很懒，什么都没有留下'}}</view>
   <view class="summary">
     <navigator class="itm" url="/pages/me/guanzhu/guanzhu" hover-class="none">
       <view class="num">{{num_guanzhu}}</view>
@@ -28,10 +28,10 @@
       <view class="num">{{num_shang}}</view>
       <view class="name">获赏</view>
     </navigator>
-    <navigator class="itm" url="/pages/me/homepage/homepage" hover-class="none">
+    <view class="itm">
       <view class="num">{{num_tiezi}}</view>
       <view class="name">发帖</view>
-    </navigator>
+    </view>
   </view>
   <view class="tabs">
     <view class="tablinklist">
@@ -44,8 +44,8 @@
           <view class="time">
             {{topic.create_time}}
           </view>
-          <view class="topictype">
-            <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/huati%402x.png"></image>
+          <view class="topictype" wx:if="{{topic.tag_name}}">
+            <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/huati%402x.png"></image>
             {{topic.tag_name}}
           </view>
           <view class="content">{{topic.content}}</view>
@@ -63,34 +63,35 @@
             </view>
           </view>
           <view class="addrs">
-            <image wx:if="{{topic.location}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dibiao%402x.png"></image>
+            <image wx:if="{{topic.location}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/dibiao%402x.png"></image>
             <text class="txtov" wx:if="{{topic.location}}">{{topic.location}}</text>
           </view>
           <view class="opers">
-            <view class="itm">
-              <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dashang-bef.png"></image>
+            <view class="itm" bindtap="giveEgg"  data-id="{{topic.id}}" data-uid="{{topic.create_user_id}}" data-parentindex="{{topicIndex}}">
+             <image wx:if="{{topic.reward_status == 0}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/dashang-bef.png"></image>
+             <image wx:if="{{topic.reward_status == 1}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i-egg.png"></image>
               <text class="num">{{topic.eshell_num}}</text>
             </view>
             <navigator class="itm" url="/pages/buyou/commentdetail/commentdetail?id={{topic.id}}" hover-class="none">
-              <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/pinglun%402x.png"></image>
+              <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/pinglun%402x.png"></image>
               <text class="num">{{topic.comment_num}}</text>
             </navigator>
-            <button class="itm resetBtn" open-type="share">
-              <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fenxiang%402x.png"></image>
+            <button class="itm resetBtn" open-type="share" data-topicindex="{{topicIndex}}">
+              <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/fenxiang%402x.png"></image>
               <text class="num">{{topic.forward_num}}</text>
             </button>
-            <view class="itm">
-              <image wx:if="{{topic.collection_status == 0}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/shoucang-bef.png"></image>
-              <image wx:if="{{topic.collection_status == 1}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/shoucang-aft.png"></image>
+            <view class="itm" bindtap="shouCang" data-parentindex="{{topicIndex}}" data-id="{{topic.id}}">
+              <image wx:if="{{topic.collection_status == 0}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/shoucang-bef.png"></image>
+              <image wx:if="{{topic.collection_status == 1}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/shoucang-aft.png"></image>
               <text class="num">{{topic.collection_num}}</text>
             </view>
             <view class="itm" bindtap="deleteFabu" data-parentindex="{{topicIndex}}" data-id="{{topic.id}}">
-              <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i_delete.png"></image>
+              <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i_delete.png"></image>
             </view>
           </view>
         </view>
         <view class="nodata" wx:if="{{!fabulist || fabulist.length == 0}}">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/nodata_order.png"></image>
+          <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/nodata_order.png"></image>
           <view class="title">暂无内容</view>
           <navigator url="/pages/buyou/fabu/fabu" class="btn-default toFabu">发布动态</navigator>
         </view>
@@ -103,7 +104,7 @@
           {{topic.create_time}}
         </view>
         <view class="topictype" wx:if="{{topic.tag_name}}">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/huati%402x.png"></image>
+          <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/huati%402x.png"></image>
           {{topic.tag_name}}
         </view>
         <view class="content">{{topic.content}}</view>
@@ -121,32 +122,32 @@
           </view>
         </view>
         <view class="addrs">
-          <image wx:if="{{topic.location}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dibiao%402x.png"></image>
+          <image wx:if="{{topic.location}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/dibiao%402x.png"></image>
           <text class="txtov" wx:if="{{topic.location}}">{{topic.location}}</text>
         </view>
         <view class="opers">
           <view class="itm" bindtap="giveEgg" data-id="{{topic.id}}" data-uid="{{topic.create_user_id}}" data-parentindex="{{topicIndex}}">
-            <image wx:if="{{topic.reward_status == 0}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/dashang-bef.png"></image>
-            <image wx:if="{{topic.reward_status == 1}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
+            <image wx:if="{{topic.reward_status == 0}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/dashang-bef.png"></image>
+            <image wx:if="{{topic.reward_status == 1}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i-egg.png"></image>
             <text class="num">{{topic.eshell_num}}</text>
           </view>
           <navigator class="itm" url="/pages/buyou/commentdetail/commentdetail?id={{topic.id}}" hover-class="none">
-            <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/pinglun%402x.png"></image>
+            <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/pinglun%402x.png"></image>
             <text class="num">{{topic.comment_num}}</text>
           </navigator>
-          <button class="itm resetBtn" open-type="share">
-            <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fenxiang%402x.png"></image>
+          <button class="itm resetBtn" open-type="share" data-topicindex="{{topicIndex}}">
+            <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/fenxiang%402x.png"></image>
             <text class="num">{{topic.forward_num}}</text>
           </button>
           <view class="itm" bindtap="shouCang" data-parentindex="{{topicIndex}}" data-id="{{topic.id}}">
-            <image wx:if="{{topic.collection_status == 0}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/shoucang-bef.png"></image>
-            <image wx:if="{{topic.collection_status == 1}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/shoucang-aft.png"></image>
+            <image wx:if="{{topic.collection_status == 0}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/shoucang-bef.png"></image>
+            <image wx:if="{{topic.collection_status == 1}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/shoucang-aft.png"></image>
             <text class="num">{{topic.collection_num}}</text>
           </view>
         </view>
       </view>
       <view class="nodata" wx:if="{{!shouchanglist || shouchanglist.length == 0}}">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/nodata_order.png"></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/nodata_order.png"></image>
         <view class="title">暂无内容</view>
       </view>
     </view>

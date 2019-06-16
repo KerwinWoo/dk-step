@@ -1,4 +1,7 @@
 /* pages/me/dashang/dashang.wxss */
+page{
+  background:#f2f2f2;
+}
 .dashanglist{
   border-top:1rpx solid #eee;
 }
@@ -7,6 +10,7 @@
   width:100%;
   padding:0 30rpx;
   box-sizing: border-box;
+  background:#fff;
 }
 .inforow .wrp{
   display: flex;
@@ -57,4 +61,27 @@
 	right:0;
 	top:50%;
 	margin-top:-25rpx;
+}
+.nodata image{
+  width:451rpx;
+  height:237rpx;
+  margin-top:260rpx;
+}
+.fabu{
+  width:580rpx;
+  height:86rpx;
+  border-radius:43rpx;
+  font-size:40rpx;
+  font-weight:bold;
+  text-align: center;
+  line-height:  86rpx;
+  position:fixed;
+  left:50%;
+  bottom: 38rpx;
+  margin-left:-290rpx;
+  color:#fff;
+  display: none;
+}
+.fabu.show{
+  display: block;
 }

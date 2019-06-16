@@ -1,14 +1,32 @@
 <!--index.wxml-->
 <view class="page">
-  <image class="bg" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/bg_auth.png"></image>
+  <image class="bg" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/bg_auth.png"></image>
   <view class="tptitle">欢迎来到蛋壳步数换小程序</view>
-  <view class="logo">
-    <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/logo.png"></image></view>
+  <view class="mainlogo">
+    <view><image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/logo.png"></image></view>
     <view class="title">在乎你的每一步</view>
   </view>
   <button class="loginbtn resetBtn" wx:if="{{canIUse}}" open-type="getUserInfo" 
     bindgetuserinfo="bindGetUserInfo">
-    <image class="wechat" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/wechat.png"></image>
+    <image class="wechat" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/wechat.png"></image>
     <text>微信授权登录</text>
   </button>
+</view>
+
+<view class="revokeLayer layer" wx:if="{{revokeLayerShow}}">
+  <view class="wrp">
+    <view class="logo">
+      <image lazy-load src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/logo_c.png"></image>
+    </view>
+    <view class="title">
+      开启用户信息授权
+    </view>
+    <view class="subtitle">
+      我们需要开启该权限，才能获取个人基本信息为您服务
+    </view>
+    <view class="btns">
+      <view bindtap="cancelRevoke" class="btn cancel btn-simple">取消</view>
+      <button class="btn btn-default resetBtn" open-type="openSetting">确定</button>
+    </view>
+  </view>
 </view>

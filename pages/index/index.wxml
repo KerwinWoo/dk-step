@@ -1,59 +1,58 @@
 <!--index.wxml-->
-<refresh-view id='refreshView' hasTop="true" backgroundColor="#f2f2f2" bind:onRefresh="onPullDownRefresh"/>
+<refresh-view class="refreshView" backgroundColor="#f2f2f2" bind:onRefresh="onPullDownRefresh"/>
 <scroll-view class="container" bindtouchstart='handletouchstart' bindtouchmove='handletouchmove' bindtouchend='handletouchend' bindtouchcancel='handletouchcancel'>
+  <!-- <dk-nav class="stepelement" title="蛋壳步数换" hasBackBtn="{{false}}" isFixed="{{true}}"></dk-nav> -->
   <view class="stepcont">
-    <dk-nav title="蛋壳步数换" hasBackBtn="{{false}}" isFixed="{{true}}"></dk-nav>
     <view class="w">
       <view class="t">
         <navigator open-type="navigate" url="/pages/me/dk/dk" hover-class="none" class="mydk">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
-          <text class="it">{{myDk.it}}</text>
-          <text class="ft">.</text>
-          <text class="ft">{{myDk.ft}}</text>
+          <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i-egg.png"></image>
+          <text class="it">{{myDk}}</text>
         </navigator>
         <navigator open-type="navigate" url="/pages/calorie/diary/diary" hover-class="none">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-calorie.png"></image>
+          <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i-calorie.png"></image>
           <text>卡路里</text>
         </navigator>
       </view>
-      <view class="steps">
-        <view class="mstep" id="mstep">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ball-b.png"></image>
+      <movable-area class="steps stepelement">
+        <view class="mstep stepelement">
+          <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/ball-b.png"></image>
           <view class="textcont" bindtap="doExchange">
             <view class="title">今日步数</view>
             <view class="num">{{userStep}}</view>
             <view class="exchange">点击兑换</view>
             <view class="tip">每日24点前清零</view>
           </view>
+          <!--无实际意义，仅用来定位小泡泡最终位置 -->
+          <view class="mockelement stepelement"></view>
+          <!--无实际意义，仅用来定位小泡泡最终位置 -->
         </view>
-        <movable-area>
-          <movable-view class="{{item.mvCls}}" wx:for="{{ssteps}}" 
-          wx:key="{{id}}" x="{{item.style.left}}" y="{{item.style.top}}" 
-          direction="all" bindchange="onMoveChange" data-idx="{{index}}">
-            <button 
-              class="sstep resetBtn" 
-              style="color:{{item.style.color}};animation-delay:{{item.style.animationDelay}};" 
-              data-id="{{item.task_id}}" 
-              data-step="{{item.task_dk_num}}" 
-              data-name="{{item.task_name}}"
-              data-index="{{index}}"
-              bindtap="pickStep"
-              data-linkfrom="type1"
-              open-type="{{item.isInvite?'share':''}}">
-              <image src="{{item.imgSrc}}"></image>
-              <text>{{item.task_dk_num}}</text>
-              <view>{{item.task_name}}</view>
-            </button>
-          </movable-view>
-        </movable-area>
-      </view>
+        <movable-view class="{{item.mvCls}}" wx:for="{{ssteps}}" 
+        wx:key="{{id}}" x="{{item.style.left}}" y="{{item.style.top}}" 
+        direction="all" bindchange="onMoveChange" data-idx="{{index}}" wx:if="{{index < 6}}">
+          <button 
+            class="sstep withAnimation resetBtn" 
+            style="color:{{item.style.color}};animation-delay:{{item.style.animationDelay}};" 
+            data-id="{{item.task_id}}" 
+            data-step="{{item.task_dk_num}}" 
+            data-name="{{item.task_name}}"
+            data-index="{{index}}"
+            bindtap="pickStep"
+            data-linkfrom="type1"
+            open-type="{{item.isInvite?'share':''}}">
+            <image src="{{item.imgSrc}}"></image>
+            <text>{{item.task_dk_num}}</text>
+            <view>{{(item.comp_name) ? item.comp_name : item.task_name}}</view>
+          </button>
+        </movable-view>
+      </movable-area>
     </view>
     <view class="invitecont">
       <button class="inviteBtn btn-default" data-linkfrom="type1" hover-class="btnhover" open-type="share">邀请好友永久加成</button>
       <button class="tip resetBtn" hover-class="btnhover" data-linkfrom="type1" open-type="share">
         <view>
           <text>当前加成{{jcpercent}}%，明日最高加成{{jcpercent2}}%，邀请第一个好友加成4%</text>
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/hand.png"></image>
+          <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/hand.png"></image>
         </view>
       </button>
     </view>
@@ -62,27 +61,27 @@
   <view class="w">
     <view class="menulist">
       <navigator class="itm" url="/pages/game/luckywheel/luckywheel" hover-class="none">
-        <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icon01.png"></image></view>
+        <view><image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/icon01.png"></image></view>
         <view>幸运转盘</view>
       </navigator>
       <!-- <navigator class="itm" url="/pages/task/task" hover-class="none">
-        <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icon02.png"></image></view>
+        <view><image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/icon02.png"></image></view>
         <view>领取任务</view>
       </navigator> -->
       <navigator class="itm" url="/pages/rule/friendadd/friendadd" hover-class="none">
-        <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icon03.png"></image></view>
+        <view><image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/icon03.png"></image></view>
         <view>好友加成</view>
       </navigator>
       <navigator class="itm" url="/pages/mall/index" hover-class="none">
-        <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icon06.png"></image></view>
+        <view><image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/icon06.png"></image></view>
         <view>步友专享</view>
       </navigator>
       <navigator class="itm" url="/pages/me/friend/friend" hover-class="none">
-        <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icon04.png"></image></view>
+        <view><image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/icon04.png"></image></view>
         <view>好友列表</view>
       </navigator>
       <navigator class="itm" url="/pages/calorie/post/post" hover-class="none">
-        <view><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icon05.png"></image></view>
+        <view><image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/icon05.png"></image></view>
         <view>保存海报</view>
       </navigator>
     </view>
@@ -91,18 +90,18 @@
         <navigator class="wrp" url="/pages/buyou/index" open-type="switchTab">
           <view class="title">步友广场</view>
           <view class="subtitle">发现更多有趣的人和物</view>
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/buyou%402x.png"></image>
+          <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/icn_buyou.png"></image>
         </navigator>
       </view>
       <view class="itm">
         <navigator class="wrp" url="/pages/team/team" open-type="switchTab">
           <view class="title">组团PK</view>
-          <view class="subtitle">一起PK赢蛋壳</view>
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/tiaozhansai%402x.png"></image>
+          <view class="subtitle">亲朋好友一起PK赢蛋壳</view>
+          <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/icn_team.png"></image>
         </navigator>
       </view>
     </view>
-    <view class="hb">
+    <navigator class="hb" hover-class="none" url="/pages/game/qiandao/qiandao">
       <view class="comtitle spe" style="padding-bottom:0;">
         <text>天天签到</text>
         <!-- <view class="switch-cont">
@@ -111,14 +110,14 @@
         </view> -->
       </view>
       <view class="wrp">
-        <image class="bg" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/hb.png"></image>
-        <image bindtap="kaiHongbao" animation="{{kaiAnimation}}" class="kai" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/kai.png"></image>
+        <image class="bg" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/hb.png"></image>
+        <image animation="{{kaiAnimation}}" class="kai" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/kai.png"></image>
         <view>
           <view class="subtitle">今日已签到<text> {{qiandaoNum}}</text>人</view>
           <view class="title">每天签到领取步数奖励</view>
         </view>
       </view>
-    </view>
+    </navigator>
   </view>
   
   <view class="section npdb" wx:if="{{itemsNew.length > 0}}">
@@ -142,7 +141,7 @@
             <view class="name">{{item.name}}</view>
             <view class="info">
               <view class="l">
-                <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
+                <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i-egg.png"></image>
                 <text>{{item.dkEshellNum}}</text>
               </view>
               <view  class="r">已兑换<text>{{item.changeNumber?item.changeNumber:0}}</text>人</view>
@@ -175,7 +174,7 @@
             <view class="name">{{item.name}}</view>
             <view class="info">
               <view class="l">
-                <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
+                <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i-egg.png"></image>
                 <text>{{item.dkEshellNum}}</text>
               </view>
               <view  class="r">已兑换<text>{{item.changeNumber ? item.changeNumber : 0}}</text>人</view>
@@ -208,7 +207,7 @@
             <view class="name">{{item.name}}</view>
             <view class="info">
               <view class="l">
-                <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
+                <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i-egg.png"></image>
                 <text>{{item.dkEshellNum}}</text>
                 <text class="plus" wx:if="{{item.retail_price && item.retail_price > 0}}">+</text>
                 <text class="unit">¥</text>
@@ -216,7 +215,7 @@
               </view>
               <view  class="r">已兑换<text>{{item.changeNumber ? item.changeNumber : 0}}</text>人</view>
             </view>
-            <view class="exchangeBtn">免费兑换</view>
+            <view class="exchangeBtn">超值兑换</view>
           </view>
         </view>
       </navigator>
@@ -244,7 +243,7 @@
             <view class="name">{{item.name}}</view>
             <view class="info">
               <view class="l">
-                <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i-egg.png"></image>
+                <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i-egg.png"></image>
                 <text>{{item.dkEshellNum}}</text>
                 <text class="plus" wx:if="{{item.retail_price && item.retail_price > 0}}">+</text>
                 <text class="unit">¥</text>
@@ -252,7 +251,7 @@
               </view>
               <view  class="r">已兑换<text>{{item.changeNumber ? item.changeNumber : 0}}</text>人</view>
             </view>
-            <view class="exchangeBtn">免费兑换</view>
+            <view class="exchangeBtn">超值兑换</view>
           </view>
         </view>
       </navigator>
@@ -261,23 +260,8 @@
   </view>
   
   <view class="moretip">
-    更多商品每天上新，记得每天登陆来逛逛哦~
+    兑换商品每周不定期更新哦~
   </view>
-  
-<!--  <view class="mask" wx:if="{{showMask}}">
-    <view class="hongbao" wx:if="{{isHongbaoShow}}">
-      <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/bg_hongbao%402x.png"></image>
-      <view class="txtcont">
-        <view class="title">恭喜您获得<text class="money">88</text>元红包</view>
-        <view class="subtitle">邀请好友助力还可获得更多奖励</view>
-        <button class="hb_inviteBtn" open-type="share">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/bg_inviteBtn%402x.png"></image>
-          <text>立即邀请好友助力</text>
-        </button>
-      </view>
-      <view class="closeBtn" bindtap="closeHongbao">点击关闭</view>
-    </view>
-  </view> -->
   
   <view class="commontoast" wx:if="{{tipShow}}">
     <form name="payForm" report-submit="true" bindsubmit="exchangeSubmit">
@@ -288,7 +272,7 @@
           <view class="btn btn-simple" bindtap="closeLayer">取消</view>
           <button class="btn btn-default resetBtn" form-type="submit">确定</button>
         </view>
-        <image class="closeBtn" bindtap="closeLayer" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/close.png"></image>
+        <image class="closeBtn" bindtap="closeLayer" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/close.png"></image>
       </view>
     </form>
   </view>
@@ -296,21 +280,21 @@
   <view class="awardLayer layer" wx:if="{{awardLayer}}">
     <view class="award">
       <view class="bg">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/bg_award2.png"></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/bg_award2.png"></image>
       </view>
       <view class="item">
-        <view><image lazy-load src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/i_eggs.png" class="giftimg"></image></view>
+        <view><image lazy-load src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i_eggs.png" class="giftimg"></image></view>
       </view>
       <view class="txt">
         {{exchangeDk}}<text>蛋壳</text>
       </view>
       <view class="awdtip">邀请好友即可获得永久步数加成</view>
       <button class="btns resetBtn" bindtap="getAward" open-type="share" data-linkfrom="type2">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/award_btn.png"></image>
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/yaoqing.png"></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/award_btn.png"></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/yaoqing.png"></image>
       </button>
       <view class="close">
-        <image class="closeBtn" bindtap="closeLayer2" data-layerId="awardLayer" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/close.png"></image>
+        <image class="closeBtn" bindtap="closeLayer2" data-layerId="awardLayer" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/close.png"></image>
       </view>
     </view>
   </view>
@@ -320,7 +304,7 @@
       <view class="title">如何关注公众号</view>
       <view class="row">
         <view class="rank">
-          <image class="bg" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_rankbg.png"></image>
+          <image class="bg" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/icn_rankbg.png"></image>
           <view class="subwrp">1</view>
         </view>
         <view class="content">
@@ -329,7 +313,7 @@
       </view>
       <view class="row">
         <view class="rank">
-          <image class="bg" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_rankbg.png"></image>
+          <image class="bg" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/icn_rankbg.png"></image>
           <view class="subwrp">2</view>
         </view>
         <view class="content">
@@ -339,17 +323,35 @@
       </view>
       <view class="row">
         <view class="rank">
-          <image class="bg" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_rankbg.png"></image>
+          <image class="bg" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/icn_rankbg.png"></image>
           <view class="subwrp">3</view>
         </view>
         <view class="content">
           从公众号进入“蛋壳步数换”小程序领取任务奖励
         </view>
       </view>
-      <view class="gzhGetStep btn-default disabled" wx:if="{{gzhType == 2}}">领取步数</view>
+      <view class="gzhGetStep btn-default" bindtap="closeLayerGzh" wx:if="{{gzhType == 2}}">好的</view>
       <view class="gzhGetStep btn-default" wx:if="{{gzhType == 0}}" bindtap="gzhGetStep">领取步数</view>
       <view class="close">
-        <image class="closeBtn" bindtap="closeLayerGzh" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/close.png"></image>
+        <image class="closeBtn" bindtap="closeLayerGzh" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/close.png"></image>
+      </view>
+    </view>
+  </view>
+  
+  <view class="revokeLayer layer" wx:if="{{revokeLayerShow}}">
+    <view class="wrp">
+      <view class="logo">
+        <image lazy-load src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/logo_c.png"></image>
+      </view>
+      <view class="title">
+        开启微信运动授权
+      </view>
+      <view class="subtitle">
+        我们需要开启该权限，才能获取步数信息为您服务
+      </view>
+      <view class="btns">
+        <view bindtap="cancelRevoke" class="btn cancel btn-simple">取消</view>
+        <button class="btn btn-default resetBtn" open-type="openSetting">确定</button>
       </view>
     </view>
   </view>

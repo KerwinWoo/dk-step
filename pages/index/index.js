@@ -11,10 +11,7 @@ Page({
     itemsInvite: [],
     itemsValue: [],
     itemsBuyou: [],
-    myDk:{
-      it:0,
-      ft:0
-    },
+    myDk:0,
     jcpercent: 0,
     jcpercent2: 100,
     ssteps: [],
@@ -33,7 +30,10 @@ Page({
     qiandaoNum: 0,
     sessionErrTimes: 0,
     gzhLayerShow: false,
-    timer:null
+    timer:null,
+    finalleft:0,
+    finaltop:0,
+    revokeLayerShow: false
   },
   onShow () {
     let that = this
@@ -43,13 +43,22 @@ Page({
     }
     else{
       if(!token){
+        //新用户通过邀请链接进入
+        if(that.data.fromInvite && that.data.fromInvite == 1){
+          let data = {
+            type: that.data.type,
+            push_userid: that.data.push_userid,
+            business: that.data.business
+          }
+          wx.setStorageSync('inviteInfo', data)
+        }
         wx.navigateTo({
         	url: '/pages/auth/btnAuth/btnAuth'
         })
       }
       else{
         if(that.data.fromInvite && that.data.fromInvite == 1){
-          //通过邀请链接进入
+          //老用户通过邀请链接进入
           let data = {
             type: that.data.type,
             push_userid: that.data.push_userid,
@@ -76,7 +85,13 @@ Page({
               }
             }
             else{
-              console.info('通用邀请链接接口异常')
+              console.error('通用邀请链接接口异常')
+              that.setData({
+                type: '',
+                push_userid: '',
+                business: '',
+                fromInvite: ''
+              })
               wx.showToast({
                 title: res.errmsg?res.errmsg:res.msg,
                 icon: 'none',
@@ -97,15 +112,26 @@ Page({
     console.log('options', options)
     let that = this
     // 刷新组件
-    that.refreshView = that.selectComponent("#refreshView")
+    that.refreshView = that.selectComponent(".refreshView")
     
     that.innerAudioContext = wx.createInnerAudioContext()
     that.innerAudioContext.autoplay = false
-    that.innerAudioContext.src = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/audio/ball.mp3'
+    that.innerAudioContext.src = 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/ball.mp3'
     that.innerAudioContext.onPlay(() => {
       console.log('开始播放')
     })
     that.innerAudioContext.onError((res) => {
+      console.log(res.errMsg)
+      console.log(res.errCode)
+    })
+    
+    that.innerAudioContext2 = wx.createInnerAudioContext()
+    that.innerAudioContext2.autoplay = false
+    that.innerAudioContext2.src = 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/award.mp3'
+    that.innerAudioContext2.onPlay(() => {
+      console.log('开始播放2')
+    })
+    that.innerAudioContext2.onError((res) => {
       console.log(res.errMsg)
       console.log(res.errCode)
     })
@@ -115,7 +141,8 @@ Page({
       forwardUrl: options.forwardUrl?options.forwardUrl:'',
       fromInvite: options.fromInvite?options.fromInvite:'',
       push_userid: options.push_userid?options.push_userid:'',
-      type: options.type?options.type:''
+      type: options.type?options.type:'',
+      navHeight: app.globalData.navHeight
     })
   },
   onShareAppMessage (option) {
@@ -125,16 +152,16 @@ Page({
     that.data.previewing = true
     if(linkfrom == 'type1'){
       return {
-        title: '步数当钱花，快来一起发',
+        title: '蛋壳步数换，在乎你的每一步',
         path: '/pages/index/index?fromInvite=1&type=1&push_userid=' + wx.getStorageSync('userId'),
-        imageUrl: 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/invitation_homepage.png'
+        imageUrl: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/invitation_homepage.png'
       }
     }
     else if(linkfrom == 'type2'){
       return {
         title: '要想富，先走路，走路也能成首富',
         path: '/pages/index/index?fromInvite=1&type=1&push_userid=' + wx.getStorageSync('userId'),
-        imageUrl: 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/invitation_team.png'
+        imageUrl: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/invitation_team.png'
       }
     }
   },
@@ -160,10 +187,12 @@ Page({
   },
   onPullDownRefresh:function(){
     let that = this
-    setTimeout(function(){
-      that.loadStepsInfo()
-      that.refreshView.stopPullRefresh()
-    },3000)
+    that.loadUserDkInfo()
+    that.loadStepsInfo()
+    that.loadUserWXStepInfo()
+    that.loadGoodsInfo()
+    that.loadJiachengInfo()
+    that.loadQiandaoNum()
   },
   initPageData () {
     this.loadUserDkInfo()
@@ -177,12 +206,8 @@ Page({
     let that = this
     utils.request(api.HOME_QUERY_USERDK,{
     }).then(function (res) {
-      let myDk = (res.data.eggshellNum+'').split('.')
       that.setData({
-        myDk: {
-          it: myDk[0],
-          ft: myDk[1] ? myDk[1] : '0'  
-        }
+        myDk: res.data.eggshellNum
       })
     })
   },
@@ -193,10 +218,15 @@ Page({
       success(res) {
         //用户拒绝授权或者用户在设置页面中取消了授权
         if(res.authSetting['scope.werun'] != undefined && res.authSetting['scope.werun'] == false){
-          
+          that.setData({
+            revokeLayerShow: true
+          })
         }
         //用户从未授权
         else{
+          that.setData({
+            revokeLayerShow: false
+          })
           that.getWXStepInfo()
         }
       }
@@ -215,49 +245,89 @@ Page({
   //获取步数(小泡泡)信息
   loadStepsInfo () {
     let that = this
-    const [defaultTopMin,defaultTopMax,defaultLeftMin,defaultLeftMax,defaultLeftMin2,defaultLeftMax2,defaultDelayMin,defaultDelayMax] = 
-          [80,320,20,110,480,600,0,300]
-    utils.request(api.HOME_QUERY_STEPTASK,{
-    }).then(function (res) {
-        let data = res.data
-        data.map(function(value,index){
-          let leftmin = (index % 2 == 0) ? defaultLeftMin : defaultLeftMin2
-          let leftmax = (index % 2 == 0) ? defaultLeftMax : defaultLeftMax2
-          let color = ''
-          value.type = utils.randomNum(0, 3)
-          switch(value.type){
-            case 0: 
-              color = '#FF7110'
-              value.imgSrc = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ball-s.png'
-              break
-            case 1:
-              color = '#DA881D'
-              value.imgSrc = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ball-s2.png'
-              break
-            case 2:
-              color = '#2462B9'
-              value.imgSrc = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ball-s3.png'
-              break
-            case 3:
-              color = '#20A19E'
-              value.imgSrc = 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/ball-s4.png'
-              break
+    const query = wx.createSelectorQuery()
+    query.selectAll('.stepelement').boundingClientRect()
+    query.exec(function(res){
+      //上方title导航宽高
+      let navwidth = app.globalData.windowWidth
+      let navheight = app.globalData.navHeight
+      //可移动区域宽高
+      let cwidth = res[0][0].width
+      let cheight = res[0][0].height
+      //大泡泡宽高
+      let bwidth = res[0][1].width
+      let bheight = res[0][1].height
+      //小泡泡宽高
+      let mwidth = res[0][2].width
+      let mheight = res[0][2].height
+      that.setData({
+        finalleft: res[0][2].left + mwidth/2,
+        finaltop: utils.rpx2px()(169) + mheight/2
+      })
+      
+      const [defaultTopMin,defaultTopMax,defaultLeftMin,defaultLeftMax,
+      defaultLeftMin2,defaultLeftMax2,defaultDelayMin,defaultDelayMax] = 
+            [mheight,cheight-(mheight*2),20,(cwidth - bwidth)/2 - mwidth,((cwidth - bwidth)/2) + bwidth,cwidth - mwidth,0,300]
+      utils.request(api.HOME_QUERY_STEPTASK,{
+      }).then(function (res) {
+          that.refreshView.stopPullRefresh()
+          if(res.errno === 0){
+            let data = res.data
+            data.map(function(value,index){
+              let leftmin = (index % 2 == 0) ? defaultLeftMin : defaultLeftMin2
+              let leftmax = (index % 2 == 0) ? defaultLeftMax : defaultLeftMax2
+              let color = ''
+              value.type = utils.randomNum(0, 3)
+              switch(value.type){
+                case 0: 
+                  color = '#FF7110'
+                  value.imgSrc = 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/ball-s.png'
+                  break
+                case 1:
+                  color = '#DA881D'
+                  value.imgSrc = 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/ball-s2.png'
+                  break
+                case 2:
+                  color = '#2462B9'
+                  value.imgSrc = 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/ball-s3.png'
+                  break
+                case 3:
+                  color = '#20A19E'
+                  value.imgSrc = 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/ball-s4.png'
+                  break
+              }
+              if(value.task_name == '邀请好友' || value.task_name == '好友加成'){
+                if(value.task_status != 1){
+                  value.isInvite = true
+                }
+              }
+              if(value.task_status == 1){
+                value.comp_name = '点击领取'
+              }
+              value.style = {
+                left: utils.randomNum(leftmin, leftmax),
+                top: utils.randomNum(defaultTopMin, defaultTopMax),
+                animationDelay: utils.randomNum(defaultDelayMin, defaultDelayMax) + 'ms',
+                color: color
+              }
+              value.statusCls = 'sstep withAnimation'
+              if(value.task_id == 1){
+                value.index = index
+                that.setData({
+                  gzhTask: value
+                })
+              }
+            })
+            that.setData({
+              ssteps: data
+            })
           }
-          if(value.task_name == '邀请好友' || value.task_name == '好友加成'){
-            value.isInvite = true
+          else{
+            utils.showErrorToast(res.errmsg?res.errmsg:res.msg)
           }
-          value.style = {
-            left: utils.randomNum(leftmin, leftmax)/2,
-            top: utils.randomNum(defaultTopMin, defaultTopMax)/2,
-            animationDelay: utils.randomNum(defaultDelayMin, defaultDelayMax) + 'ms',
-            color: color
-          }
-          value.statusCls = 'sstep withAnimation'
-        })
-        that.setData({
-          ssteps: data
-        })
+      })
     })
+    
   },
   loadJiachengInfo () {
     let that = this
@@ -265,8 +335,8 @@ Page({
       res.data.percent
       if(res.errno === 0){
         that.setData({
-          jcpercent: res.data.percent,
-          jcpercent2: 100 - res.data.percent
+          jcpercent: Number.isInteger(res.data.percent)?res.data.percent:res.data.percent.toFixed(2),
+          jcpercent2: Number.isInteger(100 - res.data.percent)?(100 - res.data.percent):(100 - res.data.percent).toFixed(2)
         })
       }
     })
@@ -300,7 +370,7 @@ Page({
           }
           else if(resData.errno === 408){
             that.data.sessionErrTimes++
-            if(that.data.sessionErrTimes > 1){
+            if(that.data.sessionErrTimes <= 1){
               wx.login({
                 success: function (res) {
                   utils.request(api.AUTH_GETSESSIONKEY,{
@@ -333,89 +403,99 @@ Page({
     const step = e.currentTarget.dataset.step * 1
     const name = e.currentTarget.dataset.name
     const id = e.currentTarget.dataset.id
-    
-    utils.request(api.HOME_PICKSTEP,{
-      taskId: id,
-      stepNum: step,
-      name: name
-    }).then(function(res){
-      if(res.errno === 0){
-        if(res.data == 'success'){
-          // 增加气泡收取动效样式
-          that.data.ssteps[index].mvCls = 'close'
-          that.data.ssteps[index].style.left = 175
-          that.data.ssteps[index].style.top = 115
-          that.setData({
-            userStep: that.data.userStep + step,
-            ssteps: that.data.ssteps
-          })
-          //播放收取音效
-          that.playVoice()
-        }
-        else{
-          switch(name) {
-            case '签到':
-              wx.navigateTo({
-                url: '/pages/game/qiandao/qiandao'
-              })
-              break
-            case '关注公众号':
-              that.setData({
-                gzhLayerShow: true
-              })
-              utils.request(api.GZH_QUERY,{},'GET').then(function(res){
-                if(res.errno === 0){
-                  that.setData({
-                    gzhType: res.data.data
-                  })
-                }
-              })
-              break
-            case '每日分享':
-              wx.navigateTo({
-                url: '/pages/calorie/post/post'
-              })
-              break
-            case '邀请好友':
-              break
-            case '好友加成':
-              break
-            case '幸运抽奖':
-              wx.navigateTo({
-                url: '/pages/game/luckywheel/luckywheel'
-              })
-              break
-            case '浏览商品':
-              wx.navigateTo({
-                url: '/pages/mall/index'
-              })
-              break
-            case '创建团队':
-              wx.switchTab({
-                url: '/pages/team/team'
-              })
-              break
-            case '发布话题':
-              wx.switchTab({
-                url: '/pages/buyou/fabu/fabu'
-              })
-              break
-            case '给步友打赏':
-              wx.switchTab({
-                url: '/pages/buyou/index'
-              })
-              break
-            case '获取打赏':
-              wx.switchTab({
-                url: '/pages/buyou/index'
-              })
-              break
-            default:
-              break
+    let status = that.data.ssteps[index].task_status
+    let taskid = that.data.ssteps[index].task_id
+    if(status == 1){
+      let param = {
+        stepNum: step,
+        name: name
+      }
+      if(taskid || taskid == 0){
+        param.taskId = taskid
+      }
+      utils.request(api.HOME_PICKSTEP,param).then(function(res){
+        if(res.errno === 0){
+          if(res.data == 'success'){
+            // 增加气泡收取动效样式
+            that.data.ssteps[index].mvCls = 'close'
+            that.data.ssteps[index].style.left = that.data.finalleft
+            that.data.ssteps[index].style.top = that.data.finaltop
+            that.setData({
+              userStep: that.data.userStep + step,
+              ssteps: that.data.ssteps
+            })
+            //播放收取音效
+            that.playVoice()
+          }
+          else{
+            
           }
         }
+      })
+    }
+    else{
+      switch(name) {
+        case '签到':
+          wx.navigateTo({
+            url: '/pages/game/qiandao/qiandao'
+          })
+          break
+        case '关注公众号':
+          that.setData({
+            gzhLayerShow: true
+          })
+          utils.request(api.GZH_QUERY,{},'GET').then(function(res){
+            if(res.errno === 0){
+              that.setData({
+                gzhType: res.data.data
+              })
+            }
+          })
+          break
+        case '每日分享':
+          //todo
+          wx.navigateTo({
+            url: '/pages/calorie/post/post?fromtask=1'
+          })
+          break
+        case '邀请好友':
+          break
+        case '好友加成':
+          break
+        case '幸运抽奖':
+          wx.navigateTo({
+            url: '/pages/game/luckywheel/luckywheel'
+          })
+          break
+        case '浏览商品60秒':
+          wx.navigateTo({
+            url: '/pages/mall/index?fromTask=1'
+          })
+          break
+        case '创建团队':
+          wx.switchTab({
+            url: '/pages/team/team'
+          })
+          break
+        case '发布动态':
+          wx.navigateTo({
+            url: '/pages/buyou/fabu/fabu'
+          })
+          break
+        case '给步友打赏':
+          wx.switchTab({
+            url: '/pages/buyou/index'
+          })
+          break
+        case '获取打赏':
+          wx.switchTab({
+            url: '/pages/buyou/index'
+          })
+          break
+        default:
+          break
       }
-    })
+    }
   },
   /**
    * 设置红包提醒
@@ -446,17 +526,6 @@ Page({
       })
     })
   },
-  closeHongbao () {
-    this.setData({
-      showMask: false,
-      isHongbaoShow: false
-    })
-  },
-  viewIvtGoodsDetail () {
-    wx.navigateTo({
-      url: '/pages/mall/ivtgoodsdetail/ivtgoodsdetail'
-    })
-  },
   doExchange () {
     let that = this
     const R = 1250
@@ -477,6 +546,10 @@ Page({
   playVoice () {
     this.innerAudioContext.stop()
     this.innerAudioContext.play()
+  },
+  playVoice2 () {
+    this.innerAudioContext2.stop()
+    this.innerAudioContext2.play()
   },
   closeLayer () {
     this.setData({
@@ -504,6 +577,7 @@ Page({
           tipShow: false,
           userStep: 0
         })
+        that.playVoice2()
         that.loadUserDkInfo()
       }
     })
@@ -572,12 +646,35 @@ Page({
     })
   },
   gzhGetStep () {
+    let that = this
     utils.request(api.GZH_REWARD, {}, 'GET').then(function(res){
       if(res.errno === 0){
-        wx.showToast({
-          title: '领取成功',
-          icon: 'success',
-          duration: 2000
+        that.setData({
+          gzhLayerShow: false
+        })
+        let gzhtask = that.data.gzhTask
+        utils.request(api.HOME_PICKSTEP,{
+          stepNum: gzhtask.task_dk_num,
+          name: gzhtask.task_name,
+          taskId: gzhtask.task_id
+        }).then(function(res){
+          if(res.errno === 0){
+            if(res.data == 'success'){
+              // 增加气泡收取动效样式
+              that.data.ssteps[gzhtask.index].mvCls = 'close'
+              that.data.ssteps[gzhtask.index].style.left = that.data.finalleft
+              that.data.ssteps[gzhtask.index].style.top = that.data.finaltop
+              that.setData({
+                userStep: that.data.userStep + gzhtask.task_dk_num,
+                ssteps: that.data.ssteps
+              })
+              //播放收取音效
+              that.playVoice()
+            }
+            else{
+              
+            }
+          }
         })
       }
     })
@@ -596,6 +693,11 @@ Page({
         ssteps: that.data.ssteps
       })
       that.data.timer = undefined
-    }, 500)
+    }, 300)
+  },
+  cancelRevoke () {
+    this.setData({
+      revokeLayerShow: false
+    })
   }
 })

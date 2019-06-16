@@ -2,9 +2,9 @@
 page{
   background:#f2f2f2;
 }
-.container{
+/* .container{
   margin-top:128rpx;
-}
+} */
 .banner{
   width:100%;
   height:216rpx;

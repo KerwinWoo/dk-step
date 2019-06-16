@@ -1,7 +1,7 @@
 <!--pages/team/manage/member/member.wxml-->
 <view class="container hastop">
-  <dk-nav title="成员管理" hasBackBtn hasBorder isFixed bind:backTo="backTo"></dk-nav>
-  <view class="row" wx:for="{{teamMemberList}}" wx:key="{{index}}">
+<!--  <dk-nav title="成员管理" hasBackBtn hasBorder isFixed bind:backTo="backTo"></dk-nav>
+ -->  <view class="row" wx:for="{{teamMemberList}}" wx:key="{{index}}">
     <view class="wrp">
       <view class="pic"><image mode="aspectFill" lazy-load src="{{item.avatar}}"></image></view>
       <view class="name">{{item.nickname}}</view>

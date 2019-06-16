@@ -15,16 +15,24 @@ Page({
    */
   onLoad: function (options) {
    let that = this
+   that.setData({
+     isInvite: options.isInvite?options.isInvite:'',
+     goodsType: options.goodsType?options.goodsType:''
+   })
    utils.request(api.MALL_QUERY_GOODS_DETAIL,{
      id: options.id
    },'GET').then(function(res){
-     res.data.invitationHistory.map(function(value, index){
-       value.add_time = utils.formatTime(new Date(value.add_time))
-     })
-     that.setData({
-       info: res.data.info,
-       invitationHistory: res.data.invitationHistory
-     })
+     if(res.errno === 0){
+       if(res.data.invitationHistory && res.data.invitationHistory.length > 0){
+         res.data.invitationHistory.map(function(value, index){
+           //value.add_time = utils.formatTime(new Date(value.add_time))
+         })
+       }
+       that.setData({
+         info: res.data.info,
+         invitationHistory: res.data.invitationHistory
+       })
+     }
    })
  },
 
@@ -76,9 +84,13 @@ Page({
   onShareAppMessage: function () {
     let that = this
     return {
-      title: '就差你了，你帮我点一下就能用步数兑换到这个商品了~',
+      title: '就差你了，你帮我点一下就能用步数兑换到这个商品了~"',
       imageUrl: that.data.info.list_pic_url,
-      path: '/pages/index/index?fromInvite=1&type=3&business='+ that.data.info.id + '&push_userid=' + wx.getStorageSync('userId') + '&forwardUrl='+encodeURIComponent('/pages/mall/goodsdetail/goodsdetail'),
+      path: '/pages/index/index?fromInvite=1&type=3&business='+ that.data.info.id 
+      + '&push_userid=' + wx.getStorageSync('userId') 
+      + '&forwardUrl='
+      + encodeURIComponent('/pages/mall/goodsdetail/goodsdetail?id='+that.data.info.id
+      +'&isInvite='+that.data.isInvite+'&goodsType='+that.data.goodsType)
     }
   },
   backTo () {

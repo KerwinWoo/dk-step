@@ -64,7 +64,7 @@ Page({
     return {
       title: '步数当钱花，快来一起发',
       path: '/pages/index/index?fromInvite=1&type=1&push_userid=' + wx.getStorageSync('userId'),
-      imageUrl: 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/invitation_homepage.png'
+      imageUrl: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/invitation_homepage.png'
     }
   },
   backTo (e) {
@@ -80,9 +80,12 @@ Page({
         that.setData({
           friendList: res.data.friends,
           count: res.data.count?res.data.count:0,
-          nowPercent: res.data.nowPercent?res.data.nowPercent:0,
-          futurePercent: res.data.futurePercent?res.data.futurePercent:0
+          nowPercent: Number.isInteger(res.data.nowPercent)?res.data.nowPercent:res.data.nowPercent.toFixed(2),
+          futurePercent: Number.isInteger(res.data.futurePercent)?res.data.futurePercent:res.data.futurePercent.toFixed(2)
         })
+      }
+      else{
+        utils.showErrorToast(res.errmsg?res.errmsg:res.msg)
       }
     })
   },
@@ -90,19 +93,28 @@ Page({
     let that = this
     utils.request(api.REWARD_USER, {
       targetUserId: e.currentTarget.dataset.targetid,
-      rewardEggshellNum: 1
+      rewardEggshellNum: 2
     }).then(function(res){
       if(res.errno === 0){
-        that.toast.showToast('打赏成功，已将你的1枚蛋壳打赏给TA')
+        that.toast.showToast('打赏成功，已将你的2枚蛋壳打赏给TA')
         that.loadData()
       }
       else{
-        wx.showToast({
-          title: res.errmsg,
-          duration: 2000,
-          icon: 'none'
-        })
+        utils.showErrorToast(res.errmsg?res.errmsg:res.msg)
       }
     })
+  },
+  toTA (e) {
+    let uid = e.currentTarget.dataset.uid
+    if(uid == wx.getStorageSync('userId')){
+      wx.navigateTo({
+        url: '/pages/me/homepage/homepage'
+      })
+    }
+    else{
+      wx.navigateTo({
+        url: '/pages/ta/ta?userid='+uid
+      })
+    }
   }
 })

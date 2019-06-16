@@ -15,7 +15,9 @@ Page({
 /*    teamRequired: true,
     sloganRequired: true, */
     buttonDisabled: true,
-    index: 0
+    index: 0,
+    pageType: '',
+    hasBackBtn: false
   },
 
   /**
@@ -35,40 +37,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if(!app.globalData.teamFromUrl || app.globalData.teamFromUrl != 'myteam'){
-      this.loadMyTeamData()
-    }
-    else{
-      app.globalData.teamFromUrl = ''
-    }
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
+    this.loadMyTeamData()
   },
 
   /**
@@ -81,17 +50,12 @@ Page({
       path: '/pages/index/index?fromInvite=1&type=2&business='+ that.data.teamId + '&push_userid=' + wx.getStorageSync('userId') + '&forwardUrl='+encodeURIComponent('/pages/team/myteam/myteam')
     }
   },
-  backTo (e) {
-    wx.switchTab({
-    	url: '/pages/index/index'
-    })
-  },
   bindPickerChange(e) {
     this.setData({
       index: e.detail.value
     })
   },
-  createTeam () {
+  doCreateTeam () {
     let that = this
     if(!that.data.teamName){
       wx.showToast({
@@ -113,8 +77,19 @@ Page({
       targetNum: that.data.array[that.data.index]
     }).then(function(res){
       if(res.errno === 0){
-        wx.navigateTo({
-          url: '/pages/team/myteam/myteam'
+        that.setData({
+          pageType: 'me'
+        })
+        wx.setNavigationBarTitle({
+        	title: '我的团队'
+        })
+        that.loadMyTeamData()
+      }
+      else{
+        wx.showToast({
+          title: res.errmsg?res.errmsg:res.msg,
+          icon: 'none',
+          duration: 2000
         })
       }
     })
@@ -137,8 +112,20 @@ Page({
     utils.request(api.TEAM_LIST).then(function(res){
       if(res.errno === 0){
         if(res.data.length > 0){
-          wx.navigateTo({
-            url: '/pages/team/myteam/myteam'
+          that.setData({
+            pageType: 'me',
+            teamList: res.data
+          })
+          wx.setNavigationBarTitle({
+          	title: '我的团队'
+          })
+        }
+        else{
+          that.setData({
+            pageType: 'team'
+          })
+          wx.setNavigationBarTitle({
+          	title: '创建团队'
           })
         }
       }

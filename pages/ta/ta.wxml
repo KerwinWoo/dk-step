@@ -1,0 +1,89 @@
+<!--pages/ta/ta.wxml-->
+<view class="container hastop">
+<!--  <dk-nav title="TA的主页" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+ -->  <view class="pinfo">
+    <view class="photo">
+      <image src="{{info.avatar}}" mode="aspectFill"></image>
+    </view>
+    <view class="info">
+      <view class="name">{{info.nickname}}</view>
+      <view class="subtitle">ID: {{info.diplay_id}}</view>
+    </view>
+    <view class="btns">
+      <view data-uid="{{info.id}}" data-status="{{info.attention_status}}" bindtap="guanzhu" class="edit btn">{{(info.attention_status == 0) ? '关注' : '取消关注'}}</view>
+      <button class="share resetBtn btn" open-type="share" data-type="share">分享</button>
+    </view>
+  </view>
+  <view class="tip">{{info.user_desc?info.user_desc:'这家伙很懒，什么都没有留下'}}</view>
+  <view class="summary">
+    <navigator class="itm" url="/pages/me/guanzhu/guanzhu?fromta=1&userid={{userid}}" hover-class="none">
+      <view class="num">{{info.attentionNum?info.attentionNum:0}}</view>
+      <view class="name">关注</view>
+    </navigator>
+    <navigator class="itm" url="/pages/me/fans/fans?fromta=1&userid={{userid}}" hover-class="none">
+      <view class="num">{{info.fansNum?info.fansNum:0}}</view>
+      <view class="name">粉丝</view>
+    </navigator>
+    <navigator class="itm" url="/pages/me/dashang/dashang?fromta=1&userid={{userid}}" hover-class="none">
+      <view class="num">{{info.rewardNum?info.rewardNum:0}}</view>
+      <view class="name">获赏</view>
+    </navigator>
+    <view class="itm">
+      <view class="num">{{info.communityNum?info.communityNum:0}}</view>
+      <view class="name">发帖</view>
+    </view>
+  </view>
+  <view class="topiccontentlist per">
+    <view class="itm" wx:for="{{communityList}}" wx:for-item="topic" wx:for-index="topicIndex" wx:key="{{id}}">
+      <view class="time">
+        {{topic.create_time}}
+      </view>
+      <view class="topictype" wx:if="{{topic.tag_name}}">
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/huati%402x.png"></image>
+        {{topic.tag_name}}
+      </view>
+      <view class="content">{{topic.content}}</view>
+      <view class="commonimgcont {{(topic.img_src.length == 1) ? 'type2' : 'type1'}}{{topic.type3}}">
+        <view class="imgwrp"  wx:for="{{topic.img_src}}" wx:key="{{item}}">
+          <view class="subwrp">
+            <image-loader 
+              original-image="{{item}}" 
+              mode="{{topic.imgmode}}"
+              bindtap="previewTopicImg"
+              data-parentIndex="{{topicIndex}}"
+              data-current="{{item}}"
+              isSingle="{{(topic.img_src.length == 1) ? true : false}}"></image-loader>
+            </view>
+        </view>
+      </view>
+      <view class="addrs">
+        <!-- <image wx:if="{{topic.location}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/dibiao%402x.png"></image> -->
+        <text class="txtov" wx:if="{{topic.location}}">{{topic.location}}</text>
+      </view>
+      <view class="opers">
+        <view class="itm" bindtap="giveEgg"  data-id="{{topic.id}}" data-uid="{{topic.create_user_id}}" data-parentindex="{{topicIndex}}">
+          <image wx:if="{{topic.reward_status == 0}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/dashang-bef.png"></image>
+          <image wx:if="{{topic.reward_status == 1}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/i-egg.png"></image>
+          <text class="num">{{topic.eshell_num}}</text>
+        </view>
+        <navigator class="itm" url="/pages/buyou/commentdetail/commentdetail?id={{topic.id}}" hover-class="none">
+          <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/pinglun%402x.png"></image>
+          <text class="num">{{topic.comment_num}}</text>
+        </navigator>
+        <button class="itm resetBtn" open-type="share" data-topicindex="{{topicIndex}}">
+          <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/fenxiang%402x.png"></image>
+          <text class="num">{{topic.forward_num}}</text>
+        </button>
+        <view class="itm" bindtap="shouCang" data-parentindex="{{topicIndex}}" data-id="{{topic.id}}">
+          <image wx:if="{{topic.collection_status == 0}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/shoucang-bef.png"></image>
+          <image wx:if="{{topic.collection_status == 1}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/shoucang-aft.png"></image>
+          <text class="num">{{topic.collection_num}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="nodata" wx:if="{{!communityList || communityList.length == 0}}">
+      <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/nodata_order.png"></image>
+      <view class="title">暂无内容</view>
+    </view>
+  </view>
+</view>

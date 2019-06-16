@@ -1,13 +1,13 @@
 <!--pages/rule/friendadd/friendadd.wxml-->
 <view class="container">
-  <dk-nav title="好友加成" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
-  <view class="ttitle">
-    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/friendadd_txt.png"></image>
+<!--  <dk-nav title="好友加成" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+ -->  <view class="ttitle">
+    <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/friendadd_txt.png"></image>
   </view>
   <view class="rule-cont">
     <view class="title">
-      <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/friendadd_tbg.png"></image>
-      <text>加成换算</text>
+      <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/friendadd_tbg.png"></image>
+      <text>举个栗子</text>
     </view>
     <view class="row">
       <view class="el">
@@ -15,14 +15,14 @@
         <view class="t2">微信运动</view>
       </view>
       <view class="flg">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/friendadd_f3.png"></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/friendadd_f3.png"></image>
       </view>
       <view class="el">
         <view class="t1">100<text class="unit">%</text></view>
         <view class="t2">加成</view>
       </view>
       <view class="flg">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/friendadd_f2.png"></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/friendadd_f2.png"></image>
       </view>
       <view class="el">
         <view class="t1">60000<text class="unit">步</text></view>
@@ -35,14 +35,14 @@
         <view class="t2">最终步数</view>
       </view>
       <view class="flg">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/friendadd_f1.png"></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/friendadd_f1.png"></image>
       </view>
       <view class="el">
         <view class="t1">8</view>
         <view class="t2">蛋壳</view>
       </view>
       <view class="flg">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/friendadd_f2.png"></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/friendadd_f2.png"></image>
       </view>
       <view class="el">
         <view class="t1">48<text class="unit">蛋壳</text></view>
@@ -55,25 +55,25 @@
         <view class="t2">最终蛋壳</view>
       </view>
       <view class="flg">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/friendadd_f1.png"></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/friendadd_f1.png"></image>
       </view>
       <view class="el">
         <view class="t1">150<text class="unit">天</text></view>
         <view class="t2">坚持运动</view>
       </view>
       <view class="flg">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/friendadd_f2.png"></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/friendadd_f2.png"></image>
       </view>
       <view class="el">
-        <view class="t1"><image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift01.png"></image></view>
-        <view class="t2">iPhone xs</view>
+        <view class="t1" style="font-size: 0;"><image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/gift01.png"></image></view>
+        <view class="t2">华为P30 Pro</view>
       </view>
     </view>
   </view>
   
   <view class="rule-cont">
     <view class="title">
-      <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/friendadd_tbg.png"></image>
+      <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/friendadd_tbg.png"></image>
       <text>加成秘籍</text>
     </view>
     <view class="list">

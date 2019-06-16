@@ -1,7 +1,7 @@
 <!--pages/rule/rule.wxml-->
 <view class="container hastop">
-  <dk-nav title="规则" hasBorder isFixed hasBackBtn="{{true}}" bind:backTo="backTo"></dk-nav>
-  <view class="doc">
+<!--  <dk-nav title="规则" hasBorder isFixed hasBackBtn="{{true}}" bind:backTo="backTo"></dk-nav>
+ -->  <view class="doc">
     <view class="h1">欢迎加入蛋壳步数换</view>
     <view class="h2">第一章 总则</view>
     <view class="h3">第一条</view>

@@ -1,7 +1,7 @@
 <!--pages/buyou/dashang/dashang.wxml-->
 <view class="container hastop">
-  <dk-nav title="{{rewardUsersList.length}}人已打赏" hasBackBtn isFixed hasBorder bind:backTo="backTo"></dk-nav>
-  <view class="list">
+<!--  <dk-nav title="{{rewardUsersList.length}}人已打赏" hasBackBtn isFixed hasBorder bind:backTo="backTo"></dk-nav>
+ -->  <view class="list">
     <view class="itm" wx:for="{{rewardUsersList}}" wx:key="{{id}}">
       <view>
         <image lazy-load mode="aspectFill" src="{{item.avatar}}"></image>

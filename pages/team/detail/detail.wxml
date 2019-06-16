@@ -1,10 +1,10 @@
 <!--pages/team/detail/detail.wxml-->
 <view class="container hastop">
-  <dk-nav title="团队详情" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
-  <view class="teaminfo">
+<!--  <dk-nav title="团队详情" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+ -->  <view class="teaminfo">
     <view class="wrp">
       <view class="photo">
-        <image src="{{teamDetail.avatar}}" mode="aspectFill"></image>
+        <image bindtap="toTA" data-uid="{{teamDetail.userId}}" src="{{teamDetail.avatar}}" mode="aspectFill"></image>
       </view>
       <view class="info">
         <view class="name">{{teamDetail.team_name}}</view>
@@ -16,9 +16,9 @@
           <view>目标：<text>{{teamDetail.step_day_num}}</text>步</view>
         </view>
       </view>
-      <navigator wx:if="{{teamDetail.userId == userId}}" class="manageBtn btn-simple" 
+      <navigator wx:if="{{userId && teamDetail.userId == userId}}" class="manageBtn btn-simple" 
       hover-class="none" open-type="navigate" url="/pages/team/manage/manage?teamId={{teamDetail.teamId}}">管理团队</navigator>
-      <view class="manageBtn btn-simple" wx:if="{{teamDetail.userId != userId}}" bindtap="exitTeam">退出团队</view>
+      <view class="manageBtn btn-simple" wx:if="{{userId && teamDetail.userId != userId}}" bindtap="exitTeam">退出团队</view>
     </view>
     <view class="slogan">团队宣言：{{teamDetail.team_declaration}}</view>
   </view>
@@ -27,22 +27,25 @@
     <view class="memberlist">
       <view class="itm" wx:for="{{teamMemberList}}" wx:key="{{index}}">
         <view class="rank">
-          <image wx:if="{{index == 0}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_ran1.png"></image>
-          <image wx:if="{{index == 1}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_ran2.png"></image>
-          <image wx:if="{{index == 2}}" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_ran3.png"></image>
+          <image wx:if="{{index == 0}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/icn_ran1.png"></image>
+          <image wx:if="{{index == 1}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/icn_ran2.png"></image>
+          <image wx:if="{{index == 2}}" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/icn_ran3.png"></image>
           <text wx:if="{{index > 2}}">{{index+1}}</text>
         </view>
         <view class="photo">
-          <image-loader mode="aspectFill" original-image="{{item.avatar}}"></image-loader>
+          <image-loader mode="aspectFill" bindtap="toTA" data-uid="{{item.user_id}}" original-image="{{item.avatar}}"></image-loader>
           <text>{{item.nickname}}</text>
           <view class="flagcont" wx:if="{{item.is_leader == 1}}">
-            <image class="flag" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/flag01.png"></image>
+            <image class="flag" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/flag01.png"></image>
           </view>
         </view>
         <view class="step">{{item.step_first_num}}</view>
-        <view class="status btn-simple" wx:if="{{item.targetStatus == 1}}">已打赏</view>
-        <view class="status btn-simple" wx:if="{{item.targetStatus == 2}}" data-targetid="{{item.user_id}}" bindtap="rewardUser">打赏Ta</view>
+        <view class="status btn-simple" wx:if="{{item.targetStatus == 1 && item.user_id != userId}}">已打赏</view>
+        <view class="status btn-simple" wx:if="{{item.targetStatus == 2 && item.user_id != userId}}" data-targetid="{{item.user_id}}" bindtap="rewardUser">打赏Ta</view>
         <view class="status btn-simple" wx:if="{{item.targetStatus == 3}}">未达标</view>
+        <view class="status btn-simple" wx:if="{{item.targetStatus == 2 && item.user_id == userId}}">已达标</view>
+        <!-- <view class="status btn-simple" wx:if="{{item.targetStatus == 4 && item.user_id != userId}}" bindtap="noticeUser"></view> -->
+        <button data-type="1" class="status btn-simple resetBtn" hover-class="none" open-type="share" wx:if="{{item.targetStatus == 4 && item.user_id != userId}}">提醒Ta</button>
       </view>
     </view>
   </view>
@@ -58,9 +61,9 @@
       <view class="btn btn-default" bindtap="cancel">取消</view>
     </view>
     <view class="close">
-      <image class="closeBtn" bindtap="cancel" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/close.png"></image>
+      <image class="closeBtn" bindtap="cancel" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/close.png"></image>
     </view>
   </view>
 </view>
 
-<dk-toast id="toast" duration="3000" isShow="{{toastShow}}"></dk-toast>
+<dk-toast class="dktoast" duration="3000" isShow="{{toastShow}}"></dk-toast>

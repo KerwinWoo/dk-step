@@ -280,21 +280,45 @@ page{
   align-items: center;
   justify-content: flex-start;
   background:#eee;
-  height:70rpx;
+  height:auto;
   margin-top:20rpx;
   color:#666;
 }
-.buyercomment input{
+/* .buyercomment input{
   box-sizing: border-box;
   padding-left:30rpx;
   font-size: 24rpx;
   flex-grow: 1;
   height:100%;
+} */
+.buyercomment textarea{
+  width:100%;
+  height:120rpx;
+  background:#eee;
+  box-sizing: border-box;
+  padding-left:30rpx;
+  font-size: 24rpx;
+  line-height: 40rpx;
+  padding:20rpx 20rpx 20rpx 30rpx;
+}
+.buyercomment{
+  height: auto;
 }
 .buyercomment>text{
   font-size:24rpx;
   margin-left:30rpx;
   display: inline-block;
-  height:70rpx;
-  line-height: 70rpx;
+}
+.repay{
+  width:450rpx;
+  height:86rpx;
+  border-radius:43rpx;
+  line-height: 86rpx;
+  margin:0 auto;
+  font-size:40rpx;
+  font-weight:bold;
+  color:#fff;
+  text-align: center;
+  display: block;
+  margin-top:20rpx;
 }

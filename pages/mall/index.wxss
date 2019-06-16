@@ -1,6 +1,6 @@
 /* pages/mall/index.wxss */
 page{
-  background:#f2f2f2;
+  background:#fff;
 }
 .navbar{
   position: relative;
@@ -36,7 +36,7 @@ page{
   position: absolute;
   left:50%;
   margin-left:-4rpx;
-  bottom:-16rpx;
+  bottom:-14rpx;
   border-left:8rpx solid transparent;
   border-right:8rpx solid transparent;
   border-top:8rpx solid #FF8E00;
@@ -45,7 +45,7 @@ page{
 .fixedNav{
   position:fixed;
   left:0;
-  top:128rpx;
+  top:0;
   z-index: 999;
 }
 .goodlist{
@@ -54,9 +54,19 @@ page{
   box-sizing: border-box;
 }
 .swipercont{
-  margin-top:60rpx;
+  padding-top:60rpx;
   min-height:100%;
 }
 page,.container{
   height:100%;
+}
+.goodlist .itm{
+  height:515rpx;
+}
+.moretip {
+  text-align:center;
+  padding:40rpx 0;
+  font-size:24rpx;
+  color:#999;
+  background:#f2f2f2;
 }

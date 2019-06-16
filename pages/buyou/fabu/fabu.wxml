@@ -1,16 +1,17 @@
 <!--pages/buyou/fabu/fabu.wxml-->
 <view class="container hastop">
-  <dk-nav title="发布动态" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
-  <view class="textarea">
+<!--  <dk-nav title="发布动态" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+ -->  <view class="textarea">
     <textarea
-    placeholder="记录分享你的运动生活~"
+    placeholder="记录分享你的美好生活~"
     placeholder-style="color:#999;"
     name="formContent"
     bindinput="handleContentInput"
+    maxlength="2000"
     />
   </view>
   <!-- <view class="uploadImg" bindtap="chooseImg">
-    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fabu_upload.png"></image>
+    <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/fabu_upload.png"></image>
   </view> -->
   <view class="choosedImgs">
     <view class="imgcont clearfix">
@@ -23,17 +24,17 @@
             data-parentIndex="{{topicIndex}}"
             data-current="{{item}}"></image-loader>
         </view>
-        <image class="removeBtn" data-index="{{index}}" bindtap="removeChoosedImg" src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fabu_close.png"></image>
+        <image class="removeBtn" data-index="{{index}}" bindtap="removeChoosedImg" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/fabu_close.png"></image>
       </view>
       <view class="uploadImg wrp" bindtap="chooseImg" wx:if="{{choosedImgs.length < 9}}">
         <view class="subwrp">
-          <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fabu_upload.png"></image>
+          <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/fabu_upload.png"></image>
         </view>
       </view>
     </view>
   </view>
   <view class="getaddress" bindtap="getAddress">
-    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fabu_dibiao.png"></image>
+    <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/fabu_dibiao.png"></image>
     <text wx:if="{{!addressStatus}}">点击获取你在哪里？</text>
     <text wx:if="{{addressStatus}}">{{address}}</text>
   </view>
@@ -43,12 +44,12 @@
         <view class="topic choosed" wx:if="{{choosedTopic != ''}}">
           #{{choosedTopic}}
           <image class="remove" bindtap="removeTopic" 
-            src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fabu_close.png"></image>
+            src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/fabu_close.png"></image>
         </view>
         <view class="tip" wx:if="{{choosedTopic == ''}}">参与话题可获得更多步友的关注和打赏哦</view>
       </view>
       <view class="title">
-        <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/fabu_huati.png"></image>
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/fabu_huati.png"></image>
         <text>推荐话题</text>
       </view>
       <view class="topics">
@@ -61,4 +62,22 @@
   </view>
   
   <view class="common_inviteBtn" bindtap="submitForm">确认发布</view>
+</view>
+
+<view class="revokeLayer layer" wx:if="{{revokeLayerShow}}">
+  <view class="wrp">
+    <view class="logo">
+      <image lazy-load src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/logo_c.png"></image>
+    </view>
+    <view class="title">
+      开启地理位置授权
+    </view>
+    <view class="subtitle">
+      我们需要开启该权限，才能获取你当前的地理位置信息
+    </view>
+    <view class="btns">
+      <view bindtap="cancelRevoke" class="btn cancel btn-simple">取消</view>
+      <button class="btn btn-default resetBtn" open-type="openSetting">确定</button>
+    </view>
+  </view>
 </view>

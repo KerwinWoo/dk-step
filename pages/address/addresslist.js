@@ -368,7 +368,7 @@ Page({
       return false;
     }
 
-    if (address.detailInfo == '') {
+    if (!address.detailInfo) {
       utils.showErrorToast('请输入详细地址');
       return false;
     }
@@ -417,10 +417,6 @@ Page({
     })
     return false;
     
-  },
-  backTo () {
-    wx.navigateBack({
-    })
   },
   bindIsDefault(e){
     let index = e.currentTarget.dataset.index

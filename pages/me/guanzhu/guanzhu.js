@@ -7,14 +7,22 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    currentPage: 1,
+    list: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      fromta: options.fromta?options.fromta:'',
+      userid: options.userid?options.userid:'',
+      myuserId: wx.getStorageSync('userId')
+    })
+     wx.setNavigationBarTitle({
+    	title: ((options.fromta && options.fromta == 1)?'TA':'我') + '的关注'
+    })
   },
 
   /**
@@ -28,6 +36,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.data.currentPage = 1
+    this.data.list = []
     this.loadGuanzhuData()
   },
 
@@ -56,7 +66,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this.loadGuanzhuData()
   },
 
   /**
@@ -65,23 +75,35 @@ Page({
   onShareAppMessage: function () {
 
   },
-  backTo () {
-    wx.navigateBack()
-  },
   loadGuanzhuData () {
     let that = this
-    utils.request(api.BUYOU_ATTENTIONUSER, {
-      page:1,
-      size:1000,
+    let apiUrl = (that.data.fromta)?api.TA_ATTENTIONUSERLIST:api.BUYOU_ATTENTIONUSER
+    let params = {
+      page: that.data.currentPage,
+      size:30,
       sort:'',
       order:''
-    }).then(function(res){
+    }
+    if(that.data.fromta){
+      params.targetUserId = that.data.userid
+    }
+    utils.request(apiUrl,params).then(function(res){
       if(res.errno === 0){
-        res.data.data.map(function(value, index){
-          value.status = 1
-        })
+        if(!that.data.fromta){
+          res.data.data.map(function(value, index){
+            value.status = 1
+          })
+        }
+        if(res.data.data && res.data.data.length != 0){
+          that.data.currentPage++
+        }
+        else{
+          if(that.data.currentPage != 1){
+            utils.nomoreData()
+          }
+        }
         that.setData({
-          list: res.data.data
+          list: that.data.list.concat(res.data.data)
         })
       }
       else{
@@ -106,7 +128,12 @@ Page({
             icon: 'success',
             duration: 2000
           })
-          that.data.list.splice(data.index,1)
+          if(that.data.fromta != 1){
+            that.data.list.splice(data.index,1)
+          }
+          else{
+            that.data.list[data.index].status = 0
+          }
           that.setData({
             list: that.data.list
           })
@@ -118,6 +145,41 @@ Page({
             duration: 2000
           })
         }
+      })
+    }
+    else{
+      if(that.data.fromta == 1){
+        utils.request(api.USER_ATTENTION, {
+          attentionUserId: data.uid
+        }).then(function(res){
+          if(res.errno == 0){
+            utils.showSuccessToast('关注成功')
+            that.data.list[data.index].status = 1
+            that.setData({
+              list: that.data.list,
+            })
+          }
+          else{
+            wx.showToast({
+              title: res.errmsg,
+              icon: 'none',
+              duration: 2000
+            })
+          }
+        })
+      }
+    }
+  },
+  toTA (e) {
+    let uid = e.currentTarget.dataset.uid
+    if(uid == wx.getStorageSync('userId')){
+      wx.navigateTo({
+        url: '/pages/me/homepage/homepage'
+      })
+    }
+    else{
+      wx.navigateTo({
+        url: '/pages/ta/ta?userid='+uid
       })
     }
   }

@@ -1,8 +1,8 @@
 <!--pages/buyou/fabusuccess/fabusuccess.wxml-->
 <view class="container hastop">
-  <dk-nav title="发布" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
-  <view class="icon">
-    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/icn_fabusuccess.png"></image>
+<!--  <dk-nav title="发布" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+ -->  <view class="icon">
+    <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/icn_fabusuccess.png"></image>
   </view>
   <view class="title">发布成功</view>
   <view class="subtitle">把动态分享给更多好友，有机会获得更多的粉丝、评论和打赏。</view>
@@ -13,7 +13,7 @@
     </view>
     <view class="content">{{topic.content}}</view>
     <view class="pt">
-      <image mode="aspectFit" src="{{topic.img_src[0]?topic.img_src[0]:'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/invitation_homepage.png'}}"></image>
+      <image mode="aspectFit" src="{{topic.img_src[0]?topic.img_src[0]:'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/invitation_homepage.png'}}"></image>
     </view>
   </view>
   <button class="shareBtn resetBtn btn-default" open-type="share" hover-class="none">立即分享</button>

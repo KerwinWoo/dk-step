@@ -1,0 +1,2 @@
+/* pages/team/createteam/createteam.wxss */
+@import '../team.wxss'

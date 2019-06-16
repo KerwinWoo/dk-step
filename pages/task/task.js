@@ -10,43 +10,43 @@ Page({
       name: '关注公众号',
       desc: '随时随地获得最新活动',
       step: 50,
-      pic: 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/task_gzh.png'
+      pic: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/task_gzh.png'
     },{
       id: 1,
       name: '每日分享',
       desc: '生成运动海报并转发至朋友圈',
       step: 50,
-      pic: 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/task_share.png'
+      pic: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/task_share.png'
     },{
       id: 1,
       name: '邀请好友',
       desc: '分享给亲朋好友',
       step: 50,
-      pic: 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/task_friend.png'
+      pic: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/task_friend.png'
     },{
       id: 1,
       name: '幸运抽奖',
       desc: '幸运之外可额外获得步数',
       step: 50,
-      pic: 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/task_gift.png'
+      pic: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/task_gift.png'
     },{
       id: 1,
       name: '浏览商品',
       desc: '每日浏览商品一分钟',
       step: 50,
-      pic: 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/task_view.png'
+      pic: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/task_view.png'
     },{
       id: 1,
       name: '创建团队',
       desc: '邀请好友一起创建走路团队',
       step: 50,
-      pic: 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/task_team.png'
+      pic: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/task_team.png'
     },{
       id: 1,
       name: '发布话题',
       desc: '去步友广场发布话题',
       step: 50,
-      pic: 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/task_huati.png'
+      pic: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/task_huati.png'
     }]
   },
 

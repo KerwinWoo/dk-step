@@ -1,10 +1,28 @@
 <!--components/dk-navigation/dk-nav.wxml-->
-<view class="statusBar{{(isFixed) ? ' fixed' : ''}}{{(hasBorder) ? ' hasBorder' : ''}}" style="background-color: {{bgColor}};">
+<!-- <view style='height: {{status + navHeight}}px;background-color: {{bgColor}};' class="statusBar{{(isFixed) ? ' fixed' : ''}}{{(hasBorder) ? ' hasBorder' : ''}}">
   <view class="backcont" bindtap="backTo">
       <image class="backBtn" 
       wx:if="{{hasBackBtn}}" 
-      src="{{(theme == 'white') ? 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/back_w%402x.png' : 'https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/back%402x.png'}}" 
+      src="{{(theme == 'white') ? 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/back_w%402x.png' : 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/back%402x.png'}}" 
       ></image>
   </view>
   <text class="pageTitle" style="color:{{theme}}">{{title}}</text>
+</view> -->
+
+<view class="nav{{(isFixed) ? ' fixed' : ''}}{{(hasBorder) ? ' hasBorder' : ''}}" style='height: {{status + navHeight}}px'>
+    <view class='status' style='height: {{status}}px;{{containerStyle}}'></view>
+    <view class='navbar' style='height:{{navHeight}}px;{{containerStyle}}'>
+        <view class='back-icon' wx:if="{{hasBackBtn}}" bindtap='backTo'>
+            <image src="{{(theme == 'white') ? 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/back_w%402x.png' : 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/back%402x.png'}}"></image>
+        </view>
+        <view class='home-icon' wx:if="{{homeIcon}}" bindtap='home'>
+            <image src='{{homeIcon}}'></image>
+        </view>
+        <view class='nav-icon' wx:if="{{titleImg}}">
+            <image src='{{titleImg}}' style='{{iconStyle}}'></image>
+        </view>
+        <view class='nav-title' wx:if="{{title && !titleImg}}">
+            <text style='{{textStyle}}'>{{title}}</text>
+        </view>
+    </view>
 </view>

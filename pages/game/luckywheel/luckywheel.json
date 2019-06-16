@@ -1,4 +1,7 @@
 {
+  "backgroundColor":"#fff",
+  "navigationBarTitleText": "幸运大转盘",
+  "navigationBarBackgroundColor": "#fff",
   "usingComponents": {
     "dk-nav": "/components/dk-navigation/dk-nav",
     "image-loader": "/components/dk-image-loader/image-loader"

@@ -1,5 +1,7 @@
 {
-  "backgroundColor": "#fff",
+  "backgroundColor":"#fff",
+  "navigationBarTitleText": "查看物流",
+  "navigationBarBackgroundColor": "#fff",
   "usingComponents": {
     "dk-nav": "/components/dk-navigation/dk-nav"
   }

@@ -22,7 +22,7 @@
 }
 .tptitle .message.fixed{
   position:fixed;
-  top:152rpx;
+  top:26rpx;
   right:50rpx;
   z-index:100000;
 }
@@ -128,7 +128,7 @@
   position:fixed;
   width:100%;
   left:0;
-  top:128rpx;
+  top:0;
   background:#fff;
   z-index:99999;
   box-shadow: 0px 10rpx 10rpx -10rpx #ddd;
@@ -188,6 +188,10 @@
   height:100%;
 }
 .topiccontentlist>.itm .name{
+  width:400rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size:32rpx;
   font-weight:bold;
 }
@@ -281,6 +285,9 @@
   background:#999;
   display: inline-block;
   margin:0 20rpx;
+}
+.topiccontentlist>.itm .addrs .txtov{
+  width:520rpx;
 }
 .topiccontentlist>.itm .opers{
   display: flex;

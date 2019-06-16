@@ -1,7 +1,8 @@
 {
   "backgroundColor":"#f2f2f2",
+  "navigationBarTitleText": "好友列表",
+  "navigationBarBackgroundColor": "#fff",
   "usingComponents": {
-    "dk-nav": "/components/dk-navigation/dk-nav",
     "dk-toast": "/components/dk-toast/dk-toast",
     "image-loader": "/components/dk-image-loader/image-loader"
   }

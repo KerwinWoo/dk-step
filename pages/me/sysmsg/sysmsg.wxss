@@ -1,4 +1,7 @@
 /* pages/me/sysmsg/sysmsg.wxss */
+page{
+  background:#f2f2f2;
+}
 .messagelist{
   border-top:1rpx solid #eee;
 }
@@ -7,6 +10,7 @@
   width:100%;
   padding:0 30rpx;
   box-sizing: border-box;
+  background:#fff;
 }
 .inforow .wrp{
   width:100%;
@@ -37,4 +41,9 @@
 }
 .inforow .wrp .title .time{
   font-size:20rpx;
+}
+.nodata image{
+  width:451rpx;
+  height:246rpx;
+  margin-top:260rpx;
 }

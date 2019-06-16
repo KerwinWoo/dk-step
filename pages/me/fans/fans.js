@@ -7,14 +7,22 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    currentPage: 1,
+    fanslist: [],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      fromta: options.fromta?options.fromta:'',
+      userid: options.userid?options.userid:'',
+      currentUserId: wx.getStorageSync('userId')
+    })
+    wx.setNavigationBarTitle({
+    	title: ((options.fromta && options.fromta == 1)?'TA':'我') + '的粉丝'
+    })
   },
 
   /**
@@ -28,6 +36,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.data.currentPage = 1
+    this.data.fanslist = []
     this.loadFansData()
   },
 
@@ -56,7 +66,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this.loadFansData()
   },
 
   /**
@@ -65,18 +75,28 @@ Page({
   onShareAppMessage: function () {
 
   },
-  backTo () {
-    wx.navigateBack()
-  },
   loadFansData () {
     let that = this
-    utils.request(api.BUYOU_FANSLIST,{
-      page:1,
-      size:20,
+    let apiUrl = (that.data.fromta)?api.TA_FANSLIST:api.BUYOU_FANSLIST
+    let params = {
+      page: that.data.currentPage,
+      size:30,
       sort:'',
       order:''
-    }).then(function(res){
+    }
+    if(that.data.fromta){
+      params.targetUserId = that.data.userid
+    }
+    utils.request(apiUrl,params).then(function(res){
       if(res.errno === 0){
+        if(res.data.data && res.data.data.length != 0){
+          that.data.currentPage++
+        }
+        else{
+          if(that.data.currentPage != 1){
+            utils.nomoreData()
+          }
+        }
         that.setData({
           fanslist: res.data.data
         })
@@ -125,6 +145,19 @@ Page({
             duration: 2000
           })
         }
+      })
+    }
+  },
+  toTA (e) {
+    let uid = e.currentTarget.dataset.uid
+    if(uid == wx.getStorageSync('userId')){
+      wx.navigateTo({
+        url: '/pages/me/homepage/homepage'
+      })
+    }
+    else{
+      wx.navigateTo({
+        url: '/pages/ta/ta?userid='+uid
       })
     }
   }

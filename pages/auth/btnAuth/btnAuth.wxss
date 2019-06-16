@@ -11,7 +11,7 @@ page .bg{
   left:0;
   top:0;
 }
-.logo{
+.mainlogo{
   width:240rpx;
   text-align: center;
   height:200rpx;
@@ -21,11 +21,11 @@ page .bg{
   margin-left:-120rpx;
   margin-top:-100rpx;
 }
-.logo image{
+.mainlogo image{
   width:166rpx;
   height:166rpx;
 }
-.logo .title{
+.mainlogo .title{
   font-size:32rpx;
   font-weight:bold;
   color:#333;

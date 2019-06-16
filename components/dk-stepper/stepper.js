@@ -27,7 +27,6 @@ Component({
    */
   data: {
     num: 1,  
-    // 使用data数据对象设置样式名  
     minusStatus: 'disabled',
     plusStatus: '',
     inputStatus: ''

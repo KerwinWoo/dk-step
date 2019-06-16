@@ -8,7 +8,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    currentTopicId: ''
+    currentTopicId: '',
+    userId: wx.getStorageSync('userId'),
+    currentPage: 1,
+    pageSize: 10,
+    commentList: []
   },
 
   /**
@@ -21,31 +25,36 @@ Page({
   },
   loadTopicInfo () {
     let that = this
+    wx.showLoading()
     utils.request(api.BUYOU_TOPICCOMMENT,{
       communityId: that.data.currentTopicId,
-      page: 1,
-      size: 10
+      page: that.data.currentPage,
+      size: that.data.pageSize
     }).then(function(res){
+      wx.hideLoading()
       if(res.errno === 0){
         let data = res.data.communityVo
         if(data.img_src){
           data.img_src = data.img_src.split(',')
         }
-        if(data.img_src.length == 1){
-          data.imgmode = 'aspectFill'
-        }
-        else if(data.img_src.length == 4){
+        if(data.img_src.length == 4){
           data.type3 = ' type3'
         }
-        else{
-          data.imgmode = 'aspectFill'
-        }
+        data.imgmode = 'aspectFill'
         res.data.commentList.data.map(function(value, index){
           value.create_time = utils.formatTime(new Date(value.create_time))
         })
+        if(res.data.commentList.data && res.data.commentList.data.length > 0){
+          that.data.currentPage++
+        }
+        else{
+          if(that.data.currentPage != 1){
+            utils.nomoreData()
+          }
+        }
         that.setData({
           communityVo: data,
-          commentList: res.data.commentList,
+          commentList: that.data.commentList.concat(res.data.commentList.data),
           rewardUsersList: res.data.rewardList.data,
           rewardUserCount: res.data.rewardUserCount
         })
@@ -64,7 +73,16 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.loadTopicInfo()
+    if(this.data.previewing){
+      this.data.previewing = false
+    }
+    else{
+      this.setData({
+        currentPage: 1,
+        commentList: []
+      })
+      this.loadTopicInfo()
+    }
   },
 
   /**
@@ -92,14 +110,37 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this.loadTopicInfo()
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage: function (option) {
+    let topic = this.data.communityVo
+    this.data.previewing = true
+    if(this.data.userId != topic.create_user_id){
+      this.forward(topic.id)
+    }
+    let name = (topic.tag_name?('#'+topic.tag_name+'#'):'') + topic.content
+    return {
+      title: name,
+      path: '/pages/index/index?fromInvite=1&type=1&push_userid=' + wx.getStorageSync('userId') + '&forwardUrl='+encodeURIComponent('/pages/buyou/commentdetail/commentdetail?id='+topic.id),
+      imageUrl: topic.img_src?topic.img_src[0]:'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/invitation_homepage.png'
+    }
+  },
+  forward (id) {
+    let that = this
+    utils.request(api.TOPIC_FORWARD,{
+      communityId:id
+    }).then(function(res){
+      if(res.errno === 0){
+        that.data.communityVo.forward_num++
+        that.setData({
+          communityVo: that.data.communityVo
+        })
+      }
+    })
   },
   backTo () {
     wx.navigateBack()
@@ -127,6 +168,7 @@ Page({
     }
   },
   previewTopicImg (e) {
+    this.data.previewing = true
     const data = e.currentTarget.dataset
     let that = this
     wx.previewImage({
@@ -145,9 +187,8 @@ Page({
       })
       return
     }
-    let itemData = that.data.topicDataList[data.parentindex]
-    if(itemData.reward_status == 0){
-      let communityVo = that.data.communityVo
+    let communityVo = that.data.communityVo
+    if(communityVo.reward_status == 0){
       utils.request(api.BUYOU_DASHANG,{
         communityId: communityVo.id,
         targetUserId: communityVo.create_user_id
@@ -155,6 +196,7 @@ Page({
         if(res.errno == 0){
           that.toast.showToast('打赏成功，已将你的2枚蛋壳打赏给TA')
           communityVo.reward_status = 1
+          communityVo.eshell_num += 2
           that.setData({
             communityVo: communityVo
           })
@@ -180,11 +222,11 @@ Page({
         communityId: currentTopic.id
       }).then(function(res){
         if(res.errno == 0){
+          that.toast.showToast('已取消收藏')
           currentTopic.collection_status = 0
           currentTopic.collection_num--
-          that.data.communityVo = currentTopic
           that.setData({
-            communityVo: that.data.communityVo
+            communityVo: currentTopic
           })
         }
         else{
@@ -205,9 +247,8 @@ Page({
           that.toast.showToast('收藏成功')
           currentTopic.collection_status = 1
           currentTopic.collection_num++
-          that.data.communityVo = currentTopic
           that.setData({
-            communityVo: that.data.communityVo
+            communityVo: currentTopic
           })
         }
         else{
@@ -262,6 +303,19 @@ Page({
             duration: 2000
           })
         }
+      })
+    }
+  },
+  toTA (e) {
+    let uid = e.currentTarget.dataset.uid
+    if(uid == wx.getStorageSync('userId')){
+      wx.navigateTo({
+        url: '/pages/me/homepage/homepage'
+      })
+    }
+    else{
+      wx.navigateTo({
+        url: '/pages/ta/ta?userid='+uid
       })
     }
   }

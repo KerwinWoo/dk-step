@@ -1,12 +1,12 @@
 <!--pages/order/success/success.wxml-->
 <scroll-view class="container hastop">
-  <dk-nav title="兑换成功" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
-  <view class="title">
-    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/status_success.png"></image>
+<!--  <dk-nav title="兑换成功" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+ -->  <view class="title">
+    <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/status_success.png"></image>
     <text>兑换成功</text>
   </view>
   <view class="bg">
-    <image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/gift.png"></image>
+    <image mode="aspectFill" src="{{imgUrl}}"></image>
   </view>
   <view class="tip">
     <view>订单已提交至后台处理</view>
@@ -14,6 +14,6 @@
   </view>
   <button class="sharebtn btn-default" open-type="share">快去分享给好友</button>
   <navigator class="viewOrder" hover-class="none" url="/pages/order/me/me">
-    查看订单详情<image src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/more02.png"></image>
+    查看订单详情<image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/more02.png"></image>
   </navigator>
 </scroll-view>

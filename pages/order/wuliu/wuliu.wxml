@@ -1,9 +1,9 @@
 <!--pages/order/wuliu/wuliu.wxml-->
 <scroll-view class="container hastop">
-  <dk-nav title="查看物流" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
-  <view class="wuliuinfo">
+<!--  <dk-nav title="查看物流" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+ -->  <view class="wuliuinfo">
     <view class="l">
-      <image src="https://img11.360buyimg.com/mobilecms/s140x140_jfs/t25132/222/2230116429/165327/b14181c4/5bc591baN18523c4e.jpg"></image>
+      <image mode="aspectFill" src="{{goodImg}}"></image>
     </view>
     <view class="r">
       <view class="name">物流公司：<text>{{name}}</text></view>

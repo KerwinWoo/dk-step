@@ -7,11 +7,10 @@ page{
   background:#f2f2f2;
 }
 .tp{
-  height:367rpx;
+  height:240rpx;
   background:linear-gradient(90deg,rgba(254,99,54,1) 0%,rgba(243,164,71,1) 100%);
   color:#fff;
   box-sizing: border-box;
-  padding-top:128rpx;
   position:relative;
 }
 .tp .content{
@@ -49,6 +48,13 @@ page{
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+}
+.tp .content .name text{
+  display: inline-block;
+  max-width:250rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .tp .content .updateBtn{
   width:103rpx;

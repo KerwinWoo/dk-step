@@ -6,7 +6,7 @@
 }
 .icon{
   text-align: center;
-  margin:180rpx 0 30rpx 0;
+  margin:20rpx 0 30rpx 0;
 }
 .title{
   font-size:36rpx;

@@ -90,6 +90,9 @@ Page({
         if(res.errno === 0){
           wx.navigateBack()
         }
+        else{
+          utils.showErrorToast(res.errmsg?res.errmsg:res.msg)
+        }
       })
     }
     else{

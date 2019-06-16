@@ -8,7 +8,7 @@
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
-  z-index: 99999;
+  z-index: 99999999;
 }
 
 .share.show {
@@ -31,7 +31,7 @@
 }
 
 .share .content .footer {
-  width: 562rpx;
+  width: 750rpx;
   height: 100rpx;
   background: #fff;
   border-top: 2rpx solid #e9e9e9;
@@ -74,5 +74,4 @@
 .share .content .canvas {
   display: inline-block;
   background: #fff;
-  margin: 160rpx 0 0 0;
 }

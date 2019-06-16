@@ -1,6 +1,6 @@
 const root = 'api/';
 const API_BASE_URL = 'https://api.datebook.cc/' + root;
-//const API_BASE_URL = 'http://10.0.0.212:8080/platform/' + root;
+//const API_BASE_URL = 'http://10.0.0.210:8080/platform/' + root;
 module.exports = {
   HOME_QUERY_GOODS: API_BASE_URL + 'dk_index/category', //首页商品展示
   HOME_QUERY_USERDK: API_BASE_URL + 'dkeshell/query_dk_num', //查询当前用户的蛋壳数
@@ -42,6 +42,7 @@ module.exports = {
   
   GAME_WHEEL_AWORD: API_BASE_URL + 'wheel_aword/get_awards',//转盘数据
   GAME_GETWHEEL_AWORD: API_BASE_URL + 'wheel_aword/get_wheel_award',//抽奖
+  GAME_GETWHEEL_AWORDRECORD: API_BASE_URL + 'wheel_aword/get_roll_award_record',//中奖信息
   
   DKWISH_SAVE: API_BASE_URL + 'dk_wish/save',//新增心愿清单
   DKWISH_DETAIL: API_BASE_URL + 'dk_wish/detail',//查询当前商品是否加入心愿清单
@@ -95,6 +96,27 @@ module.exports = {
   
   PAYQUERY: API_BASE_URL + 'pay/query',// 支付成功-查询微信支付状态
   
-  GZH_QUERY:  API_BASE_URL + 'wxtask/concern',// 支付成功-查询微信支付状态
-  GZH_REWARD:  API_BASE_URL + 'wxtask/reward',// 支付成功-查询微信支付状态
+  GZH_QUERY:  API_BASE_URL + 'wxtask/concern',// 公众号关注状态查询
+  GZH_REWARD:  API_BASE_URL + 'wxtask/reward',// 公众号奖励
+  
+  WXSTEPS: API_BASE_URL + 'dkstep/query_step_everyDay',// 微信步数历史记录
+  
+  UPDATETASK: API_BASE_URL + 'dktask/update_done_task',// 更新任务状态
+  
+  QUERY_WXSTEP: API_BASE_URL + 'dkstep/query_dk_step',// 查询微信步数
+  
+  TA_HOMEPAGEDATA: API_BASE_URL + 'step_square/ta_page',// 查询TA的主页信息
+  
+  UPDATE_USERINFO: API_BASE_URL + 'user/updateUser',// 更新用户信息
+  
+  TA_ATTENTIONUSERLIST: API_BASE_URL + 'user_attention/query_ta_attentionUser_list',// 获取TA的关注人列表
+  
+  TA_FANSLIST: API_BASE_URL + 'user_attention/query_ta_fans_list',// 查询TA的粉丝列表
+  
+  TA_REWARDLIST: API_BASE_URL + 'step_square/ta_received_reward_list',// TA收到的打赏
+  
+  TA_COMMUNITYLIST: API_BASE_URL + 'step_square/ta_community_list',// 查询TA的话题列表
+  
+  TEAM_INVITESTATUS: API_BASE_URL + 'run_team/get_join_status',// 查询TA的话题列表
+  
 };

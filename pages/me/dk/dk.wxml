@@ -1,11 +1,11 @@
 <!--pages/me/dk/dk.wxml-->
 <view class="container hastop">
-  <dk-nav title="我的蛋壳" hasBackBtn="{{true}}" 
+  <!-- <dk-nav title="我的蛋壳" hasBackBtn="{{true}}" 
     isFixed="{{true}}" 
     hasBorder="{{true}}"
-    bind:backTo="backTo"></dk-nav>
+    bind:backTo="backTo"></dk-nav>-->
   <view class="t">
-    <image lazy-load src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/banner_dk.png"></image>
+    <image lazy-load src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/banner_dk.png"></image>
     <view class="content">
       <view class="title">当前蛋壳</view>
       <view class="info">

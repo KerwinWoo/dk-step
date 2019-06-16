@@ -1,0 +1,6 @@
+/* pages/ta/ta.wxss */
+@import '../me/homepage/homepage.wxss'
+.pinfo .btns .btn{
+  width:auto;
+  padding:0 16rpx;
+}

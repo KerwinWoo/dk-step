@@ -1,8 +1,9 @@
 {
-  "backgroundColor": "#fff",
+  "backgroundColor":"#fff",
+  "navigationBarTitleText": "评论详情",
+  "navigationBarBackgroundColor": "#fff",
   "usingComponents": {
     "image-loader": "/components/dk-image-loader/image-loader",
-    "dk-toast": "/components/dk-toast/dk-toast",
-    "dk-nav": "/components/dk-navigation/dk-nav"
+    "dk-toast": "/components/dk-toast/dk-toast"
   }
 }

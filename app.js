@@ -1,6 +1,10 @@
 //app.js
+const utils = require('/utils/util.js')
+const api = require('/api/api.js')
+const config = require('/config/config.js')
 App({
   onLaunch: function () {
+    let that = this
     //获取小程序更新机制兼容
     if (wx.canIUse('getUpdateManager')) {
         const updateManager = wx.getUpdateManager()
@@ -35,6 +39,26 @@ App({
             content: '当前微信版本过低，无法更好体验程序，请升级到最新微信版本后重试。'
         })
     }
+    
+    that.checkMessage()
+    setInterval(function(){
+      //监测系统消息
+        that.checkMessage()
+        console.log('监测系统消息')
+    }, (config.messageInterval)*1000)
+    
+        let sysinfo = wx.getSystemInfoSync()
+        , statusHeight = sysinfo.statusBarHeight
+        , isiOS = sysinfo.system.indexOf('iOS') > -1
+        , nHeight;
+    if (!isiOS) {
+        nHeight = 48;
+    } else {
+        nHeight = 44;
+    }
+    that.globalData.navHeight = statusHeight + nHeight
+    that.globalData.windowHeight = sysinfo.windowHeight
+    that.globalData.windowWidth = sysinfo.windowWidth
   },
   globalData: {
     userInfo: {
@@ -86,5 +110,22 @@ App({
   },
   onShow () {
       //wx.getShareInfo()
+  },
+  checkMessage () {
+    utils.request(api.MESSAGENUM_TOTAL,{},'POST','application/x-www-form-urlencoded',false).then(function(res){
+      if(res.errno === 0){
+        wx.setStorageSync('messagenum', res.data)
+        if(res.data && res.data > 0){
+            wx.showTabBarRedDot({
+                index: 3
+            })
+        }
+        else{
+            wx.hideTabBarRedDot({
+                index: 3
+            })
+        }
+      }
+    })
   }
 })

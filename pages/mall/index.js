@@ -12,11 +12,14 @@ Page({
     currentType: 0,
     navbarLeft: 0,
     goodListData: [],
-    navbarWidth: 2000,
     currentCategoryId: '',
     pageSize: 12,
     allData: [],
-    firstLoad: true
+    firstLoad: true,
+    intime: 0,
+    outtime: 0,
+    timer: null,
+    timercount: 60
   },
 
   /**
@@ -24,10 +27,11 @@ Page({
    */
   onLoad: function (options) {
     let that = this
-    // 刷新组件
-    that.refreshView = that.selectComponent("#refreshView")
-    
     that.loadGoodsData()
+    
+    that.setData({
+      fromTask: options.fromTask?options.fromTask:''
+    })
   },
 
   /**
@@ -41,21 +45,54 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    let that = this
+    console.log('进入页面')
+    if(that.data.fromTask && that.data.fromTask == 1){
+      that.resetTimer()
+    }
+  },
+  resetTimer () {
+    let that = this
+    clearInterval(that.data.timer)
+    that.data.timer = null
+    that.data.timercount = 60
+    that.data.timer = setInterval(function(){
+      that.data.timercount--
+      console.log('任务倒计时', that.data.timercount)
+      that.setData({
+        timercount: that.data.timercount
+      })
+      if(that.data.timercount == 0){
+        clearInterval(that.data.timer)
+        utils.request(api.UPDATETASK,{
+          taskId: 5
+        }).then(function(res){
+          if(res.errno === 0){
+            console.log('浏览任务完成')
+            utils.showSuccessToast('浏览任务完成')
+          }
+        })
+      }
+    }, 1000)
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    if(this.data.timer){
+      clearInterval(this.data.timer)
+    }
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    console.log(909090)
+    if(this.data.timer){
+      clearInterval(this.data.timer)
+    }
   },
 
   /**
@@ -78,32 +115,6 @@ Page({
   onShareAppMessage: function () {
 
   },
-  //触摸开始
-  handletouchstart: function (event) {
-    this.refreshView.handletouchstart(event)
-  },
-  //触摸移动
-  handletouchmove: function (event) {
-    this.refreshView.handletouchmove(event)
-  },
-  //触摸结束
-  handletouchend: function (event) {
-    this.refreshView.handletouchend(event)
-  },
-  //触摸取消
-  handletouchcancel: function (event) {
-    this.refreshView.handletouchcancel(event)
-  },
-  //页面滚动
-  onPageScroll: function (event) {
-    this.refreshView.onPageScroll(event)
-  },
-  onPullDownRefresh:function(){
-    let that = this
-    setTimeout(function(){
-      that.refreshView.stopPullRefresh()
-    },1500)
-  },
   loadGoodsData () {
     let that = this
     let param = {
@@ -111,7 +122,6 @@ Page({
       page: (!that.data.firstLoad)?that.data.allData[that.data.currentType].currentPage:1,
       size: that.data.pageSize,
       isHot:(that.data.currentType == 0)?1:0,
-      categoryId:(that.data.goodsTypeData && that.data.goodsTypeData.length > 1) ? that.data.goodsTypeData[that.data.currentType].id:''
     }
     if(that.data.currentType != 0){
       param = {
@@ -121,8 +131,10 @@ Page({
         categoryId:(that.data.goodsTypeData && that.data.goodsTypeData.length > 1) ? that.data.goodsTypeData[that.data.currentType].id:''
       }
     }
+    wx.showLoading()
     utils.request(api.MALL_QUERY_DKGOODS_LIST, param, 'Get').then(function (res) {
       if(res.errno === 0){
+        wx.hideLoading()
         let data = res.data
         //首页加载
         if(that.data.firstLoad){
@@ -134,7 +146,7 @@ Page({
             that.data.allData.push({
               currentPage: 1,
               list: [],
-              gooslistContHeight: 0
+              gooslistContHeight: '0'
             })
           })
           that.setData({
@@ -144,15 +156,20 @@ Page({
           })
         }
         let curData = that.data.allData[that.data.currentType]
-        if(data.goodsList.length != 0){
-          curData.currentPage++
-        }
         curData.list = curData.list.concat(data.goodsList)
         curData.gooslistContHeight = Math.ceil(curData.list.length/2)*545+30
         that.data.allData[that.data.currentType] = curData
         that.setData({
           allData: that.data.allData
         })
+        if(data.goodsList.length != 0){
+          curData.currentPage++
+        }
+        else{
+          /* that.setData({
+            inBottom: true
+          }) */
+        }
       }
     })
   },
@@ -161,9 +178,6 @@ Page({
   　this.setData({
       currentType: e.target.dataset.index
     })
-  },
-  backTo () {
-    wx.navigateBack()
   },
   swiperchange (e) {
     let that = this

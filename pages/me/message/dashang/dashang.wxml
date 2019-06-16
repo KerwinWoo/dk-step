@@ -1,0 +1,26 @@
+<!--pages/me/message/dashang/dashang.wxml-->
+<view class="container hastop">
+<!--  <dk-nav title="收到的打赏" hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+ -->  <view class="dashanglist">
+    <view class="inforow" wx:for="{{list}}" wx:key="{{index}}">
+      <view class="wrp">
+        <view class="pic">
+          <image-loader bindtap="toTA" data-uid="{{item.userId}}" original-image="{{item.avatar}}" mode="aspectFill"></image-loader>
+        </view>
+        <view class="info">
+          <view class="name">{{item.nickname}}</view>
+          <view class="desc">
+            <text class="time">{{item.rewardTime}}</text>
+            <text class="act">打赏了你</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="nodata" wx:if="{{!list || list.length == 0}}">
+    <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/nodata_dashang.png"></image>
+    <view class="title">你还没有收到打赏哦</view>
+    <view class="title">参加话题发布动态可获得更多步友关注和打赏</view>
+  </view>
+  <navigator wx:if="{{!list || list.length == 0}}" hover-class="none" url="/pages/buyou/fabu/fabu" class="fabu btn-default {{(list.length > 0 ? '' : 'show')}}">发布动态</navigator>
+</view>

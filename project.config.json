@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 50,
+			"current": 52,
 			"list": [
 				{
 					"id": 0,
@@ -393,6 +393,20 @@
 					"name": "fabusuccess",
 					"pathName": "pages/buyou/fabusuccess/fabusuccess",
 					"query": "topicid=130",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "post",
+					"pathName": "pages/calorie/post/post",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "bushu",
+					"pathName": "pages/service/bushu/bushu",
+					"query": "",
 					"scene": null
 				}
 			]

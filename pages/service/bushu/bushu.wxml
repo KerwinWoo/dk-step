@@ -1,13 +1,13 @@
 <!--pages/service/bushu/bushu.wxml-->
 <view class="container hastop">
-  <dk-nav title="步数明细" hasBackBtn
+<!--  <dk-nav title="步数明细" hasBackBtn
     isFixed 
     hasBorder
-    bind:backTo="backTo"></dk-nav>
+    bind:backTo="backTo"></dk-nav> -->
   <view class="t">
-    <image lazy-load src="https://dkstep.oss-cn-beijing.aliyuncs.com/dkstep-img/banner_dk.png"></image>
+    <image lazy-load src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/banner_dk.png"></image>
     <view class="content">
-      <view class="title">当前微信步数</view>
+      <view class="title">当前步数</view>
       <view class="info">
         <text>{{userStep}}</text>
       </view>
@@ -18,7 +18,7 @@
     <view class="list">
       <view class="itm" wx:for="{{list}}" wx:key="{{id}}">
         <view class="l">
-          <view class="name">{{item.task_name?item.task_name:'步数兑换'}}</view>
+          <view class="name">{{item.task_name}}</view>
           <view class="time">{{item.produce_time}}</view>
         </view>
         <view class="r">

@@ -21,7 +21,9 @@ Page({
       retail_price: 0,
       dkEshellNum: 0,
       num: 1
-    }
+    },
+    payable: true,
+    isOrdered: false
   },
 
   /**
@@ -30,16 +32,18 @@ Page({
   onLoad: function (options) {
     console.log('options', options)
     let that = this
-    that.stepper = that.selectComponent("#mystepper")
+    that.stepper = that.selectComponent(".numstepper")
     that.setData({
       goodsId: options.goodsId,
       goodsType: options.goodsType ? options.goodsType : '',
+      isInvite: options.isInvite ? options.isInvite : '',
       'choosedGoodsInfo.num': options.num ? options.num : 1
     })
     utils.request(api.MALL_QUERY_GOODS_DETAIL,{
       id: options.goodsId
     },'GET').then(function(res){
       if(res.errno == 0){
+        res.data.info.mailCost = res.data.info.mailCost?res.data.info.mailCost:0
         that.setData({
           goodsInfo: res.data.info,
           choosedGoodsInfo : options.num ? {
@@ -68,6 +72,7 @@ Page({
    */
   onShow: function () {
     let that = this
+    that.loadUserDknum()
     if(that.data.addressId){
       utils.request(api.AddressDetail,{
         id: that.data.addressId
@@ -77,12 +82,20 @@ Page({
             addressInfo: res.data
           })
         }
+        else{
+          that.loadUserAddress()
+        }
       })
     }
     else{
       that.loadUserAddress()
     }
-    that.loadUserDknum()
+    
+    /* if(that.data.orderId){
+      wx.redirectTo({
+      	url: '/pages/mall/goodsdetail/goodsdetail?id='+that.data.goodsId+'&isInvite='+that.data.isInvite+'&goodsType='+that.data.goodsType
+      })
+    } */
   },
 
   /**
@@ -117,10 +130,11 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
-  },
-  backTo () {
-    wx.navigateBack()
+    return {
+      title: '我用步数兑换了这个宝贝，你也可以哦~',
+      path: '/pages/index/index?fromInvite=1&type=1&push_userid=' + wx.getStorageSync('userId'),
+      imageUrl: this.data.goodsInfo.primary_pic_url
+    }
   },
   chooseAddress () {
     let that = this
@@ -152,7 +166,10 @@ Page({
   getFormId (e) { 
     let that = this
     let address = that.data.addressInfo
-    if(address.id){
+    if(address && address.id){
+      that.setData({
+        payable: false
+      })
       utils.request(api.DKORDER_SUBMIT,{
         goodsId: that.data.goodsId,
         addressId: address.id,
@@ -167,8 +184,11 @@ Page({
             that.requestPayParam()
           }
           else{
-            wx.navigateTo({
-              url: '/pages/order/success/success?goodsurl='+encodeURIComponent(that.data.goodsInfo.primary_pic_url)
+            /* wx.navigateTo({
+              url: '/pages/order/success/success?goodsid='+that.data.goodsId+'&goodsurl='+encodeURIComponent(that.data.goodsInfo.primary_pic_url)
+            }) */
+            that.setData({
+              isOrdered: true
             })
           }
         }
@@ -182,11 +202,44 @@ Page({
       })
     }
     else{
-      wx.showToast({
-        title: '请填写地址信息',
-        icon: 'none',
-        duration: 2000
-      })
+      if(that.data.goodsInfo.dkIsReal == 1){
+        utils.request(api.DKORDER_SUBMIT,{
+          goodsId: that.data.goodsId,
+          goodsNumber: that.stepper.data.num,
+          postscript: that.data.postscript,
+          formId: e.detail.formId
+        },'POST','application/json').then(function(res){
+          if(res.errno === 0){
+            let goodsInfo = that.data.goodsInfo
+            if((goodsInfo.retail_price*1 + goodsInfo.mailCost*1) > 0){
+              that.data.orderId = res.data.orderId
+              that.requestPayParam()
+            }
+            else{
+              /* wx.navigateTo({
+                url: '/pages/order/success/success?goodsid='+that.data.goodsId+'&goodsurl='+encodeURIComponent(that.data.goodsInfo.primary_pic_url)
+              }) */
+              that.setData({
+                isOrdered: true
+              })
+            }
+          }
+          else{
+            wx.showToast({
+              title: res.errmsg,
+              icon: 'none',
+              duration: 2000
+            })
+          }
+        })
+      }
+      else{
+        wx.showToast({
+          title: '请填写地址信息',
+          icon: 'none',
+          duration: 2000
+        })
+      }
     }
   },
   //向服务请求支付参数
@@ -206,8 +259,11 @@ Page({
               orderId: that.data.orderId
             },'POST','application/json').then(function(res){
               if(res.errno === 0){
-                wx.navigateTo({
-                  url: '/pages/order/success/success?goodsid='+that.data.goodsId
+                /* wx.navigateTo({
+                  url: '/pages/order/success/success?goodsid='+that.data.goodsId+'&goodsType='+that.data.goodsType+'&isInvite='+that.data.isInvite+'&goodsurl='+encodeURIComponent(that.data.goodsInfo.primary_pic_url)
+                }) */
+                that.setData({
+                  isOrdered: true
                 })
               }
             })
@@ -220,6 +276,9 @@ Page({
           }
         })
       }
+      else{
+        utils.showErrorToast(res.errmsg?res.errmsg:res.msg)
+      }
     });
   },
   loadUserAddress () {
@@ -227,15 +286,11 @@ Page({
     utils.request(api.ADDRESS_LIST).then(function(res){
       if(res.errno === 0){
         let data = res.data
-        if(res.data.length == 1){
-          that.setData({
-            addressInfo: data[0],
-            addressId: data[0].id
-          })
-        }
-        else{
+        if(res.data.length > 0){
+          let hasdefault = false
           for(let i = 0; i < data.length; i++){
             if(data[i].is_default == 1){
+              hasdefault = true
               that.setData({
                 addressInfo: data[i],
                 addressId: data[i].id
@@ -243,6 +298,18 @@ Page({
               break
             }
           }
+          if(!hasdefault){
+            that.setData({
+              addressInfo: data[0],
+              addressId: data[0].id
+            })
+          }
+        }
+        else{
+          that.setData({
+            addressInfo: null,
+            addressId: ''
+          })
         }
       }
     })
@@ -251,7 +318,7 @@ Page({
     let that = this
     let choosedGoodsInfo = that.data.choosedGoodsInfo
     let userDknum = that.data.userDknum
-    let choosednum = that.selectComponent("#mystepper").data.num
+    let choosednum = that.selectComponent(".numstepper").data.num
     let goodsInfo = that.data.goodsInfo
     let totalDk = choosednum*(goodsInfo.dkEshellNum)
     if(totalDk > userDknum){
@@ -260,7 +327,7 @@ Page({
         icon: 'none',
         duration: 2000
       })
-      that.selectComponent("#mystepper").setData({
+      that.selectComponent(".numstepper").setData({
         num: --choosednum
       })
     }
@@ -271,7 +338,7 @@ Page({
           icon: 'none',
           duration: 2000
         })
-        that.selectComponent("#mystepper").setData({
+        that.selectComponent(".numstepper").setData({
           num: --choosednum
         })
       }
@@ -290,7 +357,7 @@ Page({
     let that = this
     let choosedGoodsInfo = that.data.choosedGoodsInfo
     let userDknum = that.data.userDknum
-    let choosednum = that.selectComponent("#mystepper").data.num
+    let choosednum = that.selectComponent(".numstepper").data.num
     let goodsInfo = that.data.goodsInfo
     let totalDk = choosednum*(goodsInfo.dkEshellNum)
     that.setData({
@@ -305,7 +372,7 @@ Page({
     let that = this
     let choosedGoodsInfo = that.data.choosedGoodsInfo
     let userDknum = that.data.userDknum
-    let choosednum = that.selectComponent("#mystepper").data.num
+    let choosednum = that.selectComponent(".numstepper").data.num
     let goodsInfo = that.data.goodsInfo
     let totalDk = choosednum*(goodsInfo.dkEshellNum)
     if(choosednum <= 0){

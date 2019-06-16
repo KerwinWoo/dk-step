@@ -8,16 +8,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    offset: 0
+    offset: 0,
+    size: 20
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let that = this
-    that.loadUserDkInfo()
-    that.loadDkList()
   },
   loadUserDkInfo () {
     let that = this
@@ -35,47 +33,64 @@ Page({
   loadDkList () {
     let that = this
     utils.request(api.DK_HISTORY,{
-      size: 10,
+      size: that.data.size,
       offset: that.data.offset
     }).then(function(res){
-      res.map(function(value, index){
-        if(value.flag == 1){
-          value.symbol = '-'
-          switch (value['consume_type']){
-          	case 1:
-              value.name = '购物'
-          		break;
-            case 2:
-              value.name = '打赏'
-              break;
-            case 3:
-              value.name = '转盘抽奖消费'
-              break;
-          	default:
-          		break;
+      console.log(res.length)
+      if(res && res.length > 0){
+        that.data.offset = that.data.offset + that.data.size
+        res.map(function(value, index){
+          if(value.flag == 1){
+            value.symbol = '-'
+            switch (value['consume_type']){
+            	case 1:
+                value.name = '购物'
+            		break;
+              case 2:
+                value.name = '打赏'
+                break;
+              case 3:
+                value.name = '转盘抽奖消费'
+                break;
+            	default:
+            		break;
+            }
           }
-        }
-        else if(value.flag == 2){
-          value.symbol = '+'
-          switch (value['consume_type']){
-          	case 1:
-              value.name = '步数兑换'
-          		break;
-            case 2:
-              value.name = '被打赏'
-              break;
-            case 3:
-              value.name = '转盘抽奖中奖'
-              break;
-          	default:
-          		break;
+          else if(value.flag == 2){
+            value.symbol = '+'
+            switch (value['consume_type']){
+              case 0:
+                value.name = '步数兑换'
+                break;
+            	case 1:
+                value.name = '退款'
+            		break;
+              case 2:
+                value.name = '被打赏'
+                break;
+              case 3:
+                value.name = '转盘抽奖中奖'
+                break;
+              case 4:
+                value.name = '签到奖励'
+              case 5:
+                value.name = '系统发放'
+                break;
+            	default:
+            		break;
+            }
           }
+          value.time = utils.formatTime(new Date(value.consume_time))
+        })
+        that.setData({
+          dklist: that.data.dklist.concat(res)
+        })
+      }
+      else if(res.length == 0){
+        if(that.data.offset != 0){
+          utils.nomoreData()
         }
-        value.time = utils.formatTime(new Date(value.consume_time))
-      })
-      that.setData({
-        dklist: res
-      })
+      }
     })
   },
   /**
@@ -89,7 +104,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    let that = this
+    that.data.offset = 0
+    that.data.dklist = []
+    that.loadUserDkInfo()
+    that.loadDkList()
   },
 
   /**
@@ -117,7 +136,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    
+    this.loadDkList()
   },
 
   /**

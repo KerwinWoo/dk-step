@@ -1,13 +1,13 @@
 <!--pages/me/pinglun/pinglun.wxml-->
 <view class="container hastop">
-  <dk-nav title="收到的评论" hasBorder hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
-  <view class="commentlist">
+<!--  <dk-nav title="收到的评论" hasBorder hasBackBtn="{{true}}" isFixed="{{true}}" bind:backTo="backTo"></dk-nav>
+ -->  <view class="commentlist">
     <view class="itm" wx:for="{{list}}" wx:key="{{noticeId}}">
       <view class="wrp">
         <view class="t">
           <view class="info">
             <view class="img">
-              <image-loader mode="aspectFill" original-image="{{item.avatar}}"></image-loader>
+              <image-loader bindtap="toTA" data-uid="{{item.userId}}" mode="aspectFill" original-image="{{item.avatar}}"></image-loader>
             </view>
             <view class="r">
               <view class="name">{{item.nickname}}</view>
@@ -19,15 +19,19 @@
         <view class="content">
           {{item.comment}}
         </view>
-        <view class="topic">
+        <navigator class="topic" hover-class="none" url="/pages/buyou/commentdetail/commentdetail?id={{item.communityId}}">
           <view class="pic">
             <image-loader original-image="{{item.imgSrc}}" mode="aspectFill"></image-loader>
           </view>
           <view class="subcontent">
             {{item.content}}          
           </view>
-        </view>
+        </navigator>
       </view>
     </view>
+  </view>
+  <view class="nodata" wx:if="{{!list || list.length == 0}}">
+    <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/nodata_pinglun.png"></image>
+    <view class="title">你还没有收到评论哦</view>
   </view>
 </view>
