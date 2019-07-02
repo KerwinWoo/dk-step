@@ -8,9 +8,7 @@
       </view>
       <view class="info">
         <view class="name">{{teamDetail.team_name}}</view>
-        <view class="captain">
-          团长：<text>{{teamDetail.nickname}}</text>
-        </view>
+        <view class="captain">团长：<text>{{teamDetail.nickname}}</text></view>
         <view class="member">
           <view>成员：<text>{{teamMemberList.length}}</text>人</view>
           <view>目标：<text>{{teamDetail.step_day_num}}</text>步</view>

@@ -1,5 +1,5 @@
 /* pages/me/homepage/homepage.wxss */
-@import '../../buyou/index.wxss'
+@import '../../buyou/index.wxss';
 .pinfo .photo image{
   width:120rpx;
   height:120rpx;
@@ -42,6 +42,7 @@
 .pinfo .info .name{
   font-size:32rpx;
   font-weight:bold;
+  width:270rpx;
 }
 .pinfo .info .subtitle{
   font-size:24rpx;

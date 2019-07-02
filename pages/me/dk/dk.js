@@ -73,6 +73,7 @@ Page({
                 break;
               case 4:
                 value.name = '签到奖励'
+                break;
               case 5:
                 value.name = '系统发放'
                 break;

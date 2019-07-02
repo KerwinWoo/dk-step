@@ -52,9 +52,7 @@
         </view>
         <view class="info">
           <view class="name">{{item.team_name}}</view>
-          <view class="captain">
-            团长：<text>{{item.leader_name}}</text>
-          </view>
+          <view class="captain">团长：<text>{{item.leader_name}}</text></view>
           <view class="member">
             <view>成员：<text>{{item.team_num}}</text>人</view>
             <view>目标：<text>{{item.step_day_num}}</text>步</view>

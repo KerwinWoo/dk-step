@@ -124,7 +124,7 @@ Page({
           wx.chooseLocation({
             success (res) {
               that.setData({
-                address: res.address,
+                address: res.name,
                 addressStatus: true
               })
             },

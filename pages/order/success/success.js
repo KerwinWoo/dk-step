@@ -45,6 +45,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    let that = this
     wx.reLaunch({
       url: '/pages/mall/goodsdetail/goodsdetail?id='+that.data.goodsid+'&isInvite='+that.data.isInvite+'&goodsType='+that.data.goodsType
     })

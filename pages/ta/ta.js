@@ -93,9 +93,6 @@ Page({
       }
     }
   },
-  backTo () {
-    wx.navigateBack()
-  },
   loadMainData () {
     let that = this
     if(that.data.userid){

@@ -148,20 +148,29 @@ Page({
   onShareAppMessage (option) {
     //分享回调
     let that = this
-    let linkfrom = option.target.dataset.linkfrom
-    that.data.previewing = true
-    if(linkfrom == 'type1'){
+    if(option.from = 'menu'){
       return {
         title: '蛋壳步数换，在乎你的每一步',
         path: '/pages/index/index?fromInvite=1&type=1&push_userid=' + wx.getStorageSync('userId'),
         imageUrl: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/invitation_homepage.png'
       }
     }
-    else if(linkfrom == 'type2'){
-      return {
-        title: '要想富，先走路，走路也能成首富',
-        path: '/pages/index/index?fromInvite=1&type=1&push_userid=' + wx.getStorageSync('userId'),
-        imageUrl: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/invitation_team.png'
+    else{
+      let linkfrom = option.target.dataset.linkfrom
+      that.data.previewing = true
+      if(linkfrom == 'type1'){
+        return {
+          title: '蛋壳步数换，在乎你的每一步',
+          path: '/pages/index/index?fromInvite=1&type=1&push_userid=' + wx.getStorageSync('userId'),
+          imageUrl: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/invitation_homepage.png'
+        }
+      }
+      else if(linkfrom == 'type2'){
+        return {
+          title: '要想富，先走路，走路也能成首富',
+          path: '/pages/index/index?fromInvite=1&type=1&push_userid=' + wx.getStorageSync('userId'),
+          imageUrl: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/invitation_team.png'
+        }
       }
     }
   },
@@ -332,7 +341,6 @@ Page({
   loadJiachengInfo () {
     let that = this
     utils.request(api.HOME_QUERY_FRIENDADD).then(function(res){
-      res.data.percent
       if(res.errno === 0){
         that.setData({
           jcpercent: Number.isInteger(res.data.percent)?res.data.percent:res.data.percent.toFixed(2),

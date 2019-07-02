@@ -9,16 +9,9 @@ Page({
   data: {
     userInfo: null,
     visible: false,
-    faces: [{
-      name: '灰常开心',
-      url: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/face_happy02.png'
-    },{
-      name: '有点慵懒',
-      url: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/face_smile02.png'
-    },{
-      name: '有点低沉',
-      url: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/face_uhappy02.png'
-    }],
+    faces: ['https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/xinqing01.png',
+    'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/xinqing02.png',
+    'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/xinqing03.png'],
     faceindex: 0,
     postindex: 0,
     posturl: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/post1.png',
@@ -37,6 +30,7 @@ Page({
   onLoad: function (options) {
     let userInfo = wx.getStorageSync('userInfo')
     userInfo.postUrl = this.data.posturl
+    userInfo.xinqing = this.data.faces[this.data.faceindex]
     this.setData({
       userInfo: userInfo,
       fromtask: options.fromtask?options.fromtask:0
@@ -105,7 +99,7 @@ Page({
       this.data.faceindex = 0
     }
     let userInfo = this.data.userInfo
-    userInfo.faceindex = this.data.faceindex
+    userInfo.xinqing = this.data.faces[this.data.faceindex]
     this.setData({
       faceindex: this.data.faceindex,
       userInfo: userInfo

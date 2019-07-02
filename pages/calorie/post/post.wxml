@@ -16,14 +16,7 @@
           <view class="steptitle">今日步数</view>
           <view class="stepnum">{{step}}</view>
         </view>
-        <!-- <view class="topic element" bindtap="toggleface">
-          <view class="img">
-            <image src="{{faces[faceindex].url}}"></image></view>
-          <view>
-            <view>今日心情</view>
-            <view>{{faces[faceindex].name}}</view>
-          </view>
-        </view> -->
+        <image class="topic" src="{{faces[faceindex]}}" bindtap="toggleface"></image>
       </view>
       <view class="info">
         <view class="slogan element">

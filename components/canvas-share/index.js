@@ -133,12 +133,13 @@ Component({
         title: '正在生成海报'
       })
       const { userInfo, canvasWidth, canvasHeight } = this.data
-      const { avatar, nickname, postUrl, step } = userInfo
+      const { avatar, nickname, postUrl, step, xinqing } = userInfo
       const avatarPromise = getImageInfo(avatar)
       const backgroundPromise = getImageInfo(postUrl)
       const codeimgPromise = getImageInfo('https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/code.jpg')
-      Promise.all([avatarPromise, backgroundPromise, codeimgPromise])
-        .then(([avatar, background, code]) => {
+      const xinqingImgPromise = getImageInfo(xinqing)
+      Promise.all([avatarPromise, backgroundPromise, codeimgPromise, xinqingImgPromise])
+        .then(([avatar, background, code, xinqing]) => {
           const ctx = wx.createCanvasContext('share', this)
 
           const canvasW = rpx2px(canvasWidth * 2)
@@ -207,7 +208,15 @@ Component({
           )
           
           //绘制今日心情
-          
+          const xqWidth = rpx2px(228*2)
+          const xqHeight = rpx2px(84*2)
+          ctx.drawImage(
+            xinqing.path,
+            canvasW - xqWidth - rpx2px(30*2),
+            bgheight - rpx2px(40*2) - xqHeight,
+            xqWidth,
+            xqHeight,
+          )
           
           //绘制底部背景
           ctx.beginPath()

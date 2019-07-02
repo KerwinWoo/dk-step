@@ -90,29 +90,8 @@ ff-canvas {
   position: absolute;
   right:30rpx;
   bottom:40rpx;
-  width:96px;
-  font-size:24rpx;
-  font-weight:bold;
-  color:#fff;
   width:228rpx;
   height:84rpx;
-  background:rgba(0,0,0,0.2);
-  border-radius:42rpx;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-.postcont .photo .topic image{
-  width:63rpx;
-  height:70rpx;
-  margin-right:6rpx;
-}
-.postcont .photo .topic .img{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
 }
 .postcont .info{
   padding:30rpx;
