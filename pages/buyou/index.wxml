@@ -1,6 +1,8 @@
 <!--pages/buyou/index.wxml-->
 <refresh-view class='refreshView' hasTop="true" backgroundColor="#f2f2f2" bind:onRefresh="onPullDownRefresh"/>
-<scroll-view class="container" bindtouchstart='handletouchstart' bindtouchmove='handletouchmove' bindtouchend='handletouchend' bindtouchcancel='handletouchcancel'>
+<scroll-view class="container" 
+bindtouchstart='handletouchstart' bindtouchmove='handletouchmove' 
+bindtouchend='handletouchend' bindtouchcancel='handletouchcancel'>
   <!-- <dk-nav title="步友广场" hasBackBtn isFixed="{{true}}" bind:backTo="backTo"></dk-nav> -->
   <view class="wrapper">
     <view class="w">
@@ -19,6 +21,10 @@
             <text>#{{item.name}}</text>
             <image-loader original-image="{{item.imgsrc}}" mode="aspectFill" />
             <image class="submask" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/topic_mask.png" lazy-load></image>
+            <view class="flagcont" wx:if="{{item.award}}">
+              <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/award_flag.png"></image>
+              <text>奖</text>
+            </view>
           </navigator>
         </view>
       </scroll-view>
@@ -45,7 +51,8 @@
             <text wx:if="{{topic.attention_status == 1}}">已关注</text>
           </view>
           <view class="name">
-            <text class="skeleton-tab1-rect">{{topic.nickname}}</text>
+            <text class="skeleton-tab1-rect nickname">{{topic.nickname}}</text>
+            <text class="istop" wx:if="{{topic.is_top}}">置顶</text>
           </view>
           <view class="topictype skeleton-tab1-rect" wx:if="{{topic.tag_name}}">
             <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/huati%402x.png"></image>
@@ -108,7 +115,7 @@
             <text wx:if="{{topic.attention_status == 1}}">已关注</text>
           </view> -->
           <view class="name">
-            <text class="skeleton-tab2-rect">{{topic.nickname}}</text>
+            <text class="skeleton-tab2-rect nickname">{{topic.nickname}}</text>
           </view>
           <view class="topictype skeleton-tab2-rect" wx:if="{{topic.tag_name}}">
             <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/huati%402x.png"></image>

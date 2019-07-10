@@ -1,0 +1,48 @@
+/* pages/activity/lottery/awardusers/awardusers.wxss */
+page{
+  background:#f2f2f2;
+}
+image-loader{
+  width:100%;
+  height:100%;
+}
+.members{
+  box-sizing: border-box;
+  padding:0 50rpx;
+}
+.members .list{
+  font-size:0;
+}
+.members .itm{
+  width:10%;
+  display: inline-block;
+  box-sizing: border-box;
+  padding:4rpx;
+}
+.members .itm .wrp{
+  width:100%;
+  padding-bottom: 100%;
+  position: relative;
+}
+.members .itm .wrp image-loader image{
+  width:100%;
+  height:100%;
+  position: absolute;
+  left:0;
+  top:0;
+}
+.members .title{
+  padding:30rpx 0;
+  text-align: center;
+  font-size:28rpx;
+}
+.loadmore,.loadall{
+  text-align: center;
+  font-size:28rpx;
+  padding:20rpx 0;
+  color:#FB793B;
+}
+.loadall{
+  color:#999;
+  font-size: 22rpx;
+}

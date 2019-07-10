@@ -55,7 +55,8 @@
       <view class="topics">
         <view class="topic" wx:for="{{topicList}}" wx:key="{{id}}"
           wx:if="{{item.value != choosedTopicValue}}" bindtap="chooseTopic" data-name="{{item.name}}" data-value="{{item.value}}">{{item.name}}
-          <view class="hot">热</view>
+          <view class="hot" wx:if="{{!item.award}}">热</view>
+          <view class="hot award" wx:if="{{item.award}}">奖</view>
         </view>
       </view>
     </view>

@@ -7,6 +7,7 @@ const user = require('../../services/user.js')
 
 Page({
   data: {
+    version:'2.0.1',
     itemsNew: [],
     itemsInvite: [],
     itemsValue: [],
@@ -33,7 +34,12 @@ Page({
     timer:null,
     finalleft:0,
     finaltop:0,
-    revokeLayerShow: false
+    revokeLayerShow: false,
+    currentGuideStep: 1,
+    guideShow: false,
+    hasBg: false,
+    homepageBg: '',
+    circleBg: false
   },
   onShow () {
     let that = this
@@ -43,6 +49,9 @@ Page({
     }
     else{
       if(!token){
+        that.setData({
+          guideShow: true
+        })
         //新用户通过邀请链接进入
         if(that.data.fromInvite && that.data.fromInvite == 1){
           let data = {
@@ -110,6 +119,7 @@ Page({
   },
   onLoad (options) {
     console.log('options', options)
+    
     let that = this
     // 刷新组件
     that.refreshView = that.selectComponent(".refreshView")
@@ -148,11 +158,11 @@ Page({
   onShareAppMessage (option) {
     //分享回调
     let that = this
-    if(option.from = 'menu'){
+    if(option.from == 'menu'){
       return {
-        title: '蛋壳步数换，在乎你的每一步',
+        title: '要想富，先走路，走路也能成首富',
         path: '/pages/index/index?fromInvite=1&type=1&push_userid=' + wx.getStorageSync('userId'),
-        imageUrl: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/invitation_homepage.png'
+        imageUrl: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/invitation_team.png'
       }
     }
     else{
@@ -160,7 +170,7 @@ Page({
       that.data.previewing = true
       if(linkfrom == 'type1'){
         return {
-          title: '蛋壳步数换，在乎你的每一步',
+          title: '步数当钱花，快来一起发',
           path: '/pages/index/index?fromInvite=1&type=1&push_userid=' + wx.getStorageSync('userId'),
           imageUrl: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/invitation_homepage.png'
         }
@@ -210,6 +220,34 @@ Page({
     this.loadGoodsInfo()
     this.loadJiachengInfo()
     this.loadQiandaoNum()
+    this.loadStepBg()
+  },
+  loadStepBg () {
+    let that = this
+    utils.request(api.HOMEPAGE_BG,{
+    }, 'GET').then(function (res) {
+      if(res.errno == 0){
+        if(res.data && res.data.data && res.data.data.image){
+          that.setData({
+            hasBg: true,
+            homepageBg: res.data.data.image,
+            circleBg: (res.data.data.color == 0)?false:true
+          })
+        }
+        else{
+          that.setData({
+            hasBg: false,
+            circleBg: (res.data.data.color == 0)?false:true
+          })
+        }
+      }
+      else{
+        console.error('获取背景图失败')
+        that.setData({
+          hasBg: false
+        })
+      }
+    })
   },
   loadUserDkInfo () {
     let that = this
@@ -256,21 +294,21 @@ Page({
     let that = this
     const query = wx.createSelectorQuery()
     query.selectAll('.stepelement').boundingClientRect()
-    query.exec(function(res){
+    query.exec(function(res1){
       //上方title导航宽高
       let navwidth = app.globalData.windowWidth
       let navheight = app.globalData.navHeight
       //可移动区域宽高
-      let cwidth = res[0][0].width
-      let cheight = res[0][0].height
+      let cwidth = utils.rpx2px()(750)
+      let cheight = utils.rpx2px()(600)
       //大泡泡宽高
-      let bwidth = res[0][1].width
-      let bheight = res[0][1].height
+      let bwidth = utils.rpx2px()(310)
+      let bheight = utils.rpx2px()(310)
       //小泡泡宽高
-      let mwidth = res[0][2].width
-      let mheight = res[0][2].height
+      let mwidth = utils.rpx2px()(101)
+      let mheight = utils.rpx2px()(130)
       that.setData({
-        finalleft: res[0][2].left + mwidth/2,
+        finalleft: res1[0][0].left + mwidth/2,
         finaltop: utils.rpx2px()(169) + mheight/2
       })
       
@@ -701,11 +739,50 @@ Page({
         ssteps: that.data.ssteps
       })
       that.data.timer = undefined
-    }, 300)
+    }, 200)
   },
   cancelRevoke () {
     this.setData({
       revokeLayerShow: false
     })
+  },
+  changeStep (e) {
+    let data = e.currentTarget.dataset
+    let currentStep = data.value
+    if(this.data.currentGuideStep < 5){
+      if(currentStep == 2){
+        wx.setTabBarItem({
+          index: 1,
+          iconPath: '/resources/image/navicn_buyou_a.png'
+        })
+      }
+      else{
+        wx.setTabBarItem({
+          index: 1,
+          iconPath: '/resources/image/navicn_buyou_b.png'
+        })
+      }
+      if(currentStep == 3){
+        wx.setTabBarItem({
+          index: 2,
+          iconPath: '/resources/image/navicn_gift_a.png'
+        })
+      }
+      else{
+        wx.setTabBarItem({
+          index: 2,
+          iconPath: '/resources/image/navicn_gift_b.png'
+        })
+      }
+      this.data.currentGuideStep++
+      this.setData({
+        currentGuideStep: this.data.currentGuideStep
+      })
+    }
+    else{
+      this.setData({
+        guideShow:false
+      })
+    }
   }
 })

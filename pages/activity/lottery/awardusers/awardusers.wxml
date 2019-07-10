@@ -1,0 +1,15 @@
+<!--pages/activity/lottery/awardusers/awardusers.wxml-->
+<view class="container">
+  <view class="members">
+    <view class="title">{{joinedUserList.length}}位参与者</view>
+    <view class="list">
+      <view class="itm" wx:for="{{joinedUserList}}" wx:key="{{index}}">
+        <view class="wrp">
+          <image-loader original-image="{{item.avatar}}" mode="aspectFill"></image-loader>
+        </view>
+      </view>
+    </view>
+    <view class="loadmore" wx:if="{{!isLoadAll}}">加载更多...</view>
+    <view class="loadall" wx:if="{{isLoadAll}}">已加载全部</view>
+  </view>
+</view>

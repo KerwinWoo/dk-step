@@ -106,6 +106,9 @@ page{
   line-height:30rpx;
   margin-left:20rpx;
 }
+.topic .hot.award{
+  background:#FF001E;
+}
 .topics .topic{
   margin-right:30rpx;
   margin-bottom: 30rpx;

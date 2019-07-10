@@ -1,0 +1,209 @@
+/* pages/activity/lottery/lottery.wxss */
+page{
+  background:#f2f2f2;
+}
+.banner{
+  width:100%;
+  height:168rpx;
+}
+.banner image{
+  width:100%;
+  height:100%;
+}
+.tablink{
+  height:118rpx;
+  box-sizing: border-box;
+  font-size:34rpx;
+  padding:0 60rpx;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width:100%;
+  background:#f2f2f2;
+  transition: all .3s;
+}
+.tablink.fixed{
+  position: fixed;
+  left:0;
+  top:0;
+  z-index:99;
+  height:90rpx;
+  line-height: 90rpx;
+}
+.tablink .itm.active{
+  font-size:44rpx;
+  font-weight:bold;
+}
+.tablink .itm{
+  display: inline-block;
+  line-height: 118rpx;
+  position: relative;
+  transition: .3s;
+}
+.tablink .flag{
+  position: absolute;
+  width:32rpx;
+  height:8rpx;
+  background:linear-gradient(0deg,rgba(254,99,54,1) 0%,rgba(243,164,71,1) 100%);
+  border-radius:3rpx;
+  left:50%;
+  bottom:20rpx;
+  margin-left: -16rpx;
+}
+.tablink .flag.right{
+  left:240rpx;
+}
+.awardlist .itm{
+  background:#fff;
+  padding:0;
+  position: relative;
+  margin-bottom: 30rpx;
+}
+.awardlist .itm .company{
+  position: absolute;
+  right:0;
+  top:30rpx;
+  height:50rpx;
+  background:linear-gradient(90deg,rgba(254,99,54,1) 0%,rgba(243,164,71,1) 100%);
+  border-radius:25rpx 2rpx 2rpx 25rpx;
+  text-align: center;
+  color:#fff;
+  line-height: 50rpx;
+  padding:0 30rpx;
+}
+.awardlist .itm .awardstatus{
+  position: absolute;
+  left:30rpx;
+  top:0;
+  height:50rpx;
+  background:linear-gradient(90deg,#7C1DB9 0%,#905AFA 100%);
+  border-radius:0 0 10rpx 10rpx;
+  text-align: center;
+  color:#fff;
+  line-height: 50rpx;
+  padding:0 30rpx;
+}
+.awardlist .itm .photo{
+  width:100%;
+  height:350rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.awardlist .itm .photo image-loader{
+  width:460rpx;
+  position: relative;
+}
+.awardlist .itm .photo image-loader image{
+  width:100%;
+  height:100%;
+}
+.awardlist .info{
+  font-size:30rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  box-sizing: border-box;
+  padding-left:150rpx;
+  margin-bottom: 6rpx;
+}
+.awardlist .info .name{
+  max-width:380rpx;
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:flex-start;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow: ellipsis;
+}
+.awardlist .info .price{
+  margin-left:40rpx;
+  font-size:30rpx;
+  font-weight:bold;
+}
+.awardlist .info .label{
+  font-weight: bold;
+  width:150rpx;
+  position: absolute;
+  left:0;
+  top:0;
+}
+.awardinfo{
+  width:100%;
+  overflow: hidden;
+  margin-top:30rpx;
+  position: relative;
+  box-sizing: border-box;
+}
+.progressbar{
+  width:480rpx;
+  height:12rpx;
+  border:1rpx solid rgba(251,121,59,1);
+  border-radius:6rpx;
+  position: relative;
+}
+.progressbar .value{
+  display: inline-block;
+  height:12rpx;
+  background:#FF8E00;
+  border-radius:6rpx;
+  position: absolute;
+  left:0;
+  top:0;
+}
+.cont{
+  box-sizing: border-box;padding-right:100rpx;position: relative;
+  padding:0 30rpx;
+}
+.cont .sharebtn image{
+  width:38rpx;
+  height:38rpx;
+}
+.cont .sharebtn{
+  position: absolute;
+  right:30rpx;
+  bottom:0;
+}
+.cont .sharebtn{
+  font-size:24rpx;
+  color:#999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.progress{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top:20rpx;
+  padding:0 30rpx 30rpx 30rpx;
+}
+.progress .target{
+  font-size:20rpx;
+  color:#FB793B;
+}
+.mailcost{
+  display: inline-block;
+  height:30rpx;
+  border:1rpx solid rgba(251,121,59,1);
+  border-radius:6rpx;
+  font-size:20rpx;
+  color:rgba(251,121,59,1);
+  text-align: center;
+  line-height: 30rpx;
+  margin-left:6rpx;
+  padding:0 6rpx;
+}
+.more{
+  text-align: center;
+  padding:30rpx 0 60rpx 0;
+  color:#999;
+}

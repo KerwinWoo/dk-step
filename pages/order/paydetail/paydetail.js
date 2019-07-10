@@ -130,9 +130,12 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
+    let that = this
     return {
       title: '我用步数兑换了这个宝贝，你也可以哦~',
-      path: '/pages/index/index?fromInvite=1&type=1&push_userid=' + wx.getStorageSync('userId'),
+      path: '/pages/index/index?fromInvite=1&type=1&push_userid=' + wx.getStorageSync('userId') + '&forwardUrl='
+      + encodeURIComponent('/pages/mall/goodsdetail/goodsdetail?id='+that.data.goodsId
+      +'&isInvite='+that.data.isInvite+'&goodsType='+that.data.goodsType),
       imageUrl: this.data.goodsInfo.primary_pic_url
     }
   },
@@ -259,9 +262,6 @@ Page({
               orderId: that.data.orderId
             },'POST','application/json').then(function(res){
               if(res.errno === 0){
-                /* wx.navigateTo({
-                  url: '/pages/order/success/success?goodsid='+that.data.goodsId+'&goodsType='+that.data.goodsType+'&isInvite='+that.data.isInvite+'&goodsurl='+encodeURIComponent(that.data.goodsInfo.primary_pic_url)
-                }) */
                 that.setData({
                   isOrdered: true
                 })

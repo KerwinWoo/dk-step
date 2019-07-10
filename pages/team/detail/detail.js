@@ -81,19 +81,28 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (e) {
-    let that = this
-    if(e.target.dataset.type == 1){
+    if(e.from == 'menu'){
       return {
-        title: '道路千万条，走路第一条，步数别浪费，快来这里兑',
-        path: '/pages/index/index',
-        imageUrl: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/invitation_homepage.png'
+        title: '要想富，先走路，走路也能成首富',
+        path: '/pages/index/index?fromInvite=1&type=1&push_userid=' + wx.getStorageSync('userId'),
+        imageUrl: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/invitation_team.png'
       }
     }
     else{
-      return {
-        title: '邀你一起组团PK步数，步数还可以当钱花哦~',
-        path: '/pages/index/index?fromInvite=1&type=2&business='+ that.data.teamId + '&push_userid=' + wx.getStorageSync('userId') + '&forwardUrl='+encodeURIComponent('/pages/team/detail/detail?frominvite=1&teamId='+that.data.teamId),
-        imageUrl: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/invitation_team.png'
+      let that = this
+      if(e.target.dataset.type == 1){
+        return {
+          title: '道路千万条，走路第一条，步数别浪费，快来这里兑',
+          path: '/pages/index/index',
+          imageUrl: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/invitation_homepage.png'
+        }
+      }
+      else{
+        return {
+          title: '邀你一起组团PK步数，步数还可以当钱花哦~',
+          path: '/pages/index/index?fromInvite=1&type=2&business='+ that.data.teamId + '&push_userid=' + wx.getStorageSync('userId') + '&forwardUrl='+encodeURIComponent('/pages/team/detail/detail?frominvite=1&teamId='+that.data.teamId),
+          imageUrl: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/invitation_team.png'
+        }
       }
     }
   },

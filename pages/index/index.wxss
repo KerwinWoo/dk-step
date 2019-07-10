@@ -2,7 +2,7 @@ page{
   background:#f2f2f2;
 }
 .stepcont{
-  height:600rpx;
+  height:550rpx;
   position:relative;
   box-sizing: border-box;
   overflow:hidden;
@@ -14,6 +14,9 @@ page{
   position:absolute;
   left:0;
   top:0;
+}
+.stepcont.nobg{
+  background-image: none!important;
 }
 .stepcont .t{
   display: flex;
@@ -46,6 +49,7 @@ page{
 .stepcont>.w{
   position:relative;
   padding:0;
+  background:none;
 }
 .stepcont .steps{
   box-sizing: border-box;
@@ -58,7 +62,6 @@ page{
   height:310rpx;
   margin:0 auto;
   position: relative;
-  color:#fff;
   z-index: 10;
 }
 .stepcont .sstep{
@@ -128,10 +131,9 @@ page{
   width:100%;
   text-align:center;
   box-sizing:border-box;
-  background:#fff;
   position:absolute;
   left:0;
-  bottom:0;
+  bottom:20rpx;
 }
 .invitecont .circle{
   width:100%;
@@ -154,15 +156,15 @@ page{
 button.inviteBtn::after{
   border:none;
 }
-.invitecont .tip{
+.addtip{
   width:100%;
   background:#fff;
   text-align: center;
   position: relative;
   z-index: 2;
-  margin-top:30rpx;
+  padding-top:14rpx;
 }
-.invitecont .tip image{
+.addtip image{
   width:37rpx;
   height:28rpx;
   position: absolute;
@@ -182,7 +184,7 @@ button.inviteBtn::after{
     transform: scale(1);
   }
 }
-.invitecont .tip view{
+.addtip view{
   display: inline-block;
   height:46rpx;
   line-height: 46rpx;
@@ -228,7 +230,7 @@ button.inviteBtn::after{
   padding-left:0;
 }
 .activlsit>.itm:first-child .wrp{
-  background:#FCF6F6;
+  background:#F6FFF3!important;
 }
 .activlsit>.itm:last-child .wrp{
   background:#FCF8ED;
@@ -728,6 +730,89 @@ button.inviteBtn::after{
   bottom: -120rpx;
   left:50%;
   margin-left:-30rpx;
+}
+.guide{
+  position: relative;
+  width:100%;
+  height:100%;
+}
+.guide image{
+  position: absolute;
+  left:50%;
+}
+.guide.guide1 image:nth-of-type(1){
+  top:390rpx;
+}
+.guide.guide1 image:nth-of-type(2){
+  top:480rpx;
+}
+.guide.guide1 image:nth-of-type(3){
+  bottom:120rpx;
+}
+.guide.guide3 image:nth-of-type(1){
+  bottom:20rpx;
+}
+.guide.guide3 image:nth-of-type(2){
+  bottom:130rpx;
+}
+.guide.guide3 image:nth-of-type(3){
+  bottom:490rpx;
+}
+.inguide{
+  z-index: 9999999!important;
+}
+.stepcont .mstep .textcont.hasBg{
+  color:#FF427C;
+}
+.guide.guide1 .sstep{
+  position: absolute;
+  left:120rpx;
+  top:250rpx;
+  text-align: center;
+  width:101rpx;
+  height:101rpx;
+  position:absolute;
+  line-height:101rpx;
+  text-align:center;
+}
+.guide.guide1 .sstep image{
+  position: absolute;
+  left:0;
+  top:0;
+}
+.guide.guide1 .sstep text{
+  display:inline-block;
+  width:100%;
+  height:100%;
+  position:absolute;
+  left:0;
+  top:0;
+}
+.guide.guide1 .sstep view{
+  width:100%;
+  position:absolute;
+  left:0;
+  bottom:-26rpx;
+  line-height:30rpx;
+  font-size:16rpx;
+  text-align:center;
+}
+.menulist>.itm{
+  position: relative;
+}
+.menulist>.itm .flag{
+  position: absolute;
+  right:-32rpx;
+  top:-4rpx;
+  width:57rpx;
+  height:26rpx;
+  text-align: center;
+  line-height: 26rpx;
+  font-size:18rpx;
+  color:#fff;
+  border-radius: 12rpx 12rpx 12rpx 0;
+  background:linear-gradient(90deg,rgba(254,99,54,1) 0%,rgba(243,164,71,1) 100%)!important;
+  padding:0 4rpx;
 }
 /*swtich整体大小及背景色*/
 .wx-switch-input{

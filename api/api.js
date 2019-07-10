@@ -1,5 +1,5 @@
 const root = 'api/';
-const API_BASE_URL = 'https://api.datebook.cc/' + root;
+const API_BASE_URL = 'https://xiaochengxu.su360.com/' + root;
 //const API_BASE_URL = 'http://10.0.0.210:8080/platform/' + root;
 module.exports = {
   HOME_QUERY_GOODS: API_BASE_URL + 'dk_index/category', //首页商品展示
@@ -117,6 +117,13 @@ module.exports = {
   
   TA_COMMUNITYLIST: API_BASE_URL + 'step_square/ta_community_list',// 查询TA的话题列表
   
-  TEAM_INVITESTATUS: API_BASE_URL + 'run_team/get_join_status',// 查询TA的话题列表
+  TEAM_INVITESTATUS: API_BASE_URL + 'run_team/get_join_status',// 查询加入team的状态
   
+  LOTTERY_LISTLOTTERY: API_BASE_URL + 'lottery/list_lottery',// 查询加入team的状态
+  LOTTERY_DETAIL: API_BASE_URL + 'lottery/lottery_detail',// 抽奖详情
+  LOTTERY_JOIN: API_BASE_URL + 'lottery/join_lottery',// 参与抽奖
+  LOTTERY_JOINUSER: API_BASE_URL + 'lottery/join_lottery_user_page',// 参与活动抽奖的用户的微信图片
+  LOTTERY_GETSTEP: API_BASE_URL + 'lottery/get_lottery_step',// 参与活动抽奖的用户的微信图片
+  POSTIMGLIST: API_BASE_URL + 'bill/list',// 海报图片
+  HOMEPAGE_BG: API_BASE_URL + 'bill/home_page',// 首页背景
 };

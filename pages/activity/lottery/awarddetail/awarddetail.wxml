@@ -1,0 +1,185 @@
+<!--pages/activity/lottery/awarddetail/awarddetail.wxml-->
+<view class="container">
+  <view class="tabcontent">
+    <view class="awardlist">
+      <view class="itm" style="margin-bottom: 0;padding:0">
+        <view class="photo">
+          <swiper
+            indicator-dots="true"
+            autoplay="true"
+            interval="2500"
+          >
+            <block wx:for="{{awardDetail.imgs}}" wx:key="{{index}}">
+              <swiper-item>
+                <image src="{{item}}" mode="aspectFit" class="slide-image"/>
+              </swiper-item>
+            </block>
+          </swiper>
+        </view>
+        <view class="cont" style="padding:0 30rpx 30rpx 30rpx;">
+          <view class="awardinfo">
+            <view class="infocont">
+              <view class="info">
+                <view class="label">奖品名称：</view>
+                <view class="name">{{awardDetail.lottery.name}}</view>
+                <view class="price">￥{{awardDetail.price}}</view>
+              </view>
+              <view class="info">
+                <view class="label">开奖条件：</view>
+                <view class="name">满{{awardDetail.lottery.needUserNum}}人参与立即开奖</view>
+              </view>
+              <view class="info">
+                <view class="label">中奖人数：</view>
+                <view class="name">{{awardDetail.lottery.lotteryNum}}人
+                  <text class="mailcost" wx:if="{{awardDetail.lottery.isSend == 0}}">包邮</text>
+                  <text class="mailcost" wx:if="{{awardDetail.lottery.isSend == 1}}">邮费：{{awardDetail.lottery.sendFee}}元</text>
+                </view>
+              </view>
+            </view>
+          </view>
+          <button class="sharebtn resetBtn" open-type="share" style="right:60rpx;bottom:30rpx;">
+            <view><image lazy-load src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/lottery_share.png"></image></view>
+            <view>分享</view>
+          </button>
+        </view>
+        <view class="company">赞助商：{{awardDetail.lottery.bussinessName}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="zhongjiang" wx:if="{{awardDetail.lottery.status == 1 && awardDetail.isJoin == 1 && awardDetail.isWin == 1}}">
+    <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/lottery_gift.png" lazy-load ></image>
+    <view class="title">恭喜你，中奖啦</view>
+    <view class="title">快去联系客服领取奖品吧~</view>
+    <button class="zjbtn resetBtn btn-simple" open-type="contact">联系客服</button>
+  </view>
+  <view class="zhongjiang" wx:if="{{awardDetail.lottery.status == 1 && awardDetail.isJoin == 0}}">
+    <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/lottery_giftcry.png" lazy-load ></image>
+    <view class="title">很遗憾，你未参与该抽奖~</view>
+  </view>
+  <view class="zhongjiang" wx:if="{{awardDetail.lottery.status == 1 && awardDetail.isJoin == 1 && awardDetail.isWin == 0}}">
+    <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/lottery_giftcry.png" lazy-load ></image>
+    <view class="title">很遗憾，这次没中奖</view>
+    <view class="title">不过我们为你准备了一份神秘礼物</view>
+    <view class="zjbtn resetBtn btn-simple" bindtap="getDefaultGift" wx:if="{{!awardDetail.isAwardGet}}">立即领取</view>
+    <view class="zjbtn resetBtn btn-simple disabled" wx:if="{{awardDetail.isAwardGet}}">已领取</view>
+  </view>
+  <view class="description" wx:if="{{awardDetail.lottery.status == 0}}">
+    <view class="content">
+      <view class="title">抽奖说明</view>
+      <view class="itm">1.每个自然人用户每次抽奖需使用一枚蛋壳；</view>
+      <view class="itm">2.奖品因价值不同，参与抽奖目标人数不同；</view>
+      <view class="itm">3.达到目标人数平台自动开奖，蛋壳小秘会在步友广场公布中奖名单（请关注蛋壳小秘以便于及时查看中奖名单）。</view>
+      <view class="itm">4.参与抽奖的用户会获得一个抽奖码，作为开奖时领取奖品的唯一凭证。</view>
+      <view class="itm">5.中奖用户需在中奖名单公布后3个工作日内联系客服或关注蛋壳步数换公众号领取奖品，逾期则视为主动放弃；</view>
+      <view class="itm">6.中奖奖品在2个工作日免费邮寄到指定地址；</view>
+    </view>
+  </view>
+  <view class="lotterycode" wx:if="{{awardDetail.isJoin == 1}}">
+    <image lazy-load src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/lottery_codebg.png"></image>
+    <view class="content">
+      <view class="l">抽奖码：{{awardDetail.lottery_num}}</view>
+      <view class="r" bindtap="copyCode" data-text="抽奖码：{{awardDetail.lottery_num}}">一键复制</view>
+    </view>
+  </view>
+   <view class="awarduserlist" wx:if="{{awardDetail.lottery.status == 1}}">
+    <view class="title">中奖名单</view>
+    <view class="list">
+      <view class="itm" wx:for="{{awardDetail.winUsers}}" wx:key="{{index}}">
+        <view class="wrp" bindtap="toTA" data-uid="{{item.user_id}}">
+          <image-loader original-image="{{item.avatar}}" mode="aspectFill"></image-loader>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="awardtime" wx:if="{{awardDetail.lottery.status == 1}}">
+    <view class="time">开奖时间：<text>{{awardDetail.lottery.openTime}}</text></view>
+    <view class="tip">*请于2019.09.04 22:00前按照领取步骤领取奖品，过期作废*</view>
+  </view>
+  <view style="text-align: center;" wx:if="{{awardDetail.lottery.status == 0}}">
+    <form name="joinForm" report-submit="true" bindsubmit="getFormId">
+      <button form-type="submit" class="cjbtn resetBtn" wx:if="{{awardDetail.isJoin == 0}}">
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/btn_startlottery.png" lazy-load></image>
+        <view class="content">
+          <view class="title">参与抽奖</view>
+          <view class="subtitle">1枚蛋壳/次</view>
+        </view>
+      </button>
+      <view class="cjbtn cjbtndisable" wx:if="{{awardDetail.isJoin == 1 && (awardDetail.lottery.needUserNum > awardDetail.count)}}">
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/btn_lotteryjoined.png" lazy-load></image>
+        <view class="content">
+          <view class="title">待开奖</view>
+          <view class="subtitle">1枚蛋壳/次</view>
+        </view>
+      </view>
+      <view class="cjbtn cjbtndisable" wx:if="{{awardDetail.isJoin == 1 && (awardDetail.lottery.needUserNum == awardDetail.count)}}">
+        <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/btn_lotteryjoined.png" lazy-load></image>
+        <view class="content">
+          <view class="title">人员已满</view>
+          <view class="subtitle">请参与其他奖品抽奖</view>
+        </view>
+      </view>
+    </form>
+  </view>
+  <view class="progress" wx:if="{{awardDetail.lottery.status == 0}}">
+    <view class="target" wx:if="{{awardDetail.lottery.needUserNum > awardDetail.count}}">还差{{awardDetail.lottery.needUserNum - awardDetail.count}}人开奖</view>
+    <view class="target" wx:if="{{awardDetail.lottery.needUserNum == awardDetail.count}}">等待开奖结果中</view>
+    <view class="progressbar">
+      <view class="value" style="width:{{awardDetail.count*100/awardDetail.lottery.needUserNum}}%"></view>
+    </view>
+  </view>
+  <view class="members" wx:if="{{awardDetail.lottery.status == 0}}">
+    <view class="title">已有{{awardDetail.count}}人参与，<navigator hover-class="none" url="/pages/activity/lottery/awardusers/awardusers?id={{awardDetail.lottery.id}}">查看全部</navigator>
+    </view>
+    <view class="list">
+      <view class="itm" wx:for="{{joinedUserList}}" wx:key="{{index}}">
+        <view class="wrp">
+          <image-loader original-image="{{item.avatar}}" mode="aspectFill"></image-loader>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="detailinfo">
+    <view class="title">奖品详情</view>
+    <view class="goodsintro">
+      <import src="/pages/mall/goodsdetail/wxParse/wxParse.wxml" />
+      <template is="wxParse" data="{{wxParseData:goodsDetail.nodes}}" />
+    </view>
+  </view>
+  <button class="resetBtn btn-default shareBtn" wx:if="{{awardDetail.isJoin == 0 && awardDetail.lottery.status == 0}}" open-type="share">分享该抽奖给更多好友</button>
+  <button class="resetBtn btn-default shareBtn" wx:if="{{awardDetail.isJoin == 1 && awardDetail.lottery.status == 0}}" open-type="share">邀请好友加速开奖</button>
+</view>
+
+<view class="joinLayer layer flex-c" wx:if="{{joinLayer}}">
+    <view class="wrp">
+      <image class="bg" lazy-load src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/lottery_success.png"></image>
+      <view class="content">
+        <view class="title">参与成功</view>
+        <view class="person">
+          满{{awardDetail.lottery.needUserNum}}人参与即开奖
+        </view>
+        <view class="subtitle">请留意开奖通知，不要错过哦~</view>
+        <button class="invite resetBtn" open-type="share">
+          <image lazy-load src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/lottery_invite.png"></image>
+          <text>邀请好友加速开奖</text>
+        </button>
+        <view class="close">
+          <image class="closeBtn" bindtap="closeSuccessLayer" 
+            src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/close.png"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <view class="commontoast" wx:if="{{defaultGiftLayer}}">
+    <form name="payForm" report-submit="true" bindsubmit="exchangeSubmit">
+      <view class="wrp">
+        <view class="title">领取成功</view>
+        <view class="content">恭喜你获得{{defaultGiftNum}}步数奖励</view>
+        <view class="btns">
+          <navigator class="btn btn-default" open-type="switchTab" hover-class="none"
+            url="/pages/activity/lottery/lottery">继续参加抽奖</navigator>
+        </view>
+        <image class="closeBtn" bindtap="closeDefaultGiftLayer" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/close.png"></image>
+      </view>
+    </form>
+  </view>

@@ -112,6 +112,8 @@ Page({
               case 5:
                 value.task_name = '好友加成奖励'
                 break;
+              case 6:
+                value.task_name = '蛋蛋抽奖奖励'
             	default:
             		break;
             }

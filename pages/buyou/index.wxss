@@ -91,6 +91,22 @@
   box-sizing:border-box;
   text-align:center;
 }
+.topiclist>.itm .flagcont{
+  position: absolute;
+  left:50rpx;
+  top:0;
+  width:30rpx;
+  height:32rpx;
+  font-size:20rpx;
+  text-align: center;
+}
+.topiclist>.itm .flagcont image{
+  width:100%;
+  height:100%;
+  position: absolute;
+  left:0;
+  top:0;
+}
 .subtitle{
   padding:5rpx 0 15rpx 0;
   font-size:24rpx;
@@ -190,10 +206,31 @@
 .topiccontentlist>.itm .name{
   width:400rpx;
   overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.topiccontentlist>.itm .name .nickname{
+  display: inline-block;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size:32rpx;
   font-weight:bold;
+  overflow: hidden;
+  max-width:300rpx;
+}
+.topiccontentlist>.itm .name .istop{
+  width:50rpx;
+  height:28rpx;
+  background:#FF0000;
+  border-radius:6rpx;
+  text-align: center;
+  display: inline-block;
+  font-size:18rpx;
+  color:#fff;
+  line-height: 28rpx;
+  margin-left:10rpx;
 }
 .topiccontentlist>.itm .topictype{
   background:#F4F4F4;
@@ -301,6 +338,7 @@
   align-items: center;
   font-size:24rpx;
   color:#666;
+  padding:4rpx 10rpx;
 }
 .topiccontentlist>.itm .opers image{
   margin-right:10rpx;

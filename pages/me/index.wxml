@@ -95,12 +95,18 @@
         <view class="title">消息通知</view>
         <view class="message-s" wx:if="{{messagenum && (messagenum > 0)}}"></view>
       </navigator>
-      <navigator class="itm" url="/pages/game/record/record" hover-class="none">
+      <!-- <navigator class="itm" url="/pages/game/record/record" hover-class="none">
         <view class="imgCont">
           <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/sevicn_choujiang.png"></image>
         </view>
         <view class="title">抽奖记录</view>
-      </navigator>
+      </navigator> -->
+      <button class="itm" open-type="contact">
+        <view class="imgCont">
+          <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/sevicn_kefu.png"></image>
+        </view>
+        <view class="title">联系客服</view>
+      </button>
       <navigator class="itm" url="/pages/address/addresslist" hover-class="none">
         <view class="imgCont">
           <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/sevicn_dizhi.png"></image>
@@ -109,12 +115,6 @@
       </navigator>
     </view>
     <view class="row">
-      <button class="itm" open-type="contact">
-        <view class="imgCont">
-          <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/sevicn_kefu.png"></image>
-        </view>
-        <view class="title">联系客服</view>
-      </button>
       <navigator class="itm" url="/pages/service/bushu/bushu" hover-class="none">
         <view class="imgCont">
           <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/sevicn_step.png"></image>
@@ -133,8 +133,6 @@
         </view>
         <view class="title">常见问题</view>
       </navigator>
-    </view>
-    <view class="row">
       <navigator class="itm" url="/pages/rule/rule" hover-class="none">
         <view class="imgCont">
           <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/sevicn_rule.png"></image>

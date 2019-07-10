@@ -89,6 +89,15 @@ Page({
             }
           })
         }
+        res.data.forEach(function(value, index){
+          let remark = JSON.parse(value.remark)
+          if(remark.isAward && remark.isAward == 1){
+            value.award = 1
+          }
+          else{
+            value.award = 0
+          }
+        })
         that.setData({
           topicList: res.data
         })
@@ -201,7 +210,6 @@ Page({
       // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
       var tempFilePaths = that.data.choosedImgs;
       var userId = wx.getStorageSync('userId')
-      
       if(tempFilePaths.length == 0){
         that.createTopic('').then(function(res){
           if(res.errno === 0){
@@ -215,14 +223,13 @@ Page({
 
       //支持多图上传
       let uploadedNum = 0
-      let uploadedImgs = []
-      for (var i = 0; i < tempFilePaths.length; i++) {
-         //上传图片
-         //你的域名下的/usertopic文件下的/当前年月日文件下的/图片.png
+      let uploadedImgs = new Array(tempFilePaths.length)
+      for (let i = 0; i < tempFilePaths.length; i++) {
          uploadImage(tempFilePaths[i], 'usertopic/' + userId + '/',
             function (result) {
               uploadedNum++
-              uploadedImgs.push(result)
+              //uploadedImgs.push(result)
+              uploadedImgs.splice(i, 1, result)
               if(uploadedNum == tempFilePaths.length){
                 that.createTopic(uploadedImgs.join(',')).then(function(res){
                   if(res.errno === 0){
@@ -259,7 +266,7 @@ Page({
         }
         else{
           wx.showToast({
-            title: res.errmsg,
+            title: res.errmsg?res.errmsg:res.msg,
             icon: 'none',
             duration: 2000
           })

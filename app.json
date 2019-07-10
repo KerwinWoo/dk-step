@@ -57,7 +57,10 @@
     "pages/me/message/dashang/dashang",
     "pages/ta/ta",
     "pages/me/homepage/editdesc/editdesc",
-    "pages/team/createteam/createteam"
+    "pages/team/createteam/createteam",
+    "pages/activity/lottery/lottery",
+    "pages/activity/lottery/awarddetail/awarddetail",
+    "pages/activity/lottery/awardusers/awardusers"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -85,10 +88,10 @@
         "text": "步友广场"
       },
       {
-        "pagePath": "pages/team/team",
-        "iconPath": "/resources/image/navicn_team_b.png",
-        "selectedIconPath": "/resources/image/navicn_team_a.png",
-        "text": "组团PK"
+        "pagePath": "pages/activity/lottery/lottery",
+        "iconPath": "/resources/image/navicn_gift_b.png",
+        "selectedIconPath": "/resources/image/navicn_gift_a.png",
+        "text": "蛋蛋抽奖"
       },
       {
         "pagePath": "pages/me/index",

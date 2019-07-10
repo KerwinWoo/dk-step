@@ -68,28 +68,37 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (option) {
-    let data = option.target.dataset
-    let type = data.type
-    if(type && type == 'share'){
+    if(option.from == 'menu'){
       return {
-        title: '',
-        path: '/pages/index/index',
-        imageUrl: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/invitation_team.png'
+        title: '要想富，先走路，走路也能成首富',
+        path: '/pages/index/index?fromInvite=1&type=1&push_userid=' + wx.getStorageSync('userId') + '&forwardUrl='+encodeURIComponent('/pages/ta/ta?userid='+this.data.userid),
+        imageUrl: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/invitation_homepage.png'
       }
     }
     else{
-      let topicIndex = data.topicindex
-      let topic = null
-      this.data.previewing = true
-      topic = this.data.communityList[topicIndex]
-      if(this.data.userId != topic.create_user_id){
-        this.forward(topic.id, topicIndex)
+      let data = option.target.dataset
+      let type = data.type
+      if(type && type == 'share'){
+        return {
+          title: '要想富，先走路，走路也能成首富',
+          path: '/pages/index/index?fromInvite=1&type=1&push_userid=' + wx.getStorageSync('userId') + '&forwardUrl='+encodeURIComponent('/pages/ta/ta?userid='+this.data.userid),
+          imageUrl: 'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/invitation_homepage.png'
+        }
       }
-      let name = (topic.tag_name?('#'+topic.tag_name+'#'):'') + topic.content
-      return {
-        title: name,
-        path: '/pages/index/index?fromInvite=1&type=1&push_userid=' + wx.getStorageSync('userId') + '&forwardUrl='+encodeURIComponent('/pages/buyou/commentdetail/commentdetail?id='+topic.id),
-        imageUrl: topic.img_src?topic.img_src[0]:'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/invitation_homepage.png'
+      else{
+        let topicIndex = data.topicindex
+        let topic = null
+        this.data.previewing = true
+        topic = this.data.communityList[topicIndex]
+        if(this.data.userId != topic.create_user_id){
+          this.forward(topic.id, topicIndex)
+        }
+        let name = (topic.tag_name?('#'+topic.tag_name+'#'):'') + topic.content
+        return {
+          title: name,
+          path: '/pages/index/index?fromInvite=1&type=1&push_userid=' + wx.getStorageSync('userId') + '&forwardUrl='+encodeURIComponent('/pages/buyou/commentdetail/commentdetail?id='+topic.id),
+          imageUrl: topic.img_src?topic.img_src[0]:'https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/invitation_homepage.png'
+        }
       }
     }
   },

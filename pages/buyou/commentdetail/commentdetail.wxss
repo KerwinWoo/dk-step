@@ -3,12 +3,15 @@
 page{
   background:#fff;
 }
+image-loader{
+  position: relative;
+}
 .topiccontentlist{
   border-top:1px solid #eee;
-  min-height: 100rpx;
 }
 .topiccontentlist>.itm{
   margin-bottom: 0;
+  min-height: 170rpx;
 }
 .commenttip{
   font-size: 24rpx;

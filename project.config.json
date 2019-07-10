@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 52,
+			"current": 0,
 			"list": [
 				{
 					"id": 0,
@@ -407,6 +407,34 @@
 					"name": "bushu",
 					"pathName": "pages/service/bushu/bushu",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "lottery",
+					"pathName": "pages/activity/lottery/lottery",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 54,
+					"name": "lotterydetail",
+					"pathName": "pages/activity/lottery/awarddetail/awarddetail",
+					"query": "id=3",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "awardusers",
+					"pathName": "pages/activity/lottery/awardusers/awardusers",
+					"query": "id=4",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "awardusers",
+					"pathName": "pages/index/index",
+					"query": "id=4",
 					"scene": null
 				}
 			]

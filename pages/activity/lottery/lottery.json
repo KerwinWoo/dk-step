@@ -1,0 +1,9 @@
+{
+  "backgroundColor":"#f2f2f2",
+  "navigationBarTitleText": "蛋蛋抽奖",
+  "navigationBarBackgroundColor": "#fff",
+  "usingComponents": {
+    "refresh-view": "/components/RefreshView/refresh-view",
+    "image-loader": "/components/dk-image-loader/image-loader"
+  }
+}

@@ -40,7 +40,6 @@ function saveImageToPhotosAlbum(option) {
       success: resolve,
       fail: function(res){
         console.log('保存图片到相册失败', res)
-        utils.showErrorToast(res)
       },
     })
   })

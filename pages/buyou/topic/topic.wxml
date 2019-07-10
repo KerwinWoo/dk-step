@@ -7,6 +7,10 @@
     <view class="topicName">#{{taginfo.name}}</view>
     <image class="topicmask" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/maskbg02.png"></image>
     <!-- <view class="topicmask"></view> -->
+    <view class="flagcont" wx:if="{{taginfo.award}}">
+      <image lazy-load class="flag" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/award_flag.png"></image>
+      <text>奖</text>
+    </view>
   </view>
 	<view class="bannerdesc">{{taginfo.comment}}</view>
   <view class="gap">
@@ -23,7 +27,7 @@
           <text wx:if="{{topic.attention_status == 1}}">已关注</text>
         </view>
         <view class="name">
-          <text class="skeleton-tab1-rect">{{topic.nickname}}</text>
+          <text class="skeleton-tab1-rect nickname">{{topic.nickname}}</text>
         </view>
         <view class="topictype skeleton-tab1-rect">
           <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/huati%402x.png"></image>

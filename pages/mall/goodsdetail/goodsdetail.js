@@ -95,28 +95,41 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function (option) {
     let that = this
-    if(that.data.isInvite){
-      return {
-        title: '就差你了，你帮我点一下就能用步数兑换到这个商品了~"',
-        imageUrl: that.data.info.list_pic_url,
-        path: '/pages/index/index?fromInvite=1&type=3&business='+ that.data.info.id 
-        + '&push_userid=' + wx.getStorageSync('userId') 
-        + '&forwardUrl='
-        + encodeURIComponent('/pages/mall/goodsdetail/goodsdetail?id='+that.data.currentId
-        +'&isInvite='+that.data.isInvite+'&goodsType='+that.data.goodsType)
-      }
-    }
-    else{
+    if(option.from == 'menu'){
       return {
         title: '要想富，先走路，走路也能成首富',
         imageUrl: that.data.info.list_pic_url,
-        path: '/pages/index/index?fromInvite=1&type=3&business='+ that.data.info.id 
-        + '&push_userid=' + wx.getStorageSync('userId') 
-        + '&forwardUrl='
-        + encodeURIComponent('/pages/mall/goodsdetail/goodsdetail?id='+that.data.currentId
-        +'&isInvite='+that.data.isInvite+'&goodsType='+that.data.goodsType)
+          path: '/pages/index/index?fromInvite=1&type=3&business='+ that.data.info.id 
+          + '&push_userid=' + wx.getStorageSync('userId') 
+          + '&forwardUrl='
+          + encodeURIComponent('/pages/mall/goodsdetail/goodsdetail?id='+that.data.currentId
+          +'&isInvite='+that.data.isInvite+'&goodsType='+that.data.goodsType)
+      }
+    }
+    else{
+      if(that.data.isInvite){
+        return {
+          title: '就差你了，你帮我点一下就能用步数兑换到这个商品了~"',
+          imageUrl: that.data.info.list_pic_url,
+          path: '/pages/index/index?fromInvite=1&type=3&business='+ that.data.info.id 
+          + '&push_userid=' + wx.getStorageSync('userId') 
+          + '&forwardUrl='
+          + encodeURIComponent('/pages/mall/goodsdetail/goodsdetail?id='+that.data.currentId
+          +'&isInvite='+that.data.isInvite+'&goodsType='+that.data.goodsType)
+        }
+      }
+      else{
+        return {
+          title: '要想富，先走路，走路也能成首富',
+          imageUrl: that.data.info.list_pic_url,
+          path: '/pages/index/index?fromInvite=1&type=3&business='+ that.data.info.id 
+          + '&push_userid=' + wx.getStorageSync('userId') 
+          + '&forwardUrl='
+          + encodeURIComponent('/pages/mall/goodsdetail/goodsdetail?id='+that.data.currentId
+          +'&isInvite='+that.data.isInvite+'&goodsType='+that.data.goodsType)
+        }
       }
     }
   },

@@ -57,7 +57,9 @@ Page({
               reqData.business = inviteInfo.business
               reqData.push_userid = inviteInfo.push_userid
             }
+            wx.showLoading()
             util.request(api.AuthLoginByWeixin, reqData , 'POST', 'application/json').then(res => {
+              wx.hideLoading()
               if (res.errno === 0) {
                 //存储用户信息
                 wx.setStorageSync('userInfo', res.data.userInfo);

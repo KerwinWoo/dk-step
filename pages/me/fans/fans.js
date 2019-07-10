@@ -98,7 +98,7 @@ Page({
           }
         }
         that.setData({
-          fanslist: res.data.data
+          fanslist: that.data.fanslist.concat(res.data.data)
         })
       }
     })

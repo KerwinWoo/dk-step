@@ -43,6 +43,9 @@
   font-size:32rpx;
   font-weight:bold;
   width:270rpx;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .pinfo .info .subtitle{
   font-size:24rpx;

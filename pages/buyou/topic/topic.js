@@ -226,7 +226,8 @@ Page({
             taginfo: {
               name: taginfo.name,
               comment: obj.TagInfo,
-              pic: obj.backdropPic
+              pic: obj.backdropPic,
+              award: (obj.isAward && obj.isAward == 1)?true:false
             }
           })
           wx.setNavigationBarTitle({

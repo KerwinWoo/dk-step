@@ -1,0 +1,164 @@
+<!--pages/activity/lottery/lottery.wxml-->
+<!-- <refresh-view class='refreshView' hasTop="true" backgroundColor="#f2f2f2" bind:onRefresh="onPullDownRefresh"/> -->
+<view class="container">
+  <view class="banner">
+    <image src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/banner_lottery.jpg" lazy-load></image>
+  </view>
+  <view class="tabcont">
+    <view class="tablink {{tablistFixed?'fixed':''}}">
+      <view data-type="tabing" class="itm {{(currenttab == 'tabing')?'active':''}}" bindtap="changeType">
+        <text>进行中</text>
+        <view class="flag" wx:if="{{currenttab == 'tabing'}}"></view>
+      </view>
+      <view data-type="tabed" class="itm {{(currenttab == 'tabed')?'active':''}}" bindtap="changeType">
+        <text>已开奖</text>
+        <view class="flag" wx:if="{{currenttab == 'tabed'}}"></view>
+      </view>
+      <view data-type="me" class="itm {{(currenttab == 'me')?'active':''}}" bindtap="changeType">
+        <text>我参与的</text>
+        <view class="flag" wx:if="{{currenttab == 'me'}}"></view>
+      </view>
+    </view>
+    <view class="tabcontent" wx:if="{{currenttab == 'tabing'}}">
+      <view class="awardlist">
+        <view class="itm" wx:for="{{awardingList}}" wx:key="{{index}}">
+          <view class="photo" bindtap="toAwardDetail" data-awardid="{{item.lottery.id}}">
+            <image-loader mode="aspectFit" 
+            original-image="{{item.lottery.imgs_one}}"></image-loader>
+          </view>
+          <view class="cont">
+            <view class="awardinfo" bindtap="toAwardDetail" data-awardid="{{item.lottery.id}}">
+              <view class="info">
+                <view class="label">奖品名称：</view>
+                <view class="name">{{item.lottery.name}}</view>
+                <view class="price">￥{{item.price}}</view>
+              </view>
+              <view class="info">
+                <view class="label">开奖条件：</view>
+                <view class="name">满{{item.lottery.need_user_num}}人参与立即开奖</view>
+              </view>
+              <view class="info">
+                <view class="label">中奖人数：</view>
+                <view class="name">{{item.lottery.lottery_num}}人
+                  <text class="mailcost" wx:if="{{item.lottery.is_send == 0}}">包邮</text>
+                  <text class="mailcost" wx:if="{{item.lottery.is_send == 1}}">邮费：{{item.lottery.send_fee}}元</text>
+                </view>
+              </view>
+            </view>
+            <button class="sharebtn resetBtn" open-type="share" data-id="{{item.lottery.id}}"
+             data-name="{{item.lottery.name}}" data-img="{{item.lottery.imgs_one}}" data-type="1">
+              <view><image lazy-load src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/lottery_share.png"></image></view>
+              <view>分享</view>
+            </button>
+          </view>
+          <view class="progress" bindtap="toAwardDetail" data-awardid="{{item.lottery.id}}">
+            <view class="progressbar">
+              <view class="value" style="width:{{item.count*100/item.lottery.need_user_num}}%"></view>
+            </view>
+            <view class="target">还差{{item.lottery.need_user_num - item.count}}人开奖</view>
+          </view>
+          <view class="company">赞助商：{{item.lottery.bussiness_name}}</view>
+        </view>
+      </view>
+      <view class="more">
+        更多抽奖活动敬请期待~
+      </view>
+    </view>
+    
+    <view class="tabcontent" wx:if="{{currenttab == 'tabed'}}">
+      <view class="awardlist" wx:if="{{awardedList && awardedList.length > 0}}">
+        <view class="itm" wx:for="{{awardedList}}" wx:key="{{index}}">
+          <view class="photo" bindtap="toAwardDetail" data-awardid="{{item.lottery.id}}">
+            <image-loader mode="aspectFit" 
+            original-image="{{item.lottery.imgs_one}}"></image-loader>
+          </view>
+          <view class="cont">
+            <view class="awardinfo" bindtap="toAwardDetail" data-awardid="{{item.lottery.id}}">
+              <view class="info">
+                <view class="label">奖品名称：</view>
+                <view class="name">{{item.lottery.name}}</view>
+                <view class="price">￥{{item.price}}</view>
+              </view>
+              <view class="info">
+                <view class="label">开奖条件：</view>
+                <view class="name">满{{item.lottery.need_user_num}}人参与立即开奖</view>
+              </view>
+              <view class="info">
+                <view class="label">中奖人数：</view>
+                <view class="name">{{item.lottery.lottery_num}}人
+                  <text class="mailcost" wx:if="{{item.lottery.is_send == 0}}">包邮</text>
+                  <text class="mailcost" wx:if="{{item.lottery.is_send == 1}}">邮费：{{item.lottery.send_fee}}元</text>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="progress" bindtap="toAwardDetail" data-awardid="{{item.lottery.id}}">
+            <view class="progressbar">
+              <view class="value" style="width:100%"></view>
+            </view>
+            <view class="target">参与人数：{{item.lottery.need_user_num}}人</view>
+          </view>
+          <view class="company">赞助商：{{item.lottery.bussiness_name}}</view>
+          <view class="awardstatus">已开奖</view>
+        </view>
+      </view>
+      <view class="nodata" wx:if="{{!awardedList || awardedList.length == 0}}" style="padding:40rpx 0;">
+        <image style="width:465rpx;height:237rpx;" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/nodata2.png"></image>
+        <view class="title">等待开奖中</view>
+      </view>
+      <view class="more" wx:if="{{awardedList && awardedList.length > 0}}">
+        更多抽奖活动敬请期待~
+      </view>
+    </view>
+    
+    <view class="tabcontent" wx:if="{{currenttab == 'me'}}">
+      <view class="awardlist" wx:if="{{awardmeList && awardmeList.length > 0}}">
+        <view class="itm" wx:for="{{awardmeList}}" wx:key="{{index}}">
+          <view class="photo" bindtap="toAwardDetail" data-awardid="{{item.lottery.id}}">
+            <image-loader mode="aspectFit" 
+            original-image="{{item.lottery.imgs_one}}"></image-loader>
+          </view>
+          <view class="cont">
+            <view class="awardinfo" bindtap="toAwardDetail" data-awardid="{{item.lottery.id}}">
+              <view class="info">
+                <view class="label">奖品名称：</view>
+                <view class="name">{{item.lottery.name}}</view>
+                <view class="price">￥{{item.price}}</view>
+              </view>
+              <view class="info">
+                <view class="label">开奖条件：</view>
+                <view class="name">满{{item.lottery.need_user_num}}人参与立即开奖</view>
+              </view>
+              <view class="info">
+                <view class="label">中奖人数：</view>
+                <view class="name">{{item.lottery.lottery_num}}人
+                  <text class="mailcost" wx:if="{{item.lottery.is_send == 0}}">包邮</text>
+                  <text class="mailcost" wx:if="{{item.lottery.is_send == 1}}">邮费：{{item.lottery.send_fee}}元</text>
+                </view>
+              </view>
+            </view>
+            <button class="sharebtn resetBtn" wx:if="{{item.lottery.status != 1}}"
+             open-type="share" data-id="{{item.lottery.id}}"
+             data-name="{{item.lottery.name}}" data-img="{{item.lottery.imgs_one}}" data-type="1">
+              <view><image lazy-load src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/lottery_share.png"></image></view>
+              <view>分享</view>
+            </button>
+          </view>
+          <view class="progress" bindtap="toAwardDetail" data-awardid="{{item.lottery.id}}">
+            <view class="progressbar">
+              <view class="value" style="width:100%"></view>
+            </view>
+            <view class="target">参与人数：{{item.lottery.need_user_num}}人</view>
+          </view>
+          <view class="company">赞助商：{{item.lottery.bussiness_name}}</view>
+          <view class="awardstatus" wx:if="{{item.lottery.status == 1}}">已开奖</view>
+        </view>
+      </view>
+      <view class="nodata" wx:if="{{!awardmeList || awardmeList.length == 0}}" style="padding:40rpx 0;">
+        <image style="width:465rpx;height:237rpx;" src="https://dankebsh.oss-cn-shanghai.aliyuncs.com/dkstep-img/nodata2.png"></image>
+        <view class="title">你还未参与任何抽奖</view>
+      </view>
+    </view>
+    
+  </view>
+</view>

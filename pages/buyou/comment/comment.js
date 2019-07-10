@@ -34,6 +34,7 @@ Page({
       })
     }
     else{
+      console.log('发布内容', that.data.comment)
       utils.request(api.BUYOU_TOPICDISCUSS,{
         communityId: that.data.communityId,
         comment: that.data.comment,
